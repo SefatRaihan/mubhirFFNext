@@ -1,6 +1,6 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.3337 13.3335L6.66699 29.3335M18.667 13.3335L25.3337 29.3335" stroke="#4F46F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.4" d="M16 5.33317L16 2.6665" stroke="#4F46F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="16" cy="9.3335" r="4" stroke="#4F46F4" stroke-width="2"/>
-<path opacity="0.4" d="M4 17.3335C6.65431 21.3658 11.0396 24.0002 16 24.0002C20.9604 24.0002 25.3457 21.3658 28 17.3335M16 22.6668V25.3335" stroke="#4F46F4" stroke-width="2" stroke-linecap="round"/>
+<path d="M13.3337 13.3335L6.66699 29.3335M18.667 13.3335L25.3337 29.3335" stroke="#4F46F4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path opacity="0.4" d="M16 5.33317L16 2.6665" stroke="#4F46F4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<circle cx="16" cy="9.3335" r="4" stroke="#4F46F4" strokeWidth="2"/>
+<path opacity="0.4" d="M4 17.3335C6.65431 21.3658 11.0396 24.0002 16 24.0002C20.9604 24.0002 25.3457 21.3658 28 17.3335M16 22.6668V25.3335" stroke="#4F46F4" strokeWidth="2" strokeLinecap="round"/>
 </svg>

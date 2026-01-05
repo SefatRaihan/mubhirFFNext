@@ -1,5 +1,8 @@
 "use client";
 
+import CircleLeftArrowIcon from "@/public/icons/CircleLeftArrowIcon";
+import CrossIcon from "@/public/icons/CrossIcon";
+import Hamburger from "@/public/icons/Hamburger";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,7 +21,7 @@ export default function Navbar() {
             height={500}
             className="h-8 w-8"
           />
-          <Link href="/" className="text-xl font-semibold text-[#1c164e]">
+          <Link href="/" className="text-xl font-semibold text-[#1c164e] hover:text-[#91288c] transition">
             مبهر
           </Link>
         </div>
@@ -30,30 +33,17 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(true)}
             className="text-[#1c164e] focus:outline-none"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            <Hamburger />
           </button>
         </div>
 
         {/* Navigation Links (Desktop) */}
-        <div className="hidden md:flex items-center space-x-6 space-x-reverse text-black font-medium text-sm">
-          <Link href="/ar-sat">دورات القدرات</Link>
-          <Link href="/ar-sat2">دورات التحصيلي(قريبا)</Link>
-          <Link href="/ar-aboutUs">من نحن</Link>
-          <Link href="/ar-contactUs">اتصل بنا</Link>
-          <Link href="/ar-blog">المدونة</Link>
+        <div className="hidden md:flex items-center space-x-6 space-x-reverse font-medium text-sm">
+          <Link href="/ar-sat" className="text-[#1c164e] hover:text-[#91288c] transition">دورات القدرات</Link>
+          <Link href="/ar-sat2" className="text-[#1c164e] hover:text-[#91288c] transition">دورات التحصيلي(قريبا)</Link>
+          <Link href="/ar-aboutUs" className="text-[#1c164e] hover:text-[#91288c] transition">من نحن</Link>
+          <Link href="/ar-contactUs" className="text-[#1c164e] hover:text-[#91288c] transition">اتصل بنا</Link>
+          <Link href="/ar-blog" className="text-[#1c164e] hover:text-[#91288c] transition">المدونة</Link>
         </div>
 
         {/* Buttons (Desktop) */}
@@ -75,59 +65,93 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center overflow-y-auto"
+          className="md:hidden fixed inset-0 bg-white z-50 flex flex-col m-4 rounded-xl"
         >
-          <button
-            id="close-menu-btn"
-            onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-4 left-4 text-[#1c164e]"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
+          {/* Header with Logo and Close Button */}
+          <div className="flex items-center justify-between p-4 border-b border-[#D9D9D9]">
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-semibold text-[#1c164e]">مبهر</span>
+              <Image
+                src="/image/logo.png"
+                alt="Mubhir Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8"
               />
-            </svg>
-          </button>
-          <div className="flex flex-col items-center space-y-6 text-[#1c164e] font-medium text-lg">
-            <Link
-              href="/ar-sat"
-              className="hover:text-[#91288c]"
+            </div>
+            <button
+              id="close-menu-btn"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-[#1c164e]"
             >
-              دورات القدرات
-            </Link>
-            <Link
-              href="/ar-sat2"
-              className="hover:text-[#91288c]"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              دورات التحصيلي(قريبا)
-            </Link>
-            <Link href="/ar-aboutUs" onClick={() => setMobileMenuOpen(false)}>
-              من نحن
-            </Link>
-            <Link href="/ar-contactUs" onClick={() => setMobileMenuOpen(false)}>
-              اتصل بنا
-            </Link>
-            <Link href="/ar-blog" onClick={() => setMobileMenuOpen(false)}>
-              المدونة
-            </Link>
-            <Link href="https://cms.mubhir.ai/ar-signup">
-              <button className="px-6 py-2 rounded-full border border-[#91288c] text-[#91288c] font-medium hover:bg-[#f7ecf9] transition">
+              <CrossIcon />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex-1 overflow-y-auto px-4 py-6">
+            <nav className="space-y-[8px]">
+              <Link
+                href="/ar-sat"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>دورات القدرات
+                </span>
+                <CircleLeftArrowIcon />
+              </Link>
+              <Link
+                href="/ar-sat2"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>دورات التحصيلي(قريبا)</span>
+                <CircleLeftArrowIcon />
+              </Link>
+              <Link
+                href="/ar-aboutUs"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>ملخص</span>
+                <CircleLeftArrowIcon />
+              </Link>
+              <Link
+                href="/ar-contactUs"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>الاعلانات</span>
+                <CircleLeftArrowIcon />
+              </Link>
+              <Link
+                href="/ar-blog"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>الرزم</span>
+                <CircleLeftArrowIcon />
+              </Link>
+              <Link
+                href="/ar-aboutUs"
+                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>من نحن</span>
+                <CircleLeftArrowIcon />
+              </Link>
+            </nav>
+          </div>
+
+          {/* Bottom Buttons */}
+          <div className="p-4 flex gap-3">
+            <Link href={`${process.env.NEXT_PUBLIC_API_CMS_URL}/ar-signup`} className="flex-1">
+              <button className="w-full px-6 py-3 rounded-full border border-[#91288c] text-[#91288c] font-medium hover:bg-[#f7ecf9] transition">
                 تسجيل
               </button>
             </Link>
-            <Link href="https://cms.mubhir.ai/ar-login">
-              <button className="px-6 py-2 rounded-full bg-[#91288c] text-white font-medium hover:bg-[#7d1c79] transition">
+            <Link href={`${process.env.NEXT_PUBLIC_API_CMS_URL}/ar-login`} className="flex-1">
+              <button className="w-full px-6 py-3 rounded-full bg-[#91288c] text-white font-medium hover:bg-[#7d1c79] transition">
                 تسجيل الدخول
               </button>
             </Link>

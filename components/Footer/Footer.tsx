@@ -1,3 +1,4 @@
+import InstaIcon from "@/public/icons/InstaIcon";
 import LocationIcon from "@/public/icons/LocationIcon";
 import MailIcon from "@/public/icons/MailIcon";
 import PhoneIcon from "@/public/icons/PhoneIcon";
@@ -56,7 +57,7 @@ export default function Footer() {
             </ul>
 
             {/* Social Icons */}
-            <div
+            {/* <div
               className="flex space-x-4 space-x-reverse"
               style={{ marginBottom: "60px" }}
             >
@@ -111,6 +112,44 @@ export default function Footer() {
                 </div>
               </Link>
 
+              <Link href="https://t.me/mubhirai">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <TelegramIcon />
+                </div>
+              </Link>
+
+              <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <XIcon />
+                </div>
+              </Link>
+
+              <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <SnapIcon />
+                </div>
+              </Link>
+            </div> */}
+
+            <div
+              className="flex space-x-4"
+              style={{ marginBottom: "60px" }}
+            >
+              <Link href="https://wa.me/966568876934">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <WhatsappIcon />
+                </div>
+              </Link>
+              <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==">
+                <div className="rounded-full p-2 md:p-[8.18px] bg-[#C445A6]">
+                  <InstaIcon />
+                </div>
+              </Link>
+              <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <TiktokIcon />
+                </div>
+              </Link>
               <Link href="https://t.me/mubhirai">
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <TelegramIcon />
