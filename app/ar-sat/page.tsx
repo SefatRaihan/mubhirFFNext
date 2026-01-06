@@ -1,0 +1,1038 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Navbar from "@/components/Navber/Navbar";
+import SnapIcon from "@/public/icons/SnapIcon";
+import XIcon from "@/public/icons/XIcon";
+import TelegramIcon from "@/public/icons/TelegramIcon";
+import TiktokIcon from "@/public/icons/TiktokIcon";
+import InstaIcon from "@/public/icons/InstaIcon";
+import WhatsappIcon from "@/public/icons/WhatsappIcon";
+import Footer from "@/components/Footer/Footer";
+import FaqItem from "@/components/FaqItem/FaqItem";
+
+interface PricingPlan {
+  id: number;
+  title: string;
+  title_ar: string;
+  description: string;
+  description_ar: string;
+  price: string;
+  price_display: string;
+  pricing_terms: string;
+  pricing_terms_ar: string;
+  terms_per_month: string;
+  terms_ar: string;
+  promotional_badge?: number;
+  features: string[];
+}
+
+export default function ArSatPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [faqOpen, setFaqOpen] = useState<number[]>([]);
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+
+  // FAQ data
+  const faqData = [
+    {
+      question: 'كيف يقوم الذكاء الاصطناعي في مبهر بتخصيص تجربتك التعليمية ؟',
+      answer: 'يعتمد الذكاء الاصطناعي في مبهر على تحليل أدائك بشكل مستمر، من خلال متابعة طريقة إجاباتك، وقياس أداء مستواك، وتحديد نقاط القوة والاحتياج لديك بدقة'
+    },
+    {
+      question: 'هل يوجد اختبارات تجريبية استطيع التدرب عليها داخل مبهر؟',
+      answer: 'اكتشف اختبارات متنوعة ومحدثة باستمرار، مدعومة بتسريبات دقيقة تحاكي الامتحان الحقيقي، لتتدرب بثقة وتصل ليوم الاختبار مستعدا لتحقيق أفضل النتائج'
+    },
+    {
+      question: 'هل يمكنني استخدام مبهر على جهازي اللوحي / الكمبيوتر / الجوال ؟',
+      answer: 'نعم، يعمل مبهر بسلاسة على الأجهزة اللوحية والكمبيوترات ليمنحك تجربة استخدام مرنة وسريعة وواضحة. يمكنك متابعة مذاكرتك بسهولة في أي مكان وفي الوقت الذي يناسبك كذلك يعمل على الجوال ولكن كل مميزات مبهر تظهر بشكل أفضل على جهازك اللوحي أو الكمبيوتر'
+    },
+    {
+      question: 'هل يوجد تجربة مجانية ؟',
+      answer: 'نعم، تقدر تبدأ بـ تجربة مجانية لمدة 5 أيام للتعرف على طريقة عمل مبهر وتجربة بعض الأسئلة والميزات قبل الاشتراك'
+    },
+    {
+      question: 'هل أحتاج خبرة سابقة في القدرات قبل اشتراكي مع مبهر؟',
+      answer: 'لا، مبهر مبني ليبدأ معك من الصفر ويوضح لك كل خطوة. ويطورك حتى تصل للمستوى المطلوب'
+    },
+    {
+      question: 'هل سيكون معي أحد للمساعدة والإجابة عن استفساراتي ؟',
+      answer: 'نعم. في مبهر لن تكون وحيدا. فريق الدعم سيكون معك خطوة بخطوة للإجابة على أسئلتك، ويوجهك لتبقى دايما على الطريق الصحيح نحو هدفك'
+    }
+  ];
+
+  // Fetch pricing plans
+  useEffect(() => {
+    const loadPlans = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`, { cache: 'no-store' });
+        const json = await res.json();
+
+        if (json?.status === 'success' && Array.isArray(json.data)) {
+          const features = [
+            'الوصول إلى أسئلة تدريب قدرات.',
+            'تقارير مرحلية أسبوعية لتتبع التحسن.',
+            'قم بإجراء امتحانات التدريب بناء على أي مزيج من اللفظي / الكتابي والكمي',
+            'دعم 24/7 للإجابة على أسئلتك.',
+          ];
+
+          const titleTranslations: Record<string, string> = {
+            'Monthly Plan': 'الباقة الشهرية',
+            '3 Months Plan': 'خطة ٣ أشهر',
+            '6 Months Plan': 'خطة ٦ أشهر',
+            'Yearly Plan': 'الباقة السنوية',
+          };
+
+          const descriptionTranslations: Record<string, string> = {
+            'Perfect for starting your journey': 'استكشف بالسرعة التي تناسبك',
+            'Ideal for focused preparation': 'مثالي لمواسم الامتحانات',
+            'Best for comprehensive prep': 'التنافس على أعلى المستويات',
+            'Maximum value for long-term': 'إتقان وتيرة قدرات',
+          };
+
+          const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d)]);
+
+          const plans = json.data.slice(0, 4).map((plan: any) => ({
+            ...plan,
+            title_ar: titleTranslations[plan.title] || plan.title,
+            description_ar: descriptionTranslations[plan.description] || plan.description,
+            price_display: toArabicDigits(String(plan.price ?? '')),
+            pricing_terms_ar: plan.pricing_terms,
+            terms_ar: 'لكل مستخدم شهريا',
+            features,
+          }));
+
+          setPricingPlans(plans);
+        }
+      } catch (error) {
+        console.error('Failed to load packages:', error);
+      }
+    };
+
+    loadPlans();
+  }, []);
+
+  return (
+    <div className="bg-white" dir="rtl">
+
+      {/* Header Section */}
+      <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
+        <Navbar />
+        <div className="p-4">
+          {/* Hero Section */}
+          <div className="relative text-center mt-16 md:mt-[128px]">
+            <div className="flex justify-center space-x-4 md:space-x-0 mb-4 md:mb-0">
+              <span className="transform rotate-15 md:rotate-25 md:absolute md:right-40 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
+                #سؤال
+              </span>
+              <span className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
+                #قدرات
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-[76px] font-bold md:leading-[95px] leading-[44px]">
+              نجاحك الحقيقي في
+              <br />
+              القدرات يبدأ بخطوة نحو
+              <br />
+              التميز
+            </h1>
+
+            <p className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200">
+              نطلق العنان لك لتعيش تجربة تعليمية فريدة تمكنك من اجتياز اختبارات
+              القدرات بذكاء وتميز، باستخدام أساليب تعليمية متطورة. تعلم بذكاء،
+              واصنع نجاحك بنفسك، تحت إشراف نخبة من أكفأ المدربين المتخصصين،
+              وتوجيه مستمر ودعم فعال يساعدك على تحقيق أعلى النتائج بثقة وتمّيز.
+            </p>
+
+            <div className="mt-6 flex justify-center items-center space-x-4">
+              <div className="relative inline-block">
+                <a href="https://cms.mubhir.ai/ar-select-package">
+                  <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
+                    بدء الاستخدام
+                    <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
+                      <svg
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M26.4316 17H7.57053"
+                          stroke="white"
+                          strokeWidth="3.03125"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M6.4973 18.0717C5.90541 17.4798 5.90541 16.5202 6.4973 15.9283C7.08919 15.3364 8.04883 15.3364 8.64072 15.9283L7.56901 17L6.4973 18.0717ZM15.6523 25.0833L14.5806 26.155L6.4973 18.0717L7.56901 17L8.64072 15.9283L16.7241 24.0116L15.6523 25.0833Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.64072 18.0715C8.04883 18.6634 7.08919 18.6634 6.4973 18.0715C5.90541 17.4797 5.90541 16.52 6.4973 15.9281L7.56901 16.9998L8.64072 18.0715ZM15.6523 8.9165L16.7241 9.98821L8.64072 18.0715L7.56901 16.9998L6.4973 15.9281L14.5806 7.8448L15.6523 8.9165Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </a>
+                <Image
+                  src="/image/bitcoin2.png"
+                  className="absolute right-36 md:left-33 top-7"
+                  alt=""
+                  width={50}
+                  height={50}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Social Section */}
+          <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
+            <div className="flex items-center space-x-2 space-x-reverse mb-0 md:mb-[48px]">
+              <div className="flex -space-x-2">
+                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+                  <Image
+                    src="/image/Image-28.png"
+                    alt=""
+                    width={55}
+                    height={55}
+                  />
+                </div>
+                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+                  <Image
+                    src="/image/Image-29.png"
+                    alt=""
+                    width={55}
+                    height={55}
+                  />
+                </div>
+                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+                  <Image
+                    src="/image/Image-30.png"
+                    alt=""
+                    width={55}
+                    height={55}
+                  />
+                </div>
+              </div>
+              <span className="px-2 font-semibold text-base md:text-[20px]">
+                الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
+              </span>
+            </div>
+            <div
+              className="flex space-x-4"
+              style={{ marginBottom: "60px" }}
+            >
+              <Link href="https://wa.me/966568876934">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <WhatsappIcon />
+                </div>
+              </Link>
+              <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==">
+                <div className="rounded-full p-2 md:p-[8.18px] bg-[#C445A6]">
+                  <InstaIcon />
+                </div>
+              </Link>
+              <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <TiktokIcon />
+                </div>
+              </Link>
+              <Link href="https://t.me/mubhirai">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <TelegramIcon />
+                </div>
+              </Link>
+
+              <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <XIcon />
+                </div>
+              </Link>
+
+              <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US">
+                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
+                  <SnapIcon />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* We help Section */}
+      <section className="font-sans text-gray-900 bg-[#F7E8F5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
+            نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
+          </h1>
+          <p className="text-sm text-black mt-6 text-center">
+            تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
+            وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br /> بأقصر
+            وأفضل طريقة
+          </p>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+              <Image
+                className="w-10 h-10 text-purple-500"
+                src="/image/icon/Type=stationery.png"
+                alt=""
+                width={40}
+                height={40}
+              />
+              <div className="mt-20">
+                <h2 className="text-xl font-bold">طريقة تعلم مخصصة لك</h2>
+                <p className="text-[#667085] mt-2 font-normal text-[16px]">
+                  اطرح الأسئلة بسهولة عن طريق تحميل صورة أو كتابة استفسارك -
+                  يتعامل الذكاء الاصطناعي لدينا مع كليهما بسلاسة.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+              <Image
+                className="w-10 h-10 text-purple-500"
+                src="/image/icon/Type=saturn.png"
+                alt=""
+                width={40}
+                height={40}
+              />
+              <div className="mt-20">
+                <h2 className="text-xl font-bold"> محاكاة امتحانات حقيقية </h2>
+                <p className="text-[#667085] mt-2 font-normal text-[16px]">
+                  تدعمك المنصة باختبارات محاكية للأختبار الفعلي وتحدد مستوى
+                  الطالب ويتنبأ بدرجة تقريبية لمستواه.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+              <Image
+                className="w-10 h-10 text-purple-500"
+                src="/image/icon/Type=book-03.png"
+                alt=""
+                width={40}
+                height={40}
+              />
+              <div className="mt-20">
+                <h2 className="text-xl font-bold">
+                  التتبع المدعوم من الذكاء الاصطناعي
+                </h2>
+                <p className="text-[#667085] mt-2 font-normal text-[16px]">
+                  تعرف على مواضع قوتك ونقاط ضعفك بالذكاء الإصطناعي وأعمل على
+                  تحسينها.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* All in one place Section */}
+      <section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-7xl mx-auto px-4 pt-8">
+          {/* Header (Centered) */}
+          <div className="text-center mt-[120px]">
+            <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+              ماذا تقدم منصة مبهر في اختبار القدرات العامة؟
+            </h1>
+            <p className="text-sm text-black mt-4">
+              منصة مبهر تقدم اقوى الأختبارات التي تساعدك على رفع درجاتك وتحقيق
+              هدفك في الوصول إلى أفضل الجامعات العالمية وتشمل:
+            </p>
+          </div>
+
+          {/* Main Content */}
+          <div className="mt-8 flex flex-col lg:flex-row-reverse gap-6 lg:items-stretch">
+            {/* Second Card (Verbal) */}
+            <div className="bg-white rounded-lg shadow-md p-6 flex-1 flex flex-col">
+              {/* Image Section */}
+              <div className="order-3">
+                <Image
+                  src="/image/arabic_content/مبهر مادة 1.jpg"
+                  alt="القسم اللفظي"
+                  width={500}
+                  height={300}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+
+              {/* Verbal Section */}
+              <div className="mt-6 order-4">
+                <h2 className="text-[28px] font-semibold">القسم اللفظي:</h2>
+                <p className="text-black font-medium text-[16px] mt-2">
+                  الخطأ السياقي ، إكمال الجمل ، استيعاب المقروء ، التناظر اللفظي ، المفردة الشاذة
+                </p>
+              </div>
+            </div>
+
+            {/* First Card (Quant) */}
+            <div className="bg-white rounded-lg shadow-md p-6 flex-1 mt-6 lg:mt-0 flex flex-col">
+              {/* Image Section */}
+              <div className="order-1">
+                <Image
+                  src="/image/arabic_content/مبهر مادة 6.jpg"
+                  alt="القسم الكمي"
+                  width={500}
+                  height={300}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+
+              {/* Quant Section */}
+              <div className="mt-6 order-2">
+                <h2 className="text-[28px] font-semibold">القسم الكمي:</h2>
+                <p className="text-black font-medium text-[16px] mt-2">
+                  المسائل الجبرية، المسائل الحسابية، المسائل الهندسية، تحليل
+                  البيانات، ومفاهيم رياضية متقدمة.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Us Button */}
+          <div className="mt-14 pb-32 text-center">
+            <Link href="/ar-contactUs">
+              <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 flex items-center mx-auto">
+                اتصل بنا
+                <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M33.4316 24H14.5705"
+                      stroke="#671E5A"
+                      strokeWidth="3.03125"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M13.4973 25.0717C12.9054 24.4798 12.9054 23.5202 13.4973 22.9283C14.0892 22.3364 15.0488 22.3364 15.6407 22.9283L14.569 24L13.4973 25.0717ZM22.6523 32.0833L21.5806 33.155L13.4973 25.0717L14.569 24L15.6407 22.9283L23.7241 31.0116L22.6523 32.0833Z"
+                      fill="#671E5A"
+                    />
+                    <path
+                      d="M15.6407 25.0718C15.0488 25.6637 14.0892 25.6637 13.4973 25.0718C12.9054 24.4799 12.9054 23.5203 13.4973 22.9284L14.569 24.0001L15.6407 25.0718ZM22.6523 15.9167L23.7241 16.9885L15.6407 25.0718L14.569 24.0001L13.4973 22.9284L21.5806 14.845L22.6523 15.9167Z"
+                      fill="#671E5A"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* All exam Section */}
+      <section className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
+        style={{ backgroundImage: "url('/image/Vector.svg')" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Header (Centered) */}
+          <div className="text-center">
+            <h1 className="text-4xl text-center md:text-[56px] mt-[120px] pb-4 font-bold leading-tight md:leading-none">
+              أقسام اختبارات القدرات
+            </h1>
+            <p className="text-sm text-gray-500 mt-1">
+              أفضل منصة للتدرب على اختبار القدرات العامة
+            </p>
+          </div>
+
+          {/* Quantitative Section */}
+          <div className="mt-[56px]">
+            <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+              <div className="flex-1">
+                {/* Button Section */}
+                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                  القسم الكمي
+                </div>
+                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                  طور مهاراتك في <br />
+                  الكمي مع مبهر
+                </h3>
+
+                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
+                  في هذا القسم، ستتحدى قدراتك في حل المشكلات، والقياس، والأستنتاج
+                  المنطقي. استعد لتوظيف مهاراتك الكمية في مواقف متنوعة تتطلب
+                  تفكيرا دقيقا وحلولا ذكية. أثبت نفسك، وكن مستعًدا لأكتشاف مدى
+                  قوة تحليلك.
+                </p>
+              </div>
+              <div className="w-full lg:w-[465px]">
+                <Image
+                  src="/image/arabic_content/2-M كمي.png"
+                  className="w-full"
+                  alt="القسم الكمي"
+                  width={465}
+                  height={300}
+                />
+              </div>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-6">
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=Heart of Algebra.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">العمليات الحسابية</p>
+              </div>
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=Problem-Solving Skills.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">الجبر</p>
+              </div>
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=Passport to Advanced Math.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">الهندسة</p>
+              </div>
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=math.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">التحليل البياني</p>
+              </div>
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=Passport to Advanced Math.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">القياس والمنطق</p>
+              </div>
+              <div
+                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                style={{
+                  boxShadow:
+                    "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Image
+                  className="w-14 h-14 text-purple-500"
+                  src="/image/icon/Type=math.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-2 text-sm font-semibold">مسائل عقلية</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Verbal Section */}
+          <div className="mt-[56px]">
+            <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+              <div className="flex-1">
+                {/* Button Section */}
+                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                  القسم اللفظي
+                </div>
+                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                  أتقن مهاراتك اللفظية
+                </h3>
+
+                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
+                  ففي هذا القسم من اختبار القدرات العامة، تقاس مهاراتك اللغوية
+                  بكل دقة وذكاء. ستتدرب على فهم النصوص، واستخلاص المعاني، وإكمال
+                  الجمل، والتعامل مع التناظر اللفظي بكل سلاسة.
+                </p>
+              </div>
+              <div className="w-full">
+                <Image
+                  src="/image/arabic_content/2-M لفظي.png"
+                  className="w-full"
+                  alt="القسم اللفظي"
+                  width={600}
+                  height={400}
+                />
+              </div>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+              <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                <Image
+                  className="w-14 h-14 object-contain"
+                  src="/image/icon/Type=Reading Comprehension.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-3 text-[20px] font-semibold">الخطأ السياقي</p>
+              </div>
+
+              <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                <Image
+                  className="w-14 h-14 object-contain"
+                  src="/image/icon/Type=Vocabulary in Context.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-3 text-[20px] font-semibold">إكمال الجمل</p>
+              </div>
+
+              <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                <Image
+                  className="w-14 h-14 object-contain"
+                  src="/image/icon/Type=Grammar & Usage.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-3 text-[20px] font-semibold">
+                  استيعاب المقروء استخدام
+                </p>
+              </div>
+
+              <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                <Image
+                  className="w-14 h-14 object-contain"
+                  src="/image/icon/Type=Command of Evidence.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-3 text-[20px] font-semibold">المفردة الشاذة</p>
+              </div>
+
+              <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                <Image
+                  className="w-14 h-14 object-contain"
+                  src="/image/icon/Type=Rhetorical Skills.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                />
+                <p className="mt-3 text-[20px] font-semibold">القياس والمنطق</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How Mubhir helps Section */}
+      <section className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Header (Centered) */}
+          <div className="mx-auto max-w-[610px] space-y-4 mt-[120px]">
+            <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+              كيف يساعدك مبهر على التفوق في اختبار القدرات
+            </h1>
+            <p className="text-[16px] text-black mt-1 text-center">
+              ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
+            </p>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex justify-center mb-8 sm:mb-16 mt-4">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4 w-full max-w-3xl">
+              {['وضع التدريب', 'محاكاة اختبار القدرات', 'بنك الأسئلة', 'منهج متكامل', 'مكافآت الإحالة'].map((tab, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTab(`tab${index + 1}`)}
+                  className={`py-1 text-center font-medium text-sm sm:text-[18px] border-b-4 transition-colors ${activeTab === `tab${index + 1}`
+                    ? 'text-black border-[#4F46F4]'
+                    : 'text-[#98A2B3] border-[#D0D5DD]'
+                    }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab Content */}
+          {/* Tab 1: وضع التدريب */}
+          {activeTab === 'tab1' && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                  <div className="order-1 lg:order-2">
+                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                      وضع التدريب المكثف
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                      تدريب شخصي مصمم خصيصاً لك، لتتعلم بذكاء وتنجح بثقة
+                    </h1>
+                    <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                      نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                    </p>
+                    <ul className="mt-40 space-y-3 text-gray-800">
+                      {[
+                        'صمم اختباراتٍ تجريبية حسب مستوى الصعوبة والوقت والموضوعات.',
+                        'احصل على تعليقاتٍ فورية وتفسيرات فيديو لكل سؤال.',
+                        'ركز على نقاط ضعفك وقم ببناء الثقة خطوة بخطوة.'
+                      ].map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M22 12.479C22 6.95616 17.5228 2.479 12 2.479C6.47715 2.479 2 6.95616 2 12.479C2 18.0019 6.47715 22.479 12 22.479C17.5228 22.479 22 18.0019 22 12.479Z" stroke="black" strokeWidth="1.5" />
+                              <path d="M8 13.229C8 13.229 9.6 14.1415 10.4 15.479C10.4 15.479 12.8 10.229 16 8.479" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="order-2 lg:order-1">
+                    <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                      <Image src="/image/وضع التدريب.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 2: محاكاة اختبار القدرات */}
+          {activeTab === 'tab2' && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div className="flex justify-center">
+                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                    محاكاة قدرات
+                  </div>
+                </div>
+                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                  تدريب مثل الاختبار الحقيقي
+                </h1>
+                <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                  نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                </p>
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {[
+                    { text: 'قم بإجراء +1,000 اختبار وهمي مصمم من قبل الخبراء', color: '#EEE3FF', stroke: '#761DFF' },
+                    { text: 'جرّب ظروف اختبار قدرات الحقيقية', color: '#E0F7FF', stroke: '#00AFE6' },
+                    { text: 'تحليلات مفصلة وتتبع الأداء', color: '#FFE9F5', stroke: '#FF0086' }
+                  ].map((card, idx) => (
+                    <div key={idx} className="relative rounded-3xl bg-[#F9FAFB] shadow-soft p-8">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z" fill={card.color} />
+                        <path d="M22.6668 16C22.6668 12.3181 19.6821 9.33329 16.0002 9.33329C12.3183 9.33329 9.3335 12.3181 9.3335 16C9.3335 19.6819 12.3183 22.6666 16.0002 22.6666C19.6821 22.6666 22.6668 19.6819 22.6668 16Z" stroke={card.stroke} />
+                        <path d="M13.3335 16.5C13.3335 16.5 14.4002 17.1084 14.9335 18C14.9335 18 16.5335 14.5 18.6668 13.3334" stroke={card.stroke} strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <p className="mt-10 text-lg">{card.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: بنك الأسئلة */}
+          {activeTab === 'tab3' && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div className="flex justify-center">
+                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                    بنك الأسئلة
+                  </div>
+                </div>
+                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                  ابق في الطليعة
+                </h1>
+                <p className="mt-4 max-w-3xl mx-auto text-center text-black text-base">
+                  نحن نساعد الطلاب في جميع أنحاء <br /> الشرق الأوسط على زيادة درجات <br /> قدرات الخاصة بهم بكفاءة.
+                </p>
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[
+                    'الآلاف من أحدث أسئلة قدرات مطابقة',
+                    'يغطي جميع مستويات الصعوبة ، من المبتدئين إلى المتقدمين',
+                    'أسئلة برعاية معلمين خبراء لضمان الدقة'
+                  ].map((text, idx) => (
+                    <div key={idx} className="text-center">
+                      <Image src="/image/بنك األسئلة.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
+                      <p className="mt-3 text-lg">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 4: منهج متكامل */}
+          {activeTab === 'tab4' && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                  <div className="order-2 lg:order-1">
+                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                      دروس فيديو
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                      تعلم أكثر ذكاء وليس أصعب
+                    </h1>
+                    <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                      نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                    </p>
+                    <ul className="mt-40 space-y-3 text-gray-800">
+                      {[
+                        'حلول فيديو خطوة بخطوة لكل سؤال.',
+                        'يتم تدريسها من قبل مدربين خبراء لتبسيط المفاهيم المعقدة.',
+                        'تعزيز التعلم باستخدام تقنيات حل المشكلات التفاعلية.'
+                      ].map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M22 12.479C22 6.95616 17.5228 2.479 12 2.479C6.47715 2.479 2 6.95616 2 12.479C2 18.0019 6.47715 22.479 12 22.479C17.5228 22.479 22 18.0019 22 12.479Z" stroke="black" strokeWidth="1.5" />
+                              <path d="M8 13.229C8 13.229 9.6 14.1415 10.4 15.479C10.4 15.479 12.8 10.229 16 8.479" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="order-1 lg:order-2">
+                    <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                      <Image src="/image/منهج متكامل.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 5: مكافآت الإحالة */}
+          {activeTab === 'tab5' && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                <div className="flex justify-center">
+                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                    مكافآت الإحالة
+                  </div>
+                </div>
+                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                  مكافآت الإحالة - دعوة واكسب
+                </h1>
+                <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                  نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                </p>
+                <section className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                  <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                    <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                      <Image src="/image/icon/gift.png" alt="" width={64} height={64} />
+                    </div>
+                    <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                      شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية.
+                    </p>
+                  </div>
+                  <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                    <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                      <Image src="/image/icon/mortarboard-01.png" alt="" width={64} height={64} />
+                    </div>
+                    <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                      ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك
+                    </p>
+                  </div>
+                </section>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      < section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
+        <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white md:leading-[95px] leading-[44px] text-center">
+            أسعار مرنة لكل طالب يبغي يتفوق في القدرات
+          </h1>
+          <p className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base">
+            اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
+          </p>
+
+          <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
+            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+              {pricingPlans.map((plan) => (
+                <div key={plan.id} className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-[18px] font-semibold">{plan.title_ar}</h3>
+                    {plan.promotional_badge && plan.promotional_badge > 0 && (
+                      <span
+                        className="text-white text-xs font-semibold px-3 py-1 rounded-full"
+                        style={{ backgroundColor: '#C445A6' }}
+                      >
+                        وفر {plan.promotional_badge}%
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-500 mb-4">{plan.description_ar}</p>
+                  <p className="text-3xl font-bold text-[#671E5A]">
+                    {plan.price_display}
+                    <span className="text-3xl font-bold text-[#671E5A] pr-2">ر.س</span>
+                  </p>
+                  <p className="text-xs mb-6 border-b border-[#D9D9D9] pb-[12px]">{plan.terms_ar}</p>
+                  <ul className="space-y-3 mb-6 grow">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="w-4 h-4 bg-[#671E5b] rounded-full flex items-center justify-center shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 5.99994L5 8.49994L10 3.49994" stroke="white" strokeWidth="1.125" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <span className="text-[14px] font-bold text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="https://cms.mubhir.ai/ar-checkout">
+                    <button className="w-full border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full py-2 font-semibold mt-6">
+                      ابدأ {plan.title_ar}
+                    </button>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </main>
+        </div>
+      </section >
+
+      {/* Your Questions Answered Section */}
+      < section className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
+        <div className="container max-w-6xl px-4 py-[120px]">
+          <h2 className="text-[56px] font-semibold text-center text-black">
+            كل إستفسارات طلاب القدرات
+            <br />
+          </h2>
+          <p className="mt-2 text-center text-gray-600">الأسئلة الشائعة</p>
+          <div className="mt-10 space-y-4">
+            {faqData.map((faq, index) => (
+              <FaqItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                index={index}
+                isOpen={openFaq === index}
+                onToggle={() => toggleFaq(index)}
+              />
+            ))}
+          </div>
+
+          <p className="text-black font-medium mb-[12px] mt-[32px] text-center">
+            ما زلت لديك أسئلة؟
+          </p>
+          <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
+            <Link href="/ar-contactUs">
+              <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
+                تواصل معنا
+                <span className="flex items-center justify-center mr-6 w-8 h-8 bg-white text-white rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#671e5a" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12H21" />
+                  </svg>
+                </span>
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section >
+
+      {/* CTA Section */}
+      <section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
+          {/* Right Content */}
+          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-snug">
+              قم بأخذ اختبار محاكاة<br />قدرات الأول
+              <span className="relative inline-block pb-2">
+                الخاص
+                <Image
+                  src="/image/Vector 1.svg"
+                  alt="underline"
+                  width={100}
+                  height={8}
+                  className="bottom-0 w-[57%] h-2 -z-10 pointer-events-none"
+                />
+              </span>
+              <br />بك مجانًا!
+            </h1>
+            <p className="text-base md:text-lg">
+              سجل وابدأ التدريب اليوم!
+            </p>
+          </div>
+
+          {/* Image (Adjusted to Prevent Cropping) */}
+          <div className="order-last md:order-none flex justify-center items-center">
+            <Image
+              src="/image/مهبر cover.png"
+              alt="طالبة"
+              width={350}
+              height={350}
+              className="h-[350px] object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

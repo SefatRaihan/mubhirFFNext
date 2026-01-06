@@ -168,7 +168,7 @@ export default function Home() {
   useEffect(() => {
     const loadPlans = async () => {
       try {
-        const res = await fetch('https://sat.mubhir.ai/api/packages', { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`, { cache: 'no-store' });
         const json = await res.json();
 
         if (json?.status === 'success' && Array.isArray(json.data)) {
