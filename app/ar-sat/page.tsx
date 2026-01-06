@@ -993,7 +993,7 @@ export default function ArSatPage() {
           </div>
 
           {/* Image (Adjusted to Prevent Cropping) */}
-          <div className="order-last md:order-none flex justify-center items-center">
+          <div className="order-last md:order-0 flex justify-center items-center">
             <Image
               src="/image/مهبر cover.png"
               alt="طالبة"

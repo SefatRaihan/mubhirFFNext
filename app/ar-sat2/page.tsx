@@ -17,19 +17,19 @@ export default function ArSat2Page() {
     return (
         <div className="bg-white" dir="rtl">
             {/* Header Section */}
-            <header className="bg-gradient-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
+            <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
                 <Navbar />
                 <div className="p-4">
                     {/* Hero Section */}
                     <div className="relative text-center mt-16 md:mt-[128px]">
                         <div className="flex justify-center space-x-4 md:space-x-0 mb-4 md:mb-0">
                             <span
-                                className="transform rotate-[15deg] md:rotate-[25deg] md:absolute md:right-40 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+                                className="transform rotate-15 md:rotate-25 md:absolute md:right-40 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
                                 dir="ltr"
                             >
                                 #سؤال
                             </span>
-                            <span className="transform rotate-[15deg] md:rotate-[25deg] md:absolute md:left-40 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
+                            <span className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
                                 #اختبار تحصيلي
                             </span>
                         </div>
