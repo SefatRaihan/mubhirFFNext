@@ -12,6 +12,10 @@ import InstaIcon from "@/public/icons/InstaIcon";
 import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
+import LeftArrow from "@/public/icons/LeftArrow";
+import CircleCorrectIcon from "@/public/icons/CircleCorrectIcon";
+import CorrectIcon from "@/public/icons/CorrectIcon";
+import LeftClrArrow from "@/public/icons/LeftClrArrow";
 
 interface PricingPlan {
   id: number;
@@ -155,35 +159,14 @@ export default function ArSatPage() {
 
             <div className="mt-6 flex justify-center items-center space-x-4">
               <div className="relative inline-block">
-                <a href="https://cms.mubhir.ai/ar-select-package">
+                <Link href="https://cms.mubhir.ai/ar-select-package">
                   <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
                     بدء الاستخدام
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
-                      <svg
-                        width="34"
-                        height="34"
-                        viewBox="0 0 34 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M26.4316 17H7.57053"
-                          stroke="white"
-                          strokeWidth="3.03125"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M6.4973 18.0717C5.90541 17.4798 5.90541 16.5202 6.4973 15.9283C7.08919 15.3364 8.04883 15.3364 8.64072 15.9283L7.56901 17L6.4973 18.0717ZM15.6523 25.0833L14.5806 26.155L6.4973 18.0717L7.56901 17L8.64072 15.9283L16.7241 24.0116L15.6523 25.0833Z"
-                          fill="white"
-                        />
-                        <path
-                          d="M8.64072 18.0715C8.04883 18.6634 7.08919 18.6634 6.4973 18.0715C5.90541 17.4797 5.90541 16.52 6.4973 15.9281L7.56901 16.9998L8.64072 18.0715ZM15.6523 8.9165L16.7241 9.98821L8.64072 18.0715L7.56901 16.9998L6.4973 15.9281L14.5806 7.8448L15.6523 8.9165Z"
-                          fill="white"
-                        />
-                      </svg>
+                      <LeftArrow />
                     </span>
                   </button>
-                </a>
+                </Link>
                 <Image
                   src="/image/bitcoin2.png"
                   className="absolute right-36 md:left-33 top-7"
@@ -733,10 +716,7 @@ export default function ArSatPage() {
                       ].map((item, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
-                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M22 12.479C22 6.95616 17.5228 2.479 12 2.479C6.47715 2.479 2 6.95616 2 12.479C2 18.0019 6.47715 22.479 12 22.479C17.5228 22.479 22 18.0019 22 12.479Z" stroke="black" strokeWidth="1.5" />
-                              <path d="M8 13.229C8 13.229 9.6 14.1415 10.4 15.479C10.4 15.479 12.8 10.229 16 8.479" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <CircleCorrectIcon />
                           </span>
                           <span>{item}</span>
                         </li>
@@ -842,10 +822,7 @@ export default function ArSatPage() {
                       ].map((item, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
-                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M22 12.479C22 6.95616 17.5228 2.479 12 2.479C6.47715 2.479 2 6.95616 2 12.479C2 18.0019 6.47715 22.479 12 22.479C17.5228 22.479 22 18.0019 22 12.479Z" stroke="black" strokeWidth="1.5" />
-                              <path d="M8 13.229C8 13.229 9.6 14.1415 10.4 15.479C10.4 15.479 12.8 10.229 16 8.479" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <CircleCorrectIcon />
                           </span>
                           <span>{item}</span>
                         </li>
@@ -917,7 +894,7 @@ export default function ArSatPage() {
                 <div key={plan.id} className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-[18px] font-semibold">{plan.title_ar}</h3>
-                    {plan.promotional_badge && plan.promotional_badge > 0 && (
+                    {plan.promotional_badge != null && plan.promotional_badge > 0 && (
                       <span
                         className="text-white text-xs font-semibold px-3 py-1 rounded-full"
                         style={{ backgroundColor: '#C445A6' }}
@@ -936,9 +913,7 @@ export default function ArSatPage() {
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <span className="w-4 h-4 bg-[#671E5b] rounded-full flex items-center justify-center shrink-0">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M2.5 5.99994L5 8.49994L10 3.49994" stroke="white" strokeWidth="1.125" strokeLinejoin="round" />
-                          </svg>
+                          <CorrectIcon />
                         </span>
                         <span className="text-[14px] font-bold text-gray-700">{feature}</span>
                       </li>
@@ -985,9 +960,7 @@ export default function ArSatPage() {
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
                 تواصل معنا
                 <span className="flex items-center justify-center mr-6 w-8 h-8 bg-white text-white rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#671e5a" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12H21" />
-                  </svg>
+                  <LeftClrArrow />
                 </span>
               </button>
             </Link>

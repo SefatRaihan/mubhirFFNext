@@ -498,7 +498,7 @@ export default function Home() {
                 <div key={plan.id} className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-[18px] font-semibold">{plan.title_ar}</h3>
-                    {plan.promotional_badge && plan.promotional_badge > 0 && (
+                    {plan.promotional_badge != null && plan.promotional_badge > 0 && (
                       <span
                         className="text-white text-xs font-semibold px-3 py-1 rounded-full"
                         style={{ backgroundColor: '#C445A6' }}
