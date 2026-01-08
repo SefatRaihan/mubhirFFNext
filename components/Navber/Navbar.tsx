@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links (Desktop) */}
-        <div className="hidden md:flex items-center space-x-6 space-x-reverse font-medium text-sm">
+        <div className="hidden md:flex items-center gap-6 space-x-reverse font-medium text-sm">
           <Link href="/ar-sat" className="text-[#1c164e] hover:text-[#91288c] transition">دورات القدرات</Link>
           <Link href="/ar-sat2" className="text-[#1c164e] hover:text-[#91288c] transition">دورات التحصيلي(قريبا)</Link>
           <Link href="/ar-aboutUs" className="text-[#1c164e] hover:text-[#91288c] transition">من نحن</Link>

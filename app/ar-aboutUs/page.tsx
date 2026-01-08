@@ -209,14 +209,14 @@ export default function ArAboutUsPage() {
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight text-center">
             لماذا تختار
-            <span className="relative inline-block pb-2 z-[10]">
+            <span className="relative inline-block pb-2 z-10">
               مبھر
               <Image
                 src="/image/Vector 1.svg"
                 alt="تسطير"
                 width={100}
                 height={10}
-                className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-[10] pointer-events-none"
+                className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-10 pointer-events-none"
               />
             </span>
           </h1>
