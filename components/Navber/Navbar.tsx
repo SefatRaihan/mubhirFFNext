@@ -13,7 +13,7 @@ export default function Navbar() {
     <div className="p-4 bg-transparent">
       <nav className="bg-white rounded-full flex items-center justify-between px-6 py-3 shadow-md">
         {/* Logo */}
-        <div className="flex items-center space-x-2 space-x-reverse">
+        <div className="flex items-center space-x-2 ">
           <Image
             src="/image/logo.png"
             alt="Mubhir Logo"

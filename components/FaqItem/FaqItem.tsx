@@ -13,9 +13,9 @@ interface FaqItemProps {
 
 export default function FaqItem({ question, answer, index, isOpen, onToggle }: FaqItemProps) {
     return (
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-gray-50 p-4 rounded-lg ">
             <button
-                className="w-full flex justify-between items-center focus:outline-none"
+                className="w-full flex justify-between items-center focus:outline-none cursor-pointer"
                 onClick={onToggle}
             >
                 <h3 className="text-xl font-semibold text-[#671E5A] text-right">

@@ -19,12 +19,12 @@ export default function Footer() {
             تواصلوا معنا
           </h3>
           <section dir="rtl" className="max-w-xl">
-            <ul className="space-y-2 text-[#344054] text-sm md:text-[16px] font-medium mb-4">
+            <ul className="space-y-2 text-[#344054] text-sm md:text-[16px] font-medium mb-4 pr-2">
               {/* Phone */}
-              <li className="flex items-center space-x-reverse space-x-2">
+              <li className="flex items-center space-x-reverse">
                 <Link
                   href="tel:+966568876934"
-                  className="flex items-center space-x-reverse space-x-2"
+                  className="flex items-center space-x-2"
                 >
                   <PhoneIcon />
                   <span dir="ltr">+966 568876934</span>
@@ -32,10 +32,10 @@ export default function Footer() {
               </li>
 
               {/* Email */}
-              <li className="flex items-center space-x-reverse space-x-2">
+              <li className="flex items-center space-x-reverse">
                 <Link
                   href="mailto:info@mubhir.ai"
-                  className="flex items-center space-x-reverse space-x-2"
+                  className="flex items-center space-x-2"
                 >
                   <MailIcon />
                   <span>info@mubhir.ai</span>
@@ -43,12 +43,12 @@ export default function Footer() {
               </li>
 
               {/* Location */}
-              <li className="flex items-center space-x-reverse space-x-2">
+              <li className="flex items-center space-x-reverse">
                 <Link
                   href="https://www.google.com/maps/search/?api=1&query=الرياض، المملكة العربية السعودية"
                   target="_blank"
                   rel="noopener"
-                  className="flex items-center space-x-reverse space-x-2"
+                  className="flex items-center space-x-2"
                 >
                   <LocationIcon />
                   <span>الرياض، المملكة العربية السعودية.</span>
