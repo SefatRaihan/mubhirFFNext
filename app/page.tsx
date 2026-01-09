@@ -79,35 +79,35 @@ export default function Home() {
   // Features data
   const featuresData = [
     {
-      iconSrc: '/image/icon/أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل.jpg.png',
+      iconSrc: '/image/icon/feature-icon-1.png',
       text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل'
     },
     {
-      iconSrc: '/image/icon/شرح مبسط ومتكامل لجميع وحدات المنهج.png',
+      iconSrc: '/image/icon/feature-icon-2.png',
       text: 'شرح مبسط ومتكامل لجميع وحدات المنهج'
     },
     {
-      iconSrc: '/image/icon/شروحات فيديو للمنهج كاملا.png',
+      iconSrc: '/image/icon/feature-icon-3.png',
       text: 'شروحات فيديو للمنهج كاملا'
     },
     {
-      iconSrc: '/image/icon/قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة.png',
+      iconSrc: '/image/icon/feature-icon-4.png',
       text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة'
     },
     {
-      iconSrc: '/image/icon/قرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى.png',
+      iconSrc: '/image/icon/feature-icon-5.png',
       text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى'
     },
     {
-      iconSrc: '/image/icon/دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق.png',
+      iconSrc: '/image/icon/feature-icon-6.png',
       text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق'
     },
     {
-      iconSrc: '/image/icon/منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي.png',
+      iconSrc: '/image/icon/feature-icon-7.png',
       text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي'
     },
     {
-      iconSrc: '/image/icon/نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول.png',
+      iconSrc: '/image/icon/feature-icon-8.png',
       text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول'
     }
   ];
@@ -899,7 +899,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
           >
-            <Image src="/image/مهبر cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+            <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
           </motion.div>
 
           {/* Content Grid */}
