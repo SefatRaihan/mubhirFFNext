@@ -79,35 +79,35 @@ export default function Home() {
   // Features data
   const featuresData = [
     {
-      iconSrc: '/image/icon/feature-icon-1.png',
+      iconSrc: '/image/icon/أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل.jpg.png',
       text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل'
     },
     {
-      iconSrc: '/image/icon/feature-icon-2.png',
+      iconSrc: '/image/icon/شرح مبسط ومتكامل لجميع وحدات المنهج.png',
       text: 'شرح مبسط ومتكامل لجميع وحدات المنهج'
     },
     {
-      iconSrc: '/image/icon/feature-icon-3.png',
+      iconSrc: '/image/icon/شروحات فيديو للمنهج كاملا.png',
       text: 'شروحات فيديو للمنهج كاملا'
     },
     {
-      iconSrc: '/image/icon/feature-icon-4.png',
+      iconSrc: '/image/icon/قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة.png',
       text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة'
     },
     {
-      iconSrc: '/image/icon/feature-icon-5.png',
+      iconSrc: '/image/icon/قرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى.png',
       text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى'
     },
     {
-      iconSrc: '/image/icon/feature-icon-6.png',
+      iconSrc: '/image/icon/دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق.png',
       text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق'
     },
     {
-      iconSrc: '/image/icon/feature-icon-7.png',
+      iconSrc: '/image/icon/منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي.png',
       text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي'
     },
     {
-      iconSrc: '/image/icon/feature-icon-8.png',
+      iconSrc: '/image/icon/نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول.png',
       text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول'
     }
   ];
@@ -226,7 +226,7 @@ export default function Home() {
         <div className="p-4">
           {/* Hero Content */}
           <div className="relative text-center mt-16 md:mt-[128px]">
-            <div className="flex justify-center space-x-4 space-x-reverse md:space-x-0 mb-4 md:mb-0">
+            <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
               <motion.span
                 initial={{ opacity: 0, scale: 0, rotate: -15 }}
                 animate={{ opacity: 1, scale: 1, rotate: -15 }}
@@ -314,9 +314,9 @@ export default function Home() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
-              className="flex items-center space-x-2 space-x-reverse mb-0 md:mb-[48px]"
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
             >
-              <div className="flex -space-x-2">
+              <div className="flex -space-x-2 mb-4 md:mb-0">
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -346,7 +346,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.4 }}
-                className="px-2 font-semibold text-base md:text-[20px]"
+                className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
               >
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
               </motion.span>
@@ -355,7 +355,7 @@ export default function Home() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
-              className="flex space-x-4"
+              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
               style={{ marginBottom: "60px" }}
             >
               {[
@@ -375,7 +375,7 @@ export default function Home() {
                   whileTap={{ scale: 0.9 }}
                 >
                   <Link href={href}>
-                    <div className={`${bg} rounded-full p-2 md:p-[8.18px]`}>
+                    <div className={`${bg} rounded-full p-2.5 md:p-[8.18px]`}>
                       <Icon />
                     </div>
                   </Link>
@@ -384,7 +384,7 @@ export default function Home() {
             </motion.div>
           </div>
           <div className="relative">
-            <div className="circle absolute right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full flex items-center justify-center">
+            <div className="circle absolute hidden  md:flex right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full  items-center justify-center">
               <MiddleIcon />
               <div className="text w-full h-full absolute text-white">
 
@@ -899,7 +899,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
           >
-            <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+            <Image src="/image/مهبر cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
           </motion.div>
 
           {/* Content Grid */}
@@ -972,7 +972,7 @@ export default function Home() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
-                      className="font-extrabold mb-2"
+                      className="font-bold mb-2"
                     >
                       {testimonial.name}
                     </motion.p>
