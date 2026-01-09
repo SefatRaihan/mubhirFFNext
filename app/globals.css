@@ -1,41 +1,288 @@
 @import "tailwindcss";
 
-:root {
-  font-family: system-ui, "Noto Sans Arabic", Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Hero section keyframe animations - must be outside @layer for Tailwind v4 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-  --background: #ffffff;
-  --foreground: #213547;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  min-width: 320px;
-  min-height: 100vh;
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
 
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(5deg);
+  }
 
+  70% {
+    transform: scale(0.95) rotate(-3deg);
+  }
 
-/* Hide scrollbar for mobile menu */
-.mobile-menu::-webkit-scrollbar {
-  display: none;
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
-.mobile-menu {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@layer utilities {
+
+  /* Spectacular scroll animation utilities with dramatic effects */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9) perspective(1000px) rotateX(10deg);
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1) perspective(1000px) rotateX(0deg);
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    transform: translateY(70px) scale(0.8) rotate(-5deg);
+    transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .animate-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+
+  .animate-scale-in {
+    opacity: 0;
+    transform: scale(0.75) translateY(60px) rotate(8deg);
+    transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .animate-scale-in.is-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+
+  /* Stagger delays for children with spectacular wave effect */
+  .stagger-children>* {
+    opacity: 0;
+    transform: translateY(60px) scale(0.85) rotate(5deg);
+    transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .stagger-children.is-visible>*:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(5) {
+    transition-delay: 0.5s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(6) {
+    transition-delay: 0.6s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(7) {
+    transition-delay: 0.7s;
+  }
+
+  .stagger-children.is-visible>*:nth-child(8) {
+    transition-delay: 0.8s;
+  }
+
+  .stagger-children.is-visible>* {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+
+  /* Hero animation classes with spectacular impact */
+  .hero-title {
+    animation: fadeInUp 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+  }
+
+  .hero-subtitle {
+    animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s both;
+  }
+
+  .hero-button {
+    animation: slideInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s both;
+  }
+
+  .hero-badge {
+    animation: bounceIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .hero-badge:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  .hero-badge:nth-child(2) {
+    animation-delay: 0.6s;
+  }
+
+  .hero-social {
+    animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s both;
+  }
+
+  /* Tab transition animations with dramatic flair */
+  .tab-content-enter {
+    animation: tabFadeIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  .tab-button {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .tab-button:hover {
+    transform: translateY(-5px) scale(1.1) rotate(-2deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Tab content keyframe animations */
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Button hover slide effect - right to left on hover, left to right on hover out */
+.btn-slide-hover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-slide-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.btn-slide-hover:hover::before {
+  width: 100%;
+  right: auto;
+  left: 0;
+}
+
+/* White button with purple slide */
+.btn-slide-white-purple {
+  background-color: white;
+  color: #671e5a;
+}
+
+.btn-slide-white-purple::before {
+  background-color: #671e5a;
+}
+
+.btn-slide-white-purple:hover {
+  color: white;
+}
+
+/* Purple button with darker purple slide */
+.btn-slide-purple {
+  background-color: #4F46F4;
+  color: white;
+}
+
+.btn-slide-purple::before {
+  background-color: #3d37c4;
+}
+
+/* Tab button slide */
+.btn-slide-tab {
+  background-color: transparent;
+  color: #4F46F4;
+}
+
+.btn-slide-tab::before {
+  background-color: #4F46F4;
+}
+
+.btn-slide-tab:hover {
+  color: white;
+}
+
+/* Purple outline button with purple slide */
+.btn-slide-purple-outline {
+  background-color: transparent;
+  color: #671E5A;
+  border: 1px solid #671E5A;
+}
+
+.btn-slide-purple-outline::before {
+  background-color: #671E5A;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: auto;
+  height: calc(100% - 2px);
+  border-radius: inherit;
+}
+
+.btn-slide-purple-outline:hover::before {
+  width: calc(100% - 2px);
+  right: auto;
+  left: 1px;
+}
+
+.btn-slide-purple-outline:hover {
+  color: white;
+  border-color: #671E5A;
 }
