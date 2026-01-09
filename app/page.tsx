@@ -404,7 +404,7 @@ export default function Home() {
       >
         <div className="container max-w-6xl px-4 py-8 sm:py-[120px]">
           <div className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
-            <h1 className="text-3xl sm:text-5xl md:text-[60px] leading-20 lg:leading-[76px] font-bold mb-3 sm:mb-4">
+            <h1 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
               استعد لأختبار القدرات <br />
               العامة بخطوات تفوق التوقعات مع مبهر
             </h1>
@@ -514,7 +514,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
+            <h1 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
               ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
             </h1>
             <p className="pt-4 text-base text-gray-600 mt-2">
@@ -551,7 +551,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-[36px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-20 lg:leading-[120px] text-center"
+              className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-10 lg:leading-[120px] text-center"
             >
               ابدأ طريقك للتميز في القدرات مع منصة تثق فيها
             </motion.h1>
@@ -654,7 +654,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-[52px] lg:leading-[120px] text-center"
+            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
           >
             أسعار مرنة لكل طالب يبغي يتفوق في القدرات
           </motion.h1>
@@ -815,13 +815,13 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
       >
-        <div className="container max-w-6xl px-4 py-[120px]">
+        <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-3xl sm:text-5xl md:text-[60px] font-semibold text-center text-black"
+            className="text-[28px] sm:text-5xl md:text-[60px] font-semibold text-center text-black"
           >
             كل إستفسارات طلاب القدرات
             <br />
