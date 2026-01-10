@@ -217,7 +217,7 @@ export default function VerificationCodePage() {
             }
 
             // Step 3: Success - Navigate to password creation page
-            router.push(`/ar-create_password?phone=${encodeURIComponent(userData.phone)}`);
+            router.push(`/create-password?phone=${encodeURIComponent(userData.phone)}`);
 
         } catch (error: any) {
             console.error('Verification error:', error);
@@ -333,8 +333,8 @@ export default function VerificationCodePage() {
                                                 onChange={(e) => handleChange(e.target.value, index)}
                                                 onKeyDown={(e) => handleKeyDown(e, index)}
                                                 className={`w-[100px] h-[48px] bg-white rounded-md text-center text-lg font-bold focus:outline-none focus:ring-2 focus:ring-[#7a2060] ${index === 0
-                                                        ? 'border-2 border-[#7A2060]'
-                                                        : 'border border-[#E6E6E6]'
+                                                    ? 'border-2 border-[#7A2060]'
+                                                    : 'border border-[#E6E6E6]'
                                                     }`}
                                             />
                                         ))}
@@ -354,8 +354,8 @@ export default function VerificationCodePage() {
                                 type="submit"
                                 disabled={timeLeft <= 0 || loading}
                                 className={`w-full py-2 rounded-full font-semibold cursor-pointer transition-colors ${timeLeft > 0
-                                        ? 'bg-[#7A2060] text-white hover:bg-[#5a1848]'
-                                        : 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                                    ? 'bg-[#7A2060] text-white hover:bg-[#5a1848]'
+                                    : 'bg-gray-300 text-gray-600 cursor-not-allowed'
                                     }`}
                             >
                                 {loading ? 'جارٍ التحقق...' : 'تأكيد الحساب وتعيين كلمة المرور'}
@@ -367,8 +367,8 @@ export default function VerificationCodePage() {
                                 onClick={handleResend}
                                 disabled={timeLeft > 0}
                                 className={`w-full border py-2 rounded-full font-semibold transition-colors ${timeLeft > 0
-                                        ? 'border-gray-300 text-gray-400 cursor-not-allowed'
-                                        : 'border-[#7A2060] text-[#7A2060] hover:bg-[#7A2060] hover:text-white'
+                                    ? 'border-gray-300 text-gray-400 cursor-not-allowed'
+                                    : 'border-[#7A2060] text-[#7A2060] hover:bg-[#7A2060] hover:text-white'
                                     }`}
                             >
                                 إعادة إرسال الرمز
