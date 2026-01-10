@@ -84,8 +84,8 @@ export default function SignupPage() {
 
             // Check if OTP was generated successfully (API returns 200 with message only)
             if (response.status === 200) {
-                // Navigate to verification page with phone number
-                router.push(`/verification-code?phone=${encodeURIComponent(formData.phone)}`);
+                // Navigate to verification page (phone stored in localStorage)
+                router.push('/verification-code');
             } else {
                 // Show error message from API
                 setErrorMessage(response.data.message || 'فشل في إرسال رمز التحقق');

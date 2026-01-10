@@ -11,12 +11,12 @@
 
 /**
  * User Signup Form Data
- * Note: Email field is excluded as per requirements
  */
 export interface SignupFormData {
     firstName: string;      // User's first name
     lastName: string;       // User's last name
     phone: string;          // Phone number with country code (e.g., +966501234567)
+    email: string;          // User's email address
     dateOfBirth: string;    // Date of birth in YYYY-MM-DD format
     gender: 'male' | 'female'; // User's gender (required)
 }

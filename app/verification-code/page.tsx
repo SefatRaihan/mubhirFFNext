@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
 import type { SignupFormData } from '@/types/auth';
@@ -44,10 +44,17 @@ interface RegisterVerifyPayload {
  */
 export default function VerificationCodePage() {
     const router = useRouter();
-    const searchParams = useSearchParams();
 
-    // Get phone number from URL query params
-    const phone = searchParams.get('phone') || 'Your phone';
+    // Get phone number from localStorage
+    const getPhoneFromStorage = () => {
+        if (typeof window === 'undefined') return 'Your phone';
+        const stored = localStorage.getItem('signupData');
+        if (!stored) return 'Your phone';
+        const data = JSON.parse(stored);
+        return data.phone || 'Your phone';
+    };
+
+    const phone = getPhoneFromStorage();
 
     // OTP state - 4 digit code
     const [otp, setOtp] = useState<string[]>(['', '', '', '']);
@@ -91,7 +98,7 @@ export default function VerificationCodePage() {
             mobile_no: userData.phone,
             first_name: userData.firstName,
             last_name: userData.lastName,
-            email: '', // Email is not collected in signup
+            email: userData.email || '', // Email from signup form
             phone: userData.phone,
             date_of_birth: userData.dateOfBirth,
         };
@@ -189,7 +196,8 @@ export default function VerificationCodePage() {
                 otp: otpValue,
             });
 
-            if (!verifyResponse.data.success) {
+            // Check HTTP status instead of success field (API doesn't return success field)
+            if (verifyResponse.status !== 200 && verifyResponse.status !== 201) {
                 alert(verifyResponse.data.message || 'فشل التحقق من الرمز. حاول مرة أخرى.');
                 setLoading(false);
                 return;
@@ -203,7 +211,8 @@ export default function VerificationCodePage() {
                 registerPayload
             );
 
-            if (!registerResponse.data.success) {
+            // Check HTTP status instead of success field
+            if (registerResponse.status !== 200 && registerResponse.status !== 201) {
                 // Show backend error message
                 const errorMsg =
                     registerResponse.data.message ||
@@ -216,8 +225,8 @@ export default function VerificationCodePage() {
                 return;
             }
 
-            // Step 3: Success - Navigate to password creation page
-            router.push(`/create-password?phone=${encodeURIComponent(userData.phone)}`);
+            // Step 3: Success - Navigate to password creation page (phone stored in localStorage)
+            router.push('/create-password');
 
         } catch (error: any) {
             console.error('Verification error:', error);

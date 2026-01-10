@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
 
@@ -38,15 +38,17 @@ interface CreatePasswordResponse {
  */
 export default function CreatePasswordPage() {
     const router = useRouter();
-    const searchParams = useSearchParams();
 
-    // Get phone number from URL query params or localStorage
-    const phoneFromUrl = searchParams.get('phone');
-    const storedUser = typeof window !== 'undefined'
-        ? JSON.parse(localStorage.getItem('signupData') || '{}')
-        : {};
+    // Get phone number from localStorage
+    const getPhoneFromStorage = () => {
+        if (typeof window === 'undefined') return '';
+        const stored = localStorage.getItem('signupData');
+        if (!stored) return '';
+        const data = JSON.parse(stored);
+        return data.phone || data.mobile_no || data.phoneNumber || '';
+    };
 
-    const mobile_no = phoneFromUrl || storedUser.phone || storedUser.mobile_no || storedUser.phoneNumber || '';
+    const mobile_no = getPhoneFromStorage();
 
     // Form state
     const [formData, setFormData] = useState<PasswordFormData>({
