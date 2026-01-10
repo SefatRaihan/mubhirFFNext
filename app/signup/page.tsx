@@ -86,12 +86,17 @@ export default function SignupPage() {
             // Call API to generate OTP
             const response = await apiClient.post<OtpGenerationResponse>('/generateOtp', {
                 mobile_no: formData.phone,
+                first_name: formData.firstName,
+                last_name: formData.lastName,
+                email: '', // Email is not collected in signup form
+                date_of_birth: formattedDateOfBirth,
             });
 
-            // Check if OTP was generated successfully
-            if (response.data.success) {
+
+            // Check if OTP was generated successfully (API returns 200 with message only)
+            if (response.status === 200) {
                 // Navigate to verification page with phone number
-                router.push(`/ar-verification-code?phone=${encodeURIComponent(formData.phone)}`);
+                router.push(`/verification-code?phone=${encodeURIComponent(formData.phone)}`);
             } else {
                 // Show error message from API
                 setErrorMessage(response.data.message || 'فشل في إرسال رمز التحقق');
