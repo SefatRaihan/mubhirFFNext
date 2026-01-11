@@ -39,14 +39,17 @@ interface PackagesResponse {
 export default function PackagesPage() {
     const router = useRouter();
 
+    // API Base URL from environment variable
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
+
     // State
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
     const [selectedExam, setSelectedExam] = useState<'sat1' | null>('sat1');
 
-    // Check if user has used trial
-    const hasUsedTrial = Cookies.get('trial_used') === '1';
+    // Check if user has used trial (from API)
+    const [hasUsedTrial, setHasUsedTrial] = useState(false);
 
     // Translation mappings (from SelectPackageAr.jsx)
     const titleTranslations: Record<string, string> = {
@@ -71,12 +74,50 @@ export default function PackagesPage() {
     };
 
     /**
+     * Check trial eligibility from API
+     */
+    useEffect(() => {
+        const checkTrialEligibility = async () => {
+            const token = Cookies.get('token');
+            if (!token) {
+                setHasUsedTrial(false);
+                return;
+            }
+
+            try {
+                // POST request to check trial eligibility
+                const response = await fetch(`${API_BASE_URL}/cms/free-trail`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // If user already used trial, API will indicate it
+                    setHasUsedTrial(data.trial_used === true || data.trial_used === 1);
+                } else {
+                    // If API returns error, assume trial not used
+                    setHasUsedTrial(false);
+                }
+            } catch (error) {
+                console.error('Failed to check trial eligibility:', error);
+                setHasUsedTrial(false);
+            }
+        };
+
+        checkTrialEligibility();
+    }, []);
+
+    /**
      * Fetch packages from API
      */
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await fetch('https://sat.mubhir.ai/api/packages');
+                const response = await fetch(`${API_BASE_URL}/packages`);
                 const json: PackagesResponse = await response.json();
 
                 if (json.status === 'success') {
@@ -125,13 +166,17 @@ export default function PackagesPage() {
         if (!token) {
             // Store selected package and redirect to login
             Cookies.set('selectedPlan', JSON.stringify(selectedPkg));
+            // Set trial flag based on whether user has used trial
+            Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
             router.push('/login');
             return;
         }
 
         // Navigate to checkout
         Cookies.set('selectedPlan', JSON.stringify(selectedPkg));
-        router.push('/ar-checkout');
+        // Set trial flag: true if user hasn't used trial, false if they have
+        Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
+        router.push('/checkout');
     };
 
     return (

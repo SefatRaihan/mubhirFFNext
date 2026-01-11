@@ -11,14 +11,13 @@
 
 /**
  * User Signup Form Data
+ * Note: DOB and gender are collected in checkout, not signup
  */
 export interface SignupFormData {
     firstName: string;      // User's first name
     lastName: string;       // User's last name
     phone: string;          // Phone number with country code (e.g., +966501234567)
     email: string;          // User's email address
-    dateOfBirth: string;    // Date of birth in YYYY-MM-DD format
-    gender: 'male' | 'female'; // User's gender (required)
 }
 
 /**
@@ -107,6 +106,22 @@ export interface Package {
     duration: number;       // Duration in months
     features: string[];     // List of features included
     isPopular?: boolean;    // Whether this is the most popular package
+}
+
+/**
+ * Checkout Form Data
+ */
+export interface CheckoutFormData {
+    email: string;          // Pre-filled from signup (read-only)
+    phone: string;          // Pre-filled from signup (read-only)
+    firstName: string;      // User's first name
+    lastName: string;       // User's last name
+    address: string;        // Billing address
+    city: string;           // City
+    postCode: string;       // Postal code
+    dateOfBirth: string;    // Date of birth (collected in checkout)
+    gender: 'male' | 'female'; // Gender (collected in checkout)
+    secondarySchoolGrade: string; // Secondary school grade
 }
 
 /**

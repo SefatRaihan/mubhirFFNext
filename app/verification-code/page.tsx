@@ -92,6 +92,7 @@ export default function VerificationCodePage() {
     /**
      * Build Register Verify Payload
      * Transforms SignupFormData to API-expected format
+     * Note: DOB is collected in checkout, not during signup
      */
     const buildRegisterVerifyPayload = (userData: SignupFormData): RegisterVerifyPayload => {
         return {
@@ -100,7 +101,7 @@ export default function VerificationCodePage() {
             last_name: userData.lastName,
             email: userData.email || '', // Email from signup form
             phone: userData.phone,
-            date_of_birth: userData.dateOfBirth,
+            date_of_birth: '2000-01-01', // Placeholder - actual DOB collected in checkout
         };
     };
 
