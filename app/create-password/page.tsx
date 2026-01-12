@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
 
 /**
@@ -130,8 +131,15 @@ export default function CreatePasswordPage() {
 
             // Check if request was successful (status 200)
             if (response.status === 200) {
-                // Clear localStorage
+                // Clear ALL cookies and localStorage to ensure fresh start
                 localStorage.clear();
+
+                // Clear specific cookies that might interfere with new user flow
+                Cookies.remove('selectedPlan');
+                Cookies.remove('fromTrial');
+                Cookies.remove('token');
+                Cookies.remove('user');
+                Cookies.remove('redirect_url');
 
                 // Show success message
                 alert('تم تعيين كلمة المرور بنجاح! يرجى تسجيل الدخول.');
