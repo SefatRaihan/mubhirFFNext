@@ -185,15 +185,28 @@ export default function CheckoutPage() {
                     return;
                 }
 
-                // Redirect to platform
-                const redirectUrl = Cookies.get('redirect_url');
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } else {
-                    router.push('/dashboard');
-                }
+                // Save order data to localStorage for confirmation page
+                const orderData = {
+                    fromTrial: true,
+                    selectedPlan,
+                    discount: 0,
+                    ...formData,
+                };
+                localStorage.setItem('checkoutData', JSON.stringify(orderData));
+
+                // Redirect to confirmation page
+                router.push('/confirmation');
             } else {
                 // Paid flow
+                // Save order data to localStorage for confirmation page
+                const orderData = {
+                    fromTrial: false,
+                    selectedPlan,
+                    discount,
+                    ...formData,
+                };
+                localStorage.setItem('checkoutData', JSON.stringify(orderData));
+
                 const payload = new FormData();
                 payload.append('package_id', selectedPlan?.id || '0');
                 payload.append('amount', selectedPlan?.price || '0');
@@ -206,7 +219,7 @@ export default function CheckoutPage() {
                 payload.append('post_code', formData.postCode);
                 payload.append('date_of_birth', formData.dateOfBirth);
                 payload.append('gender', formData.gender);
-                payload.append('endpoint', 'ar-success');
+                payload.append('endpoint', 'confirmation');
 
                 const response = await fetch(`${API_BASE_URL}/cms/tap/pay`, {
                     method: 'POST',
@@ -331,7 +344,7 @@ export default function CheckoutPage() {
                             height={80}
                             className="w-20 h-20"
                         />
-                        <h1 className="text-5xl font-bold text-[#28235B] mr-2">Mubhir</h1>
+                        <h1 className="text-5xl font-bold text-[#28235B] mr-2">مبهر</h1>
                     </div>
                     <h2 className="text-2xl font-bold text-black">Checkout</h2>
                 </div>

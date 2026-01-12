@@ -134,15 +134,13 @@ export default function LoginPage() {
                 // Otherwise, check cookies and navigate accordingly
                 const selectedPlanCookie = Cookies.get('selectedPlan');
 
-                // Redirect priority
-                if (pendingFrom === '/ar-checkout') {
-                    // Store plan info in cookie for checkout page
-                    if (pendingPlan) Cookies.set('selectedPlan', pendingPlan);
-                    router.push('/ar-checkout');
-                } else if (selectedPlanCookie) {
-                    router.push('/ar-checkout');
+                // Redirect logic:
+                // 1. If user has selected a plan → go to checkout
+                // 2. Otherwise → go to packages page to select a plan
+                if (selectedPlanCookie) {
+                    router.push('/checkout');
                 } else {
-                    router.push('/ar-select-package');
+                    router.push('/packages');
                 }
             } else {
                 setError(data.message || 'فشل تسجيل الدخول. حاول مرة أخرى.');

@@ -74,7 +74,7 @@ export default function PackagesPage() {
     };
 
     /**
-     * Check trial eligibility from API
+     * Check trial eligibility from user data (without activating trial)
      */
     useEffect(() => {
         const checkTrialEligibility = async () => {
@@ -85,19 +85,24 @@ export default function PackagesPage() {
             }
 
             try {
-                // POST request to check trial eligibility
-                const response = await fetch(`${API_BASE_URL}/cms/free-trail`, {
-                    method: 'POST',
+                // GET request to fetch user data (does NOT activate trial)
+                const response = await fetch(`${API_BASE_URL}/cms/me`, {
+                    method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
                     },
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    // If user already used trial, API will indicate it
-                    setHasUsedTrial(data.trial_used === true || data.trial_used === 1);
+                    const userData = await response.json();
+                    // Check if user has already used the free trial
+                    // Adjust the field name based on your API response
+                    setHasUsedTrial(
+                        userData.trial_used === true ||
+                        userData.trial_used === 1 ||
+                        userData.has_used_trial === true ||
+                        userData.has_used_trial === 1
+                    );
                 } else {
                     // If API returns error, assume trial not used
                     setHasUsedTrial(false);
