@@ -199,10 +199,10 @@ export default function CreatePasswordPage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px] leading-[45px]">
-                                تم التحقق من حسابك <br /> يلا انطلق واستعد للقدرات بكل قوة
+                                تم التحقق من حسابك!
                             </p>
                             <p className="text-[16px] font-medium text-black tracking-[-0.5px] mt-[12px]">
-                                خطوتك الأخيرة، عين كلمة مرور وابدأ رحلتك الآن
+                                يرجى تعيين كلمة مرور لحسابك للبدء!
                             </p>
                         </div>
 
@@ -278,7 +278,7 @@ export default function CreatePasswordPage() {
                             >
                                 {loading
                                     ? 'جاري الحفظ...'
-                                    : 'تعيين كلمة مرور جديدة وتسجيل الدخول'}
+                                    : 'قم بتعيين كلمة مرور جديدة وتسجيل الدخول'}
                             </button>
                         </form>
                     </div>

@@ -259,7 +259,7 @@ export default function ConfirmationPage() {
 
                             {/* Order Total */}
                             <div className="flex justify-between items-center font-bold text-lg">
-                                <span>Order Total Due Now (1)</span>
+                                <span>إجمالي المبلغ المستحق الآن (1)</span>
                                 <span>SAR {isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
                             </div>
 
@@ -295,9 +295,9 @@ export default function ConfirmationPage() {
                     <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
                         <h3 className="text-lg font-semibold text-black mb-3">معلومات الملف الشخصي للطالب</h3>
                         <div className="space-y-1 text-gray-700">
-                            <p>Gender: {userData?.gender || orderData?.gender || 'Male'}</p>
-                            <p>D.O.B.: {userData?.date_of_birth || orderData?.dateOfBirth || 'N/A'}</p>
-                            <p>Secondary School Grade: {userData?.secondary_school_grade || orderData?.secondarySchoolGrade || '11th Grade'}</p>
+                            <p>الجنس: {userData?.gender || orderData?.gender || 'Male'}</p>
+                            <p>تاريخ الميلاد:  {userData?.date_of_birth || orderData?.dateOfBirth || 'N/A'}</p>
+                            <p>المرحلة الثانوية: {userData?.secondary_school_grade || orderData?.secondarySchoolGrade || '11th Grade'}</p>
                         </div>
                     </div>
 

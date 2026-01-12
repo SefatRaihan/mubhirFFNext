@@ -346,7 +346,7 @@ export default function CheckoutPage() {
                         />
                         <h1 className="text-5xl font-bold text-[#28235B] mr-2">مبهر</h1>
                     </div>
-                    <h2 className="text-2xl font-bold text-black">Checkout</h2>
+                    <h2 className="text-2xl font-bold text-black">الدفع</h2>
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
@@ -361,7 +361,7 @@ export default function CheckoutPage() {
                                 {/* Email (Read-only) */}
                                 <div>
                                     <label htmlFor="email" className="block mb-1 font-medium text-black">
-                                        البريد الإلكتروني*
+                                        بريد إلكتروني*
                                     </label>
                                     <input
                                         type="email"
@@ -376,7 +376,7 @@ export default function CheckoutPage() {
                                 {/* Phone (Read-only) */}
                                 <div>
                                     <label htmlFor="phone" className="block mb-1 font-medium text-black">
-                                        الجوال*
+                                        هاتف*
                                     </label>
                                     <div className="bg-gray-100 border border-gray-300 rounded px-4 py-2">
                                         <PhoneInput
@@ -462,7 +462,7 @@ export default function CheckoutPage() {
                                     </div>
                                     <div>
                                         <label htmlFor="postCode" className="block mb-1 font-medium text-black">
-                                            الرمز البريدي*
+                                            شفرة البريد*
                                         </label>
                                         <input
                                             type="text"
@@ -487,7 +487,7 @@ export default function CheckoutPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="flex flex-col w-full">
                                         <label htmlFor="gender" className="block mb-1 font-medium text-black">
-                                            الجنس*
+                                            جنس*
                                         </label>
                                         <select
                                             id="gender"
@@ -524,7 +524,7 @@ export default function CheckoutPage() {
                                 {/* Secondary School Grade */}
                                 <div>
                                     <label htmlFor="secondarySchoolGrade" className="block mb-1 font-medium text-black">
-                                        الصف الثانوي
+                                        المرحلة الثانوية
                                     </label>
                                     <select
                                         id="secondarySchoolGrade"
@@ -584,7 +584,7 @@ export default function CheckoutPage() {
                                         /* Free Trial Layout */
                                         <>
                                             <div className="flex justify-between items-center">
-                                                <span className="text-gray-700">5 Day Trial</span>
+                                                <span className="text-gray-700">تجربة لمدة 5 أيام</span>
                                                 <span className="font-semibold">SAR 0.00</span>
                                             </div>
                                             <div className="flex justify-between items-center">
@@ -622,7 +622,7 @@ export default function CheckoutPage() {
                                     {/* Note */}
                                     <p className="text-xs text-gray-500 mt-4">
                                         {fromTrial
-                                            ? '*Continued full access requires a paid exam prep plan'
+                                            ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
                                             : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
                                     </p>
                                 </div>
@@ -635,7 +635,7 @@ export default function CheckoutPage() {
                                     disabled={submitting}
                                     className="w-full bg-[#7A2060] text-white py-3 rounded-full font-semibold hover:bg-[#5a1848] transition disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    {submitting ? 'جاري المعالجة...' : 'إكمال الشراء'}
+                                    {submitting ? 'جاري المعالجة...' : 'عملية شراء كاملة'}
                                 </button>
                                 <button
                                     type="button"

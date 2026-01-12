@@ -135,10 +135,10 @@ export default function SignupPage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px] mt-4">
-                                سجل الآن في إعداد القدرات العامة
+                                سجل في دورة التحضير لاختبار قدرات
                             </p>
                             <p className="text-[16px] font-medium text-black tracking-[-0.5px] mt-[12px]">
-                                واحصل على اختبار تجريبي مجاني يحاكي الاختبار الحقيقي
+                                احصل على فحصك المجاني الآن!
                             </p>
                         </div>
 
@@ -224,8 +224,7 @@ export default function SignupPage() {
 
                             {/* Information Text */}
                             <p className="text-base text-gray-500 text-center">
-                                بنرسل على جوالك رمز تحقق (OTP) لمرة وحدة لنتأكد إن الحساب ملكك
-                                وتكمل تسجيل الدخول
+                                سنرسل إليك كلمة مرور لمرة واحدة (OTP) إلى رقم هاتفك للتحقق من حسابك.
                             </p>
 
                             {/* Error Message Display */}

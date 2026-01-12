@@ -302,10 +302,10 @@ export default function VerificationCodePage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px] mt-4">
-                                أدخل الكود المرسل إلى جوالك
+                                أدخل رمز الأمان
                             </p>
                             <p className="text-[16px] font-medium text-black tracking-[-0.5px] mt-[12px]">
-                                أرسلنا لك رمز التحقق على رقم جوالك تأكد من إدخاله لإكمال الخطوة
+                                لقد أرسلنا رمز التحقق لمرة واحدة إلى رقم الهاتف التالي:
                             </p>
                             <p
                                 className="text-[18px] font-medium text-black tracking-[-0.5px] mt-[12px]"
@@ -323,7 +323,7 @@ export default function VerificationCodePage() {
                                         htmlFor="otp"
                                         className="mb-1 text-lg font-medium text-black text-right"
                                     >
-                                        ادخل رمز التحقق
+                                        أدخل رمز التحقق لمرة واحدة
                                     </label>
 
                                     {/* OTP Input Fields */}

@@ -187,7 +187,7 @@ export default function LoginPage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px]">
-                                🔑 سجل دخولك على حسابك في منصة مبهر
+                                سجل الدخول إلى منصة الاختبار الخاصة بنا
                             </p>
                         </div>
 
@@ -197,7 +197,7 @@ export default function LoginPage() {
                             {/* Phone Number Field */}
                             <div className="flex flex-col">
                                 <label htmlFor="phone" className="mb-1 font-medium text-black">
-                                    الجوال*
+                                    هاتف*
                                 </label>
                                 <div className="flex bg-white border border-gray-300 rounded">
                                     <PhoneInput
@@ -236,7 +236,7 @@ export default function LoginPage() {
                                 href="/ar-password-reset"
                                 className="text-base font-medium text-[#7a2060] underline inline-block"
                             >
-                                نسيت كلمة المرور الخاصة بي
+                                هل نسيت كلمة السر؟
                             </a>
 
                             {/* Error/Success Messages */}

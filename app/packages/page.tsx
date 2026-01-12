@@ -53,14 +53,14 @@ export default function PackagesPage() {
 
     // Translation mappings (from SelectPackageAr.jsx)
     const titleTranslations: Record<string, string> = {
-        'Monthly Plan': 'الباقة الشهرية',
+        'Monthly Plan': 'الخطة الشهرية',
         '3 Months Plan': 'خطة ٣ أشهر',
         '6 Months Plan': 'خطة ٦ أشهر',
         'Yearly Plan': 'الباقة السنوية',
     };
 
     const descriptionTranslations: Record<string, string> = {
-        'Perfect for starting your journey': 'استكشف بالسرعة التي تناسبك',
+        'Perfect for starting your journey': 'استكشف بوتيرتك الخاصة',
         'Ideal for focused preparation': 'مثالي لمواسم الامتحانات',
         'Best for comprehensive prep': 'التنافس على أعلى المستويات',
         'Maximum value for long-term': 'إتقان وتيرة قدرات',
@@ -199,10 +199,10 @@ export default function PackagesPage() {
                             height={80}
                             className="w-20 h-20"
                         />
-                        <h1 className="text-5xl font-bold text-[#28235B] mr-2">Mubhir</h1>
+                        <h1 className="text-5xl font-bold text-[#28235B] mr-2">مبهير</h1>
                     </div>
-                    <h2 className="text-2xl font-bold text-black mb-2">Configure your plan</h2>
-                    <p className="text-gray-600">Select your desired Exam Prep Programs</p>
+                    <h2 className="text-2xl font-bold text-black mb-2">قم بتكوين خطتك</h2>
+                    <p className="text-gray-600">اختر برامج التحضير للامتحان التي ترغب بها</p>
                 </div>
 
                 {/* Exam Selection */}
@@ -223,9 +223,9 @@ export default function PackagesPage() {
                                 className="mt-1 ml-3 w-5 h-5 text-[#7A2060] border-gray-300 rounded focus:ring-[#7A2060]"
                             />
                             <div>
-                                <h3 className="text-lg font-bold text-black">SAT I</h3>
+                                <h3 className="text-lg font-bold text-black">اختبار قدرات الأول</h3>
                                 <p className="text-sm text-gray-600">
-                                    For every college prospect, the essential exam for higher education
+                                    بالنسبة لكل طالب جامعي محتمل، يُعد هذا الامتحان أساسياً للتعليم العالي
                                 </p>
                             </div>
                         </div>
@@ -240,9 +240,9 @@ export default function PackagesPage() {
                                 className="mt-1 ml-3 w-5 h-5 border-gray-300 rounded"
                             />
                             <div>
-                                <h3 className="text-lg font-bold text-gray-500">SAT II (Coming Soon)</h3>
+                                <h3 className="text-lg font-bold text-gray-500">اختبار SAT II (قريبًا)</h3>
                                 <p className="text-sm text-gray-400">
-                                    For subject-specific specialists looking to sharpen their skills
+                                    للمتخصصين في مجالات محددة والذين يتطلعون إلى صقل مهاراتهم
                                 </p>
                             </div>
                         </div>
@@ -354,7 +354,7 @@ export default function PackagesPage() {
                                 disabled={!selectedPackage}
                                 className="bg-[#7A2060] text-white px-12 py-3 rounded-full font-semibold hover:bg-[#5a1848] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Proceed to Payment
+                                انتقل إلى الدفع
                             </button>
                         </div>
                     </>
