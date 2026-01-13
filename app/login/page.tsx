@@ -6,6 +6,7 @@ import Image from 'next/image';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 /**
  * Login Form Data Interface
@@ -229,12 +230,12 @@ function LoginContent() {
                             </div>
 
                             {/* Forgot Password Link */}
-                            <a
-                                href="/ar-password-reset"
+                            <Link
+                                href="/password-reset"
                                 className="text-base font-medium text-[#7a2060] underline inline-block"
                             >
                                 نسيت كلمة المرور الخاصة بي
-                            </a>
+                            </Link>
 
                             {/* Error/Success Messages */}
                             {error && <p className="text-red-600 text-sm">{error}</p>}

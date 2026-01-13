@@ -86,7 +86,7 @@ export default function PackagesPage() {
 
             try {
                 // GET request to fetch user data (does NOT activate trial)
-                const response = await fetch(`${API_BASE_URL}/cms/me`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ export default function PackagesPage() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/packages`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
                 const json: PackagesResponse = await response.json();
 
                 if (json.status === 'success') {
