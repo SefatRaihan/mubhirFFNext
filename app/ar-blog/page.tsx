@@ -246,7 +246,7 @@ export default function ArBlogPage() {
                     {/* Image */}
                     <div className="order-last md:order-0 flex justify-center items-center">
                         <Image
-                            src="/image/مهبر cover.png"
+                            src="/image/review-cover.png"
                             alt="طالبة"
                             width={350}
                             height={350}

@@ -1,20 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import Footer from '@/components/Footer/Footer';
 
 /**
- * Confirmation Page Component
- * 
- * Displays order confirmation after successful checkout.
- * Supports two layouts:
- * 1. Free Trial - Shows trial period and future pricing
- * 2. Paid Subscription - Shows total with optional coupon discount
+ * Confirmation Page Content Component
+ * Contains the logic that uses useSearchParams
  */
-export default function ConfirmationPage() {
+function ConfirmationContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -312,5 +308,22 @@ export default function ConfirmationPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+/**
+ * Confirmation Page Wrapper
+ * Wraps the content in Suspense boundary for useSearchParams
+ */
+export default function ConfirmationPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center h-screen bg-white">
+                <div className="h-12 w-12 border-4 border-gray-200 border-t-[#7a2060] rounded-full animate-spin mb-4"></div>
+                <p className="text-lg font-semibold text-black">جاري التحميل...</p>
+            </div>
+        }>
+            <ConfirmationContent />
+        </Suspense>
     );
 }

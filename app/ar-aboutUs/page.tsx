@@ -252,7 +252,7 @@ export default function ArAboutUsPage() {
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
-                  src="/image/icon/Type=Online learning 03.png"
+                  src="/image/icon/Type=OnlineLearning03.png"
                   alt=""
                   width={32}
                   height={32}
@@ -276,7 +276,7 @@ export default function ArAboutUsPage() {
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
-                  src="/image/icon/Type=AI recognition.png"
+                  src="/image/icon/Type=AIRecognition.png"
                   alt=""
                   width={32}
                   height={32}
@@ -297,7 +297,7 @@ export default function ArAboutUsPage() {
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
-                  src="/image/icon/Type=Online learning 01.png"
+                  src="/image/icon/Type=OnlineLearning01.png"
                   alt=""
                   width={32}
                   height={32}
@@ -318,7 +318,7 @@ export default function ArAboutUsPage() {
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
-                  src="/image/icon/Type=Audio book.png"
+                  src="/image/icon/Type=AudioBook.png"
                   alt=""
                   width={32}
                   height={32}
@@ -449,7 +449,7 @@ export default function ArAboutUsPage() {
           {/* Image */}
           <div className="order-last md:order-0 flex justify-center items-center">
             <Image
-              src="/image/مهبر cover.png"
+              src="/image/review-cover.png"
               alt="طالبة"
               width={350}
               height={350}

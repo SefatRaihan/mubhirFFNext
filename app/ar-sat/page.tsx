@@ -342,7 +342,7 @@ export default function ArSatPage() {
               {/* Image Section */}
               <div className="order-3">
                 <Image
-                  src="/image/arabic_content/مبهر مادة 1.jpg"
+                  src="/image/arabic_content/verbalSection.jpg"
                   alt="القسم اللفظي"
                   width={500}
                   height={300}
@@ -364,7 +364,7 @@ export default function ArSatPage() {
               {/* Image Section */}
               <div className="order-1">
                 <Image
-                  src="/image/arabic_content/مبهر مادة 6.jpg"
+                  src="/image/arabic_content/quantitativeSection.jpg"
                   alt="القسم الكمي"
                   width={500}
                   height={300}
@@ -459,7 +459,7 @@ export default function ArSatPage() {
               </div>
               <div className="w-full lg:w-[465px]">
                 <Image
-                  src="/image/arabic_content/2-M كمي.png"
+                  src="/image/arabic_content/2-MQuantitative.png"
                   className="w-full"
                   alt="القسم الكمي"
                   width={465}
@@ -479,7 +479,7 @@ export default function ArSatPage() {
               >
                 <Image
                   className="w-14 h-14 text-purple-500"
-                  src="/image/icon/Type=Heart of Algebra.png"
+                  src="/image/icon/HeartOfAlgebra.png"
                   alt=""
                   width={56}
                   height={56}
@@ -495,7 +495,7 @@ export default function ArSatPage() {
               >
                 <Image
                   className="w-14 h-14 text-purple-500"
-                  src="/image/icon/Type=Problem-Solving Skills.png"
+                  src="/image/icon/Problem-SolvingSkills.png"
                   alt=""
                   width={56}
                   height={56}
@@ -511,7 +511,7 @@ export default function ArSatPage() {
               >
                 <Image
                   className="w-14 h-14 text-purple-500"
-                  src="/image/icon/Type=Passport to Advanced Math.png"
+                  src="/image/icon/Type=PassportToAdvancedMath.png"
                   alt=""
                   width={56}
                   height={56}
@@ -543,7 +543,7 @@ export default function ArSatPage() {
               >
                 <Image
                   className="w-14 h-14 text-purple-500"
-                  src="/image/icon/Type=Passport to Advanced Math.png"
+                  src="/image/icon/Type=PassportToAdvancedMath.png"
                   alt=""
                   width={56}
                   height={56}
@@ -589,7 +589,7 @@ export default function ArSatPage() {
               </div>
               <div className="w-full">
                 <Image
-                  src="/image/arabic_content/2-M لفظي.png"
+                  src="/image/arabic_content/2-MVerbal.png"
                   className="w-full"
                   alt="القسم اللفظي"
                   width={600}
@@ -603,7 +603,7 @@ export default function ArSatPage() {
               <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
                 <Image
                   className="w-14 h-14 object-contain"
-                  src="/image/icon/Type=Reading Comprehension.png"
+                  src="/image/icon/Type=ReadingComprehension.png"
                   alt=""
                   width={56}
                   height={56}
@@ -614,7 +614,7 @@ export default function ArSatPage() {
               <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
                 <Image
                   className="w-14 h-14 object-contain"
-                  src="/image/icon/Type=Vocabulary in Context.png"
+                  src="/image/icon/Type=VocabularyInContext.png"
                   alt=""
                   width={56}
                   height={56}
@@ -625,7 +625,7 @@ export default function ArSatPage() {
               <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
                 <Image
                   className="w-14 h-14 object-contain"
-                  src="/image/icon/Type=Grammar & Usage.png"
+                  src="/image/icon/Type=Grammar&Usage.png"
                   alt=""
                   width={56}
                   height={56}
@@ -638,7 +638,7 @@ export default function ArSatPage() {
               <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
                 <Image
                   className="w-14 h-14 object-contain"
-                  src="/image/icon/Type=Command of Evidence.png"
+                  src="/image/icon/Type=CommandOfEvidence.png"
                   alt=""
                   width={56}
                   height={56}
@@ -649,7 +649,7 @@ export default function ArSatPage() {
               <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
                 <Image
                   className="w-14 h-14 object-contain"
-                  src="/image/icon/Type=Rhetorical Skills.png"
+                  src="/image/icon/Type=RhetoricalSkills.png"
                   alt=""
                   width={56}
                   height={56}
@@ -725,7 +725,7 @@ export default function ArSatPage() {
                   </div>
                   <div className="order-2 lg:order-1">
                     <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
-                      <Image src="/image/وضع التدريب.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                      <Image src="/image/trainingMode.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
                     </div>
                   </div>
                 </div>
@@ -790,7 +790,7 @@ export default function ArSatPage() {
                     'أسئلة برعاية معلمين خبراء لضمان الدقة'
                   ].map((text, idx) => (
                     <div key={idx} className="text-center">
-                      <Image src="/image/بنك األسئلة.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
+                      <Image src="/image/questionBank.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
                       <p className="mt-3 text-lg">{text}</p>
                     </div>
                   ))}
@@ -831,7 +831,7 @@ export default function ArSatPage() {
                   </div>
                   <div className="order-1 lg:order-2">
                     <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
-                      <Image src="/image/منهج متكامل.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                      <Image src="/image/integratedApproach.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
                     </div>
                   </div>
                 </div>
@@ -995,7 +995,7 @@ export default function ArSatPage() {
           {/* Image (Adjusted to Prevent Cropping) */}
           <div className="order-last md:order-0 flex justify-center items-center">
             <Image
-              src="/image/مهبر cover.png"
+              src="/image/review-cover.png"
               alt="طالبة"
               width={350}
               height={350}

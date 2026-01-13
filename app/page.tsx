@@ -79,35 +79,35 @@ export default function Home() {
   // Features data
   const featuresData = [
     {
-      iconSrc: '/image/icon/أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل.jpg.png',
+      iconSrc: '/image/icon/feature-icon-1.png',
       text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل'
     },
     {
-      iconSrc: '/image/icon/شرح مبسط ومتكامل لجميع وحدات المنهج.png',
+      iconSrc: '/image/icon/feature-icon-2.png',
       text: 'شرح مبسط ومتكامل لجميع وحدات المنهج'
     },
     {
-      iconSrc: '/image/icon/شروحات فيديو للمنهج كاملا.png',
+      iconSrc: '/image/icon/feature-icon-3.png',
       text: 'شروحات فيديو للمنهج كاملا'
     },
     {
-      iconSrc: '/image/icon/قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة.png',
+      iconSrc: '/image/icon/feature-icon-4.png',
       text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة'
     },
     {
-      iconSrc: '/image/icon/قرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى.png',
+      iconSrc: '/image/icon/feature-icon-5.png',
       text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى'
     },
     {
-      iconSrc: '/image/icon/دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق.png',
+      iconSrc: '/image/icon/feature-icon-6.png',
       text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق'
     },
     {
-      iconSrc: '/image/icon/منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي.png',
+      iconSrc: '/image/icon/feature-icon-7.png',
       text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي'
     },
     {
-      iconSrc: '/image/icon/نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول.png',
+      iconSrc: '/image/icon/feature-icon-8.png',
       text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول'
     }
   ];
@@ -384,7 +384,7 @@ export default function Home() {
             </motion.div>
           </div>
           <div className="relative">
-            <div className="circle absolute hidden  md:flex right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full  items-center justify-center">
+            <div className="circle absolute hidden  md:flex right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full  items-center justify-center z-10">
               <MiddleIcon />
               <div className="text w-full h-full absolute text-white">
 
@@ -497,7 +497,7 @@ export default function Home() {
                 transition={{ duration: 0.2 }}
                 className="bg-[#291548] rounded-xl p-4 sm:p-6 flex items-center justify-center overflow-hidden"
               >
-                <Image src={`/image/${activeTab === 'tab1' ? 'المدرسين' : activeTab === 'tab2' ? 'توقع الدرجة' : activeTab === 'tab3' ? 'االختبارات' : 'الشروحات'}.jpg`} width={600} height={400} alt="" className="w-full h-auto" />
+                <Image src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.jpg`} width={600} height={400} alt="" className="w-full h-auto" />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -899,7 +899,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
           >
-            <Image src="/image/مهبر cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+            <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
           </motion.div>
 
           {/* Content Grid */}
@@ -998,7 +998,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="lg:hidden mt-8 w-full"
             >
-              <Image src="/image/مهبر cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+              <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
             </motion.div>
           </div>
         </div>

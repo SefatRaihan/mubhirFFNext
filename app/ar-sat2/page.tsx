@@ -228,7 +228,7 @@ export default function ArSat2Page() {
                         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
                             <div className="order-1">
                                 <Image
-                                    src="/image/arabic_content/مبهر مادة 5.jpg"
+                                    src="/image/arabic_content/mathematics.jpg"
                                     alt="الرياضيات"
                                     width={500}
                                     height={300}
@@ -248,7 +248,7 @@ export default function ArSat2Page() {
                         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
                             <div className="order-3">
                                 <Image
-                                    src="/image/arabic_content/مبهر مادة 4.jpg"
+                                    src="/image/arabic_content/chemistry.jpg"
                                     alt="الكيمياء"
                                     width={500}
                                     height={300}
@@ -268,7 +268,7 @@ export default function ArSat2Page() {
                         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
                             <div className="order-1">
                                 <Image
-                                    src="/image/arabic_content/مبهر مادة 3.1.jpg"
+                                    src="/image/arabic_content/physics.jpg"
                                     alt="الفيزياء"
                                     width={500}
                                     height={300}
@@ -289,7 +289,7 @@ export default function ArSat2Page() {
                         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
                             <div className="order-3">
                                 <Image
-                                    src="/image/arabic_content/مبهر مادة 2a.jpg"
+                                    src="/image/arabic_content/neighborhoods.jpg"
                                     alt="الأحياء"
                                     width={500}
                                     height={300}

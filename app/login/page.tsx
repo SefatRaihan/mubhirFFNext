@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-number-input';
@@ -32,12 +32,10 @@ interface LoginResponse {
 }
 
 /**
- * Login Page Component
- * 
- * Allows users to log in with their email and password.
- * Handles authentication, token storage, and redirects based on user status.
+ * Login Page Content Component
+ * Contains the logic that uses useSearchParams
  */
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -111,7 +109,6 @@ export default function LoginPage() {
                     Cookies.set('redirect_url', data.redirect_url, {
                         expires: 1,
                         secure: true,
-                        sameSite: 'Strict',
                     });
                 }
 
@@ -187,7 +184,7 @@ export default function LoginPage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px]">
-                                سجل الدخول إلى منصة الاختبار الخاصة بنا
+                                🔑 سجل دخولك على حسابك في منصة مبهر
                             </p>
                         </div>
 
@@ -197,7 +194,7 @@ export default function LoginPage() {
                             {/* Phone Number Field */}
                             <div className="flex flex-col">
                                 <label htmlFor="phone" className="mb-1 font-medium text-black">
-                                    هاتف*
+                                    الجوال*
                                 </label>
                                 <div className="flex bg-white border border-gray-300 rounded">
                                     <PhoneInput
@@ -236,7 +233,7 @@ export default function LoginPage() {
                                 href="/ar-password-reset"
                                 className="text-base font-medium text-[#7a2060] underline inline-block"
                             >
-                                هل نسيت كلمة السر؟
+                                نسيت كلمة المرور الخاصة بي
                             </a>
 
                             {/* Error/Success Messages */}
@@ -265,5 +262,22 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+/**
+ * Login Page Wrapper
+ * Wraps the content in Suspense boundary for useSearchParams
+ */
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center h-screen bg-white">
+                <div className="h-12 w-12 border-4 border-gray-200 border-t-[#7a2060] rounded-full animate-spin mb-4"></div>
+                <p className="text-lg font-semibold text-black">جاري التحميل...</p>
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }
