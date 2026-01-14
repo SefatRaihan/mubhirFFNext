@@ -27,7 +27,7 @@ export default function ArSat2Page() {
                                 className="transform rotate-15 md:rotate-25 md:absolute md:right-40 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
                                 dir="ltr"
                             >
-                                #سؤال
+                                سؤال#
                             </span>
                             <span className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
                                 #اختبار تحصيلي

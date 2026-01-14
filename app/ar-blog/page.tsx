@@ -221,11 +221,11 @@ export default function ArBlogPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
+            <section className="bg-[#691d5e] text-white rounded-lg my-4 md:m-4 ">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:pt-20">
                     {/* Right Content */}
                     <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-                        <h1 className="text-4xl md:text-5xl font-extrabold leading-snug">
+                        <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
                             ابدأ{" "}
                             <span className="relative inline-block pb-2">
                                 رحلتك اليوم!

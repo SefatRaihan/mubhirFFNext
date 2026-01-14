@@ -103,7 +103,8 @@ export default function ArContactUsPage() {
 
                         <div className="mt-6 flex justify-center items-center space-x-4 space-x-reverse">
                             <div className="relative inline-block">
-                                <Link href="https://cms.mubhir.ai/ar-select-package">
+                                {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+                                <Link href="/packages">
                                     <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
                                         أكتشف الأن
                                         <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">

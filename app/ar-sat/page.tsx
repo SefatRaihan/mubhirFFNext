@@ -159,7 +159,8 @@ export default function ArSatPage() {
 
             <div className="mt-6 flex justify-center items-center space-x-4">
               <div className="relative inline-block">
-                <Link href="https://cms.mubhir.ai/ar-select-package">
+                {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+                <Link href="/packages">
                   <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
                     بدء الاستخدام
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
@@ -253,8 +254,8 @@ export default function ArSatPage() {
       </header>
 
       {/* We help Section */}
-      <section className="font-sans text-gray-900 bg-[#F7E8F5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="font-sans text-gray-900 bg-[#F7E8F5]  my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-7xl mx-auto py-[120px]">
           <h1 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
             نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
           </h1>
@@ -323,9 +324,9 @@ export default function ArSatPage() {
 
       {/* All in one place Section */}
       <section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl">
-        <div className="max-w-7xl mx-auto px-4 pt-8">
+        <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
-          <div className="text-center mt-[120px]">
+          <div className="text-center">
             <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
               ماذا تقدم منصة مبهر في اختبار القدرات العامة؟
             </h1>
@@ -384,7 +385,7 @@ export default function ArSatPage() {
           </div>
 
           {/* Contact Us Button */}
-          <div className="mt-14 pb-32 text-center">
+          <div className="mt-14 text-center">
             <Link href="/ar-contactUs">
               <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 flex items-center mx-auto">
                 اتصل بنا
@@ -426,10 +427,10 @@ export default function ArSatPage() {
       <section className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
         style={{ backgroundImage: "url('/image/Vector.svg')" }}
       >
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <h1 className="text-4xl text-center md:text-[56px] mt-[120px] pb-4 font-bold leading-tight md:leading-none">
+            <h1 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none">
               أقسام اختبارات القدرات
             </h1>
             <p className="text-sm text-gray-500 mt-1">
@@ -484,7 +485,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">العمليات الحسابية</p>
+                <p className="mt-2 text-[20px] font-semibold">العمليات الحسابية</p>
               </div>
               <div
                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -500,7 +501,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">الجبر</p>
+                <p className="mt-2 text-[20px] font-semibold">الجبر</p>
               </div>
               <div
                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -516,7 +517,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">الهندسة</p>
+                <p className="mt-2 text-[20px] font-semibold">الهندسة</p>
               </div>
               <div
                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -532,7 +533,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">التحليل البياني</p>
+                <p className="mt-2 text-[20px] font-semibold">التحليل البياني</p>
               </div>
               <div
                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -548,7 +549,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">القياس والمنطق</p>
+                <p className="mt-2 text-[20px] font-semibold">القياس والمنطق</p>
               </div>
               <div
                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -564,7 +565,7 @@ export default function ArSatPage() {
                   width={56}
                   height={56}
                 />
-                <p className="mt-2 text-sm font-semibold">مسائل عقلية</p>
+                <p className="mt-2 text-[20px] font-semibold">مسائل عقلية</p>
               </div>
             </div>
           </div>
@@ -663,9 +664,9 @@ export default function ArSatPage() {
 
       {/* How Mubhir helps Section */}
       <section className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl">
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
-          <div className="mx-auto max-w-[610px] space-y-4 mt-[120px]">
+          <div className="mx-auto max-w-[610px] space-y-4">
             <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
               كيف يساعدك مبهر على التفوق في اختبار القدرات
             </h1>
@@ -919,7 +920,8 @@ export default function ArSatPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="https://cms.mubhir.ai/ar-checkout">
+                  {/* <Link href="https://cms.mubhir.ai/ar-checkout"> */}
+                  <Link href="/checkout">
                     <button className="w-full border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full py-2 font-semibold mt-6">
                       ابدأ {plan.title_ar}
                     </button>
@@ -973,7 +975,7 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-snug">
+            <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
               قم بأخذ اختبار محاكاة<br />قدرات الأول
               <span className="relative inline-block pb-2">
                 الخاص

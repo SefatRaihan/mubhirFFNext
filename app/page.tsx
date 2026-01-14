@@ -484,7 +484,8 @@ export default function Home() {
 
                   {/* Link Button */}
                   <div className="mt-3 sm:mt-[14px]">
-                    <Link href="https://cms.mubhir.ai/ar-select-package">
+                    {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+                    <Link href="/packages">
                       <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px]">
                         <span>ابدأ الأن</span>
                         <span>
@@ -520,9 +521,9 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="py-10 px-5"
+        className="my-4 md:m-4"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto py-8 sm:py-[120px]">
           <div className="text-center mb-10">
             <h1 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
               ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
@@ -795,7 +796,8 @@ export default function Home() {
                       </motion.li>
                     ))}
                   </ul>
-                  <Link href="https://cms.mubhir.ai/ar-checkout">
+                  {/* <Link href="https://cms.mubhir.ai/ar-checkout"> */}
+                  <Link href="/checkout">
                     <motion.button
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}

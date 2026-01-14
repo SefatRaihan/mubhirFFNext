@@ -92,7 +92,8 @@ export default function ArAboutUsPage() {
 
             <div className="mt-6 flex justify-center items-center space-x-reverse space-x-4">
               <div className="relative inline-block">
-                <Link href="https://cms.mubhir.ai/ar-select-package">
+                {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+                <Link href="/packages">
                   <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
                     إستعد الأن
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
@@ -184,8 +185,8 @@ export default function ArAboutUsPage() {
       </header>
 
       {/* Mission Section */}
-      <section className="bg-[#f7e8f5] py-12 px-4">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="bg-[#f7e8f5] my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-5xl mx-auto text-center py-[120px]">
           <span className="inline-block text-gray-500 text-[16px] font-medium mb-4">
             رسالتنا
           </span>
@@ -205,9 +206,9 @@ export default function ArAboutUsPage() {
       </section>
 
       {/* Why Choose Mubhir Section */}
-      <section className="bg-white bg-[url('data:image/svg+xml,%3Csvg%20width=%2720%27%20height=%2720%27%20viewBox=%270%200%2020%2020%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill=%27%23e0e0e0%27%20fill-opacity=%270.4%27%20fill-rule=%27evenodd%27%3E%3Ccircle%20cx=%2713%27%20cy=%273%27%20r=%271%27/%3E%3Ccircle%20cx=%273%27%20cy=%2713%27%20r=%271%27/%3E%3C/g%3E%3C/svg%3E')] py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight text-center">
+      <section className="bg-white my-4 md:m-4" style={{ backgroundImage: "url('/image/Vector.svg')" }}>
+        <div className="max-w-5xl mx-auto py-[120px]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight  text-center">
             لماذا تختار
             <span className="relative inline-block pb-2 z-10">
               مبھر
@@ -336,7 +337,8 @@ export default function ArAboutUsPage() {
           </div>
 
           <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
-            <Link href="https://cms.mubhir.ai/ar-select-package">
+            {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+            <Link href="/packages">
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
                 ابدأ الآن
                 <span className="flex items-center justify-center mr-6 w-8 h-8 bg-white text-white rounded-full">
@@ -349,8 +351,8 @@ export default function ArAboutUsPage() {
       </section>
 
       {/* Founder Statement Section */}
-      <section className="bg-[#F2F4F7] py-16 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center">
+      <section className="bg-[#F2F4F7] my-4 md:m-4 rounded-0 md:rounded-2xl">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center py-[120px]">
           {/* Right Side: Heading and Description */}
           <div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
@@ -363,7 +365,7 @@ export default function ArAboutUsPage() {
           </div>
 
           {/* Left Side: Testimonial Card */}
-          <div className="bg-white rounded-lg p-6 shadow-md flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-reverse md:space-x-4">
+          <div className="bg-white rounded-lg p-6 shadow-md flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
             <div className="w-full md:w-1/2 h-[300px] md:h-[430px] bg-gray-200 rounded-lg"></div>
             <div className="w-full md:w-1/2 text-right self-start">
               <p className="text-gray-600 text-xs sm:text-sm mb-4 italic">
@@ -427,7 +429,7 @@ export default function ArAboutUsPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-snug">
+            <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
               ابدأ
               <span className="relative inline-block pb-2">
                 اليوم!
