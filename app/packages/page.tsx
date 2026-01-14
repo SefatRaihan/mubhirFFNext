@@ -39,9 +39,6 @@ interface PackagesResponse {
 export default function PackagesPage() {
     const router = useRouter();
 
-    // API Base URL from environment variable
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
-
     // State
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);

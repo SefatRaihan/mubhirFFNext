@@ -17,8 +17,6 @@ export default function PasswordResetPage() {
     const [formData, setFormData] = useState({ phone: '' });
     const [loading, setLoading] = useState(false);
 
-    // API Base URL
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
 
     /**
      * Keep phone in sessionStorage if user refreshes

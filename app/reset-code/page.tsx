@@ -18,8 +18,6 @@ export default function ResetCodePage() {
     const [loading, setLoading] = useState(false);
     const [resending, setResending] = useState(false);
 
-    // API Base URL
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
 
     /**
      * Get phone from sessionStorage on mount

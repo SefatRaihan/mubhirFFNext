@@ -21,8 +21,6 @@ function ConfirmationContent() {
     const [orderData, setOrderData] = useState<any>(null);
     const [userData, setUserData] = useState<any>(null);
 
-    // API Base URL
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
 
     /**
      * Utility function to check if response indicates success
@@ -56,7 +54,7 @@ function ConfirmationContent() {
                 // If tap_id exists, verify payment
                 if (tapId) {
                     const response = await fetch(
-                        `${API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`,
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`,
                         {
                             headers: { Authorization: `Bearer ${token}` },
                         }
@@ -88,7 +86,7 @@ function ConfirmationContent() {
                 }
 
                 // Fetch user data
-                const userResponse = await fetch(`${API_BASE_URL}/cms/me`, {
+                const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 

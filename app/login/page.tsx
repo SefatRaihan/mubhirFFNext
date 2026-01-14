@@ -85,7 +85,7 @@ function LoginContent() {
             formBody.append('login', formData.phone);
             formBody.append('password', formData.password);
 
-            const response = await fetch('https://sat.mubhir.ai/api/login', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
                 method: 'POST',
                 body: formBody,
             });

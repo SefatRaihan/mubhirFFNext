@@ -21,8 +21,6 @@ import type { CheckoutFormData } from '@/types/auth';
 export default function CheckoutPage() {
     const router = useRouter();
 
-    // API Base URL from environment variable
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
 
     // State
     const [loading, setLoading] = useState(true);
@@ -74,7 +72,7 @@ export default function CheckoutPage() {
 
             // Fetch user data from API
             try {
-                const response = await fetch(`${API_BASE_URL}/cms/me`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -171,7 +169,7 @@ export default function CheckoutPage() {
                 formBody.append('date_of_birth', formData.dateOfBirth);
                 formBody.append('gender', formData.gender);
 
-                const response = await fetch(`${API_BASE_URL}/cms/free-trail`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${token}` },
                     body: formBody,
@@ -221,7 +219,7 @@ export default function CheckoutPage() {
                 payload.append('gender', formData.gender);
                 payload.append('endpoint', 'confirmation');
 
-                const response = await fetch(`${API_BASE_URL}/cms/tap/pay`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${token}` },
                     body: payload,

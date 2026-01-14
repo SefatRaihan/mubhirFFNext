@@ -40,9 +40,6 @@ export default function CreateNewPasswordPage() {
     const [loading, setLoading] = useState(false);
     const [phone, setPhone] = useState('');
 
-    // API Base URL
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api';
-
     /**
      * Password Validation Regex
      * Requires: 8+ chars, uppercase, lowercase, number, special character
