@@ -457,7 +457,7 @@ export default function Home() {
                   </div>
 
                   {/* Heading */}
-                  <h3 className="text-xl sm:text-2xl md:text-[36px] font-medium mb-2 leading-tight sm:leading-[44px] text-right">
+                  <h3 className="text-xl sm:text-2xl md:text-[35px] font-medium mb-2 leading-tight sm:leading-[44px] text-right">
                     {activeTab === 'tab1' && <>اسأل من خلال صورة  أو نص</>}
                     {activeTab === 'tab2' && <>طريقة بديلة  للإجابة</>}
                     {activeTab === 'tab3' && <>اقتراح  اختبار</>}
@@ -465,7 +465,17 @@ export default function Home() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 mt-6 sm:mt-[216px] text-sm sm:text-[20px] font-normal text-right leading-7">
+                  {/* <p className="text-gray-600 mt-6 sm:mt-[216px] text-sm sm:text-[20px] font-normal text-right leading-7">
+                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
+                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
+                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
+                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
+                  </p> */}
+                  <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 ${activeTab === 'tab1' ? 'mt-6 sm:mt-[129px]' :
+                    activeTab === 'tab2' ? 'mt-8 sm:mt-[186px]' :
+                      activeTab === 'tab3' ? 'mt-4 sm:mt-[186px]' :
+                        activeTab === 'tab4' ? 'mt-10 sm:mt-[214px]' : ''
+                    }`}>
                     {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
                     {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
                     {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
