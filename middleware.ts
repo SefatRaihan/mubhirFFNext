@@ -49,6 +49,41 @@ const publicRoutes = [
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
+    // ============================================
+    // MAINTENANCE MODE CHECK
+    // ============================================
+
+    /**
+     * Check if maintenance mode is enabled
+     * This runs BEFORE all other checks to ensure complete site lockdown
+     */
+    const maintenanceMode = process.env.MAINTENANCE_MODE === 'true';
+
+    if (maintenanceMode) {
+        // Allow access to the maintenance page itself to prevent redirect loops
+        if (pathname === '/maintenance') {
+            return NextResponse.next();
+        }
+
+        // Get client IP address for whitelisting
+        const clientIP = request.headers.get('x-forwarded-for')?.split(',')[0].trim()
+            || request.headers.get('x-real-ip')
+            || '';
+
+        // Check if IP is whitelisted (optional feature)
+        const whitelistedIPs = process.env.MAINTENANCE_WHITELIST_IPS?.split(',').map(ip => ip.trim()) || [];
+        const isWhitelisted = whitelistedIPs.length > 0 && whitelistedIPs.includes(clientIP);
+
+        // Redirect to maintenance page unless IP is whitelisted
+        if (!isWhitelisted) {
+            return NextResponse.redirect(new URL('/maintenance', request.url));
+        }
+    }
+
+    // ============================================
+    // REGULAR AUTHENTICATION CHECKS
+    // ============================================
+
     // Get authentication token from cookies
     const authToken = request.cookies.get('authToken')?.value;
 
