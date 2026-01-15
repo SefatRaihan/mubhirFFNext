@@ -271,7 +271,7 @@ export default function Home() {
               className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
             >
               <div className="relative inline-block">
-                <Link href={`${process.env.NEXT_PUBLIC_API_CMS_URL}/ar-select-package`}>
+                <Link href="/packages">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
