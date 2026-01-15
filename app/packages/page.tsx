@@ -331,11 +331,11 @@ export default function PackagesPage() {
                                                         -SAR
                                                     </span>
                                                     <span className="text-2xl font-semibold text-[#7A2060]">
-                                                        5 day trial
+                                                        تجربة لمدة ٣ أيام
                                                     </span>
                                                 </div>
                                                 <p className="text-sm text-gray-600 mt-1">
-                                                    {pkg.pricing_terms_ar} - pay {pkg.price_display} SAR at end of trial
+                                                    {pkg.pricing_terms_ar} – ادفع {pkg.price_display} SAR عند نهاية الفترة التجريبية
                                                 </p>
                                             </>
                                         ) : (
@@ -346,7 +346,7 @@ export default function PackagesPage() {
                                                         {pkg.price_display}
                                                     </span>
                                                     <span className="text-xl font-bold text-[#7A2060] mr-1">
-                                                        SAR
+                                                        ريال سعودي
                                                     </span>
                                                 </div>
                                                 <p className="text-sm text-gray-600 mt-1">

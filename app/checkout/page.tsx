@@ -619,7 +619,7 @@ export default function CheckoutPage() {
 
                                     {/* Order Total */}
                                     <div className="flex justify-between items-center font-semibold text-[16px]">
-                                        <span>{fromTrial ? `إجمالي المبلغ المستحق الآن (1)` : `Order Total (1)`}</span>
+                                        <span>{fromTrial ? `إجمالي المبلغ المستحق الآن (1)` : `إجمالي الطلب (1)`}</span>
                                         <span>ريال سعودي {fromTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
                                     </div>
 
@@ -627,7 +627,7 @@ export default function CheckoutPage() {
                                     <p className="text-xs text-gray-500 mt-4">
                                         {fromTrial
                                             ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
-                                            : `*May be charged ريال سعودي ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
+                                            : `*قد يتم خصم ريال سعودي ${(Number(packagePrice) - discount).toFixed(2)} تلقائيًا بعد ${pricingTerms}`}
                                     </p>
                                 </div>
                             </div>
