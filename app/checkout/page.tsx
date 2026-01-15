@@ -168,6 +168,8 @@ export default function CheckoutPage() {
                 formBody.append('phone', formData.phone);
                 formBody.append('date_of_birth', formData.dateOfBirth);
                 formBody.append('gender', formData.gender);
+                formBody.append('grade', formData.secondarySchoolGrade);
+                formBody.append("endpoint", "confirmation");
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
                     method: 'POST',
@@ -217,6 +219,7 @@ export default function CheckoutPage() {
                 payload.append('post_code', formData.postCode);
                 payload.append('date_of_birth', formData.dateOfBirth);
                 payload.append('gender', formData.gender);
+                payload.append('grade', formData.secondarySchoolGrade);
                 payload.append('endpoint', 'confirmation');
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
@@ -613,7 +616,7 @@ export default function CheckoutPage() {
 
                                     {/* Order Total */}
                                     <div className="flex justify-between items-center font-bold text-lg">
-                                        <span>Order Total Due Now (1)</span>
+                                        <span>{fromTrial ? `Order Total Due Now (1)` : `Order Total (1)`}</span>
                                         <span>SAR {fromTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
                                     </div>
 

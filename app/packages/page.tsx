@@ -73,39 +73,54 @@ export default function PackagesPage() {
     /**
      * Check trial eligibility from user data (without activating trial)
      */
+    /**
+     * Check trial eligibility from user data (without activating trial)
+     */
     useEffect(() => {
         const checkTrialEligibility = async () => {
             const token = Cookies.get('token');
             if (!token) {
+                // If no token, assume fresh user (eligible for trial) ?? 
+                // Wait, if not logged in, we probably want to show them the trial option to entice them?
+                // The user requirement says: "when user after login go to the packages page then this api will triger"
+                // If not logged in, maybe show trial option by default? The existing code set hasUsedTrial=false (so they see trial).
                 setHasUsedTrial(false);
                 return;
             }
 
             try {
-                // GET request to fetch user data (does NOT activate trial)
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+                // GET request to fetch trial status
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
                     },
                 });
 
+                // Try to parse JSON response
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    // Ignore JSON parse errors
+                }
+
                 if (response.ok) {
-                    const userData = await response.json();
-                    // Check if user has already used the free trial
-                    // Adjust the field name based on your API response
-                    setHasUsedTrial(
-                        userData.trial_used === true ||
-                        userData.trial_used === 1 ||
-                        userData.has_used_trial === true ||
-                        userData.has_used_trial === 1
-                    );
+                    // Status 200-299: Check isExpired flag
+                    // If data is missing for some reason, default to false (safe for 200 OK)
+                    setHasUsedTrial(data?.isExpired === true);
+                } else if (response.status === 403) {
+                    // Status 403: Forbidden usually means trial is already valid/used or user is not allowed.
+                    // The API specifically returns 403 when trial is expired.
+                    // So we treat 403 as "Trial Used".
+                    setHasUsedTrial(true);
                 } else {
-                    // If API returns error, assume trial not used
+                    // Other errors (500, etc): Fail safe default to false (show trial)
                     setHasUsedTrial(false);
                 }
             } catch (error) {
-                console.error('Failed to check trial eligibility:', error);
+                console.error('Failed to check trial eligibility (network error):', error);
                 setHasUsedTrial(false);
             }
         };
