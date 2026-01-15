@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
-import type { SignupFormData } from '@/types/auth';
+import type { SignupFormData, OtpGenerationResponse } from '@/types/auth';
 
 /**
  * OTP Verification Response Type
@@ -260,12 +260,17 @@ export default function VerificationCodePage() {
         }
 
         try {
-            const response = await apiClient.post('/generateOtp', {
+            const response = await apiClient.post<OtpGenerationResponse>('/generateOtp', {
                 mobile_no: userData.phone,
             });
 
             if (response.data.success) {
-                alert('تم إرسال رمز تحقق جديد إلى جوالك.');
+                if (response.data.otp) {
+                    alert(`رمز التحقق الجديد هو: ${response.data.otp}`);
+                    console.log('New OTP:', response.data.otp);
+                } else {
+                    alert('تم إرسال رمز تحقق جديد إلى جوالك.');
+                }
             } else {
                 alert(response.data.message || 'فشل إرسال الرمز. حاول مرة أخرى.');
             }

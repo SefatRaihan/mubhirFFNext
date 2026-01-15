@@ -21,7 +21,10 @@ export default function Navbar() {
             height={500}
             className="h-8 w-8"
           />
-          <Link href="/" className="text-xl font-semibold text-[#1c164e] hover:text-[#91288c] transition">
+          <Link
+            href="/"
+            className="text-xl font-semibold text-[#1c164e] hover:text-[#91288c] transition"
+          >
             مبهر
           </Link>
         </div>
@@ -39,11 +42,36 @@ export default function Navbar() {
 
         {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex items-center gap-6 space-x-reverse font-medium text-sm">
-          <Link href="/ar-sat" className="text-[#1c164e] hover:text-[#91288c] transition">دورات القدرات</Link>
-          <Link href="/ar-sat2" className="text-[#1c164e] hover:text-[#91288c] transition">دورات التحصيلي(قريبا)</Link>
-          <Link href="/ar-aboutUs" className="text-[#1c164e] hover:text-[#91288c] transition">من نحن</Link>
-          <Link href="/ar-contactUs" className="text-[#1c164e] hover:text-[#91288c] transition">اتصل بنا</Link>
-          <Link href="/ar-blog" className="text-[#1c164e] hover:text-[#91288c] transition">المدونة</Link>
+          <Link
+            href="/ar-sat"
+            className="text-[#1c164e] hover:text-[#91288c] transition"
+          >
+            دورات القدرات
+          </Link>
+          <Link
+            href="/ar-sat2"
+            className="text-[#1c164e] hover:text-[#91288c] transition"
+          >
+            دورات التحصيلي(قريبا)
+          </Link>
+          <Link
+            href="/ar-aboutUs"
+            className="text-[#1c164e] hover:text-[#91288c] transition"
+          >
+            من نحن
+          </Link>
+          <Link
+            href="/ar-contactUs"
+            className="text-[#1c164e] hover:text-[#91288c] transition"
+          >
+            اتصل بنا
+          </Link>
+          <Link
+            href="/ar-blog"
+            className="text-[#1c164e] hover:text-[#91288c] transition"
+          >
+            المدونة
+          </Link>
         </div>
 
         {/* Buttons (Desktop) */}
@@ -96,8 +124,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>دورات القدرات
-                </span>
+                <span>دورات القدرات</span>
                 <CircleLeftArrowIcon />
               </Link>
               <Link
@@ -145,12 +172,18 @@ export default function Navbar() {
 
           {/* Bottom Buttons */}
           <div className="p-4 flex gap-3">
-            <Link href={`${process.env.NEXT_PUBLIC_API_CMS_URL}/ar-signup`} className="flex-1">
+            <Link
+              href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/signup`}
+              className="flex-1"
+            >
               <button className="w-full px-6 py-3 rounded-full border border-[#91288c] text-[#91288c] font-medium hover:bg-[#f7ecf9] transition">
                 تسجيل
               </button>
             </Link>
-            <Link href={`${process.env.NEXT_PUBLIC_API_CMS_URL}/ar-login`} className="flex-1">
+            <Link
+              href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`}
+              className="flex-1"
+            >
               <button className="w-full px-6 py-3 rounded-full bg-[#91288c] text-white font-medium hover:bg-[#7d1c79] transition">
                 تسجيل الدخول
               </button>

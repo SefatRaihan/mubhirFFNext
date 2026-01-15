@@ -84,6 +84,12 @@ export default function SignupPage() {
 
             // Check if OTP was generated successfully (API returns 200 with message only)
             if (response.status === 200) {
+                // Check if OTP is returned in response (for development/staging)
+                if (response.data.otp) {
+                    alert(`رمز التحقق هو: ${response.data.otp}`);
+                    console.log('OTP:', response.data.otp);
+                }
+
                 // Navigate to verification page (phone stored in localStorage)
                 router.push('/verification-code');
             } else {

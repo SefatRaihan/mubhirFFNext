@@ -264,7 +264,7 @@ export default function PackagesPage() {
                 {/* Plan Duration Selection */}
                 <div className="mb-6">
                     <h3 className="text-xl font-bold text-black text-center mb-4">
-                        Select your desired plan duration
+                        اختر برامج التحضير للامتحان التي ترغب بها
                     </h3>
                 </div>
 

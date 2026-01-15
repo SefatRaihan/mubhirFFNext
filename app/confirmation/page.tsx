@@ -222,12 +222,12 @@ function ConfirmationContent() {
                                 // Free Trial Layout
                                 <>
                                     <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">5 Day Trial</span>
-                                        <span className="font-semibold">SAR 0.00</span>
+                                        <span className="text-gray-700">تجربة لمدة 5 أيام</span>
+                                        <span className="font-semibold">0.00 ريال سعودي</span>
                                     </div>
                                     <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">After 5 Day Trial</span>
-                                        <span className="font-semibold">SAR {Number(packagePrice).toFixed(2)}*</span>
+                                        <span className="text-gray-700">بعد فترة تجريبية مدتها 5 أيام</span>
+                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي*</span>
                                     </div>
                                 </>
                             ) : (
@@ -235,7 +235,7 @@ function ConfirmationContent() {
                                 <>
                                     <div className="flex justify-between items-center">
                                         <span className="text-gray-700">Total</span>
-                                        <span className="font-semibold">SAR {Number(packagePrice).toFixed(2)}</span>
+                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
                                     </div>
 
                                     {/* Referral Discount (only if coupon applied) */}
@@ -254,7 +254,7 @@ function ConfirmationContent() {
                             {/* Order Total */}
                             <div className="flex justify-between items-center font-bold text-lg">
                                 <span>إجمالي المبلغ المستحق الآن (1)</span>
-                                <span>SAR {isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
+                                <span>{isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
                             </div>
 
                             {/* Note */}

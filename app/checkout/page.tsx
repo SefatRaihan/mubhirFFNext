@@ -171,6 +171,8 @@ export default function CheckoutPage() {
                 formBody.append('grade', formData.secondarySchoolGrade);
                 formBody.append("endpoint", "confirmation");
 
+                // API call commented out as per requirement
+                /*
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${token}` },
@@ -184,6 +186,7 @@ export default function CheckoutPage() {
                     setSubmitting(false);
                     return;
                 }
+                */
 
                 // Save order data to localStorage for confirmation page
                 const orderData = {
@@ -333,7 +336,7 @@ export default function CheckoutPage() {
             `}</style>
 
             {/* Main Container */}
-            <div className="max-w-6xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto  py-8">
 
                 {/* Logo and Header */}
                 <div className="text-center mb-8">
@@ -350,7 +353,7 @@ export default function CheckoutPage() {
                     <h2 className="text-2xl font-bold text-black">الدفع</h2>
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
+                <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-6">
                     {/* Left Column - Form Fields */}
                     <div className="flex-1 space-y-6">
 
@@ -586,11 +589,11 @@ export default function CheckoutPage() {
                                         <>
                                             <div className="flex justify-between items-center">
                                                 <span className="text-gray-700">تجربة لمدة 5 أيام</span>
-                                                <span className="font-semibold">SAR 0.00</span>
+                                                <span className="font-semibold text-[16px]">ريال سعودي 0.00</span>
                                             </div>
                                             <div className="flex justify-between items-center">
-                                                <span className="text-gray-700">After 5 Day Trial</span>
-                                                <span className="font-semibold">SAR {Number(packagePrice).toFixed(2)}*</span>
+                                                <span className="text-gray-700 ">بعد فترة تجريبية مدتها 5 أيام</span>
+                                                <span className="font-semibold text-[16px]">ريال سعودي {Number(packagePrice).toFixed(2)}*</span>
                                             </div>
                                         </>
                                     ) : (
@@ -598,14 +601,14 @@ export default function CheckoutPage() {
                                         <>
                                             <div className="flex justify-between items-center">
                                                 <span className="text-gray-700">Total</span>
-                                                <span className="font-semibold">SAR {Number(packagePrice).toFixed(2)}</span>
+                                                <span className="font-semibold">ريال سعودي {Number(packagePrice).toFixed(2)}</span>
                                             </div>
 
                                             {/* Referral Discount (if coupon applied) */}
                                             {discount > 0 && (
                                                 <div className="flex justify-between items-center text-green-600">
                                                     <span>Referral Discount</span>
-                                                    <span>-SAR {discount.toFixed(2)}</span>
+                                                    <span>-ريال سعودي {discount.toFixed(2)}</span>
                                                 </div>
                                             )}
                                         </>
@@ -615,16 +618,16 @@ export default function CheckoutPage() {
                                     <div className="border-t border-gray-200 my-4"></div>
 
                                     {/* Order Total */}
-                                    <div className="flex justify-between items-center font-bold text-lg">
-                                        <span>{fromTrial ? `Order Total Due Now (1)` : `Order Total (1)`}</span>
-                                        <span>SAR {fromTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
+                                    <div className="flex justify-between items-center font-semibold text-[16px]">
+                                        <span>{fromTrial ? `إجمالي المبلغ المستحق الآن (1)` : `Order Total (1)`}</span>
+                                        <span>ريال سعودي {fromTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)}</span>
                                     </div>
 
                                     {/* Note */}
                                     <p className="text-xs text-gray-500 mt-4">
                                         {fromTrial
                                             ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
-                                            : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
+                                            : `*May be charged ريال سعودي ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
                                     </p>
                                 </div>
                             </div>
