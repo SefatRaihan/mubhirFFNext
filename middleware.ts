@@ -17,7 +17,6 @@ import type { NextRequest } from "next/server";
  * Users must be logged in to access these pages
  */
 const protectedRoutes = [
-  "/packages",
   "/checkout",
   "/confirmation",
   "/dashboard",
