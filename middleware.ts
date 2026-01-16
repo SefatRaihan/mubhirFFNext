@@ -104,8 +104,16 @@ export function middleware(request: NextRequest) {
   /**
    * Scenario 1: User trying to access protected route without authentication
    * Action: Redirect to login page
+   * 
+   * EXCEPTION: Allow /confirmation with tap_id parameter (payment callback)
+   * This allows users returning from payment gateway to access the confirmation page
    */
   if (isProtectedRoute && !authToken) {
+    // Allow /confirmation with tap_id parameter (payment gateway callback)
+    if (pathname === '/confirmation' && request.nextUrl.searchParams.has('tap_id')) {
+      return NextResponse.next();
+    }
+
     const loginUrl = new URL("/login", request.url);
     // Add redirect parameter to send user back after login
     loginUrl.searchParams.set("redirect", pathname);
