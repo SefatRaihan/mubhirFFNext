@@ -370,7 +370,7 @@ export default function Home() {
                 { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
                 { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
                 { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
-              ].map(({ href, Icon, bg, delay }, index) => (
+              ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -379,7 +379,7 @@ export default function Home() {
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <Link href={href}>
+                  <Link href={href} aria-label={ariaLabel}>
                     <div className={`${bg} rounded-full p-2.5 md:p-[8.18px]`}>
                       <Icon />
                     </div>
@@ -397,11 +397,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* AI Based SAT Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
+      < motion.section
+        initial={{ opacity: 0, y: 50 }
+        }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -518,10 +519,10 @@ export default function Home() {
             </AnimatePresence>
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* All in One Place */}
-      <motion.section
+      < motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -549,10 +550,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* Video Section */}
-      <motion.section
+      < motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -613,6 +614,7 @@ export default function Home() {
                   onClick={handlePlayButtonClick}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label="Play video"
                   className="relative bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 sm:p-4 transition-all"
                 >
                   {/* Pulsing ripple effect */}
@@ -654,10 +656,10 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* Pricing */}
-      <motion.section
+      < motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -822,10 +824,10 @@ export default function Home() {
             </div>
           </main>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* Your Questions Answered Section */}
-      <motion.section
+      < motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -897,10 +899,10 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* Review Section */}
-      <motion.section
+      < motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -1019,9 +1021,9 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       <Footer />
-    </div>
+    </div >
   );
 }

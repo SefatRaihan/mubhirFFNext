@@ -96,34 +96,34 @@ export default function ArSat2Page() {
                             className="flex space-x-4"
                             style={{ marginBottom: "60px" }}
                         >
-                            <Link href="https://wa.me/966568876934">
+                            <Link href="https://wa.me/966568876934" aria-label="تواصل معنا عبر واتساب">
                                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                                     <WhatsappIcon />
                                 </div>
                             </Link>
-                            <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==">
+                            <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==" aria-label="تابعنا على إنستغرام">
                                 <div className="rounded-full p-2 md:p-[8.18px] bg-[#C445A6]">
                                     <InstaIcon />
                                 </div>
                             </Link>
-                            <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1">
+                            <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1" aria-label="تابعنا على تيك توك">
                                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                                     <TiktokIcon />
                                 </div>
                             </Link>
-                            <Link href="https://t.me/mubhirai">
+                            <Link href="https://t.me/mubhirai" aria-label="انضم إلينا على تيليجرام">
                                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                                     <TelegramIcon />
                                 </div>
                             </Link>
 
-                            <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09">
+                            <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09" aria-label="تابعنا على إكس (تويتر سابقاً)">
                                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                                     <XIcon />
                                 </div>
                             </Link>
 
-                            <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US">
+                            <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US" aria-label="أضفنا على سناب شات">
                                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                                     <SnapIcon />
                                 </div>
