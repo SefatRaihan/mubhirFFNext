@@ -216,6 +216,11 @@ export default function Home() {
     loadPlans();
   }, []);
 
+  // Set page title
+  useEffect(() => {
+    document.title = 'مبهر - منصة التحضير للقدرات';
+  }, []);
+
   return (
     <div className="bg-white" dir="rtl">
       {/* Hero Section */}
@@ -275,7 +280,7 @@ export default function Home() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300"
+                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
                   >
                     أكتشف الأن
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
@@ -486,7 +491,7 @@ export default function Home() {
                   <div className="mt-3 sm:mt-[14px]">
                     {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                     <Link href="/packages">
-                      <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px]">
+                      <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px] cursor-pointer">
                         <span>ابدأ الأن</span>
                         <span>
                           <CardLeftArrowIcon />
@@ -865,7 +870,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-black font-medium mb-[12px] mt-[32px] text-center"
+            className="text-black font-medium mb-[12px] mt-[32px] text-center cursor-pointer"
           >
             ما زلت لديك أسئلة؟
           </motion.p>

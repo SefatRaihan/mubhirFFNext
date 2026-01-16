@@ -106,6 +106,13 @@ function LoginContent() {
                     secure: true,
                     sameSite: 'Strict',
                 });
+
+                // Set authToken for middleware compatibility
+                Cookies.set('authToken', data.token, {
+                    expires: 1,
+                    secure: true,
+                    sameSite: 'Strict',
+                });
                 if (data.redirect_url) {
                     Cookies.set('redirect_url', data.redirect_url, {
                         expires: 1,
@@ -135,6 +142,7 @@ function LoginContent() {
                 // Redirect logic:
                 // 1. If user has selected a plan → go to checkout
                 // 2. Otherwise → go to packages page to select a plan
+
                 if (selectedPlanCookie) {
                     router.push('/checkout');
                 } else {

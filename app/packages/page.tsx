@@ -162,9 +162,9 @@ export default function PackagesPage() {
     /**
      * Set page title
      */
-    useEffect(() => {
-        document.title = 'مبهر - اختر باقتك';
-    }, []);
+    // useEffect(() => {
+    //     document.title = 'مبهر - اختر باقتك';
+    // }, []);
 
     /**
      * Handle proceed to payment
@@ -195,7 +195,9 @@ export default function PackagesPage() {
         Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
         router.push('/checkout');
     };
-
+    useEffect(() => {
+        document.title = 'مبهر - اختر باقتك';
+    }, []);
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* Main Container */}

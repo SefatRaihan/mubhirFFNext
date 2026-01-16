@@ -4,7 +4,6 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
-import Footer from '@/components/Footer/Footer';
 
 /**
  * Confirmation Page Content Component
@@ -174,7 +173,6 @@ function ConfirmationContent() {
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
         );
     }

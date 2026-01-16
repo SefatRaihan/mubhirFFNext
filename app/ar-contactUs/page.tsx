@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navber/Navbar";
@@ -21,6 +21,11 @@ export default function ArContactUsPage() {
         message: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Set page title
+    useEffect(() => {
+        document.title = 'مبهر - اتصل بنا';
+    }, []);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

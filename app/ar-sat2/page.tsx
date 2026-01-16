@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navber/Navbar";
@@ -14,6 +14,11 @@ import SnapIcon from "@/public/icons/SnapIcon";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
 
 export default function ArSat2Page() {
+    // Set page title
+    useEffect(() => {
+        document.title = 'مبهر - اختبار التحصيلي (قريباً)';
+    }, []);
+
     return (
         <div className="bg-white" dir="rtl">
             {/* Header Section */}
@@ -309,7 +314,7 @@ export default function ArSat2Page() {
                     {/* Contact Us Button */}
                     <div className="mt-14 pb-32 text-center">
                         <Link href="/ar-contactUs">
-                            <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 flex items-center mx-auto">
+                            <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 cursor-pointer flex items-center mx-auto">
                                 اتصل بنا
                                 <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                                     <svg

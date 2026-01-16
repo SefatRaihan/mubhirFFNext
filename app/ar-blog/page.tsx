@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navber/Navbar";
@@ -15,6 +15,11 @@ export default function ArBlogPage() {
     const toggleFaq = (index: number) => {
         setOpenFaq(openFaq === index ? null : index);
     };
+
+    // Set page title
+    useEffect(() => {
+        document.title = 'مبهر - المدونة';
+    }, []);
 
     const faqData = [
         {

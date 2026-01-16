@@ -124,6 +124,11 @@ export default function ArSatPage() {
     loadPlans();
   }, []);
 
+  // Set page title
+  useEffect(() => {
+    document.title = 'مبهر - اختبار القدرات';
+  }, []);
+
   return (
     <div className="bg-white" dir="rtl">
 
@@ -161,7 +166,7 @@ export default function ArSatPage() {
               <div className="relative inline-block">
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                 <Link href="/packages">
-                  <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white">
+                  <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white cursor-pointer">
                     بدء الاستخدام
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                       <LeftArrow />
@@ -387,7 +392,7 @@ export default function ArSatPage() {
           {/* Contact Us Button */}
           <div className="mt-14 text-center">
             <Link href="/ar-contactUs">
-              <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 flex items-center mx-auto">
+              <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 cursor-pointer flex items-center mx-auto">
                 اتصل بنا
                 <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                   <svg
@@ -682,7 +687,7 @@ export default function ArSatPage() {
                 <button
                   key={index}
                   onClick={() => setActiveTab(`tab${index + 1}`)}
-                  className={`py-1 text-center font-medium text-sm sm:text-[18px] border-b-4 transition-colors ${activeTab === `tab${index + 1}`
+                  className={`py-1 text-center font-medium text-sm sm:text-[18px] border-b-4 transition-colors cursor-pointer ${activeTab === `tab${index + 1}`
                     ? 'text-black border-[#4F46F4]'
                     : 'text-[#98A2B3] border-[#D0D5DD]'
                     }`}

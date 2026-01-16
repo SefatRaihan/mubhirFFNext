@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -110,6 +110,10 @@ export default function SignupPage() {
             setIsLoading(false); // Hide loading state
         }
     };
+
+    useEffect(() => {
+        document.title = 'مبهر - إنشاء حساب جديد';
+    }, []);
 
     return (
         <div className="bg-white min-h-screen" dir="rtl">
