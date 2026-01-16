@@ -364,12 +364,12 @@ export default function Home() {
               style={{ marginBottom: "60px" }}
             >
               {[
-                { href: "https://wa.me/966568876934", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
-                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
-                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
-                { href: "https://t.me/mubhirai", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
-                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", Icon: XIcon, bg: "bg-white", delay: 1.7 },
-                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
+                { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
+                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
+                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
+                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
+                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
+                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
               ].map(({ href, Icon, bg, delay }, index) => (
                 <motion.div
                   key={index}
