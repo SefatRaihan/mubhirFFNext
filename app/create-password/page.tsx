@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Form Data Interface
@@ -35,7 +37,7 @@ interface CreatePasswordResponse {
  * Create Password Page Component
  * 
  * Allows users to set their password after successful OTP verification.
- * After password creation, redirects to login page.
+ * After password creation, automatically logs in the user and redirects to packages page.
  */
 export default function CreatePasswordPage() {
     const router = useRouter();
@@ -131,21 +133,89 @@ export default function CreatePasswordPage() {
 
             // Check if request was successful (status 200)
             if (response.status === 200) {
-                // Clear ALL cookies and localStorage to ensure fresh start
-                localStorage.clear();
+                // Password created successfully, now auto-login the user
+                try {
+                    // Prepare login request using FormData (same as login page)
+                    const loginFormData = new FormData();
+                    loginFormData.append('login', mobile_no);
+                    loginFormData.append('password', formData.enterNewPassword);
 
-                // Clear specific cookies that might interfere with new user flow
-                Cookies.remove('selectedPlan');
-                Cookies.remove('fromTrial');
-                Cookies.remove('token');
-                Cookies.remove('user');
-                Cookies.remove('redirect_url');
+                    // Call login API with the credentials
+                    const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
+                        method: 'POST',
+                        body: loginFormData,
+                    });
 
-                // Show success message
-                alert('تم تعيين كلمة المرور بنجاح! يرجى تسجيل الدخول.');
+                    const loginData = await loginResponse.json();
 
-                // Navigate to login page
-                router.push('/login');
+                    if (loginResponse.ok && loginData?.token) {
+                        // Store auth tokens in cookies (same as login page)
+                        Cookies.set('token', loginData.token, {
+                            expires: 1,
+                            secure: true,
+                            sameSite: 'Strict',
+                        });
+                        Cookies.set('authToken', loginData.token, {
+                            expires: 1,
+                            secure: true,
+                            sameSite: 'Strict',
+                        });
+
+                        // Store user data if available
+                        if (loginData.user) {
+                            Cookies.set('user', JSON.stringify(loginData.user), {
+                                expires: 1,
+                                secure: true,
+                                sameSite: 'Strict',
+                            });
+                        }
+
+                        // Store redirect URL if provided
+                        if (loginData.redirect_url) {
+                            Cookies.set('redirect_url', loginData.redirect_url, {
+                                expires: 1,
+                                secure: true,
+                            });
+                        }
+
+                        // Clear signup data from localStorage
+                        localStorage.removeItem('signupData');
+
+                        // Show success toast
+                        toast.success('تم إنشاء الحساب!.', {
+                            position: 'top-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                        });
+
+                        // Redirect to packages page after a short delay
+                        setTimeout(() => {
+                            router.push('/packages');
+                        }, 500);
+                    } else {
+                        // Login failed after password creation
+                        throw new Error(loginData?.message || 'Auto-login failed');
+                    }
+                } catch (loginError: any) {
+                    console.error('Auto-login error:', loginError);
+
+                    // Clear signup data
+                    localStorage.removeItem('signupData');
+
+                    // If auto-login fails, show info toast
+                    toast.info('يرجى المحاولة مرة أخرى', {
+                        position: 'top-right',
+                        autoClose: 3000,
+                    });
+
+                    // Don't redirect to login - let user stay on this page
+                    // setTimeout(() => {
+                    //     router.push('/login');
+                    // }, 500);
+                }
             } else {
                 setErrors((prev) => ({
                     ...prev,
@@ -174,6 +244,20 @@ export default function CreatePasswordPage() {
 
     return (
         <div className="bg-white min-h-screen" dir="rtl">
+            {/* Toast Container for notifications */}
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
             {/* Main Content Container */}
             <div
                 className="text-black m-4 rounded-2xl bg-no-repeat bg-cover"
@@ -278,7 +362,7 @@ export default function CreatePasswordPage() {
                             >
                                 {loading
                                     ? 'جاري الحفظ...'
-                                    : 'قم بتعيين كلمة مرور جديدة وتسجيل الدخول'}
+                                    : 'تعيين كلمة المرور والمتابعة'}
                             </button>
                         </form>
                     </div>
