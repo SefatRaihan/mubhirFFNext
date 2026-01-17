@@ -120,7 +120,7 @@ export interface CheckoutFormData {
     city: string;           // City
     postCode: string;       // Postal code
     dateOfBirth: string;    // Date of birth (collected in checkout)
-    gender: 'male' | 'female'; // Gender (collected in checkout)
+    gender: '' | 'male' | 'female'; // Gender (collected in checkout, empty until selected)
     secondarySchoolGrade: string; // Secondary school grade
 }
 

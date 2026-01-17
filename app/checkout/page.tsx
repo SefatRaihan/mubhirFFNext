@@ -36,7 +36,7 @@ export default function CheckoutPage() {
         city: '',
         postCode: '',
         dateOfBirth: '',
-        gender: 'male',
+        gender: '',
         secondarySchoolGrade: '',
     });
     const [couponCode, setCouponCode] = useState('');
@@ -382,7 +382,7 @@ export default function CheckoutPage() {
 
                             <div className="space-y-4">
                                 {/* First Name & Last Name */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="firstName" className="block mb-1 font-medium text-black">
                                             الاسم الأول*
@@ -411,10 +411,10 @@ export default function CheckoutPage() {
                                             className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Address */}
-                                <div>
+                                {/* <div>
                                     <label htmlFor="address" className="block mb-1 font-medium text-black">
                                         عنوان*
                                     </label>
@@ -427,10 +427,10 @@ export default function CheckoutPage() {
                                         required
                                         className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* City & Post Code */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="city" className="block mb-1 font-medium text-black">
                                             مدينة*
@@ -459,7 +459,7 @@ export default function CheckoutPage() {
                                             className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </section>
 
@@ -482,8 +482,9 @@ export default function CheckoutPage() {
                                             required
                                             className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                         >
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
+                                            <option value="">اختر الجنس</option>
+                                            <option value="male">ذكر</option>
+                                            <option value="female">أنثى</option>
                                         </select>
                                     </div>
                                     <div className="flex flex-col w-full">
@@ -518,10 +519,10 @@ export default function CheckoutPage() {
                                         onChange={handleChange}
                                         className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                     >
-                                        <option value="">Select Grade</option>
-                                        <option value="10th Grade">10th Grade</option>
-                                        <option value="11th Grade">11th Grade</option>
-                                        <option value="12th Grade">12th Grade</option>
+                                        <option value="">حدد الدرجة</option>
+                                        <option value="الصف العاشر">الصف العاشر</option>
+                                        <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+                                        <option value="الصف الثاني عشر">الصف الثاني عشر</option>
                                     </select>
                                 </div>
                             </div>
