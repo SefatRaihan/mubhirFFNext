@@ -611,7 +611,7 @@ export default function CheckoutPage() {
                                     <p className="text-xs text-gray-500 mt-4">
                                         {fromTrial
                                             ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
-                                            : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
+                                            : `*قد يتم خصم ${(Number(packagePrice) - discount).toFixed(2)} ريال سعودي تلقائيًا بعد ${pricingTerms}`}
                                     </p>
                                 </div>
                             </div>
@@ -626,7 +626,12 @@ export default function CheckoutPage() {
                                         className="w-5 h-5 border-gray-300 rounded focus:ring-[#671E5A] cursor-pointer"
                                         style={{ accentColor: '#671E5A' }}
                                     />
-                                    <span className="text-black font-medium">اشتراك متجدد تلقائياً</span>
+                                    <span className="text-black font-medium">
+                                        {fromTrial
+                                            ? 'الاشتراك التلقائي بعد انتهاء الفترة التجريبية'
+                                            : 'اشتراك متجدد تلقائياً'
+                                        }
+                                    </span>
                                 </label>
                             </div>
 
