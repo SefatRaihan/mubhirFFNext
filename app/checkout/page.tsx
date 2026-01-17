@@ -44,6 +44,7 @@ export default function CheckoutPage() {
     const [selectedPlan, setSelectedPlan] = useState<any>(null);
     const [fromTrial, setFromTrial] = useState(false);
     const [dateOfBirthDate, setDateOfBirthDate] = useState<Date | null>(null);
+    const [autoRenew, setAutoRenew] = useState(false); // Auto-renew subscription checkbox
 
     /**
      * Load user data and selected plan
@@ -171,6 +172,7 @@ export default function CheckoutPage() {
                 fromTrial,
                 selectedPlan,
                 discount: fromTrial ? 0 : discount,
+                autoRenew, // TODO: Will be sent to API when auto-renew feature is implemented
                 ...formData,
             };
             localStorage.setItem('checkoutData', JSON.stringify(orderData));
@@ -612,6 +614,20 @@ export default function CheckoutPage() {
                                             : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after ${pricingTerms}`}
                                     </p>
                                 </div>
+                            </div>
+
+                            {/* Auto-Renew Checkbox */}
+                            <div className="mt-6">
+                                <label className="flex justify-start gap-2 cursor-pointer border-2 border-[#671E5A] rounded-lg p-4 hover:bg-gray-50 transition bg-[#FEF6FD]">
+                                    <input
+                                        type="checkbox"
+                                        checked={autoRenew}
+                                        onChange={(e) => setAutoRenew(e.target.checked)}
+                                        className="w-5 h-5 border-gray-300 rounded focus:ring-[#671E5A] cursor-pointer"
+                                        style={{ accentColor: '#671E5A' }}
+                                    />
+                                    <span className="text-black font-medium">اشتراك متجدد تلقائياً</span>
+                                </label>
                             </div>
 
                             {/* Buttons */}
