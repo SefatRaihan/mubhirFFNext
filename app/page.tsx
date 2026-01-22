@@ -216,11 +216,6 @@ export default function Home() {
     loadPlans();
   }, []);
 
-  // Set page title
-  useEffect(() => {
-    document.title = 'مبهر - منصة التحضير للقدرات';
-  }, []);
-
   return (
     <div className="bg-white" dir="rtl">
       {/* Hero Section */}
