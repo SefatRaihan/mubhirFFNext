@@ -311,12 +311,7 @@ export default function BlogDetailsPage() {
                             </div>
                             <div>
                                 <div className="flex flex-wrap gap-2 mb-4">
-                                    {blog.post_category && (
-                                        <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
-                                            {blog.post_category.name}
-                                        </span>
-                                    )}
-                                    {blog.tags && blog.tags.split(',').slice(0, 1).map((tag, index) => (
+                                    {blog.tags && blog.tags.trim() && blog.tags.split(',').map((tag, index) => (
                                         <span key={index} className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
                                             {tag.trim()}
                                         </span>
