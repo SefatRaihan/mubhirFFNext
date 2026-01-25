@@ -42,6 +42,7 @@ interface Author {
     designation: string;
     bio: string;
     image: string;
+    image_url: string;
     created_at: string;
     updated_at: string;
 }
@@ -327,19 +328,11 @@ export default function BlogDetailsPage() {
                         {/* Author Info */}
                         <div className="md:w-1/4 flex flex-col justify-between">
                             <div>
-                                <div className="flex items-center space-x-reverse space-x-3 mb-4">
+                                <div className="flex items-center space-x-3 mb-4">
                                     {(() => {
-                                        let authorImageUrl = "/image/avater1.png";
-
-                                        if (blog.author?.image) {
-                                            // If image is already a full URL (S3 or other), use it directly
-                                            if (blog.author.image.startsWith('http')) {
-                                                authorImageUrl = blog.author.image;
-                                            } else {
-                                                // Use S3 bucket URL pattern (same as blog images)
-                                                authorImageUrl = `https://sat-mubhir-files.s3.me-central-1.amazonaws.com/${blog.author.image}`;
-                                            }
-                                        }
+                                        // Use image_url directly from API response, fallback to default avatar
+                                        const authorImageUrl = blog.author?.image_url || "/image/avater1.png";
+                                        console.log('Author image URL:', authorImageUrl);
 
                                         return (
                                             <Image
@@ -348,6 +341,7 @@ export default function BlogDetailsPage() {
                                                 width={48}
                                                 height={48}
                                                 className="w-12 h-12 rounded-full object-cover"
+                                                unoptimized
                                             />
                                         );
                                     })()}
