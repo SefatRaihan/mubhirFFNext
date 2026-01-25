@@ -35,6 +35,8 @@ interface Blog {
     tags: string;
     published_at: string;
     is_published: boolean;
+    title_image_url: string | null;
+    slug: string;
     views: number;
     post_category: PostCategory;
     blocks: BlogBlock[];
@@ -141,10 +143,22 @@ export default function ArBlogPage() {
     const endIndex = startIndex + blogsPerPage;
     const currentBlogs = filteredBlogs.slice(startIndex, endIndex);
 
-    // Get first image from blog blocks
+    // Get first media (image or video) from blog blocks
     const getFirstImage = (blocks: BlogBlock[]): string => {
-        const imageBlock = blocks.find(block => block.type === "media" && block.file_url);
-        return imageBlock?.file_url || "/image/c1.png"; // Fallback image
+        const mediaBlock = blocks.find(block => block.type === "media" && block.file_url);
+        return mediaBlock?.file_url || "/image/c1.png"; // Fallback image
+    };
+
+    // Get alt text from first media block
+    const getFirstImageAltText = (blocks: BlogBlock[]): string => {
+        const mediaBlock = blocks.find(block => block.type === "media" && block.file_url);
+        return mediaBlock?.alt_text || "صورة المدونة";
+    };
+
+    // Check if media is video
+    const isVideo = (fileType: string | null): boolean => {
+        if (!fileType) return false;
+        return fileType.startsWith('video/') || ['mp4', 'webm', 'ogg', 'mov'].includes(fileType.toLowerCase());
     };
 
     // Format date
@@ -262,32 +276,47 @@ export default function ArBlogPage() {
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                                {currentBlogs.map((blog) => (
-                                    <Link key={blog.id} href={`/ar-blogDetails/${blog.id}`} className="group">
-                                        <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                                            <div className="relative h-[240px] overflow-hidden">
-                                                <Image
-                                                    src={getFirstImage(blog.blocks)}
-                                                    alt={blog.title}
-                                                    width={600}
-                                                    height={240}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                                />
+                                {currentBlogs.map((blog) => {
+                                    // Use title_image_url if available, otherwise fall back to first block
+                                    const firstMediaBlock = blog.blocks.find(block => block.type === "media" && block.file_url);
+                                    const isVideoMedia = !blog.title_image_url && firstMediaBlock && isVideo(firstMediaBlock.file_type);
+
+                                    return (
+                                        <Link key={blog.id} href={`/ar-blog/${blog.slug}`} className="group">
+                                            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                                                <div className="relative h-[240px] overflow-hidden">
+                                                    {isVideoMedia ? (
+                                                        <video
+                                                            src={firstMediaBlock.file_url || ''}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                            muted
+                                                            playsInline
+                                                        />
+                                                    ) : (
+                                                        <Image
+                                                            src={blog.title_image_url || getFirstImage(blog.blocks)}
+                                                            alt={getFirstImageAltText(blog.blocks)}
+                                                            width={600}
+                                                            height={240}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div className="p-5">
+                                                    <span className="inline-block text-xs font-semibold px-3 py-1 bg-[#FFF5F7] text-[#671E5A] rounded-full mb-3">
+                                                        {blog.post_category.name}
+                                                    </span>
+                                                    <h2 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#671e5a] transition-colors">
+                                                        {blog.title}
+                                                    </h2>
+                                                    <span className="text-sm text-gray-500">
+                                                        {formatDate(blog.published_at)} - {calculateReadingTime(blog.blocks)} دقائق للقراءة
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="p-5">
-                                                <span className="inline-block text-xs font-semibold px-3 py-1 bg-[#FFF5F7] text-[#671E5A] rounded-full mb-3">
-                                                    {blog.post_category.name}
-                                                </span>
-                                                <h2 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#671e5a] transition-colors">
-                                                    {blog.title}
-                                                </h2>
-                                                <span className="text-sm text-gray-500">
-                                                    {formatDate(blog.published_at)} - {calculateReadingTime(blog.blocks)} دقائق للقراءة
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                ))}
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
 
@@ -334,7 +363,7 @@ export default function ArBlogPage() {
                                 رحلتك اليوم!
                                 <Image
                                     src="/image/Vector 1.svg"
-                                    alt="underline"
+                                    alt="تسطير"
                                     width={100}
                                     height={8}
                                     className="bottom-0 w-full h-2 -z-10 pointer-events-none"
@@ -350,7 +379,7 @@ export default function ArBlogPage() {
                     <div className="order-last md:order-0 flex justify-center items-center">
                         <Image
                             src="/image/review-cover.png"
-                            alt="طالبة"
+                            alt="صورة طالبة مبتسمة"
                             width={350}
                             height={350}
                             className="h-[350px] object-cover"
