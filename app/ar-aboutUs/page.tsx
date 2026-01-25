@@ -239,30 +239,60 @@ export default function ArAboutUsPage() {
       </header>
 
       {/* Mission Section */}
-      <section className="bg-[#f7e8f5] my-4 md:m-4 rounded-0 md:rounded-2xl">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8 }}
+        className="bg-[#f7e8f5] my-4 md:m-4 rounded-0 md:rounded-2xl"
+      >
         <div className="max-w-5xl mx-auto text-center py-[120px]">
-          <span className="inline-block text-gray-500 text-[16px] font-medium mb-4">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-gray-500 text-[16px] font-medium mb-4"
+          >
             رسالتنا
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6 leading-tight">
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6 leading-tight"
+          >
             مبهر منصة تعليمية احترافية تؤمن بأن لكل طالب الحق في <br /> الوصول
             إلى التميز والنجاح. لهذا السبب، ابتكرنا أقوى
-          </h1>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-gray-800 mt-10 leading-tight">
+          </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-3xl sm:text-4xl font-semibold text-gray-800 mt-10 leading-tight"
+          >
             منصة متقدمة للتحضير لأختبارات القدرات، مدعومة بأحدث <br /> تقنيات
             الذكاء الإصطناعي. نطمح إلى بناء جيل قوي، واع <br />
             ومؤهل لقيادة نهضة المملكة وتطوير مستقبلها، من خلال تعلم ذكي
             <br /> وموجه يساعد الطالب على إتقان اختبار ٍالقدرات بثقة وتميز،{" "}
             <br />
             وتحقيق أعلى الدرجات.
-          </h1>
+          </motion.h1>
         </div>
-      </section>
+      </motion.section>
 
       {/* Why Choose Mubhir Section */}
       <section className="bg-white my-4 md:m-4" style={{ backgroundImage: "url('/image/Vector.svg')" }}>
         <div className="max-w-5xl mx-auto py-[120px]">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight  text-center">
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight  text-center"
+          >
             لماذا تختار
             <span className="relative inline-block pb-2 z-10">
               مبھر
@@ -274,15 +304,28 @@ export default function ArAboutUsPage() {
                 className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-10 pointer-events-none"
               />
             </span>
-          </h1>
-          <p className="mt-3 sm:mt-[12px] text-center text-sm sm:text-base mb-[56px]">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-3 sm:mt-[12px] text-center text-sm sm:text-base mb-[56px]"
+          >
             كل ما تحتاجه للتميز في القدرات العامة يبدأ من هنا...أكتشف أفضل ما
             يميز اختباراتنا الذكية
-          </p>
+          </motion.p>
 
           {/* First Row: 2 Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            >
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
@@ -301,9 +344,16 @@ export default function ArAboutUsPage() {
                   لتمنحك تجربة تدريبية واقعية ومتكاملة.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            >
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
@@ -322,12 +372,19 @@ export default function ArAboutUsPage() {
                   محاكية، تساعدك على الفهم، التطبيق، والتفوق في اختبار القدرات
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Second Row: 3 Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            >
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
@@ -346,9 +403,16 @@ export default function ArAboutUsPage() {
                   للدرجة التي ستحصل عليها في الأختبار النهائي.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            >
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
@@ -367,9 +431,16 @@ export default function ArAboutUsPage() {
                   ومتخصصين
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            >
               <span className="text-blue-500">
                 <Image
                   className="w-8 h-8"
@@ -387,7 +458,7 @@ export default function ArAboutUsPage() {
                   يمكنك مع مبهر أن تتدرب من أي مكان، من أي جهاز، في أي وقت.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
@@ -405,10 +476,21 @@ export default function ArAboutUsPage() {
       </section>
 
       {/* Founder Statement Section */}
-      <section className="bg-[#F2F4F7] my-4 md:m-4 rounded-0 md:rounded-2xl">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+        className="bg-[#F2F4F7] my-4 md:m-4 rounded-0 md:rounded-2xl"
+      >
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center py-[120px]">
           {/* Right Side: Heading and Description */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
               تعرف على مؤسس منصة مبهر
             </h1>
@@ -416,10 +498,16 @@ export default function ArAboutUsPage() {
               نؤمن بأن لكل طالب طموح، هناك درجة يستحقها و نحن هنا لنساعدك على
               الوصول إليها
             </p>
-          </div>
+          </motion.div>
 
           {/* Left Side: Testimonial Card */}
-          <div className="bg-white rounded-lg p-6 shadow-md flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-lg p-6 shadow-md flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4"
+          >
             <div className="w-full md:w-1/2 h-[300px] md:h-[430px] bg-gray-200 rounded-lg"></div>
             <div className="w-full md:w-1/2 text-right self-start">
               <p className="text-gray-600 text-xs sm:text-sm mb-4 italic">
@@ -438,9 +526,9 @@ export default function ArAboutUsPage() {
                 مؤسس منصة مبهر
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ Section */}
       <section className="bg-[#eaecf0] flex justify-center m-4 rounded-2xl">
