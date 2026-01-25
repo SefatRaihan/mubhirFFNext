@@ -16,6 +16,7 @@ import LeftArrow from "@/public/icons/LeftArrow";
 import CircleCorrectIcon from "@/public/icons/CircleCorrectIcon";
 import CorrectIcon from "@/public/icons/CorrectIcon";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
+import { motion } from "framer-motion";
 
 interface PricingPlan {
   id: number;
@@ -138,128 +139,176 @@ export default function ArSatPage() {
         <div className="p-4">
           {/* Hero Section */}
           <div className="relative text-center mt-16 md:mt-[128px]">
-            <div className="flex justify-center space-x-4 md:space-x-0 mb-4 md:mb-0">
-              <span className="transform rotate-15 md:rotate-25 md:absolute md:right-40 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
+            <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
+              <motion.span
+                initial={{ opacity: 0, scale: 0, rotate: -15 }}
+                animate={{ opacity: 1, scale: 1, rotate: -15 }}
+                transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
+                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+              >
                 #سؤال
-              </span>
-              <span className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md">
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, scale: 0, rotate: 15 }}
+                animate={{ opacity: 1, scale: 1, rotate: 15 }}
+                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
+                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+              >
                 #قدرات
-              </span>
+              </motion.span>
             </div>
 
-            <h1 className="text-4xl md:text-[76px] font-bold md:leading-[95px] leading-[44px]">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+              className="text-4xl md:text-[76px] font-bold md:leading-[95px] leading-[44px]"
+            >
               نجاحك الحقيقي في
               <br />
               القدرات يبدأ بخطوة نحو
               <br />
               التميز
-            </h1>
+            </motion.h1>
 
-            <p className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+              className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
+            >
               نطلق العنان لك لتعيش تجربة تعليمية فريدة تمكنك من اجتياز اختبارات
               القدرات بذكاء وتميز، باستخدام أساليب تعليمية متطورة. تعلم بذكاء،
               واصنع نجاحك بنفسك، تحت إشراف نخبة من أكفأ المدربين المتخصصين،
               وتوجيه مستمر ودعم فعال يساعدك على تحقيق أعلى النتائج بثقة وتمّيز.
-            </p>
+            </motion.p>
 
-            <div className="mt-6 flex justify-center items-center space-x-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+            >
               <div className="relative inline-block">
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                 <Link href="/packages">
-                  <button className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white cursor-pointer">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
+                  >
                     بدء الاستخدام
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                       <LeftArrow />
                     </span>
-                  </button>
+                  </motion.button>
                 </Link>
                 <Image
                   src="/image/bitcoin2.png"
-                  className="absolute right-36 md:left-33 top-7"
+                  className="absolute right-32 md:right-33 top-6"
                   alt=""
                   width={50}
                   height={50}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Social Section */}
           <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
-            <div className="flex items-center space-x-2 space-x-reverse mb-0 md:mb-[48px]">
-              <div className="flex -space-x-2">
-                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+            >
+              <div className="flex -space-x-2 mb-4 md:mb-0">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                >
                   <Image
                     src="/image/Image-28.png"
                     alt=""
                     width={55}
                     height={55}
                   />
-                </div>
-                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 1.2, type: "spring", stiffness: 200 }}
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                >
                   <Image
                     src="/image/Image-29.png"
                     alt=""
                     width={55}
                     height={55}
                   />
-                </div>
-                <div className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                >
                   <Image
                     src="/image/Image-30.png"
                     alt=""
                     width={55}
                     height={55}
                   />
-                </div>
+                </motion.div>
               </div>
-              <span className="px-2 font-semibold text-base md:text-[20px]">
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+                className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
+              >
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
-              </span>
-            </div>
-            <div
-              className="flex space-x-4"
+              </motion.span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
               style={{ marginBottom: "60px" }}
             >
-              <Link href="https://wa.me/966568876934" aria-label="تواصل معنا عبر واتساب">
-                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
-                  <WhatsappIcon />
-                </div>
-              </Link>
-              <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==" aria-label="تابعنا على إنستغرام">
-                <div className="rounded-full p-2 md:p-[8.18px] bg-[#C445A6]">
-                  <InstaIcon />
-                </div>
-              </Link>
-              <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1" aria-label="تابعنا على تيك توك">
-                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
-                  <TiktokIcon />
-                </div>
-              </Link>
-              <Link href="https://t.me/mubhirai" aria-label="انضم إلينا على تيليجرام">
-                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
-                  <TelegramIcon />
-                </div>
-              </Link>
-
-              <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09" aria-label="تابعنا على إكس (تويتر سابقاً)">
-                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
-                  <XIcon />
-                </div>
-              </Link>
-
-              <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US" aria-label="أضفنا على سناب شات">
-                <div className="bg-white rounded-full p-2 md:p-[8.18px]">
-                  <SnapIcon />
-                </div>
-              </Link>
-            </div>
+              {[
+                { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
+                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
+                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
+                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
+                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
+                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
+              ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay, type: "spring", stiffness: 200 }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Link href={href} aria-label={ariaLabel}>
+                    <div className={`${bg} rounded-full p-2.5 md:p-[8.18px]`}>
+                      <Icon />
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
-      </header>
+      </header >
 
       {/* We help Section */}
-      <section className="font-sans text-gray-900 bg-[#F7E8F5]  my-4 md:m-4 rounded-0 md:rounded-2xl">
+      < section className="font-sans text-gray-900 bg-[#F7E8F5]  my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="max-w-7xl mx-auto py-[120px]">
           <h1 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
             نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
@@ -325,10 +374,10 @@ export default function ArSatPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* All in one place Section */}
-      <section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl">
+      < section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
@@ -426,11 +475,12 @@ export default function ArSatPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* All exam Section */}
-      <section className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
-        style={{ backgroundImage: "url('/image/Vector.svg')" }}
+      < section className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
+        style={{ backgroundImage: "url('/image/Vector.svg')" }
+        }
       >
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
@@ -665,10 +715,10 @@ export default function ArSatPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* How Mubhir helps Section */}
-      <section className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl">
+      < section className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="mx-auto max-w-[610px] space-y-4">
@@ -882,7 +932,7 @@ export default function ArSatPage() {
             </div>
           )}
         </div>
-      </section>
+      </section >
 
       {/* Pricing */}
       < section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
@@ -976,7 +1026,7 @@ export default function ArSatPage() {
       </section >
 
       {/* CTA Section */}
-      <section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl">
+      < section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
@@ -1010,9 +1060,9 @@ export default function ArSatPage() {
             />
           </div>
         </div>
-      </section>
+      </section >
 
       <Footer />
-    </div>
+    </div >
   );
 }
