@@ -415,7 +415,7 @@ export default function BlogDetailsPage() {
 
                     {/* Render blocks with grouped media carousels */}
                     {(() => {
-                        const renderedElements: JSX.Element[] = [];
+                        const renderedElements: React.ReactElement[] = [];
                         let i = 0;
 
                         while (i < blog.blocks.length) {
