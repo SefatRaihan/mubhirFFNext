@@ -253,20 +253,36 @@ export default function ArContactUsPage() {
             <section className="mx-auto max-w-6xl shadow-sm overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                     {/* Right: Contact Info Cards */}
-                    <div className="lg:col-span-5 border-t lg:border-t-0 p-6 sm:p-10 flex flex-col">
-                        <header className="mb-8">
-                            {/* <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
-                                نموذج الاتصال
-                            </h1> */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="lg:col-span-5 border-t lg:border-t-0 p-6 sm:p-10 flex flex-col"
+                    >
+                        <motion.header
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="mb-8"
+                        >
                             <h1 className="text-4xl font-bold text-gray-900 mb-2">
                                 نموذج الاتصال
                             </h1>
                             <p className="text-gray-500">نحن نحب أن يَسمع فريقنا منك!</p>
-                        </header>
+                        </motion.header>
 
                         <div className="space-y-5">
                             {/* Twitter (X) card */}
-                            <div className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4">
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                whileHover={{ scale: 1.02, x: -5 }}
+                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                            >
                                 <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
                                     <svg
                                         viewBox="0 0 24 24"
@@ -283,10 +299,17 @@ export default function ArContactUsPage() {
                                         Twitter إلى انتقل
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Email card */}
-                            <div className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4">
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.4 }}
+                                whileHover={{ scale: 1.02, x: -5 }}
+                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                            >
                                 <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
                                     <svg
                                         viewBox="0 0 24 24"
@@ -308,10 +331,17 @@ export default function ArContactUsPage() {
                                         info@mubhir.ai
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Phone card */}
-                            <div className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4">
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.5 }}
+                                whileHover={{ scale: 1.02, x: -5 }}
+                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                            >
                                 <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
                                     <svg
                                         viewBox="0 0 24 24"
@@ -333,15 +363,34 @@ export default function ArContactUsPage() {
                                         +966 568876934
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Left: Form */}
-                    <div className="lg:col-span-7 p-6 sm:p-10">
-                        <form onSubmit={handleSubmit} className="mt-2 space-y-6">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="lg:col-span-7 p-6 sm:p-10"
+                    >
+                        <motion.form
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            onSubmit={handleSubmit}
+                            className="mt-2 space-y-6"
+                        >
                             {/* Full name */}
-                            <label className="block">
+                            <motion.label
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                className="block"
+                            >
                                 <span className="block text-gray-700 font-medium mb-2">
                                     الاسم الكامل <span className="text-purple-700">*</span>
                                 </span>
@@ -354,10 +403,16 @@ export default function ArContactUsPage() {
                                     onChange={handleInputChange}
                                     className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
                                 />
-                            </label>
+                            </motion.label>
 
                             {/* Email */}
-                            <label className="block">
+                            <motion.label
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.4 }}
+                                className="block"
+                            >
                                 <span className="block text-gray-700 font-medium mb-2">
                                     البريد الإلكتروني <span className="text-purple-700">*</span>
                                 </span>
@@ -370,10 +425,16 @@ export default function ArContactUsPage() {
                                     onChange={handleInputChange}
                                     className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
                                 />
-                            </label>
+                            </motion.label>
 
                             {/* Phone (with country selector) */}
-                            <label className="block">
+                            <motion.label
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.5 }}
+                                className="block"
+                            >
                                 <span className="block text-gray-700 font-medium mb-2">
                                     الجوال <span className="text-purple-700">*</span>
                                 </span>
@@ -400,10 +461,16 @@ export default function ArContactUsPage() {
                                         </div>
                                     </div>
                                 </div>
-                            </label>
+                            </motion.label>
 
                             {/* Message */}
-                            <label className="block">
+                            <motion.label
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.6 }}
+                                className="block"
+                            >
                                 <span className="block text-gray-700 font-medium mb-2">
                                     رسالة <span className="text-purple-700">*</span>
                                 </span>
@@ -416,10 +483,16 @@ export default function ArContactUsPage() {
                                     onChange={handleInputChange}
                                     className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400 resize-none"
                                 ></textarea>
-                            </label>
+                            </motion.label>
 
                             {/* Bottom bar button */}
-                            <div className="mt-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.7 }}
+                                className="mt-8"
+                            >
                                 <div className="no-hover relative w-full rounded-full bg-[#671E5A]">
                                     <button
                                         type="submit"
@@ -446,9 +519,9 @@ export default function ArContactUsPage() {
                                         </span>
                                     </button>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </motion.div>
+                        </motion.form>
+                    </motion.div>
                 </div>
             </section>
 
