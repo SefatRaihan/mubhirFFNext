@@ -239,9 +239,21 @@ export default function ArSat2Page() {
             </header >
 
             {/* We Help Section */}
-            < section className="font-sans text-gray-900 bg-[#f7e8f5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl" >
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8 }}
+                className="font-sans text-gray-900 bg-[#f7e8f5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl"
+            >
                 <div className="max-w-7xl mx-auto px-4">
-                    <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
+                    >
                         نحن نساعد جميع الطلاب في <br />
                         <span className="relative inline-block pb-2">
                             المملكة العربية
@@ -254,15 +266,28 @@ export default function ArSat2Page() {
                             />
                         </span>
                         السعودية
-                    </h1>
-                    <p className="text-sm text-gray-500 mt-1 text-center">
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="text-sm text-gray-500 mt-1 text-center"
+                    >
                         تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
                         وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br />
                         بأقصر وأفضل طريقة
-                    </p>
+                    </motion.p>
 
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 mb-[120px]">
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=stationery.png"
@@ -277,9 +302,16 @@ export default function ArSat2Page() {
                                     يتعامل الذكاء الاصطناعي لدينا مع كليهما بسلاسة.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=saturn.png"
@@ -294,9 +326,16 @@ export default function ArSat2Page() {
                                     الطالب ويتنبأ بدرجة تقريبية لمستواه.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=book-03.png"
@@ -313,29 +352,54 @@ export default function ArSat2Page() {
                                     تحسينها.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section >
+            </motion.section>
 
             {/* All in One Place Section */}
-            < section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl" >
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8 }}
+                className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl"
+            >
                 <div className="max-w-7xl mx-auto px-4 pt-8">
                     {/* Header (Centered) */}
                     <div className="text-center">
-                        <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
+                        >
                             ما هو مشمول في اختبار التحصيلي
-                        </h1>
-                        <p className="text-sm text-gray-500 mt-4">
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="text-sm text-gray-500 mt-4"
+                        >
                             تم تصميم اختبار تحصيلي للطلاب الذين يستعدون لاختبار التقييم الدراسي
                             (قدرات) ، والذي يغطي على وجه التحديد:
-                        </p>
+                        </motion.p>
                     </div>
 
                     {/* Main Content */}
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Card 1 - Math */}
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <div className="order-1">
                                 <Image
                                     src="/image/arabic_content/mathematics.jpg"
@@ -352,10 +416,17 @@ export default function ArSat2Page() {
                                     بثقة وبخطوات واضحة
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Card 2 - Chemistry */}
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <div className="order-3">
                                 <Image
                                     src="/image/arabic_content/chemistry.jpg"
@@ -372,10 +443,17 @@ export default function ArSat2Page() {
                                     تساعدك تتقن أسئلة التحصيلي بسرعة
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Card 3 - Physics */}
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <div className="order-1">
                                 <Image
                                     src="/image/arabic_content/physics.jpg"
@@ -393,10 +471,17 @@ export default function ArSat2Page() {
                                     يساعدك تفهم بدل ما تحفظ
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Card 4 - Biology */}
-                        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        >
                             <div className="order-3">
                                 <Image
                                     src="/image/arabic_content/neighborhoods.jpg"
@@ -413,11 +498,17 @@ export default function ArSat2Page() {
                                     الحقيقي وتزيد فرصك لدرجة أعلى
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Contact Us Button */}
-                    <div className="mt-14 pb-32 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="mt-14 pb-32 text-center"
+                    >
                         <Link href="/ar-contactUs">
                             <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 cursor-pointer flex items-center mx-auto">
                                 اتصل بنا
@@ -451,9 +542,9 @@ export default function ArSat2Page() {
                                 </span>
                             </button>
                         </Link>
-                    </div>
+                    </motion.div>
                 </div>
-            </section >
+            </motion.section>
 
 
             {/* Pricing Section */}
