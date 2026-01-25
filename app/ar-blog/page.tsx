@@ -293,13 +293,15 @@ export default function ArBlogPage() {
 
                         {/* Pagination */}
                         {!loading && totalBlogs > 0 && (
-                            <div className="flex justify-center items-center gap-4 mb-12">
+                            <div className="flex justify-center items-center gap-2 mb-12">
                                 <button
                                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                                     disabled={currentPage === 1}
                                     className={`${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                 >
-                                    <PagiRightArrowIcon />
+                                    <div className={`transition-transform duration-200 ${currentPage === 1 ? 'scale-90' : 'scale-100'}`}>
+                                        <PagiRightArrowIcon />
+                                    </div>
                                 </button>
                                 <div className="px-6 py-2">
                                     <span className="text-sm font-medium text-[#671E5A]">
@@ -311,7 +313,9 @@ export default function ArBlogPage() {
                                     disabled={currentPage === totalPages}
                                     className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                 >
-                                    <PagiLeftArrowIcon />
+                                    <div className={`transition-transform duration-200 ${currentPage === totalPages ? 'scale-90' : 'scale-100'}`}>
+                                        <PagiLeftArrowIcon />
+                                    </div>
                                 </button>
                             </div>
                         )}
