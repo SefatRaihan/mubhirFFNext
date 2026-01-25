@@ -60,6 +60,19 @@ interface Blog {
     post_category: PostCategory;
     author: Author;
     blocks: BlogBlock[];
+    seo?: SEO;
+}
+
+interface SEO {
+    page_title: string;
+    meta_description: string;
+    og_title: string;
+    og_description: string | null;
+    og_image_url: string | null;
+    twitter_card_type: string;
+    twitter_title: string | null;
+    twitter_description: string | null;
+    twitter_image_url: string | null;
 }
 
 interface RelatedBlog {
@@ -205,6 +218,45 @@ export default function BlogDetailsPage() {
         }));
     };
 
+
+    // Update meta tags for SEO
+    useEffect(() => {
+        if (blog && blog.seo) {
+            // Update title
+            document.title = blog.seo.page_title || blog.title;
+
+            // Update or create meta tags
+            const updateMetaTag = (name: string, content: string, isProperty = false) => {
+                const attribute = isProperty ? 'property' : 'name';
+                let element = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
+
+                if (!element) {
+                    element = document.createElement('meta');
+                    element.setAttribute(attribute, name);
+                    document.head.appendChild(element);
+                }
+                element.content = content;
+            };
+
+            // Basic meta tags
+            updateMetaTag('description', blog.seo.meta_description || blog.title);
+
+            // Open Graph tags
+            updateMetaTag('og:type', 'article', true);
+            updateMetaTag('og:title', blog.seo.og_title || blog.title, true);
+            updateMetaTag('og:description', blog.seo.og_description || blog.seo.meta_description || blog.title, true);
+            updateMetaTag('og:image', blog.seo.og_image_url || blog.title_image_url || '', true);
+            updateMetaTag('og:url', shareUrl, true);
+            updateMetaTag('og:site_name', 'مبهر', true);
+
+            // Twitter Card tags
+            updateMetaTag('twitter:card', blog.seo.twitter_card_type || 'summary_large_image');
+            updateMetaTag('twitter:title', blog.seo.twitter_title || blog.seo.og_title || blog.title);
+            updateMetaTag('twitter:description', blog.seo.twitter_description || blog.seo.meta_description || blog.title);
+            updateMetaTag('twitter:image', blog.seo.twitter_image_url || blog.seo.og_image_url || blog.title_image_url || '');
+        }
+    }, [blog, shareUrl]);
+
     if (loading) {
         return (
             <div className="bg-white font-sans min-h-screen flex items-center justify-center" dir="rtl">
@@ -220,6 +272,7 @@ export default function BlogDetailsPage() {
             </div>
         );
     }
+
 
     return (
         <div className="bg-white font-sans" dir="rtl">
