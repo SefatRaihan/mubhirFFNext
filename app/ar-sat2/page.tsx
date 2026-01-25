@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navber/Navbar";
@@ -14,10 +14,79 @@ import SnapIcon from "@/public/icons/SnapIcon";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
 import { motion } from "framer-motion";
 
+interface PricingPlan {
+    id: number;
+    title: string;
+    title_ar: string;
+    description: string;
+    description_ar: string;
+    price: string;
+    price_display: string;
+    pricing_terms: string;
+    pricing_terms_ar: string;
+    terms_per_month: string;
+    terms_ar: string;
+    promotional_badge?: number;
+    features: string[];
+}
+
 export default function ArSat2Page() {
+    const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+
     // Set page title
     useEffect(() => {
         document.title = 'مبهر - اختبار التحصيلي (قريباً)';
+    }, []);
+
+    // Fetch pricing plans
+    useEffect(() => {
+        const loadPlans = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`, { cache: 'no-store' });
+                const json = await res.json();
+
+                if (json?.status === 'success' && Array.isArray(json.data)) {
+                    const features = [
+                        'الوصول إلى أسئلة تدريب قدرات.',
+                        'تقارير مرحلية أسبوعية لتتبع التحسن.',
+                        'قم بإجراء امتحانات التدريب بناء على أي مزيج من اللفظي / الكتابي والكمي',
+                        'دعم 24/7 للإجابة على أسئلتك.',
+                    ];
+
+                    const titleTranslations: Record<string, string> = {
+                        'Monthly Plan': 'الباقة الشهرية',
+                        '3 Months Plan': 'خطة ٣ أشهر',
+                        '6 Months Plan': 'خطة ٦ أشهر',
+                        'Yearly Plan': 'الباقة السنوية',
+                    };
+
+                    const descriptionTranslations: Record<string, string> = {
+                        'Perfect for starting your journey': 'استكشف بالسرعة التي تناسبك',
+                        'Ideal for focused preparation': 'مثالي لمواسم الامتحانات',
+                        'Best for comprehensive prep': 'التنافس على أعلى المستويات',
+                        'Maximum value for long-term': 'إتقان وتيرة قدرات',
+                    };
+
+                    const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d)]);
+
+                    const plans = json.data.slice(0, 4).map((plan: any) => ({
+                        ...plan,
+                        title_ar: titleTranslations[plan.title] || plan.title,
+                        description_ar: descriptionTranslations[plan.description] || plan.description,
+                        price_display: toArabicDigits(String(plan.price ?? '')),
+                        pricing_terms_ar: plan.pricing_terms,
+                        terms_ar: 'لكل مستخدم شهريا',
+                        features,
+                    }));
+
+                    setPricingPlans(plans);
+                }
+            } catch (error) {
+                console.error('Failed to load packages:', error);
+            }
+        };
+
+        loadPlans();
     }, []);
 
     return (
@@ -385,6 +454,174 @@ export default function ArSat2Page() {
                     </div>
                 </div>
             </section >
+
+
+            {/* Pricing Section */}
+            <motion.section
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
+            >
+                <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
+                    >
+                        أسعار مرنة لكل طالب يبغي يتفوق في القدرات
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                        className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base"
+                    >
+                        اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
+                    </motion.p>
+
+                    <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
+                        <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+                            {pricingPlans.map((plan, index) => (
+                                <motion.div
+                                    key={plan.id}
+                                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 0.6,
+                                        delay: index * 0.15,
+                                        ease: "easeOut"
+                                    }}
+                                    whileHover={{
+                                        y: -12,
+                                        scale: 1.03,
+                                        boxShadow: "0 25px 50px -12px rgba(103, 30, 90, 0.25)",
+                                        transition: { duration: 0.3 }
+                                    }}
+                                    className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col cursor-pointer"
+                                    style={{ transformStyle: "preserve-3d" }}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <motion.h3
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+                                            className="text-[18px] font-semibold"
+                                        >
+                                            {plan.title_ar}
+                                        </motion.h3>
+                                        {plan.promotional_badge != null && plan.promotional_badge > 0 && (
+                                            <motion.span
+                                                initial={{ opacity: 0, scale: 0 }}
+                                                whileInView={{ opacity: 1, scale: 1 }}
+                                                viewport={{ once: true }}
+                                                transition={{
+                                                    duration: 0.5,
+                                                    delay: index * 0.15 + 0.3,
+                                                    type: "spring",
+                                                    stiffness: 200,
+                                                    scale: {
+                                                        duration: 2,
+                                                        repeat: Infinity,
+                                                        repeatDelay: 1
+                                                    }
+                                                }}
+                                                animate={{
+                                                    scale: [1, 1.1, 1],
+                                                }}
+                                                className="text-white text-xs font-semibold px-3 py-1 rounded-full"
+                                                style={{ backgroundColor: '#C445A6' }}
+                                            >
+                                                وفر {plan.promotional_badge}%
+                                            </motion.span>
+                                        )}
+                                    </div>
+                                    <motion.p
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
+                                        className="text-sm text-gray-500 mb-4"
+                                    >
+                                        {plan.description_ar}
+                                    </motion.p>
+                                    <motion.p
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{
+                                            duration: 0.5,
+                                            delay: index * 0.15 + 0.4,
+                                            type: "spring",
+                                            stiffness: 150
+                                        }}
+                                        className="text-3xl font-bold text-[#671E5A]"
+                                    >
+                                        {plan.price_display}
+                                        <span className="text-3xl font-bold text-[#671E5A] pr-2">ر.س</span>
+                                    </motion.p>
+                                    <motion.p
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: index * 0.15 + 0.5 }}
+                                        className="text-xs mb-6 border-b border-[#D9D9D9] pb-[12px]"
+                                    >
+                                        {plan.terms_ar}
+                                    </motion.p>
+                                    <ul className="space-y-3 mb-6 grow">
+                                        {plan.features && plan.features.map((feature, idx) => (
+                                            <motion.li
+                                                key={idx}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{
+                                                    duration: 0.4,
+                                                    delay: index * 0.15 + 0.6 + (idx * 0.1)
+                                                }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <motion.span
+                                                    whileHover={{ scale: 1.2, rotate: 360 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="w-4 h-4 bg-[#671E5b] rounded-full flex items-center justify-center shrink-0"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                        <path d="M2.5 5.99994L5 8.49994L10 3.49994" stroke="white" strokeWidth="1.125" strokeLinejoin="round" />
+                                                    </svg>
+                                                </motion.span>
+                                                <span className="text-[14px] font-bold text-gray-700">{feature}</span>
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                    <Link href="/packages">
+                                        <motion.button
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group"
+                                        >
+                                            <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+                                            <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                                                ابدأ {plan.title_ar}
+                                            </span>
+                                        </motion.button>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </main>
+                </div>
+            </motion.section>
 
             <Footer />
         </div >
