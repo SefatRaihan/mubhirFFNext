@@ -4,6 +4,8 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Confirmation Page Content Component
@@ -124,6 +126,31 @@ function ConfirmationContent() {
             router.push('/');
         }
     };
+
+    /**
+     * Auto-redirect after 5 seconds on success
+     */
+    useEffect(() => {
+        if (success && !loading) {
+            // Show success toast with redirect message
+            toast.success('تم تفعيل اشتراكك بنجاح! 🎉\nسيتم توجيهك تلقائيًا خلال 5 ثوانٍ...', {
+                position: 'top-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                rtl: true,
+            });
+
+            // Auto-redirect after 5 seconds
+            const timer = setTimeout(() => {
+                handleGoToMubhir();
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [success, loading]);
 
     // Loading state
     if (loading) {
@@ -263,46 +290,11 @@ function ConfirmationContent() {
                             </p>
                         </div>
                     </div>
-
-                    {/* Contact Information */}
-                    <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
-                        <h3 className="text-lg font-semibold text-black mb-3">معلومات الاتصال</h3>
-                        <div className="space-y-1 text-gray-700">
-                            <p>{userData?.email || orderData?.email || 'N/A'}</p>
-                            <p>{userData?.phone || orderData?.phone || 'N/A'}</p>
-                        </div>
-                    </div>
-
-                    {/* Billing Information */}
-                    <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
-                        <h3 className="text-lg font-semibold text-black mb-3">معلومات الفواتير</h3>
-                        <div className="space-y-1 text-gray-700">
-                            <p>{userData?.first_name || orderData?.firstName} {userData?.last_name || orderData?.lastName}</p>
-                            <p>{userData?.city || orderData?.city || 'N/A'} - {userData?.post_code || orderData?.postCode || 'N/A'}, Saudi Arabia</p>
-                            <p>{userData?.address || orderData?.address || 'N/A'}</p>
-                        </div>
-                    </div>
-
-                    {/* Student Profile Information */}
-                    <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
-                        <h3 className="text-lg font-semibold text-black mb-3">معلومات الملف الشخصي للطالب</h3>
-                        <div className="space-y-1 text-gray-700">
-                            <p>الجنس: {userData?.gender || orderData?.gender || 'Male'}</p>
-                            <p>تاريخ الميلاد:  {userData?.date_of_birth || orderData?.dateOfBirth || 'N/A'}</p>
-                            <p>المرحلة الثانوية: {userData?.secondary_school_grade || orderData?.secondarySchoolGrade || '11th Grade'}</p>
-                        </div>
-                    </div>
-
-                    {/* Go to Mubhir Button */}
-                    <button
-                        type="button"
-                        onClick={handleGoToMubhir}
-                        className="w-full bg-[#7a2060] text-white py-3 rounded-full font-semibold hover:bg-[#5a1848] transition-colors"
-                    >
-                        اذهب إلى مبهير
-                    </button>
                 </div>
             </div>
+
+            {/* Toast Container */}
+            <ToastContainer />
         </div>
     );
 }
