@@ -180,18 +180,19 @@ export default function CheckoutPage() {
             // Prepare form data for /cms/tap/pay API
             const payload = new FormData();
             payload.append('package_id', selectedPlan?.id || '0');
-            payload.append('amount', selectedPlan?.price || '0');
+            // payload.append('amount', selectedPlan?.price || '0');
             payload.append('first_name', formData.firstName);
             payload.append('last_name', formData.lastName);
             payload.append('email', formData.email);
             payload.append('phone', formData.phone);
-            payload.append('address', formData.address);
-            payload.append('city', formData.city);
-            payload.append('post_code', formData.postCode);
+            // payload.append('address', formData.address);
+            // payload.append('city', formData.city);
+            // payload.append('post_code', formData.postCode);
             payload.append('date_of_birth', formData.dateOfBirth);
             payload.append('gender', formData.gender);
             payload.append('grade', formData.secondarySchoolGrade);
             payload.append('endpoint', 'confirmation');
+            payload.append('is_auto_subscribe', '1');
 
             // Call /cms/tap/pay API for both free trial and paid flows
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
@@ -203,7 +204,13 @@ export default function CheckoutPage() {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message || 'فشل إنشاء الدفع');
+                // Show detailed error message from API
+                const errorMsg = data.errors
+                    ? Object.entries(data.errors).map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`).join('\n')
+                    : data.message || 'فشل إنشاء الدفع';
+
+                console.error('API Error Response:', data);
+                alert(`خطأ في الدفع:\n${errorMsg}`);
                 setSubmitting(false);
                 return;
             }
