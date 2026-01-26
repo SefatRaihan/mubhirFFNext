@@ -25,8 +25,9 @@ const protectedRoutes = [
 /**
  * Authentication Routes - Redirect if Already Logged In
  * Logged-in users will be redirected away from these pages
+ * NOTE: Removed /login and /signup to allow authenticated users to access these pages
  */
-const authRoutes = ["/login", "/signup"];
+const authRoutes: string[] = [];
 
 /**
  * Public Routes - Always Accessible
