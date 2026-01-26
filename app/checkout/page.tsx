@@ -624,7 +624,7 @@ export default function CheckoutPage() {
                             </div>
 
                             {/* Auto-Renew Checkbox */}
-                            <div className="mt-6">
+                            {/* <div className="mt-6">
                                 <label className="flex justify-start gap-2 cursor-pointer border-2 border-[#671E5A] rounded-lg p-4 hover:bg-gray-50 transition bg-[#FEF6FD]">
                                     <input
                                         type="checkbox"
@@ -640,7 +640,7 @@ export default function CheckoutPage() {
                                         }
                                     </span>
                                 </label>
-                            </div>
+                            </div> */}
 
                             {/* Buttons */}
                             <div className="space-y-3 mt-6">
