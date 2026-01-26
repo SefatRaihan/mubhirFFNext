@@ -211,6 +211,14 @@ function ConfirmationContent() {
     const discount = orderData?.discount || 0;
     const couponApplied = discount > 0;
 
+    // Helper function to convert gender to Arabic
+    const getGenderInArabic = (gender: string) => {
+        const genderLower = gender?.toLowerCase();
+        if (genderLower === 'male' || genderLower === 'ذكر') return 'ذكر';
+        if (genderLower === 'female' || genderLower === 'أنثى') return 'أنثى';
+        return gender || 'N/A';
+    };
+
     return (
         <div className="bg-white min-h-screen" dir='rtl'>
             <div
@@ -288,6 +296,25 @@ function ConfirmationContent() {
                                     ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
                                     : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after subscription period`}
                             </p>
+                        </div>
+                    </div>
+
+                    {/* Contact Information */}
+                    <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
+                        <h3 className="text-lg font-semibold text-black mb-3">معلومات الاتصال</h3>
+                        <div className="space-y-1 text-gray-700">
+                            <p>{userData?.email || orderData?.email || 'N/A'}</p>
+                            <p>{userData?.phone || orderData?.phone || 'N/A'}</p>
+                        </div>
+                    </div>
+
+                    {/* Student Profile Information */}
+                    <div className="bg-[#F9FAFB] rounded-3xl border border-[#EAECF0] p-6 mb-6">
+                        <h3 className="text-lg font-semibold text-black mb-3">معلومات الملف الشخصي للطالب</h3>
+                        <div className="space-y-1 text-gray-700">
+                            <p>الجنس: {getGenderInArabic(userData?.gender || orderData?.gender)}</p>
+                            <p>تاريخ الميلاد: {userData?.date_of_birth || orderData?.dateOfBirth || 'N/A'}</p>
+                            <p>المرحلة الثانوية: {userData?.secondary_school_grade || orderData?.secondarySchoolGrade || '11th Grade'}</p>
                         </div>
                     </div>
                 </div>
