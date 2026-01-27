@@ -171,7 +171,7 @@ export default function CheckoutPage() {
             const orderData = {
                 fromTrial,
                 selectedPlan,
-                discount: fromTrial ? 0 : discount,
+                discount,
                 autoRenew, // TODO: Will be sent to API when auto-renew feature is implemented
                 ...formData,
             };
@@ -543,7 +543,7 @@ export default function CheckoutPage() {
                     <div className="w-full lg:w-96 space-y-6">
 
                         {/* Coupon Code */}
-                        <section className={`bg-white border border-gray-200 rounded-lg p-6 ${fromTrial ? 'opacity-50 pointer-events-none' : ''}`}>
+                        <section className="bg-white border border-gray-200 rounded-lg p-6">
                             <h3 className="text-lg font-bold text-black mb-2">رمز القسيمة</h3>
                             <p className="text-sm text-gray-600 mb-4">أدخل الرمز</p>
                             <div className="flex gap-2">
@@ -551,14 +551,12 @@ export default function CheckoutPage() {
                                     type="text"
                                     value={couponCode}
                                     onChange={(e) => setCouponCode(e.target.value)}
-                                    disabled={fromTrial}
-                                    className="flex-1 bg-white border border-gray-300 rounded px-1 py-1 focus:outline-none focus:ring-2 focus:ring-[#7A2060] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                    className="flex-1 bg-white border border-gray-300 rounded px-1 py-1 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                 />
                                 <button
                                     type="button"
                                     onClick={handleApplyCoupon}
-                                    disabled={fromTrial}
-                                    className="px-6 py-2 border border-[#7A2060] text-[#7A2060] rounded-full hover:bg-[#7A2060] hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-6 py-2 border border-[#7A2060] text-[#7A2060] rounded-full hover:bg-[#7A2060] hover:text-white transition"
                                 >
                                     تطبيق الكود
                                 </button>
@@ -587,6 +585,13 @@ export default function CheckoutPage() {
                                                 <span className="text-gray-700">بعد فترة تجربة لمدة ٣ أيام</span>
                                                 <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي*</span>
                                             </div>
+                                            {/* Referral Discount for Trial (if coupon applied) */}
+                                            {discount > 0 && (
+                                                <div className="flex justify-between items-center text-green-600">
+                                                    <span>خصم الإحالة</span>
+                                                    <span>-{discount.toFixed(2)} ريال سعودي</span>
+                                                </div>
+                                            )}
                                         </>
                                     ) : (
                                         /* Paid Package Layout */
@@ -614,6 +619,14 @@ export default function CheckoutPage() {
                                         <span>{fromTrial ? `إجمالي المبلغ المستحق الآن (1)` : `إجمالي الطلب (1)`}</span>
                                         <span>{fromTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
                                     </div>
+
+                                    {/* After Trial Total (if trial and discount applied) */}
+                                    {fromTrial && discount > 0 && (
+                                        <div className="flex justify-between items-center font-semibold text-[16px] text-green-600">
+                                            <span>المبلغ بعد التجربة (مع الخصم)</span>
+                                            <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
+                                        </div>
+                                    )}
 
                                     {/* Note */}
                                     <p className="text-xs text-gray-500 mt-4">
