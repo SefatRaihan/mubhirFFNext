@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import type { CheckoutFormData } from '@/types/auth';
 
 /**
@@ -141,14 +142,73 @@ export default function CheckoutPage() {
             return;
         }
 
+        if (!selectedPlan?.id) {
+            alert('الرجاء اختيار باقة أولاً');
+            return;
+        }
+
         try {
             const token = Cookies.get('token');
-            // Call API to validate coupon (placeholder - adjust based on actual API)
-            // For now, simulate a 10 SAR discount
-            setDiscount(10);
-            alert('تم تطبيق القسيمة بنجاح!');
-        } catch (error) {
-            alert('رمز القسيمة غير صالح');
+
+            // Log input values
+            console.log('🎟️ Applying Coupon:');
+            console.log('  - Coupon Code:', couponCode.trim());
+            console.log('  - Package ID:', selectedPlan.id);
+            console.log('  - Package Title:', selectedPlan.title_ar || selectedPlan.title_en);
+
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('discount_code', couponCode.trim());
+            formData.append('package_id', selectedPlan.id.toString());
+
+            console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_URL}/apply-discount`);
+
+            // Call apply-discount API
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/apply-discount`,
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            console.log('📥 API Response:', response.data);
+
+            // Check if API returned discount amount
+            // Response structure: {success: true, data: {discount_amount: 22.35, ...}}
+            if (response.data?.success && response.data?.data?.discount_amount) {
+                const discountData = response.data.data;
+                console.log('✅ Discount applied successfully!');
+                console.log('  - Discount Code:', discountData.discount_code);
+                console.log('  - Discount Type:', discountData.discount_type);
+                console.log('  - Discount Value:', discountData.discount_value);
+                console.log('  - Discount Amount:', discountData.discount_amount, 'SAR');
+                console.log('  - Final Amount:', discountData.final_amount, 'SAR');
+
+                setDiscount(Number(discountData.discount_amount));
+                alert('تم تطبيق القسيمة بنجاح!');
+            } else if (response.data?.discount) {
+                // Fallback for different response format
+                console.log('✅ Discount applied:', response.data.discount, 'SAR');
+                setDiscount(Number(response.data.discount));
+                alert('تم تطبيق القسيمة بنجاح!');
+            } else if (response.data?.discount_amount) {
+                // Another fallback
+                console.log('✅ Discount applied:', response.data.discount_amount, 'SAR');
+                setDiscount(Number(response.data.discount_amount));
+                alert('تم تطبيق القسيمة بنجاح!');
+            } else {
+                console.log('⚠️ No discount amount in response, but request succeeded');
+                console.log('Response data:', response.data);
+                alert('تم تطبيق القسيمة بنجاح!');
+            }
+        } catch (error: any) {
+            console.error('❌ Coupon application error:', error);
+            console.error('Error response:', error.response?.data);
+            const errorMessage = error.response?.data?.message || error.response?.data?.error || 'رمز القسيمة غير صالح';
+            alert(errorMessage);
         }
     };
 
