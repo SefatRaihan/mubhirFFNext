@@ -161,11 +161,11 @@ export default function CheckoutPage() {
             formData.append('discount_code', couponCode.trim());
             formData.append('package_id', selectedPlan.id.toString());
 
-            console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_URL}/apply-discount`);
+            console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`);
 
             // Call apply-discount API
             const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/apply-discount`,
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`,
                 formData,
                 {
                     headers: {
