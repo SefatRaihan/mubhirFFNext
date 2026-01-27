@@ -519,19 +519,20 @@ export default function CheckoutPage() {
                                 {/* Secondary School Grade */}
                                 <div>
                                     <label htmlFor="secondarySchoolGrade" className="block mb-1 font-medium text-black">
-                                        المرحلة الثانوية
+                                        المرحلة الثانوية*
                                     </label>
                                     <select
                                         id="secondarySchoolGrade"
                                         name="secondarySchoolGrade"
                                         value={formData.secondarySchoolGrade}
                                         onChange={handleChange}
+                                        required
                                         className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                     >
                                         <option value="">حدد الدرجة</option>
-                                        <option value="الصف العاشر">الصف العاشر</option>
-                                        <option value="الصف الحادي عشر">الصف الحادي عشر</option>
-                                        <option value="الصف الثاني عشر">الصف الثاني عشر</option>
+                                        <option value="اول ثانوي">اول ثانوي</option>
+                                        <option value="ثاني ثانوي">ثاني ثانوي</option>
+                                        <option value="ثالث ثانوي">ثالث ثانوي</option>
                                     </select>
                                 </div>
                             </div>
