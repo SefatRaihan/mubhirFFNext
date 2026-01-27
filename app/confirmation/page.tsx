@@ -255,13 +255,20 @@ function ConfirmationContent() {
                                 // Free Trial Layout
                                 <>
                                     <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">تجربة لمدة 5 أيام</span>
+                                        <span className="text-gray-700">تجربة لمدة ٣ أيام</span>
                                         <span className="font-semibold">0.00 ريال سعودي</span>
                                     </div>
                                     <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">بعد فترة تجريبية مدتها 5 أيام</span>
+                                        <span className="text-gray-700">بعد فترة تجربة لمدة ٣ أيام</span>
                                         <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي*</span>
                                     </div>
+                                    {/* Referral Discount for Trial (if coupon applied) */}
+                                    {couponApplied && (
+                                        <div className="flex justify-between items-center text-green-600">
+                                            <span>خصم الإحالة</span>
+                                            <span>-{discount.toFixed(2)} ريال سعودي</span>
+                                        </div>
+                                    )}
                                 </>
                             ) : (
                                 // Paid Subscription Layout
@@ -290,6 +297,14 @@ function ConfirmationContent() {
                                 <span>{isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
                             </div>
 
+                            {/* After Trial Total (if trial and discount applied) */}
+                            {isTrial && couponApplied && (
+                                <div className="flex justify-between items-center font-bold text-lg text-green-600">
+                                    <span>المبلغ بعد التجربة (مع الخصم)</span>
+                                    <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
+                                </div>
+                            )}
+
                             {/* Note */}
                             <p className="text-xs text-gray-500 mt-4">
                                 {isTrial
@@ -314,7 +329,7 @@ function ConfirmationContent() {
                         <div className="space-y-1 text-gray-700">
                             <p>الجنس: {getGenderInArabic(userData?.gender || orderData?.gender)}</p>
                             <p>تاريخ الميلاد: {userData?.date_of_birth || orderData?.dateOfBirth || 'N/A'}</p>
-                            <p>المرحلة الثانوية: {userData?.secondary_school_grade || orderData?.secondarySchoolGrade || '11th Grade'}</p>
+                            <p>المرحلة الثانوية: {userData?.grade || userData?.secondary_school_grade || orderData?.secondarySchoolGrade || 'N/A'}</p>
                         </div>
                     </div>
                 </div>
