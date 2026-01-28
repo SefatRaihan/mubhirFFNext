@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewModal from "@/components/ReviewModal";
+import axios from "axios";
 
 interface PricingPlan {
   id: number;
@@ -38,13 +39,60 @@ interface PricingPlan {
   features: string[];
 }
 
+interface Review {
+  id: number;
+  reviewer_name: string;
+  reviewer_avatar: string | null;
+  rating: number;
+  content: string;
+  date_submitted: string;
+}
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState('tab1');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [reviewsError, setReviewsError] = useState<string | null>(null);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const playButtonRef = useRef<HTMLDivElement>(null);
+
+  // Fetch reviews from API
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setReviewsLoading(true);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/review-list`
+        );
+
+        if (response.data.status && response.data.data) {
+          setReviews(response.data.data);
+          setReviewsError(null);
+        } else {
+          setReviewsError('Failed to load reviews');
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+        setReviewsError('Failed to load reviews');
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
+  // Handle pagination dot click
+  const handleDotClick = (dotIndex: number) => {
+    setCurrentReviewIndex(dotIndex * 4);
+  };
+
+  // Calculate total number of pages (dots)
+  const totalPages = Math.ceil(reviews.length / 4);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -958,75 +1006,125 @@ export default function Home() {
 
             {/* Testimonials Grid */}
             <div className="relative z-30 mt-4 lg:mt-10">
-              <div className="flex flex-col lg:flex-row justify-center gap-5">
-                {[
-                  { name: "عبد المحسن الغامدي", review: "ما شاء الله الموقع سهل ومريح" },
-                  { name: "عبدالله", review: "اول مره أشوف موقع فيه كل هذي المميزات ما شاء الله." },
-                  { name: "رهف", review: "المقاطع مفيده وكنت انتظر موقع زي كذا من اول" },
-                  { name: "هيفاء أحمد", review: "الاختبارات كانت مفيده لكن اللي استفدت منه اكثر أنهم متجاوبين مع اسئلتي" }
-                ].map((testimonial, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.15,
-                      ease: "easeOut"
-                    }}
-                    whileHover={{
-                      y: -10,
-                      scale: 1.05,
-                      boxShadow: "0 20px 40px -10px rgba(122, 31, 104, 0.3)",
-                      transition: { duration: 0.3 }
-                    }}
-                    className="bg-white text-[#2B1A2F] rounded-[28px] w-full max-w-[340px] mx-auto p-7 shadow-lg cursor-pointer"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    <div className="flex gap-1 text-[#7A1F68] mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <motion.svg
-                          key={i}
-                          initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 0.5,
-                            delay: index * 0.15 + 0.3 + (i * 0.1),
-                            type: "spring",
-                            stiffness: 200
-                          }}
-                          whileHover={{ scale: 1.2, rotate: 360 }}
-                          className="w-5 h-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.07 3.29a1 1 0 0 0 .95.69h3.46c.97 0 1.37 1.24.59 1.81l-2.8 2.03a1 1 0 0 0-.36 1.12l1.07 3.29c.3.92-.75 1.69-1.54 1.12l-2.8-2.03a1 1 0 0 0-1.18 0l-2.8 2.03c-.78.57-1.84-.2-1.54-1.12l1.07-3.29a1 1 0 0 0-.36-1.12L2.98 8.72c-.78-.57-.38-1.81.59-1.81h3.46a1 1 0 0 0 .95-.69l1.07-3.29z" />
-                        </motion.svg>
-                      ))}
+              <div className="flex flex-col lg:flex-row justify-start gap-5">
+                {reviewsLoading ? (
+                  // Loading skeleton
+                  [...Array(4)].map((_, index) => (
+                    <div
+                      key={index}
+                      className="bg-white/50 animate-pulse rounded-[28px] w-full max-w-[340px] p-7 shadow-lg"
+                    >
+                      <div className="flex gap-1 mb-3">
+                        {[...Array(5)].map((_, i) => (
+                          <div key={i} className="w-5 h-5 bg-gray-300 rounded"></div>
+                        ))}
+                      </div>
+                      <div className="h-6 bg-gray-300 rounded mb-2 w-3/4"></div>
+                      <div className="h-16 bg-gray-300 rounded"></div>
                     </div>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
-                      className="font-bold mb-2"
+                  ))
+                ) : reviewsError ? (
+                  // Error state
+                  <div className="text-center text-white py-10">
+                    <p>{reviewsError}</p>
+                  </div>
+                ) : reviews.length === 0 ? (
+                  // Empty state
+                  <div className="text-center text-white py-10">
+                    <p>لا توجد تعليقات حالياً</p>
+                  </div>
+                ) : (
+                  // Display reviews (4 at a time with rotation)
+                  reviews.slice(currentReviewIndex, currentReviewIndex + 4).map((review, index) => (
+                    <motion.div
+                      key={review.id}
+                      initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: index * 0.15,
+                        ease: "easeOut"
+                      }}
+                      whileHover={{
+                        y: -10,
+                        scale: 1.05,
+                        boxShadow: "0 20px 40px -10px rgba(122, 31, 104, 0.3)",
+                        transition: { duration: 0.3 }
+                      }}
+                      className="bg-white text-[#2B1A2F] rounded-[28px] w-full max-w-[340px] p-7 shadow-lg cursor-pointer"
+                      style={{ transformStyle: "preserve-3d" }}
                     >
-                      {testimonial.name}
-                    </motion.p>
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.15 + 1 }}
-                      className="text-[15px] leading-relaxed text-[#3A2A40]"
-                    >
-                      {testimonial.review}
-                    </motion.p>
-                  </motion.div>
-                ))}
+                      {/* Star Rating */}
+                      <div className="flex gap-1 text-[#7A1F68] mb-3">
+                        {[...Array(5)].map((_, i) => (
+                          <motion.svg
+                            key={i}
+                            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                            viewport={{ once: true }}
+                            transition={{
+                              duration: 0.5,
+                              delay: index * 0.15 + 0.3 + (i * 0.1),
+                              type: "spring",
+                              stiffness: 200
+                            }}
+                            whileHover={{ scale: 1.2, rotate: 360 }}
+                            className="w-5 h-5"
+                            viewBox="0 0 20 20"
+                            fill={i < review.rating ? "currentColor" : "none"}
+                            stroke={i < review.rating ? "currentColor" : "#e5e7eb"}
+                            strokeWidth={i < review.rating ? "0" : "1"}
+                          >
+                            <path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.07 3.29a1 1 0 0 0 .95.69h3.46c.97 0 1.37 1.24.59 1.81l-2.8 2.03a1 1 0 0 0-.36 1.12l1.07 3.29c.3.92-.75 1.69-1.54 1.12l-2.8-2.03a1 1 0 0 0-1.18 0l-2.8 2.03c-.78.57-1.84-.2-1.54-1.12l1.07-3.29a1 1 0 0 0-.36-1.12L2.98 8.72c-.78-.57-.38-1.81.59-1.81h3.46a1 1 0 0 0 .95-.69l1.07-3.29z" />
+                          </motion.svg>
+                        ))}
+                      </div>
+
+                      {/* Reviewer Name */}
+                      <motion.p
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
+                        className="font-bold mb-2"
+                      >
+                        {review.reviewer_name}
+                      </motion.p>
+
+                      {/* Review Content */}
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.15 + 1 }}
+                        className="text-[15px] leading-relaxed text-[#3A2A40]"
+                      >
+                        {review.content}
+                      </motion.p>
+                    </motion.div>
+                  ))
+                )}
               </div>
+
+              {/* Pagination Dots */}
+              {!reviewsLoading && !reviewsError && reviews.length > 4 && (
+                <div className="flex justify-center gap-3 mt-8">
+                  {[...Array(totalPages)].map((_, dotIndex) => (
+                    <motion.button
+                      key={dotIndex}
+                      onClick={() => handleDotClick(dotIndex)}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${Math.floor(currentReviewIndex / 4) === dotIndex
+                        ? 'bg-white w-8'
+                        : 'bg-white/50 hover:bg-white/75'
+                        }`}
+                      aria-label={`Go to page ${dotIndex + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Mobile Portrait */}
