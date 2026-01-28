@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 interface ReviewModalProps {
     isOpen: boolean;
@@ -13,8 +14,9 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
     const [rating, setRating] = useState(0);
     const [message, setMessage] = useState('');
     const [errors, setErrors] = useState<{ name?: string; rating?: string; message?: string }>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Validation
@@ -28,15 +30,60 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
             return;
         }
 
-        // Submit the review (log to console for now)
-        console.log('Review submitted:', { name, rating, message });
+        setIsSubmitting(true);
 
-        // Reset form and close modal
-        setName('');
-        setRating(0);
-        setMessage('');
-        setErrors({});
-        onClose();
+        try {
+            // Prepare request data
+            const requestData = {
+                reviewer_name: name,
+                rating: rating,
+                content: message,
+            };
+
+            const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/review-store`;
+
+            // Log request details
+            console.log('=== Review Submission Started ===');
+            console.log('Endpoint:', endpoint);
+            console.log('Request Data:', requestData);
+
+            // Submit the review to API
+            const response = await axios.post(endpoint, requestData);
+
+            // Log response details
+            console.log('Response Status:', response.status);
+            console.log('Response Data:', response.data);
+
+            if (response.data.status) {
+                console.log('✅ Review submitted successfully!');
+                console.log('Review ID:', response.data.data?.id);
+                console.log('Message:', response.data.message);
+                alert('تم إرسال تعليقك بنجاح! سيتم مراجعته قريباً.');
+
+                // Reset form and close modal
+                setName('');
+                setRating(0);
+                setMessage('');
+                setErrors({});
+                onClose();
+            } else {
+                console.error('❌ Review submission failed');
+                console.error('Response:', response.data);
+                alert('حدث خطأ أثناء إرسال التعليق. يرجى المحاولة مرة أخرى.');
+            }
+        } catch (error) {
+            console.error('=== Error submitting review ===');
+            console.error('Error:', error);
+            if (axios.isAxiosError(error)) {
+                console.error('Response Status:', error.response?.status);
+                console.error('Response Data:', error.response?.data);
+                console.error('Request Config:', error.config);
+            }
+            alert('حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
+        } finally {
+            setIsSubmitting(false);
+            console.log('=== Review Submission Ended ===');
+        }
     };
 
     const ratingChanged = (newRating: number) => {
@@ -165,22 +212,31 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                                 </motion.button> */}
                                 <motion.button
                                     type="submit"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }} className='w-full flex items-center justify-between text-white pr-6 pl-1 py-1 rounded-full disabled:opacity-50 bg-[#671E5A]'>
-                                    اترك تعليقًا
+                                    disabled={isSubmitting}
+                                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                                    className='w-full flex items-center justify-between text-white pr-6 pl-1 py-1 rounded-full disabled:opacity-50 bg-[#671E5A]'>
+                                    {isSubmitting ? 'جارٍ الإرسال...' : 'اترك تعليقًا'}
                                     <span className="shrink-0 size-12 grid place-items-center bg-white text-[#671E5A] rounded-full">
-                                        <svg
-                                            width="22"
-                                            height="22"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            aria-hidden="true"
-                                        >
-                                            <path d="M15 5l7 7-7 7"></path>
-                                            <path d="M22 12H3"></path>
-                                        </svg>
+                                        {isSubmitting ? (
+                                            <svg className="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                        ) : (
+                                            <svg
+                                                width="22"
+                                                height="22"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M15 5l7 7-7 7"></path>
+                                                <path d="M22 12H3"></path>
+                                            </svg>
+                                        )}
                                     </span>
                                 </motion.button>
                             </form>
