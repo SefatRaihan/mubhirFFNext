@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/ar-aboutUs/page": "app/ar-aboutUs/page.js",
+  "/ar-blog/[slug]/page": "app/ar-blog/[slug]/page.js",
+  "/ar-blog/page": "app/ar-blog/page.js",
+  "/ar-contactUs/page": "app/ar-contactUs/page.js",
+  "/ar-sat/page": "app/ar-sat/page.js",
+  "/ar-sat2/page": "app/ar-sat2/page.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/confirmation/page": "app/confirmation/page.js",
+  "/create-password/page": "app/create-password/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
+  "/maintenance/page": "app/maintenance/page.js",
+  "/packages/page": "app/packages/page.js",
+  "/page": "app/page.js",
+  "/password-reset/page": "app/password-reset/page.js",
+  "/reset-code/page": "app/reset-code/page.js",
+  "/reset-password/page": "app/reset-password/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/verification-code/page": "app/verification-code/page.js"
+}

@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/ar-aboutUs/page": "/ar-aboutUs",
+  "/ar-blog/[slug]/page": "/ar-blog/[slug]",
+  "/ar-blog/page": "/ar-blog",
+  "/ar-contactUs/page": "/ar-contactUs",
+  "/ar-sat/page": "/ar-sat",
+  "/ar-sat2/page": "/ar-sat2",
+  "/checkout/page": "/checkout",
+  "/confirmation/page": "/confirmation",
+  "/create-password/page": "/create-password",
+  "/favicon.ico/route": "/favicon.ico",
+  "/login/page": "/login",
+  "/maintenance/page": "/maintenance",
+  "/packages/page": "/packages",
+  "/page": "/",
+  "/password-reset/page": "/password-reset",
+  "/reset-code/page": "/reset-code",
+  "/reset-password/page": "/reset-password",
+  "/signup/page": "/signup",
+  "/verification-code/page": "/verification-code"
+}

@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/ar-sat2/layout,_N_T_/ar-sat2/page,_N_T_/ar-sat2"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/ar-sat2/__PAGE__",
+    "/ar-sat2",
+    "/_index",
+    "/_head"
+  ]
+}
