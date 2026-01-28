@@ -9,6 +9,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import type { CheckoutFormData } from '@/types/auth';
 
 /**
@@ -42,6 +44,7 @@ export default function CheckoutPage() {
     });
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(0);
+    const [discountId, setDiscountId] = useState<number | null>(null);
     const [selectedPlan, setSelectedPlan] = useState<any>(null);
     const [fromTrial, setFromTrial] = useState(false);
     const [dateOfBirthDate, setDateOfBirthDate] = useState<Date | null>(null);
@@ -138,12 +141,12 @@ export default function CheckoutPage() {
      */
     const handleApplyCoupon = async () => {
         if (!couponCode.trim()) {
-            alert('الرجاء إدخال رمز القسيمة');
+            toast.error('الرجاء إدخال رمز القسيمة', { position: 'top-right', autoClose: 2000 });
             return;
         }
 
         if (!selectedPlan?.id) {
-            alert('الرجاء اختيار باقة أولاً');
+            toast.error('الرجاء اختيار باقة أولاً', { position: 'top-right', autoClose: 2000 });
             return;
         }
 
@@ -151,17 +154,17 @@ export default function CheckoutPage() {
             const token = Cookies.get('token');
 
             // Log input values
-            console.log('🎟️ Applying Coupon:');
-            console.log('  - Coupon Code:', couponCode.trim());
-            console.log('  - Package ID:', selectedPlan.id);
-            console.log('  - Package Title:', selectedPlan.title_ar || selectedPlan.title_en);
+            // console.log('🎟️ Applying Coupon:');
+            // console.log('  - Coupon Code:', couponCode.trim());
+            // console.log('  - Package ID:', selectedPlan.id);
+            // console.log('  - Package Title:', selectedPlan.title_ar || selectedPlan.title_en);
 
             // Prepare form data
             const formData = new FormData();
             formData.append('discount_code', couponCode.trim());
             formData.append('package_id', selectedPlan.id.toString());
 
-            console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`);
+            // console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`);
 
             // Call apply-discount API
             const response = await axios.post(
@@ -174,41 +177,45 @@ export default function CheckoutPage() {
                 }
             );
 
-            console.log('📥 API Response:', response.data);
+            // console.log('📥 API Response:', response.data);
 
             // Check if API returned discount amount
-            // Response structure: {success: true, data: {discount_amount: 22.35, ...}}
+            // Response structure: {success: true, data: {discount_id: 3, discount_amount: 22.35, ...}}
             if (response.data?.success && response.data?.data?.discount_amount) {
                 const discountData = response.data.data;
-                console.log('✅ Discount applied successfully!');
-                console.log('  - Discount Code:', discountData.discount_code);
-                console.log('  - Discount Type:', discountData.discount_type);
-                console.log('  - Discount Value:', discountData.discount_value);
-                console.log('  - Discount Amount:', discountData.discount_amount, 'SAR');
-                console.log('  - Final Amount:', discountData.final_amount, 'SAR');
+                // console.log('✅ Discount applied successfully!');
+                // console.log('  - Discount ID:', discountData.discount_id);
+                // console.log('  - Discount Code:', discountData.discount_code);
+                // console.log('  - Discount Type:', discountData.discount_type);
+                // console.log('  - Discount Value:', discountData.discount_value);
+                // console.log('  - Discount Amount:', discountData.discount_amount, 'SAR');
+                // console.log('  - Final Amount:', discountData.final_amount, 'SAR');
 
                 setDiscount(Number(discountData.discount_amount));
-                alert('تم تطبيق القسيمة بنجاح!');
+                setDiscountId(discountData.discount_id || null);
+                toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else if (response.data?.discount) {
                 // Fallback for different response format
-                console.log('✅ Discount applied:', response.data.discount, 'SAR');
+                // console.log('✅ Discount applied:', response.data.discount, 'SAR');
                 setDiscount(Number(response.data.discount));
-                alert('تم تطبيق القسيمة بنجاح!');
+                setDiscountId(response.data.discount_id || null);
+                toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else if (response.data?.discount_amount) {
                 // Another fallback
-                console.log('✅ Discount applied:', response.data.discount_amount, 'SAR');
+                // console.log('✅ Discount applied:', response.data.discount_amount, 'SAR');
                 setDiscount(Number(response.data.discount_amount));
-                alert('تم تطبيق القسيمة بنجاح!');
+                setDiscountId(response.data.discount_id || null);
+                toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else {
-                console.log('⚠️ No discount amount in response, but request succeeded');
-                console.log('Response data:', response.data);
-                alert('تم تطبيق القسيمة بنجاح!');
+                // console.log('⚠️ No discount amount in response, but request succeeded');
+                // console.log('Response data:', response.data);
+                toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             }
         } catch (error: any) {
             console.error('❌ Coupon application error:', error);
             console.error('Error response:', error.response?.data);
             const errorMessage = error.response?.data?.message || error.response?.data?.error || 'رمز القسيمة غير صالح';
-            alert(errorMessage);
+            toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
         }
     };
 
@@ -253,6 +260,16 @@ export default function CheckoutPage() {
             payload.append('grade', formData.secondarySchoolGrade);
             payload.append('endpoint', 'confirmation');
             payload.append('is_auto_subscribe', '1');
+
+            // Add discount information if coupon was applied
+            if (discountId !== null && discount > 0) {
+                payload.append('discount_id', discountId.toString());
+                payload.append('discount_amount', discount.toString());
+                // console.log('💰 Including discount in payment:', {
+                //     discount_id: discountId,
+                //     discount_amount: discount
+                // });
+            }
 
             // Call /cms/tap/pay API for both free trial and paid flows
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
@@ -313,6 +330,9 @@ export default function CheckoutPage() {
 
     return (
         <div className="bg-white min-h-screen" dir="rtl">
+            {/* Toast Notification Container */}
+            <ToastContainer rtl={true} />
+
             {/* Custom styles for react-datepicker */}
             <style jsx global>{`
                 .custom-datepicker {
