@@ -902,7 +902,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden bg-[#691d5e] my-4 md:m-4 rounded-0 md:rounded-2xl text-white  pt-12 md:pt-20"
+        className="relative overflow-hidden bg-[#691d5e] my-4 md:m-4 rounded-0 md:rounded-2xl text-white pt-12 md:pt-20"
       >
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pb-24 pb-0">
           {/* Desktop Portrait (Overlay) */}
@@ -917,22 +917,48 @@ export default function Home() {
           </motion.div>
 
           {/* Content Grid */}
-          <div className="relative z-20 flex flex-col lg:grid lg:grid-cols-12 gap-6 md:gap-10">
-            {/* Title Section */}
-            <div className="lg:col-span-6">
-              <motion.h1
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="text-[28px] md:text-5xl font-semibold mb-10 text-center lg:text-right"
-              >
-                آراء طلابنا
-              </motion.h1>
+          <div className="relative z-20">
+            {/* Title and Button - Positioned on Right */}
+            <div className="flex justify-center lg:justify-start mb-8">
+              <div className="relative z-30">
+                <motion.h1
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-[28px] md:text-5xl font-semibold mb-6 text-center lg:text-right"
+                >
+                  آراء طلابنا
+                </motion.h1>
+
+                {/* Button under title */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                  className="mb-6"
+                >
+                  <Link href="/packages">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-3 bg-white text-[#671e5a] font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl transition-shadow"
+                    >
+                      <span className="flex items-center justify-center w-8 h-8 bg-[#671e5a] text-white rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12H21" />
+                        </svg>
+                      </span>
+                      ابدأ تجربتك
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              </div>
             </div>
 
             {/* Testimonials Grid */}
-            <div className="lg:col-span-12 lg:order-3 relative z-30 mt-4 lg:mt-10">
+            <div className="relative z-30 mt-4 lg:mt-10">
               <div className="flex flex-col lg:flex-row justify-center gap-5">
                 {[
                   { name: "عبد المحسن الغامدي", review: "ما شاء الله الموقع سهل ومريح" },
