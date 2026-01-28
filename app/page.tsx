@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ReviewModal from "@/components/ReviewModal";
 
 interface PricingPlan {
   id: number;
@@ -41,6 +42,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('tab1');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const playButtonRef = useRef<HTMLDivElement>(null);
 
@@ -939,20 +941,17 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                   className="mb-6"
                 >
-                  <Link href="/packages">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-3 bg-white text-[#671e5a] font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl transition-shadow"
-                    >
-                      <span className="flex items-center justify-center w-8 h-8 bg-[#671e5a] text-white rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12H21" />
-                        </svg>
-                      </span>
-                      ابدأ تجربتك
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    onClick={() => setIsReviewModalOpen(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
+                  >
+                    ابدأ تجربتك
+                    <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
+                      <LeftArrow />
+                    </span>
+                  </motion.button>
                 </motion.div>
               </div>
             </div>
@@ -1045,6 +1044,12 @@ export default function Home() {
       </motion.section >
 
       <Footer />
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+      />
     </div >
   );
 }
