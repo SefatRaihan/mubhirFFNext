@@ -3,25 +3,48 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface ReviewModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onReviewSubmitted?: () => void;
 }
 
-export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
-    const [name, setName] = useState('');
+const RATE_LIMIT_KEY = 'last_review_submission';
+const RATE_LIMIT_DURATION = 60 * 1000; // 1 minute in milliseconds
+
+export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: ReviewModalProps) {
+    const router = useRouter();
+    const [phone, setPhone] = useState('');
     const [rating, setRating] = useState(0);
     const [message, setMessage] = useState('');
-    const [errors, setErrors] = useState<{ name?: string; rating?: string; message?: string }>({});
+    const [errors, setErrors] = useState<{ phone?: string; rating?: string; message?: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const checkRateLimit = (): boolean => {
+        const lastSubmission = localStorage.getItem(RATE_LIMIT_KEY);
+        if (lastSubmission) {
+            const timeSinceLastSubmission = Date.now() - parseInt(lastSubmission);
+            if (timeSinceLastSubmission < RATE_LIMIT_DURATION) {
+                const remainingSeconds = Math.ceil((RATE_LIMIT_DURATION - timeSinceLastSubmission) / 1000);
+                toast.info(`يرجى الانتظار ${remainingSeconds} ثانية قبل إرسال تعليق آخر`, {
+                    position: 'top-right',
+                    autoClose: 2000,
+                });
+                return false;
+            }
+        }
+        return true;
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Validation
-        const newErrors: { name?: string; rating?: string; message?: string } = {};
-        if (!name.trim()) newErrors.name = 'الاسم مطلوب';
+        const newErrors: { phone?: string; rating?: string; message?: string } = {};
+        if (!phone.trim()) newErrors.phone = 'رقم الهاتف مطلوب';
         if (rating === 0) newErrors.rating = 'التقييم مطلوب';
         if (!message.trim()) newErrors.message = 'الرسالة مطلوبة';
 
@@ -30,12 +53,17 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
             return;
         }
 
+        // Check rate limit
+        if (!checkRateLimit()) {
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
             // Prepare request data
             const requestData = {
-                reviewer_name: name,
+                reviewer_phone: phone,
                 rating: rating,
                 content: message,
             };
@@ -58,28 +86,73 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                 console.log('✅ Review submitted successfully!');
                 console.log('Review ID:', response.data.data?.id);
                 console.log('Message:', response.data.message);
-                alert('تم إرسال تعليقك بنجاح! سيتم مراجعته قريباً.');
+
+                // Store submission timestamp for rate limiting
+                localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
+
+                toast.success('تم إرسال تعليقك بنجاح! سيتم مراجعته قريباً.', {
+                    position: 'top-right',
+                    autoClose: 2000,
+                });
 
                 // Reset form and close modal
-                setName('');
+                setPhone('');
                 setRating(0);
                 setMessage('');
                 setErrors({});
+
+                // Trigger review list refresh
+                if (onReviewSubmitted) {
+                    onReviewSubmitted();
+                }
+
                 onClose();
             } else {
                 console.error('❌ Review submission failed');
                 console.error('Response:', response.data);
-                alert('حدث خطأ أثناء إرسال التعليق. يرجى المحاولة مرة أخرى.');
+                toast.error('حدث خطأ أثناء إرسال التعليق. يرجى المحاولة مرة أخرى.', {
+                    position: 'top-right',
+                    autoClose: 2000,
+                });
             }
         } catch (error) {
             console.error('=== Error submitting review ===');
             console.error('Error:', error);
+
             if (axios.isAxiosError(error)) {
                 console.error('Response Status:', error.response?.status);
                 console.error('Response Data:', error.response?.data);
                 console.error('Request Config:', error.config);
+
+                // Check if phone number is not registered (status 400)
+                console.log('🔍 Checking unregistered phone condition:');
+                console.log('Status is 400?', error.response?.status === 400);
+                console.log('Message:', error.response?.data?.message);
+                console.log('Contains "does not match"?', error.response?.data?.message?.includes('does not match any registered user'));
+
+                if (
+                    error.response?.status === 400 &&
+                    error.response?.data?.message?.includes('does not match any registered user')
+                ) {
+                    console.log('✅ Showing unregistered phone warning toast');
+                    toast.warning('رقم الهاتف غير مسجل. يرجى التسجيل أولاً.', {
+                        position: 'top-right',
+                        autoClose: 2500,
+                    });
+
+                    // Close modal and redirect to signup after a short delay
+                    setTimeout(() => {
+                        onClose();
+                        router.push('/signup');
+                    }, 2000);
+                    return;
+                }
             }
-            alert('حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
+
+            toast.error('حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.', {
+                position: 'top-right',
+                autoClose: 2000,
+            });
         } finally {
             setIsSubmitting(false);
             console.log('=== Review Submission Ended ===');
@@ -127,22 +200,22 @@ export default function ReviewModal({ isOpen, onClose }: ReviewModalProps) {
                             </button>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
-                                {/* Name Input */}
+                                {/* Phone Input */}
                                 <div>
                                     <label className="block text-right text-sm font-medium text-gray-700 mb-2">
-                                        الاسم الكامل*
+                                        رقم التليفون*
                                     </label>
                                     <input
                                         type="text"
-                                        value={name}
+                                        value={phone}
                                         onChange={(e) => {
-                                            setName(e.target.value);
-                                            if (errors.name) setErrors({ ...errors, name: undefined });
+                                            setPhone(e.target.value);
+                                            if (errors.phone) setErrors({ ...errors, phone: undefined });
                                         }}
-                                        placeholder="Khalid al-Mahmood"
-                                        className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-xl text-right focus:outline-none focus:ring-2 focus:ring-[#671e5a] focus:border-transparent`}
+                                        placeholder="55XXXXXXXXX+"
+                                        className={`w-full px-4 py-3 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-xl text-right focus:outline-none focus:ring-2 focus:ring-[#671e5a] focus:border-transparent`}
                                     />
-                                    {errors.name && <p className="text-red-500 text-sm text-right mt-1">{errors.name}</p>}
+                                    {errors.phone && <p className="text-red-500 text-sm text-right mt-1">{errors.phone}</p>}
                                 </div>
 
                                 {/* Star Rating */}

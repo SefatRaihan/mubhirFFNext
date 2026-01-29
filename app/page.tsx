@@ -61,28 +61,30 @@ export default function Home() {
   const playButtonRef = useRef<HTMLDivElement>(null);
 
   // Fetch reviews from API
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        setReviewsLoading(true);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/review-list`
-        );
+  const fetchReviews = async () => {
+    try {
+      setReviewsLoading(true);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/review-list`
+      );
 
-        if (response.data.status && response.data.data) {
-          setReviews(response.data.data);
-          setReviewsError(null);
-        } else {
-          setReviewsError('Failed to load reviews');
-        }
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
+      if (response.data.status && response.data.data) {
+        setReviews(response.data.data);
+        setReviewsError(null);
+        // Reset to first page when reviews are updated
+        setCurrentReviewIndex(0);
+      } else {
         setReviewsError('Failed to load reviews');
-      } finally {
-        setReviewsLoading(false);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      setReviewsError('Failed to load reviews');
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchReviews();
   }, []);
 
@@ -1147,6 +1149,7 @@ export default function Home() {
       <ReviewModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
+        onReviewSubmitted={fetchReviews}
       />
     </div >
   );
