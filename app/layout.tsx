@@ -1,51 +1,61 @@
-'use client';
+import type { Metadata } from 'next';
+import './globals.css';
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: 'مبهر - منصة التحضير لاختبار القدرات العامة',
+    template: '%s | مبهر',
+  },
+  description: 'مبهر شريكك الذكي لطريق التفوق في اختبار القدرات العامة. تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق بالذكاء الاصطناعي.',
+  keywords: ['قدرات', 'اختبار القدرات', 'التحضير للقدرات', 'SAT', 'مبهر', 'تعليم', 'ذكاء اصطناعي'],
+  authors: [{ name: 'Mubhir' }],
+  creator: 'Mubhir',
+  publisher: 'Mubhir',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'مبهر - منصة التحضير لاختبار القدرات العامة',
+    description: 'مبهر شريكك الذكي لطريق التفوق في اختبار القدرات العامة',
+    url: baseUrl,
+    siteName: 'مبهر',
+    locale: 'ar_SA',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'مبهر - منصة التحضير لاختبار القدرات العامة',
+    description: 'مبهر شريكك الذكي لطريق التفوق في اختبار القدرات العامة',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <title>مبهر - شريك التحضير لاختبار قدرات بمساعدة الذكاء الاصطناعي</title>
-        <meta name="description" content="مبهر يساعدك على التحضير لاختبار القدرات باستخدام الذكاء الاصطناعي من خلال تجارب تعليمية مخصصة." />
-        <meta name="keywords" content="مبهر, اختبار القدرات, قدرات, ذكاء اصطناعي, تعلم, قدرات, تحضير" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        {children}
-        <ToastContainer
-          rtl={true}
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      </body>
+    <html lang="ar" dir="rtl">
+      <body>{children}</body>
     </html>
   );
 }

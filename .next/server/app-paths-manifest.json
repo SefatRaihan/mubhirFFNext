@@ -18,6 +18,8 @@
   "/password-reset/page": "app/password-reset/page.js",
   "/reset-code/page": "app/reset-code/page.js",
   "/reset-password/page": "app/reset-password/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
   "/signup/page": "app/signup/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/verification-code/page": "app/verification-code/page.js"
 }

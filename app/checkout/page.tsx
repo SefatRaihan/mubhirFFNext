@@ -247,29 +247,70 @@ export default function CheckoutPage() {
             // Prepare form data for /cms/tap/pay API
             const payload = new FormData();
             payload.append('package_id', selectedPlan?.id || '0');
-            // payload.append('amount', selectedPlan?.price || '0');
+
+            // Calculate final amount (apply discount if any)
+            const originalPrice = selectedPlan?.price || 0;
+            const finalAmount = Math.max(0, Number(originalPrice) - discount).toFixed(2);
+
+            /**
+             * Auto-subscribe logic:
+             * - Free trial user with Auto-Renew ON: is_auto_subscribe = 1, NO amount
+             * - Free trial user with Auto-Renew OFF: is_auto_subscribe = 0, SEND amount
+             * - Paid user (no auto-renew checkbox): is_auto_subscribe = 0, SEND amount
+             */
+            if (fromTrial && autoRenew) {
+                // Free trial with auto-renew enabled - don't send amount
+                payload.append('is_auto_subscribe', '1');
+            } else {
+                // Free trial with auto-renew disabled OR paid user - send amount
+                payload.append('is_auto_subscribe', '0');
+                payload.append('amount', finalAmount);
+            }
+
             payload.append('first_name', formData.firstName);
             payload.append('last_name', formData.lastName);
             payload.append('email', formData.email);
             payload.append('phone', formData.phone);
-            // payload.append('address', formData.address);
-            // payload.append('city', formData.city);
-            // payload.append('post_code', formData.postCode);
             payload.append('date_of_birth', formData.dateOfBirth);
             payload.append('gender', formData.gender);
             payload.append('grade', formData.secondarySchoolGrade);
             payload.append('endpoint', 'confirmation');
-            payload.append('is_auto_subscribe', '1');
 
             // Add discount information if coupon was applied
             if (discountId !== null && discount > 0) {
                 payload.append('discount_id', discountId.toString());
                 payload.append('discount_amount', discount.toString());
-                // console.log('💰 Including discount in payment:', {
-                //     discount_id: discountId,
-                //     discount_amount: discount
-                // });
             }
+
+            // 🔍 Console log to debug payment payload
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            console.log('� CHECKOUT PAYMENT PAYLOAD');
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            console.log('📦 User Type:', fromTrial ? 'FREE TRIAL' : 'PAID USER');
+            console.log('🔄 Auto-Renew Checkbox:', fromTrial ? (autoRenew ? '✅ ENABLED' : '❌ DISABLED') : 'N/A (Paid User)');
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            console.log('📤 API Payload:');
+            console.log('  • package_id:', selectedPlan?.id || '0');
+            console.log('  • is_auto_subscribe:', fromTrial && autoRenew ? '1' : '0');
+            console.log('  • amount:', fromTrial && autoRenew ? '❌ NOT SENT (auto-subscribe enabled)' : finalAmount);
+            console.log('  • first_name:', formData.firstName);
+            console.log('  • last_name:', formData.lastName);
+            console.log('  • email:', formData.email);
+            console.log('  • phone:', formData.phone);
+            console.log('  • date_of_birth:', formData.dateOfBirth);
+            console.log('  • gender:', formData.gender);
+            console.log('  • grade:', formData.secondarySchoolGrade);
+            console.log('  • endpoint:', 'confirmation');
+            if (discountId !== null && discount > 0) {
+                console.log('  • discount_id:', discountId);
+                console.log('  • discount_amount:', discount);
+            }
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            console.log('💵 Price Calculation:');
+            console.log('  • Original Price:', originalPrice);
+            console.log('  • Discount Applied:', discount > 0 ? `-${discount}` : '0');
+            console.log('  • Final Amount:', finalAmount);
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
             // Call /cms/tap/pay API for both free trial and paid flows
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
@@ -717,24 +758,23 @@ export default function CheckoutPage() {
                                 </div>
                             </div>
 
-                            {/* Auto-Renew Checkbox */}
-                            <div className="mt-6">
-                                <label className="flex justify-start gap-2 cursor-pointer border-2 border-[#671E5A] rounded-lg p-4 hover:bg-gray-50 transition bg-[#FEF6FD]">
-                                    <input
-                                        type="checkbox"
-                                        checked={autoRenew}
-                                        onChange={(e) => setAutoRenew(e.target.checked)}
-                                        className="w-5 h-5 border-gray-300 rounded focus:ring-[#671E5A] cursor-pointer"
-                                        style={{ accentColor: '#671E5A' }}
-                                    />
-                                    <span className="text-black font-medium">
-                                        {fromTrial
-                                            ? 'الاشتراك التلقائي بعد انتهاء الفترة التجريبية'
-                                            : 'اشتراك متجدد تلقائياً'
-                                        }
-                                    </span>
-                                </label>
-                            </div>
+                            {/* Auto-Renew Checkbox - Only for Free Trial Users */}
+                            {fromTrial && (
+                                <div className="mt-6">
+                                    <label className="flex justify-start gap-2 cursor-pointer border-2 border-[#671E5A] rounded-lg p-4 hover:bg-gray-50 transition bg-[#FEF6FD]">
+                                        <input
+                                            type="checkbox"
+                                            checked={autoRenew}
+                                            onChange={(e) => setAutoRenew(e.target.checked)}
+                                            className="w-5 h-5 border-gray-300 rounded focus:ring-[#671E5A] cursor-pointer"
+                                            style={{ accentColor: '#671E5A' }}
+                                        />
+                                        <span className="text-black font-medium">
+                                            الاشتراك التلقائي بعد انتهاء الفترة التجريبية
+                                        </span>
+                                    </label>
+                                </div>
+                            )}
 
 
                             {/* Buttons */}

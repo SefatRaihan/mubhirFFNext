@@ -3,7 +3,7 @@
 
 type AppRoutes = "/" | "/ar-aboutUs" | "/ar-blog" | "/ar-blog/[slug]" | "/ar-contactUs" | "/ar-sat" | "/ar-sat2" | "/checkout" | "/confirmation" | "/create-password" | "/login" | "/maintenance" | "/packages" | "/password-reset" | "/reset-code" | "/reset-password" | "/signup" | "/verification-code"
 type PageRoutes = never
-type LayoutRoutes = "/" | "/ar-blog/[slug]"
+type LayoutRoutes = "/" | "/ar-aboutUs" | "/ar-blog" | "/ar-blog/[slug]" | "/ar-contactUs" | "/ar-sat" | "/ar-sat2" | "/packages"
 type RedirectRoutes = never
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
@@ -35,7 +35,13 @@ export type ParamsOf<Route extends Routes> = ParamMap[Route]
 
 interface LayoutSlotMap {
   "/": never
+  "/ar-aboutUs": never
+  "/ar-blog": never
   "/ar-blog/[slug]": never
+  "/ar-contactUs": never
+  "/ar-sat": never
+  "/ar-sat2": never
+  "/packages": never
 }
 
 

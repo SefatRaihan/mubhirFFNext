@@ -18,6 +18,8 @@
   "/password-reset/page": "/password-reset",
   "/reset-code/page": "/reset-code",
   "/reset-password/page": "/reset-password",
+  "/robots.txt/route": "/robots.txt",
   "/signup/page": "/signup",
+  "/sitemap.xml/route": "/sitemap.xml",
   "/verification-code/page": "/verification-code"
 }
