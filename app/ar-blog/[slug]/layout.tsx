@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     try {
         // Fetch blog data from API
-        const apiUrl = `https://dev.mubhir.ai/api/get-blogs`;
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`;
         const response = await fetch(apiUrl, { cache: 'no-store' });
         const data = await response.json();
 

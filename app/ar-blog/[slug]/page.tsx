@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import Navbar from "@/components/Navber/Navbar";
 import Footer from "@/components/Footer/Footer";
 import {
@@ -87,7 +88,9 @@ interface RelatedBlog {
 
 export default function BlogDetailsPage() {
     const params = useParams();
-    const blogSlug = params?.slug;
+    // Decode the URL-encoded slug to handle Arabic characters
+    const rawSlug = params?.slug as string;
+    const blogSlug = rawSlug ? decodeURIComponent(rawSlug) : '';
 
     const [blog, setBlog] = useState<Blog | null>(null);
     const [relatedBlogs, setRelatedBlogs] = useState<RelatedBlog[]>([]);
@@ -98,6 +101,21 @@ export default function BlogDetailsPage() {
     const shareUrl = typeof window !== 'undefined' ? window.location.href : `https://test.mubhir.ai/ar-blog/${blogSlug}`;
     const shareTitle = blog?.title || 'مبهر - مدونة';
 
+    // Normalize Arabic text by removing diacritics (tashkeel) for slug comparison
+    const normalizeArabicSlug = (text: string): string => {
+        if (!text) return '';
+        // Remove Arabic diacritics (harakat/tashkeel) - comprehensive range
+        return text
+            .replace(/[\u064B-\u065F]/g, '') // Remove all Arabic diacritics (fatha, damma, kasra, sukun, shadda, etc.)
+            .replace(/[\u0670]/g, '') // Remove superscript alef
+            .replace(/[\u06D6-\u06DC]/g, '') // Remove Quranic annotation marks
+            .replace(/[\u06DF-\u06E4]/g, '') // Remove additional Arabic marks
+            .replace(/[\u06E7-\u06E8]/g, '') // Remove more marks
+            .replace(/[\u06EA-\u06ED]/g, '') // Remove final marks
+            .trim()
+            .toLowerCase();
+    };
+
     useEffect(() => {
         const fetchBlogDetails = async () => {
             try {
@@ -105,6 +123,7 @@ export default function BlogDetailsPage() {
                 // Use the blog API endpoint
                 const apiUrl = `https://dev.mubhir.ai/api/get-blogs`;
                 console.log('Fetching blogs from:', apiUrl);
+                console.log('Looking for slug:', blogSlug);
 
                 const response = await fetch(apiUrl);
                 const data = await response.json();
@@ -112,10 +131,18 @@ export default function BlogDetailsPage() {
                 console.log('API Response:', data);
 
                 if (data.success) {
+                    // Normalize the URL slug for comparison
+                    const normalizedUrlSlug = normalizeArabicSlug(blogSlug as string);
+                    console.log('Normalized URL slug:', normalizedUrlSlug);
+
                     // Find the blog with matching slug across all categories
                     let foundBlog: Blog | null = null;
                     for (const category of data.data) {
-                        const blog = category.blogs.find((b: Blog) => b.slug === blogSlug);
+                        const blog = category.blogs.find((b: Blog) => {
+                            const normalizedApiSlug = normalizeArabicSlug(b.slug);
+                            console.log('Comparing:', normalizedUrlSlug, '===', normalizedApiSlug);
+                            return normalizedApiSlug === normalizedUrlSlug;
+                        });
                         if (blog) {
                             foundBlog = blog;
                             break;
@@ -219,6 +246,98 @@ export default function BlogDetailsPage() {
         }));
     };
 
+    // Generate JSON-LD structured data for SEO
+    const generateBlogJsonLd = () => {
+        if (!blog) return null;
+
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
+        const blogUrl = `${baseUrl}/ar-blog/${blog.slug}`;
+
+        const jsonLd = {
+            "@context": "https://schema.org",
+            "@graph": [
+                // Article Schema
+                {
+                    "@type": "BlogPosting",
+                    "@id": `${blogUrl}#article`,
+                    "headline": blog.title,
+                    "description": blog.seo?.meta_description || blog.title,
+                    "image": blog.title_image_url || blog.seo?.og_image_url || `${baseUrl}/image/c1.png`,
+                    "datePublished": blog.published_at,
+                    "dateModified": blog.published_at,
+                    "author": {
+                        "@type": "Person",
+                        "@id": `${baseUrl}#author-${blog.author?.id}`,
+                        "name": blog.author?.name || "مبهر",
+                        "description": blog.author?.bio || "",
+                        "jobTitle": blog.author?.designation || "",
+                        "image": blog.author?.image_url || ""
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "@id": `${baseUrl}#organization`,
+                        "name": "مبهر",
+                        "url": baseUrl,
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": `${baseUrl}/image/logo.png`
+                        }
+                    },
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": blogUrl
+                    },
+                    "articleSection": blog.post_category?.name || "تعليم",
+                    "keywords": blog.tags || "",
+                    "inLanguage": "ar",
+                    "wordCount": calculateReadingTime(blog.blocks) * 200
+                },
+                // BreadcrumbList Schema
+                {
+                    "@type": "BreadcrumbList",
+                    "@id": `${blogUrl}#breadcrumb`,
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "الرئيسية",
+                            "item": baseUrl
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "المدونة",
+                            "item": `${baseUrl}/ar-blog`
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": blog.title,
+                            "item": blogUrl
+                        }
+                    ]
+                },
+                // Organization Schema
+                {
+                    "@type": "Organization",
+                    "@id": `${baseUrl}#organization`,
+                    "name": "مبهر",
+                    "url": baseUrl,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${baseUrl}/image/logo.png`
+                    },
+                    "description": "منصة التحضير لاختبار القدرات العامة",
+                    "sameAs": [
+                        "https://www.instagram.com/mubhirai",
+                        "https://www.tiktok.com/@mubhir.ai"
+                    ]
+                }
+            ]
+        };
+
+        return JSON.stringify(jsonLd);
+    };
 
     // Update meta tags for SEO
     useEffect(() => {
@@ -277,6 +396,16 @@ export default function BlogDetailsPage() {
 
     return (
         <div className="bg-white font-sans" dir="rtl">
+            {/* JSON-LD Structured Data for SEO */}
+            {blog && (
+                <Script
+                    id="blog-jsonld"
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: generateBlogJsonLd() || '' }}
+                    strategy="beforeInteractive"
+                />
+            )}
+
             {/* Header */}
             <header style={{ backgroundColor: "#F2F4F7" }} className="m-4 rounded-2xl">
                 <div className="p-4">
