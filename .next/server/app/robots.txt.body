@@ -1,0 +1,15 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /checkout/
+Disallow: /confirmation/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /create-password/
+Disallow: /password-reset/
+Disallow: /reset-code/
+Disallow: /reset-password/
+Disallow: /verification-code/
+Disallow: /maintenance/
+
+Sitemap: https://mubhir.ai/sitemap.xml

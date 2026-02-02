@@ -1,0 +1,3 @@
+module.exports=[25911,a=>{"use strict";var b=a.i(7997);let c="https://mubhir.ai",d={title:"المدونة | مبهر",description:"اقرأ أحدث المقالات والنصائح للتحضير لاختبار القدرات العامة على منصة مبهر.",alternates:{canonical:`${c}/ar-blog`},openGraph:{title:"المدونة | مبهر",description:"أحدث المقالات والنصائح للتحضير لاختبار القدرات",url:`${c}/ar-blog`}};function e({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>e,"metadata",0,d])}];
+
+//# sourceMappingURL=app_ar-blog_layout_tsx_937ec0be._.js.map
