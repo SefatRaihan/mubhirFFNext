@@ -1981,6 +1981,16 @@ function BlogDetailsPage() {
         if (!blog) return null;
         const baseUrl = ("TURBOPACK compile-time value", "https://mubhir.ai") || 'https://mubhir.ai';
         const blogUrl = `${baseUrl}/ar-blog/${blog.slug}`;
+        // Extract article body from text blocks
+        const articleBody = blog.blocks.filter((block)=>block.type === "text" && block.content).map((block)=>block.content?.replace(/<[^>]*>/g, '').trim()).join(' ').substring(0, 500); // First 500 characters
+        // Ensure ISO 8601 date format
+        const formatISODate = (dateString)=>{
+            try {
+                return new Date(dateString).toISOString();
+            } catch  {
+                return new Date().toISOString();
+            }
+        };
         const jsonLd = {
             "@context": "https://schema.org",
             "@graph": [
@@ -1990,9 +2000,14 @@ function BlogDetailsPage() {
                     "@id": `${blogUrl}#article`,
                     "headline": blog.title,
                     "description": blog.seo?.meta_description || blog.title,
-                    "image": blog.title_image_url || blog.seo?.og_image_url || `${baseUrl}/image/c1.png`,
-                    "datePublished": blog.published_at,
-                    "dateModified": blog.published_at,
+                    "image": {
+                        "@type": "ImageObject",
+                        "url": blog.title_image_url || blog.seo?.og_image_url || `${baseUrl}/image/c1.png`,
+                        "width": 1200,
+                        "height": 630
+                    },
+                    "datePublished": formatISODate(blog.published_at),
+                    "dateModified": formatISODate(blog.published_at),
                     "author": {
                         "@type": "Person",
                         "@id": `${baseUrl}#author-${blog.author?.id}`,
@@ -2008,7 +2023,9 @@ function BlogDetailsPage() {
                         "url": baseUrl,
                         "logo": {
                             "@type": "ImageObject",
-                            "url": `${baseUrl}/image/logo.png`
+                            "url": `${baseUrl}/image/logo.png`,
+                            "width": 600,
+                            "height": 60
                         }
                     },
                     "mainEntityOfPage": {
@@ -2016,6 +2033,7 @@ function BlogDetailsPage() {
                         "@id": blogUrl
                     },
                     "articleSection": blog.post_category?.name || "تعليم",
+                    "articleBody": articleBody,
                     "keywords": blog.tags || "",
                     "inLanguage": "ar",
                     "wordCount": calculateReadingTime(blog.blocks) * 200
@@ -2053,7 +2071,9 @@ function BlogDetailsPage() {
                     "url": baseUrl,
                     "logo": {
                         "@type": "ImageObject",
-                        "url": `${baseUrl}/image/logo.png`
+                        "url": `${baseUrl}/image/logo.png`,
+                        "width": 600,
+                        "height": 60
                     },
                     "description": "منصة التحضير لاختبار القدرات العامة",
                     "sameAs": [
@@ -2113,12 +2133,12 @@ function BlogDetailsPage() {
                 children: "جاري التحميل..."
             }, void 0, false, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 383,
+                lineNumber: 409,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-            lineNumber: 382,
+            lineNumber: 408,
             columnNumber: 13
         }, this);
     }
@@ -2131,12 +2151,12 @@ function BlogDetailsPage() {
                 children: "المدونة غير موجودة"
             }, void 0, false, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 391,
+                lineNumber: 417,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-            lineNumber: 390,
+            lineNumber: 416,
             columnNumber: 13
         }, this);
     }
@@ -2153,7 +2173,7 @@ function BlogDetailsPage() {
                 strategy: "beforeInteractive"
             }, void 0, false, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 401,
+                lineNumber: 427,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
@@ -2166,12 +2186,12 @@ function BlogDetailsPage() {
                         className: "p-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Navber$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                            lineNumber: 412,
+                            lineNumber: 438,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                        lineNumber: 411,
+                        lineNumber: 437,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2185,7 +2205,7 @@ function BlogDetailsPage() {
                                         blog.title.split(' ').slice(0, -2).join(' '),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 420,
+                                            lineNumber: 446,
                                             columnNumber: 75
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2200,24 +2220,24 @@ function BlogDetailsPage() {
                                                     className: "absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                    lineNumber: 423,
+                                                    lineNumber: 449,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 421,
+                                            lineNumber: 447,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                    lineNumber: 419,
+                                    lineNumber: 445,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                lineNumber: 418,
+                                lineNumber: 444,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2233,7 +2253,7 @@ function BlogDetailsPage() {
                                             className: "w-full h-auto rounded-lg shadow-md"
                                         }, void 0, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 439,
+                                            lineNumber: 465,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                             src: "/image/c1.png",
@@ -2243,12 +2263,12 @@ function BlogDetailsPage() {
                                             className: "w-full h-auto rounded-lg shadow-md"
                                         }, void 0, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 447,
+                                            lineNumber: 473,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                        lineNumber: 437,
+                                        lineNumber: 463,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2271,7 +2291,7 @@ function BlogDetailsPage() {
                                                                 unoptimized: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 467,
+                                                                lineNumber: 493,
                                                                 columnNumber: 45
                                                             }, this);
                                                         })(),
@@ -2282,7 +2302,7 @@ function BlogDetailsPage() {
                                                                     children: blog.author?.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 478,
+                                                                    lineNumber: 504,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2290,7 +2310,7 @@ function BlogDetailsPage() {
                                                                     children: blog.author?.designation
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 479,
+                                                                    lineNumber: 505,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2303,24 +2323,24 @@ function BlogDetailsPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 482,
+                                                                    lineNumber: 508,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                            lineNumber: 477,
+                                                            lineNumber: 503,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                    lineNumber: 460,
+                                                    lineNumber: 486,
                                                     columnNumber: 33
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                lineNumber: 459,
+                                                lineNumber: 485,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2332,12 +2352,12 @@ function BlogDetailsPage() {
                                                                 children: tag.trim()
                                                             }, index, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 491,
+                                                                lineNumber: 517,
                                                                 columnNumber: 41
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                        lineNumber: 489,
+                                                        lineNumber: 515,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2345,7 +2365,7 @@ function BlogDetailsPage() {
                                                         children: "شارك هذه المدونة"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                        lineNumber: 496,
+                                                        lineNumber: 522,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2359,12 +2379,12 @@ function BlogDetailsPage() {
                                                                     round: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 499,
+                                                                    lineNumber: 525,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 498,
+                                                                lineNumber: 524,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -2382,22 +2402,22 @@ function BlogDetailsPage() {
                                                                             d: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                            lineNumber: 505,
+                                                                            lineNumber: 531,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                        lineNumber: 504,
+                                                                        lineNumber: 530,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 503,
+                                                                    lineNumber: 529,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 502,
+                                                                lineNumber: 528,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -2415,22 +2435,22 @@ function BlogDetailsPage() {
                                                                             d: "M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                            lineNumber: 513,
+                                                                            lineNumber: 539,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                        lineNumber: 512,
+                                                                        lineNumber: 538,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 511,
+                                                                    lineNumber: 537,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 510,
+                                                                lineNumber: 536,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$share$2f$dist$2f$next$2d$share$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TwitterShareButton"], {
@@ -2441,12 +2461,12 @@ function BlogDetailsPage() {
                                                                     round: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 519,
+                                                                    lineNumber: 545,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 518,
+                                                                lineNumber: 544,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$share$2f$dist$2f$next$2d$share$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FacebookShareButton"], {
@@ -2457,48 +2477,48 @@ function BlogDetailsPage() {
                                                                     round: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 523,
+                                                                    lineNumber: 549,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                lineNumber: 522,
+                                                                lineNumber: 548,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                        lineNumber: 497,
+                                                        lineNumber: 523,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                lineNumber: 488,
+                                                lineNumber: 514,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                        lineNumber: 458,
+                                        lineNumber: 484,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                lineNumber: 435,
+                                lineNumber: 461,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                        lineNumber: 416,
+                        lineNumber: 442,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 410,
+                lineNumber: 436,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2512,7 +2532,7 @@ function BlogDetailsPage() {
                                 children: "لا يوجد محتوى متاح"
                             }, void 0, false, {
                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                lineNumber: 536,
+                                lineNumber: 562,
                                 columnNumber: 25
                             }, this),
                             (()=>{
@@ -2535,7 +2555,7 @@ function BlogDetailsPage() {
                                             className: "jsx-2896c9eaa37db95c" + " " + "mb-8 text-gray-900 leading-relaxed"
                                         }, `text-${block.id}`, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 550,
+                                            lineNumber: 576,
                                             columnNumber: 37
                                         }, this));
                                         i++;
@@ -2565,7 +2585,7 @@ function BlogDetailsPage() {
                                                             className: "jsx-2896c9eaa37db95c" + " " + "w-full h-auto rounded-lg shadow-md"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                            lineNumber: 586,
+                                                            lineNumber: 612,
                                                             columnNumber: 57
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                             src: currentMedia.file_url || '/image/c1.png',
@@ -2575,7 +2595,7 @@ function BlogDetailsPage() {
                                                             className: "w-full h-auto rounded-lg shadow-md"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                            lineNumber: 593,
+                                                            lineNumber: 619,
                                                             columnNumber: 57
                                                         }, this),
                                                         currentMedia.alt_text && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2583,7 +2603,7 @@ function BlogDetailsPage() {
                                                             children: currentMedia.alt_text
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                            lineNumber: 603,
+                                                            lineNumber: 629,
                                                             columnNumber: 57
                                                         }, this),
                                                         mediaGroup.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2595,12 +2615,12 @@ function BlogDetailsPage() {
                                                                     className: "jsx-2896c9eaa37db95c" + " " + "w-12 h-12 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$public$2f$icons$2f$CarLeftArrowIcon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                        lineNumber: 615,
+                                                                        lineNumber: 641,
                                                                         columnNumber: 65
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 610,
+                                                                    lineNumber: 636,
                                                                     columnNumber: 61
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2609,30 +2629,30 @@ function BlogDetailsPage() {
                                                                     className: "jsx-2896c9eaa37db95c" + " " + "w-12 h-12 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$public$2f$icons$2f$CarRightArrowIcon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                        lineNumber: 624,
+                                                                        lineNumber: 650,
                                                                         columnNumber: 65
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                                    lineNumber: 619,
+                                                                    lineNumber: 645,
                                                                     columnNumber: 61
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                            lineNumber: 608,
+                                                            lineNumber: 634,
                                                             columnNumber: 57
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                    lineNumber: 584,
+                                                    lineNumber: 610,
                                                     columnNumber: 49
                                                 }, this);
                                             })()
                                         }, groupKey, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 578,
+                                            lineNumber: 604,
                                             columnNumber: 37
                                         }, this));
                                         // Move index past all the media blocks we just processed
@@ -2647,7 +2667,7 @@ function BlogDetailsPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                        lineNumber: 534,
+                        lineNumber: 560,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2657,7 +2677,7 @@ function BlogDetailsPage() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 533,
+                lineNumber: 559,
                 columnNumber: 13
             }, this),
             relatedBlogs.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2681,26 +2701,26 @@ function BlogDetailsPage() {
                                             className: "absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                         }, void 0, false, {
                                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                            lineNumber: 726,
+                                            lineNumber: 752,
                                             columnNumber: 37
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                    lineNumber: 724,
+                                    lineNumber: 750,
                                     columnNumber: 33
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: "ذات صلة"
                                 }, void 0, false, {
                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                    lineNumber: 734,
+                                    lineNumber: 760,
                                     columnNumber: 33
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                            lineNumber: 722,
+                            lineNumber: 748,
                             columnNumber: 29
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2708,7 +2728,7 @@ function BlogDetailsPage() {
                             children: "اكتشف كيف يجعل التعلم المخصص بالذكاء الاصطناعي تحضير قدرات أكثر كفاءة وجاذبية."
                         }, void 0, false, {
                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                            lineNumber: 736,
+                            lineNumber: 762,
                             columnNumber: 29
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2726,7 +2746,7 @@ function BlogDetailsPage() {
                                                 className: "w-full h-64 object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                lineNumber: 743,
+                                                lineNumber: 769,
                                                 columnNumber: 45
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2737,7 +2757,7 @@ function BlogDetailsPage() {
                                                         children: relatedBlog.post_category.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                        lineNumber: 752,
+                                                        lineNumber: 778,
                                                         columnNumber: 53
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2745,51 +2765,51 @@ function BlogDetailsPage() {
                                                         children: relatedBlog.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                        lineNumber: 756,
+                                                        lineNumber: 782,
                                                         columnNumber: 49
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                                lineNumber: 750,
+                                                lineNumber: 776,
                                                 columnNumber: 45
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                        lineNumber: 742,
+                                        lineNumber: 768,
                                         columnNumber: 41
                                     }, this)
                                 }, relatedBlog.id, false, {
                                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                                    lineNumber: 741,
+                                    lineNumber: 767,
                                     columnNumber: 37
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                            lineNumber: 739,
+                            lineNumber: 765,
                             columnNumber: 29
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                    lineNumber: 721,
+                    lineNumber: 747,
                     columnNumber: 25
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 720,
+                lineNumber: 746,
                 columnNumber: 21
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Footer$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-                lineNumber: 769,
+                lineNumber: 795,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/ar-blog/[slug]/page.tsx",
-        lineNumber: 398,
+        lineNumber: 424,
         columnNumber: 9
     }, this);
 }

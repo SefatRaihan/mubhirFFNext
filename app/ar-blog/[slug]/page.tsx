@@ -253,6 +253,22 @@ export default function BlogDetailsPage() {
         const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
         const blogUrl = `${baseUrl}/ar-blog/${blog.slug}`;
 
+        // Extract article body from text blocks
+        const articleBody = blog.blocks
+            .filter(block => block.type === "text" && block.content)
+            .map(block => block.content?.replace(/<[^>]*>/g, '').trim())
+            .join(' ')
+            .substring(0, 500); // First 500 characters
+
+        // Ensure ISO 8601 date format
+        const formatISODate = (dateString: string) => {
+            try {
+                return new Date(dateString).toISOString();
+            } catch {
+                return new Date().toISOString();
+            }
+        };
+
         const jsonLd = {
             "@context": "https://schema.org",
             "@graph": [
@@ -262,9 +278,14 @@ export default function BlogDetailsPage() {
                     "@id": `${blogUrl}#article`,
                     "headline": blog.title,
                     "description": blog.seo?.meta_description || blog.title,
-                    "image": blog.title_image_url || blog.seo?.og_image_url || `${baseUrl}/image/c1.png`,
-                    "datePublished": blog.published_at,
-                    "dateModified": blog.published_at,
+                    "image": {
+                        "@type": "ImageObject",
+                        "url": blog.title_image_url || blog.seo?.og_image_url || `${baseUrl}/image/c1.png`,
+                        "width": 1200,
+                        "height": 630
+                    },
+                    "datePublished": formatISODate(blog.published_at),
+                    "dateModified": formatISODate(blog.published_at),
                     "author": {
                         "@type": "Person",
                         "@id": `${baseUrl}#author-${blog.author?.id}`,
@@ -280,7 +301,9 @@ export default function BlogDetailsPage() {
                         "url": baseUrl,
                         "logo": {
                             "@type": "ImageObject",
-                            "url": `${baseUrl}/image/logo.png`
+                            "url": `${baseUrl}/image/logo.png`,
+                            "width": 600,
+                            "height": 60
                         }
                     },
                     "mainEntityOfPage": {
@@ -288,6 +311,7 @@ export default function BlogDetailsPage() {
                         "@id": blogUrl
                     },
                     "articleSection": blog.post_category?.name || "تعليم",
+                    "articleBody": articleBody,
                     "keywords": blog.tags || "",
                     "inLanguage": "ar",
                     "wordCount": calculateReadingTime(blog.blocks) * 200
@@ -325,7 +349,9 @@ export default function BlogDetailsPage() {
                     "url": baseUrl,
                     "logo": {
                         "@type": "ImageObject",
-                        "url": `${baseUrl}/image/logo.png`
+                        "url": `${baseUrl}/image/logo.png`,
+                        "width": 600,
+                        "height": 60
                     },
                     "description": "منصة التحضير لاختبار القدرات العامة",
                     "sameAs": [
