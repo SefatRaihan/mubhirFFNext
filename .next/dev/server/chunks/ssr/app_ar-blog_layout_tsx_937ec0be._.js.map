@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///F:/project/mubhir-ff-next/app/ar-blog/layout.tsx"],"sourcesContent":["import type { Metadata } from 'next';\r\n\r\nconst baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';\r\n\r\nexport const metadata: Metadata = {\r\n    title: 'المدونة | مبهر',\r\n    description: 'اقرأ أحدث المقالات والنصائح للتحضير لاختبار القدرات العامة على منصة مبهر.',\r\n    alternates: {\r\n        canonical: `${baseUrl}/ar-blog`,\r\n    },\r\n    openGraph: {\r\n        title: 'المدونة | مبهر',\r\n        description: 'أحدث المقالات والنصائح للتحضير لاختبار القدرات',\r\n        url: `${baseUrl}/ar-blog`,\r\n    },\r\n};\r\n\r\nexport default function ArBlogLayout({\r\n    children,\r\n}: {\r\n    children: React.ReactNode;\r\n}) {\r\n    return <>{children}</>;\r\n}\r\n"],"names":[],"mappings":";;;;;;;;AAEA,MAAM,UAAU,yDAAoC;AAE7C,MAAM,WAAqB;IAC9B,OAAO;IACP,aAAa;IACb,YAAY;QACR,WAAW,GAAG,QAAQ,QAAQ,CAAC;IACnC;IACA,WAAW;QACP,OAAO;QACP,aAAa;QACb,KAAK,GAAG,QAAQ,QAAQ,CAAC;IAC7B;AACJ;AAEe,SAAS,aAAa,EACjC,QAAQ,EAGX;IACG,qBAAO;kBAAG;;AACd"}}]
-}
