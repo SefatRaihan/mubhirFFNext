@@ -22,6 +22,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewModal from "@/components/ReviewModal";
 import axios from "axios";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface PricingPlan {
   id: number;
@@ -60,6 +62,20 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playButtonRef = useRef<HTMLDivElement>(null);
 
+  // Hero 3D Animation Refs
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement>(null);
+  const heroBadge1Ref = useRef<HTMLSpanElement>(null);
+  const heroBadge2Ref = useRef<HTMLSpanElement>(null);
+  const heroCtaRef = useRef<HTMLDivElement>(null);
+  const heroSocialRef = useRef<HTMLDivElement>(null);
+  const heroStudentsRef = useRef<HTMLDivElement>(null);
+
+  // Register GSAP ScrollTrigger
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+  }, []);
+
   // Fetch reviews from API
   const fetchReviews = async () => {
     try {
@@ -86,6 +102,144 @@ export default function Home() {
 
   useEffect(() => {
     fetchReviews();
+  }, []);
+
+  // GSAP 3D Hero Animations - Creative & Eye-catching
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Set initial 3D perspective on hero section
+      if (heroSectionRef.current) {
+        gsap.set(heroSectionRef.current, {
+          perspective: 1200,
+          transformStyle: 'preserve-3d'
+        });
+      }
+
+      // ========== DRAMATIC HEADING ANIMATION ==========
+      if (heroHeadingRef.current) {
+        // Dramatic entrance animation - no floating to avoid overlap
+        gsap.fromTo(heroHeadingRef.current,
+          {
+            opacity: 0,
+            y: 60,
+            scale: 0.9,
+            filter: 'blur(10px)',
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 1.2,
+            ease: 'power4.out',
+            delay: 0.2
+          }
+        );
+      }
+
+      // ========== BADGE ANIMATIONS ==========
+      if (heroBadge1Ref.current) {
+        // Simple scale bounce entrance
+        gsap.fromTo(heroBadge1Ref.current,
+          { opacity: 0, scale: 0 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            delay: 0.5,
+            ease: 'back.out(1.7)'
+          }
+        );
+
+        // Glow pulse effect
+        gsap.to(heroBadge1Ref.current, {
+          boxShadow: '0 0 25px 8px rgba(59, 130, 246, 0.5)',
+          duration: 1.5,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 1.5
+        });
+      }
+
+      if (heroBadge2Ref.current) {
+        // Simple scale bounce entrance
+        gsap.fromTo(heroBadge2Ref.current,
+          { opacity: 0, scale: 0 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            delay: 0.6,
+            ease: 'back.out(1.7)'
+          }
+        );
+
+        // Glow pulse effect
+        gsap.to(heroBadge2Ref.current, {
+          boxShadow: '0 0 25px 8px rgba(147, 51, 234, 0.5)',
+          duration: 1.8,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 1.8
+        });
+      }
+
+      // ========== CTA BUTTON ==========
+      if (heroCtaRef.current) {
+        gsap.fromTo(heroCtaRef.current,
+          { opacity: 0, y: 40, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: 0.8,
+            ease: 'power3.out'
+          }
+        );
+      }
+
+      // ========== STUDENTS SECTION ==========
+      if (heroStudentsRef.current) {
+        // Simple slide-in animation
+        gsap.fromTo(heroStudentsRef.current,
+          {
+            opacity: 0,
+            x: 80,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 1.2,
+            ease: 'power3.out'
+          }
+        );
+      }
+
+      // ========== SOCIAL ICONS ==========
+      if (heroSocialRef.current) {
+        // Simple slide-in animation
+        gsap.fromTo(heroSocialRef.current,
+          {
+            opacity: 0,
+            x: -80,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 1.4,
+            ease: 'power3.out'
+          }
+        );
+      }
+
+    }, heroSectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   // Handle pagination dot click
@@ -271,7 +425,7 @@ export default function Home() {
   return (
     <div className="bg-white" dir="rtl">
       {/* Hero Section */}
-      <section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
+      <section ref={heroSectionRef} className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
         {/* Navbar Component */}
         <Navbar />
 
@@ -279,32 +433,26 @@ export default function Home() {
           {/* Hero Content */}
           <div className="relative text-center mt-16 md:mt-[128px]">
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
-              <motion.span
-                initial={{ opacity: 0, scale: 0, rotate: -15 }}
-                animate={{ opacity: 1, scale: 1, rotate: -15 }}
-                transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
-                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+              <span
+                ref={heroBadge1Ref}
+                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md" style={{ opacity: 0 }}
               >
                 #سؤال
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, scale: 0, rotate: 15 }}
-                animate={{ opacity: 1, scale: 1, rotate: 15 }}
-                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
-                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+              </span>
+              <span
+                ref={heroBadge2Ref}
+                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md" style={{ opacity: 0 }}
               >
                 #قدرات
-              </motion.span>
+              </span>
             </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px]"
+            <h1
+              ref={heroHeadingRef}
+              className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px] text-glow-white" style={{ opacity: 0 }}
             >
               مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات
-            </motion.h1>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -316,11 +464,9 @@ export default function Home() {
               القدرات بالذكاء الإصطناعي
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+            <div
+              ref={heroCtaRef}
+              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer" style={{ opacity: 0 }}
             >
               <div className="relative inline-block">
                 <Link href="/packages">
@@ -357,16 +503,14 @@ export default function Home() {
                   alt=""
                 />
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Social Media Links and Student Images */}
           <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
-              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+            <div
+              ref={heroStudentsRef}
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1" style={{ opacity: 0 }}
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
                 <motion.div
@@ -402,13 +546,11 @@ export default function Home() {
               >
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
               </motion.span>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+            </div>
+            <div
+              ref={heroSocialRef}
               className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
-              style={{ marginBottom: "60px" }}
+              style={{ marginBottom: "60px", opacity: 0 }}
             >
               {[
                 { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
@@ -433,7 +575,7 @@ export default function Home() {
                   </Link>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
           <div className="relative">
             <div className="circle absolute hidden  md:flex right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full  items-center justify-center z-10">

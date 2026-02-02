@@ -1,11 +1,14 @@
 import { Metadata } from 'next';
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://test.mubhir.ai';
+
 interface Props {
     params: { slug: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
+    const articleUrl = `${baseUrl}/ar-blog/${slug}`;
 
     try {
         // Fetch blog data from API
@@ -30,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 return {
                     title: seo.page_title || foundBlog.title,
                     description: seo.meta_description || foundBlog.title,
+                    alternates: {
+                        canonical: articleUrl,
+                    },
                     openGraph: {
                         type: 'article',
                         title: seo.og_title || foundBlog.title,
@@ -61,6 +67,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: 'مبهر - مدونة',
         description: 'مدونة مبهر',
+        alternates: {
+            canonical: articleUrl,
+        },
     };
 }
 

@@ -12,4 +12,4 @@ Disallow: /reset-password/
 Disallow: /verification-code/
 Disallow: /maintenance/
 
-Sitemap: https://mubhir.ai/sitemap.xml
+Sitemap: https://test.mubhir.ai/sitemap.xml
