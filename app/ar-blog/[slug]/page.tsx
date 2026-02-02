@@ -745,7 +745,7 @@ export default function BlogDetailsPage() {
                 relatedBlogs.length > 0 && (
                     <section className="font-sans text-gray-900 bg-[#EAECF0] m-4 rounded-2xl">
                         <div className="max-w-7xl mx-auto mb-12 px-4 py-8 sm:py-12">
-                            <h1 className="text-3xl md:text-[38px] font-bold leading-tight">
+                            <h2 className="text-3xl md:text-[38px] font-bold leading-tight">
                                 اقرأ
                                 <span className="relative inline-block pb-2 mx-2">
                                     مقالات
@@ -758,7 +758,7 @@ export default function BlogDetailsPage() {
                                     />
                                 </span>
                                 <span>ذات صلة</span>
-                            </h1>
+                            </h2>
                             <p className="text-base mb-6 sm:mb-8">
                                 اكتشف كيف يجعل التعلم المخصص بالذكاء الاصطناعي تحضير قدرات أكثر كفاءة وجاذبية.
                             </p>
