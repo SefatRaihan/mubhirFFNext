@@ -49,6 +49,7 @@ export default function CheckoutPage() {
     const [fromTrial, setFromTrial] = useState(false);
     const [dateOfBirthDate, setDateOfBirthDate] = useState<Date | null>(null);
     const [autoRenew, setAutoRenew] = useState(false); // Auto-renew subscription checkbox
+    const [isTrial, setIsTrial] = useState(false); // Backend is_trial: 0 = can get trial, 1 = used trial
 
     /**
      * Load user data and selected plan
@@ -95,6 +96,8 @@ export default function CheckoutPage() {
                         city: userData.city || '',
                         postCode: userData.post_code || '',
                     }));
+                    // Set is_trial from user data: 0 = can get trial, 1 = used trial
+                    setIsTrial(userData.is_trial === 1 || userData.is_trial === true);
                 }
             } catch (error) {
                 console.error('Failed to fetch user data:', error);
@@ -234,12 +237,36 @@ export default function CheckoutPage() {
                 return;
             }
 
+            // Calculate is_auto_subscribe and is_only_free based on 3 scenarios:
+            // Scenario 1: Auto-pay ON + is_trial=0 → is_auto_subscribe=1, is_only_free=0
+            // Scenario 2: Auto-pay OFF + is_trial=0 → is_auto_subscribe=0, is_only_free=1
+            // Scenario 3: is_trial=1 (used trial) → is_auto_subscribe=0, is_only_free=0
+            let isAutoSubscribe: number;
+            let isOnlyFree: number;
+
+            if (!isTrial && autoRenew) {
+                // Scenario 1: User can get trial + wants auto-subscribe
+                isAutoSubscribe = 1;
+                isOnlyFree = 0;
+            } else if (!isTrial && !autoRenew) {
+                // Scenario 2: User can get trial + does NOT want auto-subscribe
+                isAutoSubscribe = 0;
+                isOnlyFree = 1;
+            } else {
+                // Scenario 3: User already used trial - payment required
+                isAutoSubscribe = 0;
+                isOnlyFree = 0;
+            }
+
             // Save order data to localStorage for confirmation page
             const orderData = {
                 fromTrial,
                 selectedPlan,
                 discount,
-                autoRenew, // TODO: Will be sent to API when auto-renew feature is implemented
+                autoRenew,
+                isTrial, // Backend is_trial value
+                isAutoSubscribe, // For callback API
+                isOnlyFree, // For callback API
                 ...formData,
             };
             localStorage.setItem('checkoutData', JSON.stringify(orderData));
@@ -253,16 +280,22 @@ export default function CheckoutPage() {
             const finalAmount = Math.max(0, Number(originalPrice) - discount).toFixed(2);
 
             /**
-             * Auto-subscribe logic:
-             * - Free trial user with Auto-Renew ON: is_auto_subscribe = 1, NO amount
-             * - Free trial user with Auto-Renew OFF: is_auto_subscribe = 0, SEND amount
-             * - Paid user (no auto-renew checkbox): is_auto_subscribe = 0, SEND amount
+             * Payment logic based on backend is_trial field:
+             * 
+             * is_trial = 0 (false): User CAN get free trial (hasn't used it)
+             * is_trial = 1 (true): User has USED the free trial
+             * 
+             * Scenarios:
+             * 1. Auto-pay ON + is_trial == false (0): is_auto_subscribe = 1, NO amount
+             * 2. Auto-pay OFF + is_trial == false (0): is_auto_subscribe = 0, NO amount
+             * 3. is_trial == true (1): Amount must be sent
              */
-            if (fromTrial && autoRenew) {
-                // Free trial with auto-renew enabled - don't send amount
-                payload.append('is_auto_subscribe', '1');
+            if (!isTrial) {
+                // User can get free trial - NO amount sent regardless of autoRenew
+                payload.append('is_auto_subscribe', autoRenew ? '1' : '0');
+                // No amount appended - user gets free trial
             } else {
-                // Free trial with auto-renew disabled OR paid user - send amount
+                // User already used trial - MUST send amount
                 payload.append('is_auto_subscribe', '0');
                 payload.append('amount', finalAmount);
             }
@@ -282,35 +315,67 @@ export default function CheckoutPage() {
                 payload.append('discount_amount', discount.toString());
             }
 
-            // 🔍 Console log to debug payment payload
-            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-            console.log('� CHECKOUT PAYMENT PAYLOAD');
-            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-            console.log('📦 User Type:', fromTrial ? 'FREE TRIAL' : 'PAID USER');
-            console.log('🔄 Auto-Renew Checkbox:', fromTrial ? (autoRenew ? '✅ ENABLED' : '❌ DISABLED') : 'N/A (Paid User)');
-            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-            console.log('📤 API Payload:');
-            console.log('  • package_id:', selectedPlan?.id || '0');
-            console.log('  • is_auto_subscribe:', fromTrial && autoRenew ? '1' : '0');
-            console.log('  • amount:', fromTrial && autoRenew ? '❌ NOT SENT (auto-subscribe enabled)' : finalAmount);
-            console.log('  • first_name:', formData.firstName);
-            console.log('  • last_name:', formData.lastName);
-            console.log('  • email:', formData.email);
-            console.log('  • phone:', formData.phone);
-            console.log('  • date_of_birth:', formData.dateOfBirth);
-            console.log('  • gender:', formData.gender);
-            console.log('  • grade:', formData.secondarySchoolGrade);
-            console.log('  • endpoint:', 'confirmation');
-            if (discountId !== null && discount > 0) {
-                console.log('  • discount_id:', discountId);
-                console.log('  • discount_amount:', discount);
+            // 🔍 Enhanced Debug Console for Checkout Payment
+            console.group('%c💳 CHECKOUT PAYMENT DEBUG', 'color: #7A2060; font-size: 16px; font-weight: bold;');
+
+            // Scenario Detection
+            const scenarioNumber = !isTrial ? (autoRenew ? 1 : 2) : 3;
+            const scenarioDesc = {
+                1: 'Auto-pay ON + is_trial=0 → FREE TRIAL (No Amount)',
+                2: 'Auto-pay OFF + is_trial=0 → FREE TRIAL (No Amount)',
+                3: 'is_trial=1 → PAYMENT REQUIRED (Amount Sent)'
+            };
+
+            console.log('%c📋 ACTIVE SCENARIO: #' + scenarioNumber, 'color: #28235B; font-size: 14px; font-weight: bold;');
+            console.log('%c' + scenarioDesc[scenarioNumber as keyof typeof scenarioDesc], 'color: #671E5A; font-style: italic;');
+
+            console.group('%c🔑 Key Variables', 'color: #2563eb; font-weight: bold;');
+            console.table({
+                'is_trial (Backend)': { value: isTrial, meaning: isTrial ? '1 = User USED free trial' : '0 = User CAN get trial' },
+                'autoRenew (Checkbox)': { value: autoRenew, meaning: autoRenew ? 'User wants auto-subscribe' : 'User does NOT want auto-subscribe' },
+                'fromTrial (Cookie)': { value: fromTrial, meaning: fromTrial ? 'Came from trial flow' : 'Came from paid flow' }
+            });
+            console.groupEnd();
+
+            console.group('%c📤 API Payload Sent', 'color: #16a34a; font-weight: bold;');
+            const apiPayload: Record<string, any> = {
+                'package_id': selectedPlan?.id || '0',
+                'is_auto_subscribe': !isTrial ? (autoRenew ? '1' : '0') : '0',
+                'first_name': formData.firstName,
+                'last_name': formData.lastName,
+                'email': formData.email,
+                'phone': formData.phone,
+                'date_of_birth': formData.dateOfBirth,
+                'gender': formData.gender,
+                'grade': formData.secondarySchoolGrade,
+                'endpoint': 'confirmation'
+            };
+
+            // Add amount only if isTrial is true
+            if (isTrial) {
+                apiPayload['amount'] = finalAmount + ' SAR';
+            } else {
+                apiPayload['amount'] = '❌ NOT SENT (Free Trial)';
             }
-            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-            console.log('💵 Price Calculation:');
-            console.log('  • Original Price:', originalPrice);
-            console.log('  • Discount Applied:', discount > 0 ? `-${discount}` : '0');
-            console.log('  • Final Amount:', finalAmount);
-            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+            // Add discount if applied
+            if (discountId !== null && discount > 0) {
+                apiPayload['discount_id'] = discountId;
+                apiPayload['discount_amount'] = discount + ' SAR';
+            }
+            console.table(apiPayload);
+            console.groupEnd();
+
+            console.group('%c💵 Price Calculation', 'color: #ea580c; font-weight: bold;');
+            console.table({
+                'Original Price': originalPrice + ' SAR',
+                'Discount Applied': discount > 0 ? '-' + discount + ' SAR' : 'None',
+                'Final Amount': !isTrial ? '0 SAR (Free Trial)' : finalAmount + ' SAR',
+                'Payment Required': isTrial ? '✅ YES' : '❌ NO'
+            });
+            console.groupEnd();
+
+            console.groupEnd(); // End main group
 
             // Call /cms/tap/pay API for both free trial and paid flows
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {

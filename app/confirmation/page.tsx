@@ -52,14 +52,39 @@ function ConfirmationContent() {
             }
 
             try {
+                // Load order data from localStorage first (needed for callback params)
+                const savedOrderData = localStorage.getItem('checkoutData');
+                let parsedOrderData: any = null;
+                if (savedOrderData) {
+                    parsedOrderData = JSON.parse(savedOrderData);
+                    setOrderData(parsedOrderData);
+                }
+
                 // If tap_id exists, verify payment
                 if (tapId) {
-                    const response = await fetch(
-                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`,
-                        {
-                            headers: { Authorization: `Bearer ${token}` },
-                        }
-                    );
+                    // Get is_auto_subscribe and is_only_free from saved order data
+                    const isAutoSubscribe = parsedOrderData?.isAutoSubscribe ?? 0;
+                    const isOnlyFree = parsedOrderData?.isOnlyFree ?? 0;
+
+                    // Build callback URL with all required params
+                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}&is_auto_subscribe=${isAutoSubscribe}&is_only_free=${isOnlyFree}`;
+
+                    // Debug log for callback
+                    console.group('%c📞 CONFIRMATION CALLBACK DEBUG', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                    console.log('%c🔗 Callback URL:', 'color: #2563eb; font-weight: bold;', callbackUrl);
+                    console.table({
+                        'tap_id': tapId,
+                        'is_auto_subscribe': isAutoSubscribe,
+                        'is_only_free': isOnlyFree,
+                        'Scenario': isAutoSubscribe === 1 ? '1: Auto-subscribe enabled' :
+                            isOnlyFree === 1 ? '2: Free trial only' :
+                                '3: Payment (used trial)'
+                    });
+                    console.groupEnd();
+
+                    const response = await fetch(callbackUrl, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
 
                     const data = await response.json();
 
@@ -78,12 +103,6 @@ function ConfirmationContent() {
                     // No tap_id means free trial or already verified
                     setSuccess(true);
                     setApiMessage('Your Subscription has been Activated!');
-                }
-
-                // Load order data from localStorage
-                const savedOrderData = localStorage.getItem('checkoutData');
-                if (savedOrderData) {
-                    setOrderData(JSON.parse(savedOrderData));
                 }
 
                 // Fetch user data
