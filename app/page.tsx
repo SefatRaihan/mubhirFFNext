@@ -435,13 +435,13 @@ export default function Home() {
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
               <span
                 ref={heroBadge1Ref}
-                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md" style={{ opacity: 0 }}
+                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0"
               >
                 #سؤال
               </span>
               <span
                 ref={heroBadge2Ref}
-                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md" style={{ opacity: 0 }}
+                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0"
               >
                 #قدرات
               </span>
@@ -449,7 +449,7 @@ export default function Home() {
 
             <h1
               ref={heroHeadingRef}
-              className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px] text-glow-white" style={{ opacity: 0 }}
+              className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px] text-glow-white opacity-0"
             >
               مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات
             </h1>
@@ -466,7 +466,7 @@ export default function Home() {
 
             <div
               ref={heroCtaRef}
-              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer" style={{ opacity: 0 }}
+              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer opacity-0"
             >
               <div className="relative inline-block">
                 <Link href="/packages">
@@ -510,7 +510,7 @@ export default function Home() {
           <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
             <div
               ref={heroStudentsRef}
-              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1" style={{ opacity: 0 }}
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1 opacity-0"
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
                 <motion.div
@@ -549,8 +549,7 @@ export default function Home() {
             </div>
             <div
               ref={heroSocialRef}
-              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
-              style={{ marginBottom: "60px", opacity: 0 }}
+              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px] opacity-0"
             >
               {[
                 { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
