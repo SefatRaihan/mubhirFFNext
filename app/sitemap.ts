@@ -52,18 +52,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch dynamic blog posts from API (if available)
     let blogPages: MetadataRoute.Sitemap = [];
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/blogs`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`, {
             next: { revalidate: 3600 }, // Revalidate every hour
         });
 
         if (response.ok) {
             const data = await response.json();
-            const blogs = data.data || data.blogs || data || [];
 
-            if (Array.isArray(blogs)) {
-                blogPages = blogs.map((blog: any) => ({
+            // /get-blogs returns { success: true, data: [{ category_id, blogs: [...] }] }
+            if (data.success && Array.isArray(data.data)) {
+                // Flatten all blogs from all categories
+                const allBlogs: any[] = [];
+                data.data.forEach((category: any) => {
+                    if (Array.isArray(category.blogs)) {
+                        allBlogs.push(...category.blogs);
+                    }
+                });
+
+                blogPages = allBlogs.map((blog: any) => ({
                     url: `${baseUrl}/ar-blog/${blog.slug || blog.id}`,
-                    lastModified: blog.updated_at ? new Date(blog.updated_at) : new Date(),
+                    lastModified: blog.published_at ? new Date(blog.published_at) : new Date(),
                     changeFrequency: 'weekly' as const,
                     priority: 0.6,
                 }));
