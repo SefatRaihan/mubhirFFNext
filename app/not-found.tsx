@@ -9,12 +9,12 @@ export default function NotFound() {
     return (
         <div className="bg-white min-h-screen flex flex-col" dir="rtl">
             {/* Hero Section with Navbar */}
-            <section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden flex-grow flex flex-col">
+            <section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden grow flex flex-col">
                 {/* Navbar Component */}
                 <Navbar />
 
                 {/* 404 Content */}
-                <div className="flex-grow flex items-center justify-center p-4">
+                <div className="grow flex items-center justify-center p-4">
                     <div className="text-center">
                         {/* 404 Number */}
                         <motion.div

@@ -3,7 +3,7 @@
 
 type AppRoutes = "/" | "/ar-aboutUs" | "/ar-blog" | "/ar-blog/[slug]" | "/ar-contactUs" | "/ar-sat" | "/ar-sat2" | "/checkout" | "/confirmation" | "/create-password" | "/login" | "/maintenance" | "/packages" | "/password-reset" | "/reset-code" | "/reset-password" | "/signup" | "/verification-code"
 type PageRoutes = never
-type LayoutRoutes = "/" | "/ar-aboutUs" | "/ar-blog" | "/ar-blog/[slug]" | "/ar-contactUs" | "/ar-sat" | "/ar-sat2" | "/packages"
+type LayoutRoutes = "/" | "/ar-aboutUs" | "/ar-blog" | "/ar-blog/[slug]" | "/ar-contactUs" | "/ar-sat" | "/ar-sat2" | "/login" | "/packages" | "/signup"
 type RedirectRoutes = never
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
@@ -41,7 +41,9 @@ interface LayoutSlotMap {
   "/ar-contactUs": never
   "/ar-sat": never
   "/ar-sat2": never
+  "/login": never
   "/packages": never
+  "/signup": never
 }
 
 

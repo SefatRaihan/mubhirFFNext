@@ -1,0 +1,3 @@
+module.exports=[71663,a=>{"use strict";var b=a.i(7997);let c="https://test.mubhir.ai",d={title:"تسجيل الدخول | مبهر",description:"سجل دخولك إلى منصة مبهر للتحضير لاختبار القدرات العامة. ابدأ رحلتك نحو التفوق.",alternates:{canonical:`${c}/login`},openGraph:{title:"تسجيل الدخول | مبهر",description:"سجل دخولك إلى منصة مبهر للتحضير لاختبار القدرات",url:`${c}/login`}};function e({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>e,"metadata",0,d])}];
+
+//# sourceMappingURL=app_login_layout_tsx_b3a277f2._.js.map
