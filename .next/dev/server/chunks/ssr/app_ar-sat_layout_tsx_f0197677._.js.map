@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///F:/project/mubhir-ff-next/app/ar-sat/layout.tsx"],"sourcesContent":["import type { Metadata } from 'next';\r\n\r\nconst baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';\r\n\r\nexport const metadata: Metadata = {\r\n    title: 'اختبار القدرات العامة | مبهر',\r\n    description: 'استعد لاختبار القدرات العامة مع منصة مبهر. تحضير دقيق، خطة مدروسة ونتائج مبهرة.',\r\n    alternates: {\r\n        canonical: `${baseUrl}/ar-sat`,\r\n    },\r\n    openGraph: {\r\n        title: 'اختبار القدرات العامة | مبهر',\r\n        description: 'استعد لاختبار القدرات العامة مع منصة مبهر',\r\n        url: `${baseUrl}/ar-sat`,\r\n    },\r\n};\r\n\r\nexport default function ArSatLayout({\r\n    children,\r\n}: {\r\n    children: React.ReactNode;\r\n}) {\r\n    return <>{children}</>;\r\n}\r\n"],"names":[],"mappings":";;;;;;;;AAEA,MAAM,UAAU,8DAAoC;AAE7C,MAAM,WAAqB;IAC9B,OAAO;IACP,aAAa;IACb,YAAY;QACR,WAAW,GAAG,QAAQ,OAAO,CAAC;IAClC;IACA,WAAW;QACP,OAAO;QACP,aAAa;QACb,KAAK,GAAG,QAAQ,OAAO,CAAC;IAC5B;AACJ;AAEe,SAAS,YAAY,EAChC,QAAQ,EAGX;IACG,qBAAO;kBAAG;;AACd"}}]
+}
