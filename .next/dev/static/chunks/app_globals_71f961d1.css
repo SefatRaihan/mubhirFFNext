@@ -473,8 +473,8 @@
     inset: calc(var(--spacing) * 0);
   }
 
-  .-top-10 {
-    top: calc(var(--spacing) * -10);
+  .-top-\[60px\] {
+    top: -60px;
   }
 
   .top-1\/2 {
@@ -503,10 +503,6 @@
 
   .right-32 {
     right: calc(var(--spacing) * 32);
-  }
-
-  .right-\[50\%\] {
-    right: 50%;
   }
 
   .bottom-0 {
@@ -1087,11 +1083,6 @@
 
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-
-  .translate-x-1\/2 {
-    --tw-translate-x: calc(1 / 2 * 100%);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
 

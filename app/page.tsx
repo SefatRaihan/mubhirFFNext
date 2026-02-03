@@ -576,14 +576,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="relative">
-            <div className="circle absolute hidden  md:flex right-[50%] transform translate-x-1/2 -top-10 w-[121px] h-[121px] bg-[#c44580] rounded-full  items-center justify-center z-10">
-              <MiddleIcon />
-              <div className="text w-full h-full absolute text-white">
-
-              </div>
-            </div>
-          </div>
         </div>
       </section >
 
@@ -594,8 +586,12 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
+        className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
       >
+        {/* Circle Icon - positioned at top */}
+        <div className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
+          <MiddleIcon />
+        </div>
         <div className="container max-w-6xl px-4 py-8 sm:py-[120px]">
           <div className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
             <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
