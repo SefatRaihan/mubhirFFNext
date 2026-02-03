@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 interface FeatureCardProps {
     iconSrc: string;
     text: string;
+    alt?: string;
     index?: number;
 }
 
-export default function FeatureCard({ iconSrc, text, index = 0 }: FeatureCardProps) {
+export default function FeatureCard({ iconSrc, text, alt, index = 0 }: FeatureCardProps) {
     return (
         <motion.article
             initial={{ opacity: 0, y: 30 }}
@@ -32,7 +33,7 @@ export default function FeatureCard({ iconSrc, text, index = 0 }: FeatureCardPro
                     transition={{ type: "spring", stiffness: 300 }}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full p-2 bg-white border border-slate-200 shadow-sm"
                 >
-                    <Image src={iconSrc} width={40} height={40} alt="" />
+                    <Image src={iconSrc} width={40} height={40} alt={alt || text} />
                 </motion.span>
             </div>
             <motion.p

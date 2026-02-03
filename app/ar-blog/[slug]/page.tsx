@@ -121,7 +121,7 @@ export default function BlogDetailsPage() {
             try {
                 setLoading(true);
                 // Use the blog API endpoint
-                const apiUrl = `https://dev.mubhir.ai/api/get-blogs`;
+                const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`;
                 console.log('Fetching blogs from:', apiUrl);
                 console.log('Looking for slug:', blogSlug);
 

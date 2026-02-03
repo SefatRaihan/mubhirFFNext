@@ -286,35 +286,43 @@ export default function Home() {
   const featuresData = [
     {
       iconSrc: '/image/icon/feature-icon-1.png',
-      text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل'
+      text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-2.png',
-      text: 'شرح مبسط ومتكامل لجميع وحدات المنهج'
+      text: 'شرح مبسط ومتكامل لجميع وحدات المنهج',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-3.png',
-      text: 'شروحات فيديو للمنهج كاملا'
+      text: 'شروحات فيديو للمنهج كاملا',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-4.png',
-      text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة'
+      text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-5.png',
-      text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى'
+      text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-6.png',
-      text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق'
+      text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-7.png',
-      text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي'
+      text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي',
+
     },
     {
       iconSrc: '/image/icon/feature-icon-8.png',
-      text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول'
+      text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول',
+
     }
   ];
 
@@ -698,7 +706,13 @@ export default function Home() {
                 transition={{ duration: 0.2 }}
                 className="bg-[#291548] rounded-xl p-4 sm:p-6 flex items-center justify-center overflow-hidden"
               >
-                <Image src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.jpg`} width={600} height={400} alt="" className="w-full h-auto" />
+                <Image
+                  src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.jpg`}
+                  width={600}
+                  height={400}
+                  alt={activeTab === 'tab1' ? 'اسأل من خلال صورة أو نص - المدرسون' : activeTab === 'tab2' ? 'توقع الدرجة - طريقة بديلة للإجابة' : activeTab === 'tab3' ? 'اقتراح اختبار - الاختبارات' : 'شرح الموضوع - الشروحات'}
+                  className="w-full h-auto"
+                />
               </motion.div>
             </AnimatePresence>
           </div>

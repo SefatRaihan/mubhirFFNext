@@ -1,3 +1,3 @@
-module.exports=[35204,a=>{"use strict";var b=a.i(7997);let c="https://test.mubhir.ai",d={title:"اختبار SAT 2 | مبهر",description:"استعد لاختبار SAT 2 مع منصة مبهر. تحضير شامل ومتكامل لاختبارات القدرات.",alternates:{canonical:`${c}/ar-sat2`},openGraph:{title:"اختبار SAT 2 | مبهر",description:"استعد لاختبار SAT 2 مع منصة مبهر",url:`${c}/ar-sat2`}};function e({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>e,"metadata",0,d])}];
+module.exports=[35204,a=>{"use strict";var b=a.i(7997);let c="https://test.mubhir.ai",d={title:"اختبار SAT 2",description:"استعد لاختبار SAT 2 مع منصة مبهر. تحضير شامل ومتكامل لاختبارات القدرات.",alternates:{canonical:`${c}/ar-sat2`},openGraph:{title:"اختبار SAT 2",description:"استعد لاختبار SAT 2 مع منصة مبهر",url:`${c}/ar-sat2`}};function e({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>e,"metadata",0,d])}];
 
 //# sourceMappingURL=app_ar-sat2_layout_tsx_d8111441._.js.map

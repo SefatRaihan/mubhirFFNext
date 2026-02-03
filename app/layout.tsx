@@ -5,10 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: {
-    default: 'مبهر - منصة التحضير لاختبار القدرات العامة',
-    template: '%s | مبهر',
-  },
+  title: 'مبهر - منصة التحضير لاختبار القدرات العامة',
   description: 'مبهر شريكك الذكي لطريق التفوق في اختبار القدرات العامة. تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق بالذكاء الاصطناعي.',
   keywords: ['قدرات', 'اختبار القدرات', 'التحضير للقدرات', 'SAT', 'مبهر', 'تعليم', 'ذكاء اصطناعي'],
   authors: [{ name: 'Mubhir' }],
