@@ -599,10 +599,10 @@ export default function Home() {
       >
         <div className="container max-w-6xl px-4 py-8 sm:py-[120px]">
           <div className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
-            <h1 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
+            <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
               استعد لأختبار القدرات <br />
               العامة بخطوات تفوق التوقعات مع مبهر
-            </h1>
+            </h2>
             <p className="text-sm sm:text-[16px] font-medium text-black mt-3">
               خطط مخصصة – تدريب ذكي – نتائج مبهرة
             </p>
@@ -720,9 +720,9 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto py-8 sm:py-[120px]">
           <div className="text-center mb-10">
-            <h1 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
+            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
               ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
-            </h1>
+            </h2>
             <p className="pt-4 text-base text-gray-600 mt-2">
               منصة رائعة تقدم لك تجربة تعليمية شاملة تضم
             </p>
@@ -752,7 +752,7 @@ export default function Home() {
         <div className="container max-w-6xl px-4 py-8 sm:py-16 lg:py-[120px]">
 
           <div className="text-center mb-8 sm:mb-12">
-            <motion.h1
+            <motion.h2
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -760,7 +760,7 @@ export default function Home() {
               className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-10 lg:leading-[120px] text-center"
             >
               ابدأ طريقك للتميز في القدرات مع منصة تثق فيها
-            </motion.h1>
+            </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -856,7 +856,7 @@ export default function Home() {
         className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
       >
         <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -864,7 +864,7 @@ export default function Home() {
             className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
           >
             أسعار مرنة لكل طالب يبغي يتفوق في القدرات
-          </motion.h1>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1115,7 +1115,7 @@ export default function Home() {
             {/* Title and Button - Positioned on Right */}
             <div className="flex justify-center lg:justify-start mb-8">
               <div className="relative z-30">
-                <motion.h1
+                <motion.h2
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -1123,7 +1123,7 @@ export default function Home() {
                   className="text-[28px] md:text-5xl font-semibold mb-6 text-center lg:text-right"
                 >
                   آراء طلابنا
-                </motion.h1>
+                </motion.h2>
 
                 {/* Button under title */}
                 <motion.div

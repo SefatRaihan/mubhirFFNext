@@ -247,7 +247,7 @@ export default function ArSat2Page() {
                 className="font-sans text-gray-900 bg-[#f7e8f5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl"
             >
                 <div className="max-w-7xl mx-auto px-4">
-                    <motion.h1
+                    <motion.h2
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -266,7 +266,7 @@ export default function ArSat2Page() {
                             />
                         </span>
                         السعودية
-                    </motion.h1>
+                    </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -368,7 +368,7 @@ export default function ArSat2Page() {
                 <div className="max-w-7xl mx-auto px-4 pt-8">
                     {/* Header (Centered) */}
                     <div className="text-center">
-                        <motion.h1
+                        <motion.h2
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -376,7 +376,7 @@ export default function ArSat2Page() {
                             className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
                         >
                             ما هو مشمول في اختبار التحصيلي
-                        </motion.h1>
+                        </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -556,7 +556,7 @@ export default function ArSat2Page() {
                 className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
             >
                 <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
-                    <motion.h1
+                    <motion.h2
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -564,7 +564,7 @@ export default function ArSat2Page() {
                         className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
                     >
                         أسعار مرنة لكل طالب يبغي يتفوق في القدرات
-                    </motion.h1>
+                    </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

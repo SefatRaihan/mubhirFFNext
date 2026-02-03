@@ -357,7 +357,7 @@ export default function ArBlogPage() {
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:pt-20">
                     {/* Right Content */}
                     <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-                        <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
+                        <h2 className="text-4xl md:text-5xl font-semibold leading-snug">
                             ابدأ{" "}
                             <span className="relative inline-block pb-2">
                                 رحلتك اليوم!
@@ -369,7 +369,7 @@ export default function ArBlogPage() {
                                     className="bottom-0 w-full h-2 -z-10 pointer-events-none"
                                 />
                             </span>
-                        </h1>
+                        </h2>
                         <p className="text-base md:text-lg">
                             ستكون في طريقك إلى نجاح قدرات في أي وقت من الأوقات.
                         </p>

@@ -267,9 +267,9 @@ export default function ArContactUsPage() {
                             transition={{ duration: 0.5, delay: 0.2 }}
                             className="mb-8"
                         >
-                            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-4xl font-bold text-gray-900 mb-2">
                                 نموذج الاتصال
-                            </h1>
+                            </h2>
                             <p className="text-gray-500">نحن نحب أن يَسمع فريقنا منك!</p>
                         </motion.header>
 

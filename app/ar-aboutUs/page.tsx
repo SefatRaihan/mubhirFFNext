@@ -256,7 +256,7 @@ export default function ArAboutUsPage() {
           >
             رسالتنا
           </motion.span>
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -265,8 +265,8 @@ export default function ArAboutUsPage() {
           >
             مبهر منصة تعليمية احترافية تؤمن بأن لكل طالب الحق في <br /> الوصول
             إلى التميز والنجاح. لهذا السبب، ابتكرنا أقوى
-          </motion.h1>
-          <motion.h1
+          </motion.h2>
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -279,14 +279,14 @@ export default function ArAboutUsPage() {
             <br /> وموجه يساعد الطالب على إتقان اختبار ٍالقدرات بثقة وتميز،{" "}
             <br />
             وتحقيق أعلى الدرجات.
-          </motion.h1>
+          </motion.h2>
         </div>
       </motion.section>
 
       {/* Why Choose Mubhir Section */}
       <section className="bg-white my-4 md:m-4" style={{ backgroundImage: "url('/image/Vector.svg')" }}>
         <div className="max-w-5xl mx-auto py-[120px]">
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -304,7 +304,7 @@ export default function ArAboutUsPage() {
                 className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-10 pointer-events-none"
               />
             </span>
-          </motion.h1>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -491,9 +491,9 @@ export default function ArAboutUsPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
               تعرف على مؤسس منصة مبهر
-            </h1>
+            </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-6">
               نؤمن بأن لكل طالب طموح، هناك درجة يستحقها و نحن هنا لنساعدك على
               الوصول إليها
@@ -571,7 +571,7 @@ export default function ArAboutUsPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-            <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
+            <h2 className="text-4xl md:text-5xl font-semibold leading-snug">
               ابدأ
               <span className="relative inline-block pb-2">
                 اليوم!
@@ -583,7 +583,7 @@ export default function ArAboutUsPage() {
                   className="bottom-0 w-[47%] h-2 -z-10 pointer-events-none"
                 />
               </span>
-            </h1>
+            </h2>
             <p className="text-base md:text-lg">
               انضم إلى آلاف الطلاب الذين يستعدون بذكاء، وليس بجهد أكبر. سجّل
               الآن وابدأ اختبارك التجريبي الأول مجانًا!

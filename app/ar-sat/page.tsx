@@ -310,9 +310,9 @@ export default function ArSatPage() {
       {/* We help Section */}
       < section className="font-sans text-gray-900 bg-[#F7E8F5]  my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="max-w-7xl mx-auto py-[120px]">
-          <h1 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
+          <h2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
             نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
-          </h1>
+          </h2>
           <p className="text-sm text-black mt-6 text-center">
             تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
             وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br /> بأقصر
@@ -381,9 +381,9 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+            <h2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
               ماذا تقدم منصة مبهر في اختبار القدرات العامة؟
-            </h1>
+            </h2>
             <p className="text-sm text-black mt-4">
               منصة مبهر تقدم اقوى الأختبارات التي تساعدك على رفع درجاتك وتحقيق
               هدفك في الوصول إلى أفضل الجامعات العالمية وتشمل:
@@ -485,9 +485,9 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <h1 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none">
+            <h2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none">
               أقسام اختبارات القدرات
-            </h1>
+            </h2>
             <p className="text-sm text-gray-500 mt-1">
               أفضل منصة للتدرب على اختبار القدرات العامة
             </p>
@@ -722,9 +722,9 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="mx-auto max-w-[610px] space-y-4">
-            <h1 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+            <h2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
               كيف يساعدك مبهر على التفوق في اختبار القدرات
-            </h1>
+            </h2>
             <p className="text-[16px] text-black mt-1 text-center">
               ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
             </p>
@@ -758,9 +758,9 @@ export default function ArSatPage() {
                     <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                       وضع التدريب المكثف
                     </div>
-                    <h1 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
                       تدريب شخصي مصمم خصيصاً لك، لتتعلم بذكاء وتنجح بثقة
-                    </h1>
+                    </h2>
                     <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
                       نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
                     </p>
@@ -798,9 +798,9 @@ export default function ArSatPage() {
                     محاكاة قدرات
                   </div>
                 </div>
-                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
                   تدريب مثل الاختبار الحقيقي
-                </h1>
+                </h2>
                 <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
                   نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
                 </p>
@@ -833,9 +833,9 @@ export default function ArSatPage() {
                     بنك الأسئلة
                   </div>
                 </div>
-                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
                   ابق في الطليعة
-                </h1>
+                </h2>
                 <p className="mt-4 max-w-3xl mx-auto text-center text-black text-base">
                   نحن نساعد الطلاب في جميع أنحاء <br /> الشرق الأوسط على زيادة درجات <br /> قدرات الخاصة بهم بكفاءة.
                 </p>
@@ -864,9 +864,9 @@ export default function ArSatPage() {
                     <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                       دروس فيديو
                     </div>
-                    <h1 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
                       تعلم أكثر ذكاء وليس أصعب
-                    </h1>
+                    </h2>
                     <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
                       نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
                     </p>
@@ -904,9 +904,9 @@ export default function ArSatPage() {
                     مكافآت الإحالة
                   </div>
                 </div>
-                <h1 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
                   مكافآت الإحالة - دعوة واكسب
-                </h1>
+                </h2>
                 <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
                   نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
                 </p>
@@ -937,9 +937,9 @@ export default function ArSatPage() {
       {/* Pricing */}
       < section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
         <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white md:leading-[95px] leading-[44px] text-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white md:leading-[95px] leading-[44px] text-center">
             أسعار مرنة لكل طالب يبغي يتفوق في القدرات
-          </h1>
+          </h2>
           <p className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base">
             اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
           </p>
@@ -1030,7 +1030,7 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
-            <h1 className="text-4xl md:text-5xl font-semibold leading-snug">
+            <h2 className="text-4xl md:text-5xl font-semibold leading-snug">
               قم بأخذ اختبار محاكاة<br />قدرات الأول
               <span className="relative inline-block pb-2">
                 الخاص
@@ -1043,7 +1043,7 @@ export default function ArSatPage() {
                 />
               </span>
               <br />بك مجانًا!
-            </h1>
+            </h2>
             <p className="text-base md:text-lg">
               سجل وابدأ التدريب اليوم!
             </p>
