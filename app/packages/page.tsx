@@ -89,8 +89,8 @@ export default function PackagesPage() {
             }
 
             try {
-                // GET request to fetch trial status
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
+                // Use /cms/me API (same as checkout page) for reliable trial status
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -98,29 +98,41 @@ export default function PackagesPage() {
                     },
                 });
 
-                // Try to parse JSON response
-                let data;
-                try {
-                    data = await response.json();
-                } catch (e) {
-                    // Ignore JSON parse errors
-                }
-
                 if (response.ok) {
-                    // Status 200-299: Check isExpired flag
-                    // If data is missing for some reason, default to false (safe for 200 OK)
-                    setHasUsedTrial(data?.isExpired === true);
-                } else if (response.status === 403) {
-                    // Status 403: Forbidden usually means trial is already valid/used or user is not allowed.
-                    // The API specifically returns 403 when trial is expired.
-                    // So we treat 403 as "Trial Used".
-                    setHasUsedTrial(true);
+                    const userData = await response.json();
+                    // is_trial = 1 or true means user has USED the trial
+                    // is_trial = 0 or false means user CAN get trial
+                    const hasUsed = userData.is_trial === 1 || userData.is_trial === true;
+
+                    // 🔍 Debug Console for Trial Eligibility
+                    console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                    console.log('%c✅ API Response:', 'color: #16a34a; font-weight: bold;', 'Success');
+                    console.table({
+                        'is_trial (from API)': {
+                            value: userData.is_trial,
+                            type: typeof userData.is_trial
+                        },
+                        'hasUsedTrial (computed)': {
+                            value: hasUsed,
+                            meaning: hasUsed ? '❌ User has USED trial - Show regular prices' : '✅ User CAN get trial - Show trial prices'
+                        }
+                    });
+                    console.groupEnd();
+
+                    setHasUsedTrial(hasUsed);
                 } else {
-                    // Other errors (500, etc): Fail safe default to false (show trial)
+                    // API error - default to showing trial option (safe fallback)
+                    console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                    console.log('%c⚠️ API Response:', 'color: #ea580c; font-weight: bold;', `Error (Status: ${response.status})`);
+                    console.log('%cFallback:', 'color: #6b7280;', 'Showing trial option (safe default)');
+                    console.groupEnd();
                     setHasUsedTrial(false);
                 }
             } catch (error) {
-                console.error('Failed to check trial eligibility (network error):', error);
+                console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                console.log('%c❌ Network Error:', 'color: #dc2626; font-weight: bold;', error);
+                console.log('%cFallback:', 'color: #6b7280;', 'Showing trial option (safe default)');
+                console.groupEnd();
                 setHasUsedTrial(false);
             }
         };
