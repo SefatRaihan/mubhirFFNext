@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import Navbar from "@/components/Navber/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PagiLeftArrowIcon from "@/public/icons/PagiLeftArrowIcon";
@@ -181,8 +182,61 @@ export default function ArBlogPage() {
         return Math.max(1, Math.ceil(totalWords / 200)); // Assuming 200 words per minute
     };
 
+    // Generate JSON-LD schema for blog listing
+    const generateBlogSchema = () => {
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
+
+        const blogPostingItems = filteredBlogs.map((blog, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "BlogPosting",
+                "headline": blog.title,
+                "url": `${baseUrl}/ar-blog/${blog.slug}`,
+                "datePublished": blog.published_at,
+                "image": blog.title_image_url || getFirstImage(blog.blocks),
+                "author": {
+                    "@type": "Organization",
+                    "name": "مبهر",
+                    "url": baseUrl
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "مبهر",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${baseUrl}/image/logo.png`
+                    }
+                }
+            }
+        }));
+
+        return {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "مدونة مبهر",
+            "description": "اكتشف أحدث المقالات والنصائح للتحضير لاختبار القدرات العامة",
+            "url": `${baseUrl}/ar-blog`,
+            "mainEntity": {
+                "@type": "ItemList",
+                "numberOfItems": filteredBlogs.length,
+                "itemListElement": blogPostingItems
+            }
+        };
+    };
+
     return (
         <div className="bg-white font-sans" dir="rtl">
+            {/* JSON-LD Blog Schema */}
+            {filteredBlogs.length > 0 && (
+                <Script
+                    id="blog-schema"
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(generateBlogSchema())
+                    }}
+                />
+            )}
             {/* First Section: Nav to Blog Cards */}
             <header style={{ backgroundColor: "#f7e8f5" }} className="m-4 rounded-2xl">
                 <div className="p-4">
