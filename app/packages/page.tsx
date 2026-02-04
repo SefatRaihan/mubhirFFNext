@@ -89,8 +89,8 @@ export default function PackagesPage() {
             }
 
             try {
-                // Use /cms/me API (same as checkout page) for reliable trial status
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+                // Use /cms/free-trail API to check trial status
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -98,36 +98,69 @@ export default function PackagesPage() {
                     },
                 });
 
-                if (response.ok) {
-                    const userData = await response.json();
-                    // is_trial = 1 or true means user has USED the trial
-                    // is_trial = 0 or false means user CAN get trial
-                    const hasUsed = userData.is_trial === 1 || userData.is_trial === true;
+                // 🔍 Debug Console - Show FULL API Response
+                console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                console.log('%cAPI Endpoint:', 'color: #2563eb;', '/cms/free-trail');
+                console.log('%cResponse Status:', 'color: #2563eb;', response.status);
 
-                    // 🔍 Debug Console for Trial Eligibility
-                    console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                    console.log('%c✅ API Response:', 'color: #16a34a; font-weight: bold;', 'Success');
-                    console.table({
-                        'is_trial (from API)': {
-                            value: userData.is_trial,
-                            type: typeof userData.is_trial
-                        },
-                        'hasUsedTrial (computed)': {
-                            value: hasUsed,
-                            meaning: hasUsed ? '❌ User has USED trial - Show regular prices' : '✅ User CAN get trial - Show trial prices'
-                        }
-                    });
-                    console.groupEnd();
-
-                    setHasUsedTrial(hasUsed);
-                } else {
-                    // API error - default to showing trial option (safe fallback)
-                    console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                    console.log('%c⚠️ API Response:', 'color: #ea580c; font-weight: bold;', `Error (Status: ${response.status})`);
-                    console.log('%cFallback:', 'color: #6b7280;', 'Showing trial option (safe default)');
-                    console.groupEnd();
-                    setHasUsedTrial(false);
+                // Try to parse JSON response
+                let data: any = null;
+                try {
+                    data = await response.json();
+                    console.log('%c📋 Full API Response:', 'color: #16a34a; font-weight: bold;');
+                    console.log(data);
+                } catch (e) {
+                    console.log('%c⚠️ Could not parse JSON response', 'color: #ea580c;');
                 }
+
+                // Determine if user has used trial based on response
+                let hasUsed = false;
+
+                if (response.status === 403) {
+                    // Status 403: Trial is expired/used
+                    hasUsed = true;
+                    console.log('%c🔴 403 Forbidden - Trial EXPIRED', 'color: #dc2626; font-weight: bold;');
+                } else if (response.ok) {
+                    // Status 200-299: Check various fields for expiry
+                    // Handle different possible field names and types
+                    if (data) {
+                        // Check isExpired (boolean, string, or number)
+                        if (data.isExpired === true || data.isExpired === 'true' || data.isExpired === 1 || data.isExpired === '1') {
+                            hasUsed = true;
+                        }
+                        // Check is_expired (boolean, string, or number)  
+                        if (data.is_expired === true || data.is_expired === 'true' || data.is_expired === 1 || data.is_expired === '1') {
+                            hasUsed = true;
+                        }
+                        // Check expired (boolean, string, or number)
+                        if (data.expired === true || data.expired === 'true' || data.expired === 1 || data.expired === '1') {
+                            hasUsed = true;
+                        }
+                        // Check status field
+                        if (data.status === 'expired' || data.status === 'used') {
+                            hasUsed = true;
+                        }
+                        // Check is_trial (if 1 means used)
+                        if (data.is_trial === 1 || data.is_trial === '1' || data.is_trial === true) {
+                            hasUsed = true;
+                        }
+                    }
+                    console.log('%c🟢 200 OK - Checking response fields', 'color: #16a34a;');
+                } else {
+                    // Other errors: Default to false (show trial option)
+                    console.log('%c🟡 Other Status - Defaulting to show trial', 'color: #ca8a04;');
+                }
+
+                console.table({
+                    'Response Status': response.status,
+                    'hasUsedTrial (computed)': {
+                        value: hasUsed,
+                        meaning: hasUsed ? '❌ User has USED trial - Show regular prices' : '✅ User CAN get trial - Show trial prices'
+                    }
+                });
+                console.groupEnd();
+
+                setHasUsedTrial(hasUsed);
             } catch (error) {
                 console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
                 console.log('%c❌ Network Error:', 'color: #dc2626; font-weight: bold;', error);
