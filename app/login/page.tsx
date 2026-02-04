@@ -105,23 +105,19 @@ function LoginContent() {
                 console.groupEnd();
 
                 // Save tokens & user info to cookies
-                Cookies.set('token', data.token, {
+                // Note: secure: true only works on HTTPS, so we conditionally set it
+                const isProduction = window.location.protocol === 'https:';
+                const cookieOptions = {
                     expires: 1,
-                    secure: true,
-                    sameSite: 'Strict',
-                });
-                Cookies.set('user', JSON.stringify(data.user), {
-                    expires: 1,
-                    secure: true,
-                    sameSite: 'Strict',
-                });
+                    path: '/',
+                    ...(isProduction && { secure: true, sameSite: 'Strict' as const }),
+                };
+
+                Cookies.set('token', data.token, cookieOptions);
+                Cookies.set('user', JSON.stringify(data.user), cookieOptions);
 
                 // Set authToken for middleware compatibility
-                Cookies.set('authToken', data.token, {
-                    expires: 1,
-                    secure: true,
-                    sameSite: 'Strict',
-                });
+                Cookies.set('authToken', data.token, cookieOptions);
                 if (data.redirect_url) {
                     Cookies.set('redirect_url', data.redirect_url, {
                         expires: 1,

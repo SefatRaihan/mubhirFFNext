@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+// it's shown right now, but when I click any of the pacakge it redirect to the login page, but it have to go to the chaekput page, then what is the problem here
 
 /**
  * Package Interface
@@ -77,13 +78,18 @@ export default function PackagesPage() {
      * Check trial eligibility from user data (without activating trial)
      */
     useEffect(() => {
+
         const checkTrialEligibility = async () => {
-            const token = Cookies.get('token');
+            // Check for token (try both 'token' and 'authToken')
+            let token = Cookies.get('token') || Cookies.get('authToken');
+
+            console.group('%c📦 PACKAGES PAGE - Trial Check Started', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+            console.log('%cToken from cookies:', 'color: #2563eb;', token ? 'Found (' + token.substring(0, 20) + '...)' : 'NOT FOUND');
+
             if (!token) {
-                // If no token, assume fresh user (eligible for trial) ?? 
-                // Wait, if not logged in, we probably want to show them the trial option to entice them?
-                // The user requirement says: "when user after login go to the packages page then this api will triger"
-                // If not logged in, maybe show trial option by default? The existing code set hasUsedTrial=false (so they see trial).
+                // No token = not logged in, show trial option by default
+                console.log('%c⚠️ No token found - Showing trial option (user not logged in)', 'color: #ca8a04;');
+                console.groupEnd();
                 setHasUsedTrial(false);
                 return;
             }
@@ -223,8 +229,16 @@ export default function PackagesPage() {
         const selectedPkg = packages.find(p => p.id === selectedPackage);
         if (!selectedPkg) return;
 
-        // Check if user is authenticated
-        const token = Cookies.get('token');
+        // 🔍 DEBUG: Log all cookies to see what's available
+        console.group('%c🛒 PACKAGES PAGE - Proceed to Payment', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+        console.log('%cAll Cookies:', 'color: #2563eb; font-weight: bold;', document.cookie);
+        console.log('%cCookies.get("token"):', 'color: #16a34a;', Cookies.get('token'));
+        console.log('%cCookies.get("authToken"):', 'color: #16a34a;', Cookies.get('authToken'));
+        console.groupEnd();
+
+        // Check if user is authenticated (check both 'token' and 'authToken')
+        const token = Cookies.get('token') || Cookies.get('authToken');
+        console.log('%c🔑 Token found:', 'color: #7A2060; font-weight: bold;', token ? 'YES - Going to checkout' : 'NO - Redirecting to login');
         if (!token) {
             // Store selected package and redirect to login
             Cookies.set('selectedPlan', JSON.stringify(selectedPkg));
@@ -234,11 +248,12 @@ export default function PackagesPage() {
             return;
         }
 
-        // Navigate to checkout
-        Cookies.set('selectedPlan', JSON.stringify(selectedPkg));
+        // Navigate to checkout using full page navigation to ensure cookies are sent
+        Cookies.set('selectedPlan', JSON.stringify(selectedPkg), { path: '/' });
         // Set trial flag: true if user hasn't used trial, false if they have
-        Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
-        router.push('/checkout');
+        Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true', { path: '/' });
+        // Use window.location.href for full page navigation (ensures cookies are sent to middleware)
+        window.location.href = '/checkout';
     };
     useEffect(() => {
         document.title = 'مبهر - اختر باقتك';
