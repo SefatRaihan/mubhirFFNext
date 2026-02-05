@@ -597,7 +597,7 @@ export default function CheckoutPage() {
 
                         {/* Billing Information */}
                         <section>
-                            <h3 className="text-xl font-bold text-black mb-4">معلومات الفواتير</h3>
+                            {/* <h3 className="text-xl font-bold text-black mb-4">معلومات الفواتير</h3> */}
 
                             <div className="space-y-4">
                                 {/* First Name & Last Name */}
@@ -682,73 +682,74 @@ export default function CheckoutPage() {
                             </div>
                         </section>
 
-                        {/* Student Profile Information - Only show if not already filled */}
-                        {!hasStudentProfile && (
-                            <section>
-                                <h3 className="text-xl font-bold text-black mb-4">معلومات الملف الشخصي للطالب</h3>
+                        {/* Student Profile Information - Show for all, disabled if already filled */}
+                        <section>
+                            <h3 className="text-xl font-bold text-black mb-4">معلومات الملف الشخصي للطالب</h3>
 
-                                <div className="space-y-4">
-                                    {/* Gender & Date of Birth */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="flex flex-col w-full">
-                                            <label htmlFor="gender" className="block mb-1 font-medium text-black">
-                                                جنس*
-                                            </label>
-                                            <select
-                                                id="gender"
-                                                name="gender"
-                                                value={formData.gender}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
-                                            >
-                                                <option value="">اختر الجنس</option>
-                                                <option value="male">ذكر</option>
-                                                <option value="female">أنثى</option>
-                                            </select>
-                                        </div>
-                                        <div className="flex flex-col w-full">
-                                            <label htmlFor="dateOfBirth" className="block mb-1 font-medium text-black">
-                                                تاريخ الميلاد*
-                                            </label>
-                                            <DatePicker
-                                                selected={dateOfBirthDate}
-                                                onChange={handleDateChange}
-                                                dateFormat="dd/MM/yyyy"
-                                                maxDate={new Date()}
-                                                minDate={new Date('1920-01-01')}
-                                                placeholderText="اختر تاريخ الميلاد"
-                                                required
-                                                showYearDropdown
-                                                showMonthDropdown
-                                                dropdownMode="select"
-                                                className="custom-datepicker"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Secondary School Grade */}
-                                    <div>
-                                        <label htmlFor="secondarySchoolGrade" className="block mb-1 font-medium text-black">
-                                            المرحلة الثانوية*
+                            <div className="space-y-4">
+                                {/* Gender & Date of Birth */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="gender" className="block mb-1 font-medium text-black">
+                                            جنس{!hasStudentProfile && '*'}
                                         </label>
                                         <select
-                                            id="secondarySchoolGrade"
-                                            name="secondarySchoolGrade"
-                                            value={formData.secondarySchoolGrade}
+                                            id="gender"
+                                            name="gender"
+                                            value={formData.gender}
                                             onChange={handleChange}
-                                            required
-                                            className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
+                                            required={!hasStudentProfile}
+                                            disabled={hasStudentProfile}
+                                            className={`w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060] ${hasStudentProfile ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white'}`}
                                         >
-                                            <option value="">حدد الدرجة</option>
-                                            <option value="اول ثانوي">اول ثانوي</option>
-                                            <option value="ثاني ثانوي">ثاني ثانوي</option>
-                                            <option value="ثالث ثانوي">ثالث ثانوي</option>
+                                            <option value="">اختر الجنس</option>
+                                            <option value="male">ذكر</option>
+                                            <option value="female">أنثى</option>
                                         </select>
                                     </div>
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="dateOfBirth" className="block mb-1 font-medium text-black">
+                                            تاريخ الميلاد{!hasStudentProfile && '*'}
+                                        </label>
+                                        <DatePicker
+                                            selected={dateOfBirthDate}
+                                            onChange={handleDateChange}
+                                            dateFormat="dd/MM/yyyy"
+                                            maxDate={new Date()}
+                                            minDate={new Date('1920-01-01')}
+                                            placeholderText="اختر تاريخ الميلاد"
+                                            required={!hasStudentProfile}
+                                            disabled={hasStudentProfile}
+                                            showYearDropdown
+                                            showMonthDropdown
+                                            dropdownMode="select"
+                                            className={hasStudentProfile ? 'custom-datepicker disabled-datepicker' : 'custom-datepicker'}
+                                        />
+                                    </div>
                                 </div>
-                            </section>
-                        )}
+
+                                {/* Secondary School Grade */}
+                                <div>
+                                    <label htmlFor="secondarySchoolGrade" className="block mb-1 font-medium text-black">
+                                        المرحلة الثانوية{!hasStudentProfile && '*'}
+                                    </label>
+                                    <select
+                                        id="secondarySchoolGrade"
+                                        name="secondarySchoolGrade"
+                                        value={formData.secondarySchoolGrade}
+                                        onChange={handleChange}
+                                        required={!hasStudentProfile}
+                                        disabled={hasStudentProfile}
+                                        className={`w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060] ${hasStudentProfile ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white'}`}
+                                    >
+                                        <option value="">حدد الدرجة</option>
+                                        <option value="اول ثانوي">اول ثانوي</option>
+                                        <option value="ثاني ثانوي">ثاني ثانوي</option>
+                                        <option value="ثالث ثانوي">ثالث ثانوي</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
                     </div>
 
                     {/* Right Column - Coupon & Summary */}
