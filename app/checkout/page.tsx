@@ -111,12 +111,39 @@ export default function CheckoutPage() {
 
                     // Parse and set date of birth for DatePicker if exists
                     if (userData.date_of_birth) {
-                        const parts = userData.date_of_birth.split('/');
-                        if (parts.length === 3) {
-                            const dob = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-                            if (!isNaN(dob.getTime())) {
-                                setDateOfBirthDate(dob);
+                        console.log('[CHECKOUT] Parsing DOB:', userData.date_of_birth);
+                        let dob: Date | null = null;
+
+                        // Try format: dd/MM/yyyy (e.g., "15/03/2000")
+                        if (userData.date_of_birth.includes('/')) {
+                            const parts = userData.date_of_birth.split('/');
+                            if (parts.length === 3) {
+                                dob = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
                             }
+                        }
+                        // Try format: yyyy-MM-dd (e.g., "2000-03-15")
+                        else if (userData.date_of_birth.includes('-')) {
+                            const parts = userData.date_of_birth.split('-');
+                            if (parts.length === 3) {
+                                // Check if first part is year (4 digits) or day
+                                if (parts[0].length === 4) {
+                                    dob = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                                } else {
+                                    // Format: dd-MM-yyyy
+                                    dob = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                                }
+                            }
+                        }
+                        // Try parsing as ISO string
+                        else {
+                            dob = new Date(userData.date_of_birth);
+                        }
+
+                        if (dob && !isNaN(dob.getTime())) {
+                            console.log('[CHECKOUT] Parsed DOB successfully:', dob);
+                            setDateOfBirthDate(dob);
+                        } else {
+                            console.log('[CHECKOUT] Could not parse DOB');
                         }
                     }
 
