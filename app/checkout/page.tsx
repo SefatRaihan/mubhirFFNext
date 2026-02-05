@@ -742,7 +742,7 @@ export default function CheckoutPage() {
                                             selected={dateOfBirthDate}
                                             onChange={handleDateChange}
                                             dateFormat="dd/MM/yyyy"
-                                            maxDate={new Date()}
+                                            maxDate={hasStudentProfile ? undefined : new Date()}
                                             minDate={new Date('1920-01-01')}
                                             placeholderText="اختر تاريخ الميلاد"
                                             required={!hasStudentProfile}
