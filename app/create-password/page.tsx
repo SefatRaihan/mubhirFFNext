@@ -152,6 +152,8 @@ export default function CreatePasswordPage() {
                         // Store auth token in cookies
                         Cookies.set('token', loginData.token, {
                             expires: 1,
+                            path: '/',
+                            domain: '.mubhir.ai', // Works across all subdomains
                             secure: true,
                             sameSite: 'Strict',
                         });
@@ -160,6 +162,8 @@ export default function CreatePasswordPage() {
                         if (loginData.user) {
                             Cookies.set('user', JSON.stringify(loginData.user), {
                                 expires: 1,
+                                path: '/',
+                                domain: '.mubhir.ai', // Works across all subdomains
                                 secure: true,
                                 sameSite: 'Strict',
                             });
@@ -169,6 +173,8 @@ export default function CreatePasswordPage() {
                         if (loginData.redirect_url) {
                             Cookies.set('redirect_url', loginData.redirect_url, {
                                 expires: 1,
+                                path: '/',
+                                domain: '.mubhir.ai', // Works across all subdomains
                                 secure: true,
                             });
                         }

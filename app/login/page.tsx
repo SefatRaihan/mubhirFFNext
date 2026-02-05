@@ -110,6 +110,7 @@ function LoginContent() {
                 const cookieOptions = {
                     expires: 1,
                     path: '/',
+                    domain: '.mubhir.ai', // Works across all subdomains (dev, test, sat, etc.)
                     ...(isProduction && { secure: true, sameSite: 'Strict' as const }),
                 };
 
