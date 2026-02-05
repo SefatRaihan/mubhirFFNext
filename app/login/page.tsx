@@ -214,6 +214,7 @@ function LoginContent() {
                                         value={formData.phone}
                                         onChange={handlePhoneChange}
                                         defaultCountry="SA"
+                                        countries={['SA']}
                                         required
                                         className="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7a2060] text-right"
                                     />
