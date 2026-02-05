@@ -170,7 +170,7 @@ export default function BlogDetailsPage() {
 
         const fetchRelatedBlogs = async (categoryId: number, currentBlogId: number) => {
             try {
-                const response = await fetch(`https://dev.mubhir.ai/api/get-blogs`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
                 const data = await response.json();
 
                 if (data.success) {
