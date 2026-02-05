@@ -355,7 +355,15 @@ export default function CheckoutPage() {
             payload.append('last_name', formData.lastName);
             payload.append('email', formData.email);
             payload.append('phone', formData.phone);
-            payload.append('date_of_birth', formData.dateOfBirth);
+            // Format date_of_birth as dd/MM/yyyy for API
+            if (dateOfBirthDate) {
+                const day = String(dateOfBirthDate.getDate()).padStart(2, '0');
+                const month = String(dateOfBirthDate.getMonth() + 1).padStart(2, '0');
+                const year = dateOfBirthDate.getFullYear();
+                payload.append('date_of_birth', `${day}/${month}/${year}`);
+            } else {
+                payload.append('date_of_birth', formData.dateOfBirth);
+            }
             payload.append('gender', formData.gender);
             payload.append('grade', formData.secondarySchoolGrade);
             payload.append('endpoint', 'confirmation');
@@ -389,6 +397,9 @@ export default function CheckoutPage() {
             console.groupEnd();
 
             console.group('%c📤 API Payload Sent', 'color: #16a34a; font-weight: bold;');
+            const formattedDOB = dateOfBirthDate
+                ? `${String(dateOfBirthDate.getDate()).padStart(2, '0')}/${String(dateOfBirthDate.getMonth() + 1).padStart(2, '0')}/${dateOfBirthDate.getFullYear()}`
+                : formData.dateOfBirth;
             const apiPayload: Record<string, any> = {
                 'package_id': selectedPlan?.id || '0',
                 'is_auto_subscribe': !isTrial ? (autoRenew ? '1' : '0') : '0',
@@ -396,7 +407,7 @@ export default function CheckoutPage() {
                 'last_name': formData.lastName,
                 'email': formData.email,
                 'phone': formData.phone,
-                'date_of_birth': formData.dateOfBirth,
+                'date_of_birth': formattedDOB,
                 'gender': formData.gender,
                 'grade': formData.secondarySchoolGrade,
                 'endpoint': 'confirmation'
