@@ -508,7 +508,7 @@ export default function Home() {
                   width={50}
                   height={50}
                   className="absolute right-32 md:right-33 top-6"
-                  alt=""
+                  alt="bitcoin"
                 />
               </div>
             </div>
@@ -527,15 +527,14 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/Image-28.png" width={55} height={55} alt="" />
+                  <Image src="/image/Image-28.png" width={55} height={55} alt="student1" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 1.2, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/Image-29.png" width={55} height={55} alt="" />
+                  <Image src="/image/Image-29.png" width={55} height={55} alt="student2" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
@@ -543,7 +542,7 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/Image-30.png" width={55} height={55} alt="" />
+                  <Image src="/image/Image-30.png" width={55} height={55} alt="student3" />
                 </motion.div>
               </div>
               <motion.span

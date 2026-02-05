@@ -148,7 +148,7 @@ export default function ArContactUsPage() {
                                 <Image
                                     src="/image/bitcoin2.png"
                                     className="absolute right-32 md:right-33 top-6"
-                                    alt=""
+                                    alt="bitcoin2"
                                     width={50}
                                     height={50}
                                 />
@@ -173,7 +173,7 @@ export default function ArContactUsPage() {
                                 >
                                     <Image
                                         src="/image/Image-28.png"
-                                        alt=""
+                                        alt="student1"
                                         width={55}
                                         height={55}
                                     />
@@ -186,7 +186,7 @@ export default function ArContactUsPage() {
                                 >
                                     <Image
                                         src="/image/Image-29.png"
-                                        alt=""
+                                        alt="student2"
                                         width={55}
                                         height={55}
                                     />
@@ -199,7 +199,7 @@ export default function ArContactUsPage() {
                                 >
                                     <Image
                                         src="/image/Image-30.png"
-                                        alt=""
+                                        alt="student3"
                                         width={55}
                                         height={55}
                                     />

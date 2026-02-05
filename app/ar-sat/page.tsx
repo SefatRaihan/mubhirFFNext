@@ -206,7 +206,7 @@ export default function ArSatPage() {
                 <Image
                   src="/image/bitcoin2.png"
                   className="absolute right-32 md:right-33 top-6"
-                  alt=""
+                  alt="bitcoin2"
                   width={50}
                   height={50}
                 />
@@ -231,7 +231,7 @@ export default function ArSatPage() {
                 >
                   <Image
                     src="/image/Image-28.png"
-                    alt=""
+                    alt="student1"
                     width={55}
                     height={55}
                   />
@@ -244,7 +244,7 @@ export default function ArSatPage() {
                 >
                   <Image
                     src="/image/Image-29.png"
-                    alt=""
+                    alt="student2"
                     width={55}
                     height={55}
                   />
@@ -257,7 +257,7 @@ export default function ArSatPage() {
                 >
                   <Image
                     src="/image/Image-30.png"
-                    alt=""
+                    alt="student3"
                     width={55}
                     height={55}
                   />
@@ -324,7 +324,7 @@ export default function ArSatPage() {
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=stationery.png"
-                alt=""
+                alt="طريقة تعلم مخصصة لك"
                 width={40}
                 height={40}
               />
@@ -341,7 +341,7 @@ export default function ArSatPage() {
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=saturn.png"
-                alt=""
+                alt="محاكاة امتحانات حقيقية"
                 width={40}
                 height={40}
               />
@@ -358,7 +358,7 @@ export default function ArSatPage() {
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=book-03.png"
-                alt=""
+                alt="التتبع المدعوم من الذكاء الاصطناعي"
                 width={40}
                 height={40}
               />
@@ -536,7 +536,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/HeartOfAlgebra.png"
-                  alt=""
+                  alt="العمليات الحسابية"
                   width={56}
                   height={56}
                 />
@@ -552,7 +552,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/Problem-SolvingSkills.png"
-                  alt=""
+                  alt="الجبر"
                   width={56}
                   height={56}
                 />
@@ -568,7 +568,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/Type=PassportToAdvancedMath.png"
-                  alt=""
+                  alt="الهندسة"
                   width={56}
                   height={56}
                 />
@@ -584,7 +584,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/Type=math.png"
-                  alt=""
+                  alt="التحليل البياني"
                   width={56}
                   height={56}
                 />
@@ -600,7 +600,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/Type=PassportToAdvancedMath.png"
-                  alt=""
+                  alt="القياس والمنطق"
                   width={56}
                   height={56}
                 />
@@ -616,7 +616,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 text-purple-500"
                   src="/image/icon/Type=math.png"
-                  alt=""
+                  alt="مسائل عقلية"
                   width={56}
                   height={56}
                 />
@@ -660,7 +660,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 object-contain"
                   src="/image/icon/Type=ReadingComprehension.png"
-                  alt=""
+                  alt="الخطأ السياقي"
                   width={56}
                   height={56}
                 />
@@ -671,7 +671,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 object-contain"
                   src="/image/icon/Type=VocabularyInContext.png"
-                  alt=""
+                  alt="إكمال الجمل"
                   width={56}
                   height={56}
                 />
@@ -682,7 +682,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 object-contain"
                   src="/image/icon/Type=Grammar&Usage.png"
-                  alt=""
+                  alt="استيعاب المقروء استخدام"
                   width={56}
                   height={56}
                 />
@@ -695,7 +695,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 object-contain"
                   src="/image/icon/Type=CommandOfEvidence.png"
-                  alt=""
+                  alt="المفردة الشاذة"
                   width={56}
                   height={56}
                 />
@@ -706,7 +706,7 @@ export default function ArSatPage() {
                 <Image
                   className="w-14 h-14 object-contain"
                   src="/image/icon/Type=RhetoricalSkills.png"
-                  alt=""
+                  alt="القياس والمنطق"
                   width={56}
                   height={56}
                 />
@@ -913,7 +913,7 @@ export default function ArSatPage() {
                 <section className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                   <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
                     <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
-                      <Image src="/image/icon/gift.png" alt="" width={64} height={64} />
+                      <Image src="/image/icon/gift.png" alt="شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية." width={64} height={64} />
                     </div>
                     <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
                       شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية.
@@ -921,7 +921,7 @@ export default function ArSatPage() {
                   </div>
                   <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
                     <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
-                      <Image src="/image/icon/mortarboard-01.png" alt="" width={64} height={64} />
+                      <Image src="/image/icon/mortarboard-01.png" alt="ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك" width={64} height={64} />
                     </div>
                     <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
                       ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك

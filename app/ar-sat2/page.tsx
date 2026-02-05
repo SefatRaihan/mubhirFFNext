@@ -162,7 +162,7 @@ export default function ArSat2Page() {
                                 >
                                     <Image
                                         src="/image/Image-28.png"
-                                        alt=""
+                                        alt="student1"
                                         width={55}
                                         height={55}
                                     />
@@ -175,7 +175,7 @@ export default function ArSat2Page() {
                                 >
                                     <Image
                                         src="/image/Image-29.png"
-                                        alt=""
+                                        alt="student2"
                                         width={55}
                                         height={55}
                                     />
@@ -188,7 +188,7 @@ export default function ArSat2Page() {
                                 >
                                     <Image
                                         src="/image/Image-30.png"
-                                        alt=""
+                                        alt="student3"
                                         width={55}
                                         height={55}
                                     />
@@ -291,7 +291,7 @@ export default function ArSat2Page() {
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=stationery.png"
-                                alt=""
+                                alt="طريقة تعلم مخصصة لك"
                                 width={40}
                                 height={40}
                             />
@@ -315,7 +315,7 @@ export default function ArSat2Page() {
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=saturn.png"
-                                alt=""
+                                alt="محاكاة امتحانات حقيقية"
                                 width={40}
                                 height={40}
                             />
@@ -339,7 +339,7 @@ export default function ArSat2Page() {
                             <Image
                                 className="w-10 h-10 text-purple-500"
                                 src="/image/icon/Type=book-03.png"
-                                alt=""
+                                alt="التتبع المدعوم من الذكاء الاصطناعي"
                                 width={40}
                                 height={40}
                             />

@@ -162,7 +162,7 @@ export default function ArAboutUsPage() {
                 >
                   <Image
                     src="/image/Image-28.png"
-                    alt=""
+                    alt="student1"
                     width={55}
                     height={55}
                   />
@@ -175,7 +175,7 @@ export default function ArAboutUsPage() {
                 >
                   <Image
                     src="/image/Image-29.png"
-                    alt=""
+                    alt="student2"
                     width={55}
                     height={55}
                   />
@@ -188,7 +188,7 @@ export default function ArAboutUsPage() {
                 >
                   <Image
                     src="/image/Image-30.png"
-                    alt=""
+                    alt="student3"
                     width={55}
                     height={55}
                   />
@@ -330,7 +330,7 @@ export default function ArAboutUsPage() {
                 <Image
                   className="w-8 h-8"
                   src="/image/icon/Type=user.png"
-                  alt=""
+                  alt="العديد من النماذج التجريبية المحاكية للأختبار الحقيقي"
                   width={32}
                   height={32}
                 />
@@ -358,7 +358,7 @@ export default function ArAboutUsPage() {
                 <Image
                   className="w-8 h-8"
                   src="/image/icon/Type=OnlineLearning03.png"
-                  alt=""
+                  alt="ممارسة شخصية وتدريب مكثف وأنت فى بيتك"
                   width={32}
                   height={32}
                 />
@@ -389,7 +389,7 @@ export default function ArAboutUsPage() {
                 <Image
                   className="w-8 h-8"
                   src="/image/icon/Type=AIRecognition.png"
-                  alt=""
+                  alt="توقع نتيجتك مع مبهر"
                   width={32}
                   height={32}
                 />
@@ -417,7 +417,7 @@ export default function ArAboutUsPage() {
                 <Image
                   className="w-8 h-8"
                   src="/image/icon/Type=OnlineLearning01.png"
-                  alt=""
+                  alt="فيديو"
                   width={32}
                   height={32}
                 />
@@ -445,7 +445,7 @@ export default function ArAboutUsPage() {
                 <Image
                   className="w-8 h-8"
                   src="/image/icon/Type=AudioBook.png"
-                  alt=""
+                  alt="كتاب صوتي"
                   width={32}
                   height={32}
                 />
