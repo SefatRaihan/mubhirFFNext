@@ -82,13 +82,12 @@ export function middleware(request: NextRequest) {
   // REGULAR AUTHENTICATION CHECKS
   // ============================================
 
-  // Get authentication token from cookies (check both 'authToken' and 'token')
-  const authToken = request.cookies.get("authToken")?.value || request.cookies.get("token")?.value;
+  // Get authentication token from cookies
+  const token = request.cookies.get("token")?.value;
 
   // 🔍 DEBUG: Log middleware checks
   console.log('[MIDDLEWARE] Path:', pathname);
-  console.log('[MIDDLEWARE] authToken cookie:', request.cookies.get("authToken")?.value ? 'FOUND' : 'NOT FOUND');
-  console.log('[MIDDLEWARE] token cookie:', request.cookies.get("token")?.value ? 'FOUND' : 'NOT FOUND');
+  console.log('[MIDDLEWARE] token cookie:', token ? 'FOUND' : 'NOT FOUND');
   console.log('[MIDDLEWARE] All cookies:', request.cookies.getAll().map(c => c.name).join(', '));
 
   // Check if current route is protected
@@ -115,7 +114,7 @@ export function middleware(request: NextRequest) {
    * EXCEPTION: Allow /confirmation with tap_id parameter (payment callback)
    * This allows users returning from payment gateway to access the confirmation page
    */
-  if (isProtectedRoute && !authToken) {
+  if (isProtectedRoute && !token) {
     // Allow /confirmation with tap_id parameter (payment gateway callback)
     if (pathname === '/confirmation' && request.nextUrl.searchParams.has('tap_id')) {
       return NextResponse.next();
@@ -131,7 +130,7 @@ export function middleware(request: NextRequest) {
    * Scenario 2: Logged-in user trying to access auth pages (login/signup)
    * Action: Redirect to home page
    */
-  if (isAuthRoute && authToken) {
+  if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

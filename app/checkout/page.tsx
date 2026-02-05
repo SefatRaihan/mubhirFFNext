@@ -56,8 +56,8 @@ export default function CheckoutPage() {
      */
     useEffect(() => {
         const loadData = async () => {
-            // Check authentication (check both 'token' and 'authToken')
-            const token = Cookies.get('token') || Cookies.get('authToken');
+            // Check authentication
+            const token = Cookies.get('token');
             if (!token) {
                 router.push('/login');
                 return;
@@ -154,7 +154,7 @@ export default function CheckoutPage() {
         }
 
         try {
-            const token = Cookies.get('token') || Cookies.get('authToken');
+            const token = Cookies.get('token');
 
             // Log input values
             // console.log('🎟️ Applying Coupon:');
@@ -231,7 +231,7 @@ export default function CheckoutPage() {
         setSubmitting(true);
 
         try {
-            const token = Cookies.get('token') || Cookies.get('authToken');
+            const token = Cookies.get('token');
             if (!token) {
                 router.push('/login');
                 return;

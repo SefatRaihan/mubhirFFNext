@@ -149,13 +149,8 @@ export default function CreatePasswordPage() {
                     const loginData = await loginResponse.json();
 
                     if (loginResponse.ok && loginData?.token) {
-                        // Store auth tokens in cookies (same as login page)
+                        // Store auth token in cookies
                         Cookies.set('token', loginData.token, {
-                            expires: 1,
-                            secure: true,
-                            sameSite: 'Strict',
-                        });
-                        Cookies.set('authToken', loginData.token, {
                             expires: 1,
                             secure: true,
                             sameSite: 'Strict',

@@ -80,8 +80,8 @@ export default function PackagesPage() {
     useEffect(() => {
 
         const checkTrialEligibility = async () => {
-            // Check for token (try both 'token' and 'authToken')
-            let token = Cookies.get('token') || Cookies.get('authToken');
+            // Check for token
+            let token = Cookies.get('token');
 
             console.group('%c📦 PACKAGES PAGE - Trial Check Started', 'color: #7A2060; font-size: 14px; font-weight: bold;');
             console.log('%cToken from cookies:', 'color: #2563eb;', token ? 'Found (' + token.substring(0, 20) + '...)' : 'NOT FOUND');
@@ -233,11 +233,10 @@ export default function PackagesPage() {
         console.group('%c🛒 PACKAGES PAGE - Proceed to Payment', 'color: #7A2060; font-size: 14px; font-weight: bold;');
         console.log('%cAll Cookies:', 'color: #2563eb; font-weight: bold;', document.cookie);
         console.log('%cCookies.get("token"):', 'color: #16a34a;', Cookies.get('token'));
-        console.log('%cCookies.get("authToken"):', 'color: #16a34a;', Cookies.get('authToken'));
         console.groupEnd();
 
-        // Check if user is authenticated (check both 'token' and 'authToken')
-        const token = Cookies.get('token') || Cookies.get('authToken');
+        // Check if user is authenticated
+        const token = Cookies.get('token');
         console.log('%c🔑 Token found:', 'color: #7A2060; font-weight: bold;', token ? 'YES - Going to checkout' : 'NO - Redirecting to login');
         if (!token) {
             // Store selected package and redirect to login

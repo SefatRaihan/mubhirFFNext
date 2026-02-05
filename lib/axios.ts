@@ -23,11 +23,11 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
     (config) => {
         // Get auth token from localStorage
-        const authToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
         // Add token to request headers if it exists
-        if (authToken) {
-            config.headers.Authorization = `Bearer ${authToken}`;
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
 
         return config;
@@ -52,7 +52,7 @@ apiClient.interceptors.response.use(
         if (error.response?.status === 401) {
             // Clear auth token
             if (typeof window !== 'undefined') {
-                localStorage.removeItem('authToken');
+                localStorage.removeItem('token');
                 // Redirect to login page
                 window.location.href = '/login';
             }

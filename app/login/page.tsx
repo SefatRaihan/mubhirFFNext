@@ -115,9 +115,6 @@ function LoginContent() {
 
                 Cookies.set('token', data.token, cookieOptions);
                 Cookies.set('user', JSON.stringify(data.user), cookieOptions);
-
-                // Set authToken for middleware compatibility
-                Cookies.set('authToken', data.token, cookieOptions);
                 if (data.redirect_url) {
                     Cookies.set('redirect_url', data.redirect_url, {
                         expires: 1,
