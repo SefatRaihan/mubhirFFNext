@@ -474,7 +474,7 @@ export default function ArSat2Page() {
 
                     {/* Contact Us Button */}
                     <ScrollDiv
-                        className="mt-14 pb-32 text-center"
+                        className="mt-14 text-center"
                         amount={0.5}
                         initialScale={0.8}
                         initialY={0}
