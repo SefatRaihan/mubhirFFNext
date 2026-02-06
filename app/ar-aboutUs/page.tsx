@@ -15,6 +15,7 @@ import LeftArrow from "@/public/icons/LeftArrow";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
 import FaqItem from "@/components/FaqItem/FaqItem";
 import { motion } from "framer-motion";
+import { ScrollAnimated, ScrollSection, ScrollDiv, ScrollH2, ScrollP } from "@/components/ScrollAnimated/ScrollAnimated";
 
 export default function ArAboutUsPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -239,39 +240,31 @@ export default function ArAboutUsPage() {
       </header>
 
       {/* Mission Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8 }}
+      <ScrollSection
         className="bg-[#f7e8f5] my-4 md:m-4 rounded-0 md:rounded-2xl"
+        amount={0.2}
       >
         <div className="max-w-5xl mx-auto text-center py-[120px]">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <ScrollAnimated
+            as="span"
             className="inline-block text-gray-500 text-[16px] font-medium mb-4"
+            initialY={20}
+            amount={0.5}
           >
             رسالتنا
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          </ScrollAnimated>
+          <ScrollH2
             className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6 leading-tight"
+            amount={0.5}
+            delay={0.1}
           >
             مبهر منصة تعليمية احترافية تؤمن بأن لكل طالب الحق في <br /> الوصول
             إلى التميز والنجاح. لهذا السبب، ابتكرنا أقوى
-          </motion.h2>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          </ScrollH2>
+          <ScrollH2
             className="text-3xl sm:text-4xl font-semibold text-gray-800 mt-10 leading-tight"
+            amount={0.5}
+            delay={0.2}
           >
             منصة متقدمة للتحضير لأختبارات القدرات، مدعومة بأحدث <br /> تقنيات
             الذكاء الإصطناعي. نطمح إلى بناء جيل قوي، واع <br />
@@ -279,19 +272,22 @@ export default function ArAboutUsPage() {
             <br /> وموجه يساعد الطالب على إتقان اختبار ٍالقدرات بثقة وتميز،{" "}
             <br />
             وتحقيق أعلى الدرجات.
-          </motion.h2>
+          </ScrollH2>
         </div>
-      </motion.section>
+      </ScrollSection>
 
       {/* Why Choose Mubhir Section */}
-      <section className="bg-white my-4 md:m-4" style={{ backgroundImage: "url('/image/Vector.svg')" }}>
+      <ScrollSection
+        className="bg-white my-4 md:m-4"
+        style={{ backgroundImage: "url('/image/Vector.svg')" }}
+        amount={0.1}
+      >
         <div className="max-w-5xl mx-auto py-[120px]">
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight  text-center"
+          <ScrollH2
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold leading-tight text-center"
+            initialScale={0.9}
+            initialY={0}
+            amount={0.5}
           >
             لماذا تختار
             <span className="relative inline-block pb-2 z-10">
@@ -304,27 +300,24 @@ export default function ArAboutUsPage() {
                 className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-10 pointer-events-none"
               />
             </span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          </ScrollH2>
+          <ScrollP
             className="mt-3 sm:mt-[12px] text-center text-sm sm:text-base mb-[56px]"
+            amount={0.5}
+            delay={0.1}
           >
             كل ما تحتاجه للتميز في القدرات العامة يبدأ من هنا...أكتشف أفضل ما
             يميز اختباراتنا الذكية
-          </motion.p>
+          </ScrollP>
 
           {/* First Row: 2 Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            <ScrollDiv
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48 hover:-translate-y-2 transition-transform duration-300"
+              initialX={-50}
+              initialY={0}
+              amount={0.3}
+              delay={0.1}
             >
               <span className="text-blue-500">
                 <Image
@@ -344,15 +337,14 @@ export default function ArAboutUsPage() {
                   لتمنحك تجربة تدريبية واقعية ومتكاملة.
                 </p>
               </div>
-            </motion.div>
+            </ScrollDiv>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            <ScrollDiv
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48 hover:-translate-y-2 transition-transform duration-300"
+              initialX={50}
+              initialY={0}
+              amount={0.3}
+              delay={0.2}
             >
               <span className="text-blue-500">
                 <Image
@@ -372,18 +364,15 @@ export default function ArAboutUsPage() {
                   محاكية، تساعدك على الفهم، التطبيق، والتفوق في اختبار القدرات
                 </p>
               </div>
-            </motion.div>
+            </ScrollDiv>
           </div>
 
           {/* Second Row: 3 Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
-              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            <ScrollDiv
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300"
+              amount={0.3}
+              delay={0.1}
             >
               <span className="text-blue-500">
                 <Image
@@ -403,15 +392,12 @@ export default function ArAboutUsPage() {
                   للدرجة التي ستحصل عليها في الأختبار النهائي.
                 </p>
               </div>
-            </motion.div>
+            </ScrollDiv>
 
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
-              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            <ScrollDiv
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300"
+              amount={0.3}
+              delay={0.2}
             >
               <span className="text-blue-500">
                 <Image
@@ -431,15 +417,12 @@ export default function ArAboutUsPage() {
                   ومتخصصين
                 </p>
               </div>
-            </motion.div>
+            </ScrollDiv>
 
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
-              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48"
+            <ScrollDiv
+              className="bg-[#F9FAFC] rounded-lg p-6 flex flex-col justify-between min-h-48 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300"
+              amount={0.3}
+              delay={0.3}
             >
               <span className="text-blue-500">
                 <Image
@@ -458,7 +441,7 @@ export default function ArAboutUsPage() {
                   يمكنك مع مبهر أن تتدرب من أي مكان، من أي جهاز، في أي وقت.
                 </p>
               </div>
-            </motion.div>
+            </ScrollDiv>
           </div>
 
           <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
@@ -473,23 +456,20 @@ export default function ArAboutUsPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* Founder Statement Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8 }}
+      <ScrollSection
         className="bg-[#F2F4F7] my-4 md:m-4 rounded-0 md:rounded-2xl"
+        amount={0.2}
       >
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center py-[120px]">
           {/* Right Side: Heading and Description */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <ScrollDiv
+            initialX={50}
+            initialY={0}
+            amount={0.3}
+            delay={0.1}
           >
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
               تعرف على مؤسس منصة مبهر
@@ -498,15 +478,15 @@ export default function ArAboutUsPage() {
               نؤمن بأن لكل طالب طموح، هناك درجة يستحقها و نحن هنا لنساعدك على
               الوصول إليها
             </p>
-          </motion.div>
+          </ScrollDiv>
 
           {/* Left Side: Testimonial Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          <ScrollDiv
             className="bg-white rounded-lg p-6 shadow-md flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4"
+            initialX={-50}
+            initialY={0}
+            amount={0.3}
+            delay={0.2}
           >
             <div className="w-full md:w-1/2 h-[300px] md:h-[430px] bg-gray-200 rounded-lg"></div>
             <div className="w-full md:w-1/2 text-right self-start">
@@ -526,33 +506,55 @@ export default function ArAboutUsPage() {
                 مؤسس منصة مبهر
               </p>
             </div>
-          </motion.div>
+          </ScrollDiv>
         </div>
-      </motion.section>
+      </ScrollSection>
 
       {/* FAQ Section */}
-      <section className="bg-[#eaecf0] flex justify-center m-4 rounded-2xl">
+      <ScrollSection
+        className="bg-[#eaecf0] flex justify-center m-4 rounded-2xl"
+        amount={0.1}
+      >
         <div className="container max-w-6xl px-4 py-[120px]">
-          <h2 className="text-[56px] font-semibold text-center text-black">
+          <ScrollH2
+            className="text-[56px] font-semibold text-center text-black"
+            amount={0.5}
+          >
             كل إستفسارات طلاب القدرات
             <br />
-          </h2>
-          <p className="mt-2 text-center text-gray-600">الأسئلة الشائعة</p>
+          </ScrollH2>
+          <ScrollP
+            className="mt-2 text-center text-gray-600"
+            amount={0.5}
+            delay={0.1}
+          >
+            الأسئلة الشائعة
+          </ScrollP>
           <div className="mt-10 space-y-4">
             {faqData.map((faq, index) => (
-              <FaqItem
+              <ScrollDiv
                 key={index}
-                question={faq.question}
-                answer={faq.answer}
-                index={index}
-                isOpen={openFaq === index}
-                onToggle={() => toggleFaq(index)}
-              />
+                amount={0.3}
+                delay={index * 0.1}
+                initialY={30}
+              >
+                <FaqItem
+                  question={faq.question}
+                  answer={faq.answer}
+                  index={index}
+                  isOpen={openFaq === index}
+                  onToggle={() => toggleFaq(index)}
+                />
+              </ScrollDiv>
             ))}
           </div>
-          <p className="text-black font-medium mb-[12px] mt-[32px] text-center">
+          <ScrollP
+            className="text-black font-medium mb-[12px] mt-[32px] text-center"
+            amount={0.5}
+            delay={0.3}
+          >
             ما زلت لديك أسئلة؟
-          </p>
+          </ScrollP>
           <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
             <Link href="/ar-contactUs">
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
@@ -564,13 +566,22 @@ export default function ArAboutUsPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* CTA Section */}
-      <section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20">
+      <ScrollSection
+        className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl"
+        amount={0.2}
+      >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
+          <ScrollDiv
+            className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6"
+            initialX={50}
+            initialY={0}
+            amount={0.3}
+            delay={0.1}
+          >
             <h2 className="text-4xl md:text-5xl font-semibold leading-snug">
               ابدأ
               <span className="relative inline-block pb-2">
@@ -588,10 +599,16 @@ export default function ArAboutUsPage() {
               انضم إلى آلاف الطلاب الذين يستعدون بذكاء، وليس بجهد أكبر. سجّل
               الآن وابدأ اختبارك التجريبي الأول مجانًا!
             </p>
-          </div>
+          </ScrollDiv>
 
           {/* Image */}
-          <div className="order-last md:order-0 flex justify-center items-center">
+          <ScrollDiv
+            className="order-last md:order-0 flex justify-center items-center"
+            initialX={-50}
+            initialY={0}
+            amount={0.3}
+            delay={0.2}
+          >
             <Image
               src="/image/review-cover.png"
               alt="طالبة"
@@ -599,9 +616,9 @@ export default function ArAboutUsPage() {
               height={350}
               className="h-[350px] object-cover"
             />
-          </div>
+          </ScrollDiv>
         </div>
-      </section>
+      </ScrollSection>
 
       <Footer />
     </div>
