@@ -16,7 +16,8 @@ import LeftArrow from "@/public/icons/LeftArrow";
 import CircleCorrectIcon from "@/public/icons/CircleCorrectIcon";
 import CorrectIcon from "@/public/icons/CorrectIcon";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { ScrollAnimated, ScrollSection, ScrollDiv, ScrollH2, ScrollP } from "@/components/ScrollAnimated/ScrollAnimated";
 
 interface PricingPlan {
   id: number;
@@ -308,19 +309,19 @@ export default function ArSatPage() {
       </header >
 
       {/* We help Section */}
-      < section className="font-sans text-gray-900 bg-[#F7E8F5]  my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="font-sans text-gray-900 bg-[#F7E8F5] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="max-w-7xl mx-auto py-[120px]">
-          <h2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]">
+          <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]" amount={0.3}>
             نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
-          </h2>
-          <p className="text-sm text-black mt-6 text-center">
+          </ScrollH2>
+          <ScrollP className="text-sm text-black mt-6 text-center" amount={0.3} delay={0.1}>
             تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
             وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br /> بأقصر
             وأفضل طريقة
-          </p>
+          </ScrollP>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+            <ScrollDiv className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300" amount={0.3} delay={0.1}>
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=stationery.png"
@@ -335,9 +336,9 @@ export default function ArSatPage() {
                   يتعامل الذكاء الاصطناعي لدينا مع كليهما بسلاسة.
                 </p>
               </div>
-            </div>
+            </ScrollDiv>
 
-            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+            <ScrollDiv className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300" amount={0.3} delay={0.2}>
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=saturn.png"
@@ -352,9 +353,9 @@ export default function ArSatPage() {
                   الطالب ويتنبأ بدرجة تقريبية لمستواه.
                 </p>
               </div>
-            </div>
+            </ScrollDiv>
 
-            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col">
+            <ScrollDiv className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300" amount={0.3} delay={0.3}>
               <Image
                 className="w-10 h-10 text-purple-500"
                 src="/image/icon/Type=book-03.png"
@@ -371,29 +372,29 @@ export default function ArSatPage() {
                   تحسينها.
                 </p>
               </div>
-            </div>
+            </ScrollDiv>
           </div>
         </div>
-      </section >
+      </ScrollSection>
 
       {/* All in one place Section */}
-      < section className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <h2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+            <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
               ماذا تقدم منصة مبهر في اختبار القدرات العامة؟
-            </h2>
-            <p className="text-sm text-black mt-4">
+            </ScrollH2>
+            <ScrollP className="text-sm text-black mt-4" amount={0.3} delay={0.1}>
               منصة مبهر تقدم اقوى الأختبارات التي تساعدك على رفع درجاتك وتحقيق
               هدفك في الوصول إلى أفضل الجامعات العالمية وتشمل:
-            </p>
+            </ScrollP>
           </div>
 
           {/* Main Content */}
           <div className="mt-8 flex flex-col lg:flex-row-reverse gap-6 lg:items-stretch">
             {/* Second Card (Verbal) */}
-            <div className="bg-white rounded-lg shadow-md p-6 flex-1 flex flex-col">
+            <ScrollDiv className="bg-white rounded-lg shadow-md p-6 flex-1 flex flex-col hover:-translate-y-2 transition-transform duration-300" amount={0.3} delay={0.1} initialX={-50} initialY={0}>
               {/* Image Section */}
               <div className="order-3">
                 <Image
@@ -412,10 +413,10 @@ export default function ArSatPage() {
                   الخطأ السياقي ، إكمال الجمل ، استيعاب المقروء ، التناظر اللفظي ، المفردة الشاذة
                 </p>
               </div>
-            </div>
+            </ScrollDiv>
 
             {/* First Card (Quant) */}
-            <div className="bg-white rounded-lg shadow-md p-6 flex-1 mt-6 lg:mt-0 flex flex-col">
+            <ScrollDiv className="bg-white rounded-lg shadow-md p-6 flex-1 mt-6 lg:mt-0 flex flex-col hover:-translate-y-2 transition-transform duration-300" amount={0.3} delay={0.2} initialX={50} initialY={0}>
               {/* Image Section */}
               <div className="order-1">
                 <Image
@@ -435,11 +436,11 @@ export default function ArSatPage() {
                   البيانات، ومفاهيم رياضية متقدمة.
                 </p>
               </div>
-            </div>
+            </ScrollDiv>
           </div>
 
           {/* Contact Us Button */}
-          <div className="mt-14 text-center">
+          <ScrollDiv className="mt-14 text-center" amount={0.5} delay={0.3}>
             <Link href="/ar-contactUs">
               <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 cursor-pointer flex items-center mx-auto">
                 اتصل بنا
@@ -473,24 +474,24 @@ export default function ArSatPage() {
                 </span>
               </button>
             </Link>
-          </div>
+          </ScrollDiv>
         </div>
-      </section >
+      </ScrollSection>
 
       {/* All exam Section */}
-      < section className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
-        style={{ backgroundImage: "url('/image/Vector.svg')" }
-        }
+      <ScrollSection className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
+        style={{ backgroundImage: "url('/image/Vector.svg')" }}
+        amount={0.1}
       >
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <h2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none">
+            <ScrollH2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none" amount={0.3}>
               أقسام اختبارات القدرات
-            </h2>
-            <p className="text-sm text-gray-500 mt-1">
+            </ScrollH2>
+            <ScrollP className="text-sm text-gray-500 mt-1" amount={0.3} delay={0.1}>
               أفضل منصة للتدرب على اختبار القدرات العامة
-            </p>
+            </ScrollP>
           </div>
 
           {/* Quantitative Section */}
@@ -715,19 +716,19 @@ export default function ArSatPage() {
             </div>
           </div>
         </div>
-      </section >
+      </ScrollSection >
 
       {/* How Mubhir helps Section */}
-      < section className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="max-w-7xl mx-auto px-4 py-[120px]">
           {/* Header (Centered) */}
           <div className="mx-auto max-w-[610px] space-y-4">
-            <h2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none">
+            <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
               كيف يساعدك مبهر على التفوق في اختبار القدرات
-            </h2>
-            <p className="text-[16px] text-black mt-1 text-center">
+            </ScrollH2>
+            <ScrollP className="text-[16px] text-black mt-1 text-center" amount={0.3} delay={0.1}>
               ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
-            </p>
+            </ScrollP>
           </div>
 
           {/* Tabs */}
@@ -749,200 +750,237 @@ export default function ArSatPage() {
           </div>
 
           {/* Tab Content */}
-          {/* Tab 1: وضع التدريب */}
-          {activeTab === 'tab1' && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-                  <div className="order-1 lg:order-2">
-                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                      وضع التدريب المكثف
+          <AnimatePresence mode="wait">
+            {/* Tab 1: وضع التدريب */}
+            {activeTab === 'tab1' && (
+              <motion.div
+                key="tab1"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+              >
+                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                    <div className="order-1 lg:order-2">
+                      <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                        وضع التدريب المكثف
+                      </div>
+                      <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                        تدريب شخصي مصمم خصيصاً لك، لتتعلم بذكاء وتنجح بثقة
+                      </h2>
+                      <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                        نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                      </p>
+                      <ul className="mt-40 space-y-3 text-gray-800">
+                        {[
+                          'صمم اختباراتٍ تجريبية حسب مستوى الصعوبة والوقت والموضوعات.',
+                          'احصل على تعليقاتٍ فورية وتفسيرات فيديو لكل سؤال.',
+                          'ركز على نقاط ضعفك وقم ببناء الثقة خطوة بخطوة.'
+                        ].map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                              <CircleCorrectIcon />
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
-                      تدريب شخصي مصمم خصيصاً لك، لتتعلم بذكاء وتنجح بثقة
-                    </h2>
-                    <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
-                      نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
-                    </p>
-                    <ul className="mt-40 space-y-3 text-gray-800">
-                      {[
-                        'صمم اختباراتٍ تجريبية حسب مستوى الصعوبة والوقت والموضوعات.',
-                        'احصل على تعليقاتٍ فورية وتفسيرات فيديو لكل سؤال.',
-                        'ركز على نقاط ضعفك وقم ببناء الثقة خطوة بخطوة.'
-                      ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
-                            <CircleCorrectIcon />
-                          </span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="order-2 lg:order-1">
-                    <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
-                      <Image src="/image/trainingMode.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                    <div className="order-2 lg:order-1">
+                      <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                        <Image src="/image/trainingMode.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
 
-          {/* Tab 2: محاكاة اختبار القدرات */}
-          {activeTab === 'tab2' && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
-                <div className="flex justify-center">
-                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
-                    محاكاة قدرات
+            {/* Tab 2: محاكاة اختبار القدرات */}
+            {activeTab === 'tab2' && (
+              <motion.div
+                key="tab2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+              >
+                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                  <div className="flex justify-center">
+                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                      محاكاة قدرات
+                    </div>
+                  </div>
+                  <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                    تدريب مثل الاختبار الحقيقي
+                  </h2>
+                  <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                    نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                  </p>
+                  <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {[
+                      { text: 'قم بإجراء +1,000 اختبار وهمي مصمم من قبل الخبراء', color: '#EEE3FF', stroke: '#761DFF' },
+                      { text: 'جرّب ظروف اختبار قدرات الحقيقية', color: '#E0F7FF', stroke: '#00AFE6' },
+                      { text: 'تحليلات مفصلة وتتبع الأداء', color: '#FFE9F5', stroke: '#FF0086' }
+                    ].map((card, idx) => (
+                      <div key={idx} className="relative rounded-3xl bg-[#F9FAFB] shadow-soft p-8">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z" fill={card.color} />
+                          <path d="M22.6668 16C22.6668 12.3181 19.6821 9.33329 16.0002 9.33329C12.3183 9.33329 9.3335 12.3181 9.3335 16C9.3335 19.6819 12.3183 22.6666 16.0002 22.6666C19.6821 22.6666 22.6668 19.6819 22.6668 16Z" stroke={card.stroke} />
+                          <path d="M13.3335 16.5C13.3335 16.5 14.4002 17.1084 14.9335 18C14.9335 18 16.5335 14.5 18.6668 13.3334" stroke={card.stroke} strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <p className="mt-10 text-lg">{card.text}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
-                  تدريب مثل الاختبار الحقيقي
-                </h2>
-                <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
-                  نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
-                </p>
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
-                  {[
-                    { text: 'قم بإجراء +1,000 اختبار وهمي مصمم من قبل الخبراء', color: '#EEE3FF', stroke: '#761DFF' },
-                    { text: 'جرّب ظروف اختبار قدرات الحقيقية', color: '#E0F7FF', stroke: '#00AFE6' },
-                    { text: 'تحليلات مفصلة وتتبع الأداء', color: '#FFE9F5', stroke: '#FF0086' }
-                  ].map((card, idx) => (
-                    <div key={idx} className="relative rounded-3xl bg-[#F9FAFB] shadow-soft p-8">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z" fill={card.color} />
-                        <path d="M22.6668 16C22.6668 12.3181 19.6821 9.33329 16.0002 9.33329C12.3183 9.33329 9.3335 12.3181 9.3335 16C9.3335 19.6819 12.3183 22.6666 16.0002 22.6666C19.6821 22.6666 22.6668 19.6819 22.6668 16Z" stroke={card.stroke} />
-                        <path d="M13.3335 16.5C13.3335 16.5 14.4002 17.1084 14.9335 18C14.9335 18 16.5335 14.5 18.6668 13.3334" stroke={card.stroke} strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <p className="mt-10 text-lg">{card.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
 
-          {/* Tab 3: بنك الأسئلة */}
-          {activeTab === 'tab3' && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
-                <div className="flex justify-center">
-                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
-                    بنك الأسئلة
+            {/* Tab 3: بنك الأسئلة */}
+            {activeTab === 'tab3' && (
+              <motion.div
+                key="tab3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+              >
+                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                  <div className="flex justify-center">
+                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                      بنك الأسئلة
+                    </div>
+                  </div>
+                  <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                    ابق في الطليعة
+                  </h2>
+                  <p className="mt-4 max-w-3xl mx-auto text-center text-black text-base">
+                    نحن نساعد الطلاب في جميع أنحاء <br /> الشرق الأوسط على زيادة درجات <br /> قدرات الخاصة بهم بكفاءة.
+                  </p>
+                  <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[
+                      'الآلاف من أحدث أسئلة قدرات مطابقة',
+                      'يغطي جميع مستويات الصعوبة ، من المبتدئين إلى المتقدمين',
+                      'أسئلة برعاية معلمين خبراء لضمان الدقة'
+                    ].map((text, idx) => (
+                      <div key={idx} className="text-center">
+                        <Image src="/image/questionBank.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
+                        <p className="mt-3 text-lg">{text}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
-                  ابق في الطليعة
-                </h2>
-                <p className="mt-4 max-w-3xl mx-auto text-center text-black text-base">
-                  نحن نساعد الطلاب في جميع أنحاء <br /> الشرق الأوسط على زيادة درجات <br /> قدرات الخاصة بهم بكفاءة.
-                </p>
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {[
-                    'الآلاف من أحدث أسئلة قدرات مطابقة',
-                    'يغطي جميع مستويات الصعوبة ، من المبتدئين إلى المتقدمين',
-                    'أسئلة برعاية معلمين خبراء لضمان الدقة'
-                  ].map((text, idx) => (
-                    <div key={idx} className="text-center">
-                      <Image src="/image/questionBank.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
-                      <p className="mt-3 text-lg">{text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
 
-          {/* Tab 4: منهج متكامل */}
-          {activeTab === 'tab4' && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-                  <div className="order-2 lg:order-1">
-                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                      دروس فيديو
+            {/* Tab 4: منهج متكامل */}
+            {activeTab === 'tab4' && (
+              <motion.div
+                key="tab4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+              >
+                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                    <div className="order-2 lg:order-1">
+                      <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                        دروس فيديو
+                      </div>
+                      <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                        تعلم أكثر ذكاء وليس أصعب
+                      </h2>
+                      <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                        نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                      </p>
+                      <ul className="mt-40 space-y-3 text-gray-800">
+                        {[
+                          'حلول فيديو خطوة بخطوة لكل سؤال.',
+                          'يتم تدريسها من قبل مدربين خبراء لتبسيط المفاهيم المعقدة.',
+                          'تعزيز التعلم باستخدام تقنيات حل المشكلات التفاعلية.'
+                        ].map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                              <CircleCorrectIcon />
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
-                      تعلم أكثر ذكاء وليس أصعب
-                    </h2>
-                    <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
-                      نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
-                    </p>
-                    <ul className="mt-40 space-y-3 text-gray-800">
-                      {[
-                        'حلول فيديو خطوة بخطوة لكل سؤال.',
-                        'يتم تدريسها من قبل مدربين خبراء لتبسيط المفاهيم المعقدة.',
-                        'تعزيز التعلم باستخدام تقنيات حل المشكلات التفاعلية.'
-                      ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
-                            <CircleCorrectIcon />
-                          </span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
-                      <Image src="/image/integratedApproach.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                    <div className="order-1 lg:order-2">
+                      <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                        <Image src="/image/integratedApproach.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
 
-          {/* Tab 5: مكافآت الإحالة */}
-          {activeTab === 'tab5' && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-              <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
-                <div className="flex justify-center">
-                  <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
-                    مكافآت الإحالة
+            {/* Tab 5: مكافآت الإحالة */}
+            {activeTab === 'tab5' && (
+              <motion.div
+                key="tab5"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+              >
+                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                  <div className="flex justify-center">
+                    <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                      مكافآت الإحالة
+                    </div>
                   </div>
+                  <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                    مكافآت الإحالة - دعوة واكسب
+                  </h2>
+                  <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                    نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                  </p>
+                  <section className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                    <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                      <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                        <Image src="/image/icon/gift.png" alt="شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية." width={64} height={64} />
+                      </div>
+                      <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                        شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية.
+                      </p>
+                    </div>
+                    <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                      <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                        <Image src="/image/icon/mortarboard-01.png" alt="ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك" width={64} height={64} />
+                      </div>
+                      <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                        ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك
+                      </p>
+                    </div>
+                  </section>
                 </div>
-                <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
-                  مكافآت الإحالة - دعوة واكسب
-                </h2>
-                <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
-                  نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
-                </p>
-                <section className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-                  <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
-                    <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
-                      <Image src="/image/icon/gift.png" alt="شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية." width={64} height={64} />
-                    </div>
-                    <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
-                      شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية.
-                    </p>
-                  </div>
-                  <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
-                    <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
-                      <Image src="/image/icon/mortarboard-01.png" alt="ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك" width={64} height={64} />
-                    </div>
-                    <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
-                      ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك
-                    </p>
-                  </div>
-                </section>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section >
+      </ScrollSection>
 
       {/* Pricing */}
-      < section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white md:leading-[95px] leading-[44px] text-center">
+          <ScrollH2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white md:leading-[95px] leading-[44px] text-center" amount={0.3}>
             أسعار مرنة لكل طالب يبغي يتفوق في القدرات
-          </h2>
-          <p className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base">
+          </ScrollH2>
+          <ScrollP className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base" amount={0.3} delay={0.1}>
             اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
-          </p>
+          </ScrollP>
 
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
             <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
@@ -986,16 +1024,16 @@ export default function ArSatPage() {
             </div>
           </main>
         </div>
-      </section >
+      </ScrollSection>
 
       {/* Your Questions Answered Section */}
-      < section className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="container max-w-6xl px-4 py-[120px]">
-          <h2 className="text-[56px] font-semibold text-center text-black">
+          <ScrollH2 className="text-[56px] font-semibold text-center text-black" amount={0.3}>
             كل إستفسارات طلاب القدرات
             <br />
-          </h2>
-          <p className="mt-2 text-center text-gray-600">الأسئلة الشائعة</p>
+          </ScrollH2>
+          <ScrollP className="mt-2 text-center text-gray-600" amount={0.3} delay={0.1}>الأسئلة الشائعة</ScrollP>
           <div className="mt-10 space-y-4">
             {faqData.map((faq, index) => (
               <FaqItem
@@ -1009,10 +1047,10 @@ export default function ArSatPage() {
             ))}
           </div>
 
-          <p className="text-black font-medium mb-[12px] mt-[32px] text-center">
+          <ScrollP className="text-black font-medium mb-[12px] mt-[32px] text-center" amount={0.5} delay={0.2}>
             ما زلت لديك أسئلة؟
-          </p>
-          <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
+          </ScrollP>
+          <ScrollDiv className="mt-6 flex justify-center items-center space-x-6 space-x-reverse" amount={0.5} delay={0.3}>
             <Link href="/ar-contactUs">
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
                 تواصل معنا
@@ -1021,15 +1059,15 @@ export default function ArSatPage() {
                 </span>
               </button>
             </Link>
-          </div>
+          </ScrollDiv>
         </div>
-      </section >
+      </ScrollSection>
 
       {/* CTA Section */}
-      < section className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl" >
+      <ScrollSection className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.2}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6">
+          <ScrollDiv className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6" initialX={50} initialY={0} amount={0.3} delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-semibold leading-snug">
               قم بأخذ اختبار محاكاة<br />قدرات الأول
               <span className="relative inline-block pb-2">
@@ -1047,10 +1085,10 @@ export default function ArSatPage() {
             <p className="text-base md:text-lg">
               سجل وابدأ التدريب اليوم!
             </p>
-          </div>
+          </ScrollDiv>
 
           {/* Image (Adjusted to Prevent Cropping) */}
-          <div className="order-last md:order-0 flex justify-center items-center">
+          <ScrollDiv className="order-last md:order-0 flex justify-center items-center" initialX={-50} initialY={0} amount={0.3} delay={0.2}>
             <Image
               src="/image/review-cover.png"
               alt="طالبة"
@@ -1058,9 +1096,9 @@ export default function ArSatPage() {
               height={350}
               className="h-[350px] object-cover"
             />
-          </div>
+          </ScrollDiv>
         </div>
-      </section >
+      </ScrollSection>
 
       <Footer />
     </div >

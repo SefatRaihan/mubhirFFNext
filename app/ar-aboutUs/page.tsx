@@ -444,7 +444,11 @@ export default function ArAboutUsPage() {
             </ScrollDiv>
           </div>
 
-          <div className="mt-6 flex justify-center items-center space-x-6 space-x-reverse">
+          <ScrollDiv
+            className="mt-6 flex justify-center items-center space-x-6 space-x-reverse"
+            amount={0.3}
+            delay={0.4}
+          >
             {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
             <Link href="/packages">
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
@@ -454,7 +458,7 @@ export default function ArAboutUsPage() {
                 </span>
               </button>
             </Link>
-          </div>
+          </ScrollDiv>
         </div>
       </ScrollSection>
 
