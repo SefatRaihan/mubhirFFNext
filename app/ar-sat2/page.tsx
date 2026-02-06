@@ -11,8 +11,8 @@ import TiktokIcon from "@/public/icons/TiktokIcon";
 import TelegramIcon from "@/public/icons/TelegramIcon";
 import XIcon from "@/public/icons/XIcon";
 import SnapIcon from "@/public/icons/SnapIcon";
-import LeftClrArrow from "@/public/icons/LeftClrArrow";
 import { motion } from "framer-motion";
+import { ScrollAnimated, ScrollSection, ScrollDiv, ScrollH2, ScrollP } from "@/components/ScrollAnimated/ScrollAnimated";
 
 interface PricingPlan {
     id: number;
@@ -132,7 +132,7 @@ export default function ArSat2Page() {
                                     className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                 />
                             </span>
-                            ودورات كل المدونات <br /> قريبا!
+                            ودورات كل المدونات <br />قريبا!
                         </motion.h1>
 
                         <motion.p
@@ -236,23 +236,17 @@ export default function ArSat2Page() {
                         </motion.div>
                     </div>
                 </div>
-            </header >
+            </header>
 
             {/* We Help Section */}
-            <motion.section
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="font-sans text-gray-900 bg-[#f7e8f5] py-8 my-4 md:m-4 rounded-0 md:rounded-2xl"
+            <ScrollSection
+                className="font-sans text-gray-900 bg-[#f7e8f5] py-[120px] my-4 md:m-4 rounded-0 md:rounded-2xl"
+                amount={0.2}
             >
                 <div className="max-w-7xl mx-auto px-4">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                    <ScrollH2
                         className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
+                        amount={0.5}
                     >
                         نحن نساعد جميع الطلاب في <br />
                         <span className="relative inline-block pb-2">
@@ -266,27 +260,22 @@ export default function ArSat2Page() {
                             />
                         </span>
                         السعودية
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                    </ScrollH2>
+                    <ScrollP
                         className="text-sm text-gray-500 mt-1 text-center"
+                        amount={0.5}
+                        delay={0.1}
                     >
                         تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
                         وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br />
                         بأقصر وأفضل طريقة
-                    </motion.p>
+                    </ScrollP>
 
-                    <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 mb-[120px]">
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                    <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                            amount={0.3}
+                            delay={0.1}
                         >
                             <Image
                                 className="w-10 h-10 text-purple-500"
@@ -302,15 +291,12 @@ export default function ArSat2Page() {
                                     يتعامل الذكاء الاصطناعي لدينا مع كليهما بسلاسة.
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                            amount={0.3}
+                            delay={0.2}
                         >
                             <Image
                                 className="w-10 h-10 text-purple-500"
@@ -326,15 +312,12 @@ export default function ArSat2Page() {
                                     الطالب ويتنبأ بدرجة تقريبية لمستواه.
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                            amount={0.3}
+                            delay={0.3}
                         >
                             <Image
                                 className="w-10 h-10 text-purple-500"
@@ -352,53 +335,44 @@ export default function ArSat2Page() {
                                     تحسينها.
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
                     </div>
                 </div>
-            </motion.section>
+            </ScrollSection>
 
             {/* All in One Place Section */}
-            <motion.section
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl"
+            <ScrollSection
+                className="font-sans text-gray-900 bg-[#F7F5FF] py-[120px] my-4 md:m-4 rounded-0 md:rounded-2xl"
+                amount={0.2}
             >
-                <div className="max-w-7xl mx-auto px-4 pt-8">
+                <div className="max-w-7xl mx-auto px-4">
                     {/* Header (Centered) */}
                     <div className="text-center">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                        <ScrollH2
                             className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
+                            amount={0.5}
                         >
                             ما هو مشمول في اختبار التحصيلي
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                        </ScrollH2>
+                        <ScrollP
                             className="text-sm text-gray-500 mt-4"
+                            amount={0.5}
+                            delay={0.1}
                         >
                             تم تصميم اختبار تحصيلي للطلاب الذين يستعدون لاختبار التقييم الدراسي
                             (قدرات) ، والذي يغطي على وجه التحديد:
-                        </motion.p>
+                        </ScrollP>
                     </div>
 
                     {/* Main Content */}
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Card 1 - Math */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-1.5 transition-transform duration-300"
+                            amount={0.3}
+                            initialX={-50}
+                            initialY={0}
+                            delay={0.1}
                         >
                             <div className="order-1">
                                 <Image
@@ -416,16 +390,15 @@ export default function ArSat2Page() {
                                     بثقة وبخطوات واضحة
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
 
                         {/* Card 2 - Chemistry */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-1.5 transition-transform duration-300"
+                            amount={0.3}
+                            initialX={50}
+                            initialY={0}
+                            delay={0.2}
                         >
                             <div className="order-3">
                                 <Image
@@ -443,16 +416,15 @@ export default function ArSat2Page() {
                                     تساعدك تتقن أسئلة التحصيلي بسرعة
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
 
                         {/* Card 3 - Physics */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-1.5 transition-transform duration-300"
+                            amount={0.3}
+                            initialX={-50}
+                            initialY={0}
+                            delay={0.3}
                         >
                             <div className="order-1">
                                 <Image
@@ -471,16 +443,15 @@ export default function ArSat2Page() {
                                     يساعدك تفهم بدل ما تحفظ
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
 
                         {/* Card 4 - Biology */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.4 }}
-                            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-                            className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+                        <ScrollDiv
+                            className="bg-white rounded-lg shadow-md p-6 flex flex-col hover:-translate-y-1.5 transition-transform duration-300"
+                            amount={0.3}
+                            initialX={50}
+                            initialY={0}
+                            delay={0.4}
                         >
                             <div className="order-3">
                                 <Image
@@ -498,16 +469,16 @@ export default function ArSat2Page() {
                                     الحقيقي وتزيد فرصك لدرجة أعلى
                                 </p>
                             </div>
-                        </motion.div>
+                        </ScrollDiv>
                     </div>
 
                     {/* Contact Us Button */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
+                    <ScrollDiv
                         className="mt-14 pb-32 text-center"
+                        amount={0.5}
+                        initialScale={0.8}
+                        initialY={0}
+                        delay={0.5}
                     >
                         <Link href="/ar-contactUs">
                             <button className="bg-[#671E5A] text-white rounded-full pt-1 pr-6 pb-1 pl-1 cursor-pointer flex items-center mx-auto">
@@ -542,89 +513,52 @@ export default function ArSat2Page() {
                                 </span>
                             </button>
                         </Link>
-                    </motion.div>
+                    </ScrollDiv>
                 </div>
-            </motion.section>
+            </ScrollSection>
 
 
             {/* Pricing Section */}
-            <motion.section
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+            <ScrollSection
                 className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
+                amount={0.1}
             >
                 <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
+                    <ScrollH2
                         className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
+                        amount={0.5}
                     >
                         أسعار مرنة لكل طالب يبغي يتفوق في القدرات
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                    </ScrollH2>
+                    <ScrollP
                         className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base"
+                        amount={0.5}
+                        delay={0.1}
                     >
                         اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
-                    </motion.p>
+                    </ScrollP>
 
                     <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
                         <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
                             {pricingPlans.map((plan, index) => (
-                                <motion.div
+                                <ScrollDiv
                                     key={plan.id}
-                                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
-                                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{
-                                        duration: 0.6,
-                                        delay: index * 0.15,
-                                        ease: "easeOut"
-                                    }}
-                                    whileHover={{
-                                        y: -12,
-                                        scale: 1.03,
-                                        boxShadow: "0 25px 50px -12px rgba(103, 30, 90, 0.25)",
-                                        transition: { duration: 0.3 }
-                                    }}
-                                    className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col cursor-pointer"
-                                    style={{ transformStyle: "preserve-3d" }}
+                                    className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col cursor-pointer hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300"
+                                    amount={0.2}
+                                    initialRotateX={-15}
+                                    delay={index * 0.15}
                                 >
                                     <div className="flex items-center justify-between mb-2">
-                                        <motion.h3
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
-                                            className="text-[18px] font-semibold"
-                                        >
+                                        <h3 className="text-[18px] font-semibold">
                                             {plan.title_ar}
-                                        </motion.h3>
+                                        </h3>
                                         {plan.promotional_badge != null && plan.promotional_badge > 0 && (
                                             <motion.span
-                                                initial={{ opacity: 0, scale: 0 }}
-                                                whileInView={{ opacity: 1, scale: 1 }}
-                                                viewport={{ once: true }}
+                                                animate={{ scale: [1, 1.1, 1] }}
                                                 transition={{
-                                                    duration: 0.5,
-                                                    delay: index * 0.15 + 0.3,
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    scale: {
-                                                        duration: 2,
-                                                        repeat: Infinity,
-                                                        repeatDelay: 1
-                                                    }
-                                                }}
-                                                animate={{
-                                                    scale: [1, 1.1, 1],
+                                                    duration: 2,
+                                                    repeat: Infinity,
+                                                    repeatDelay: 1
                                                 }}
                                                 className="text-white text-xs font-semibold px-3 py-1 rounded-full"
                                                 style={{ backgroundColor: '#C445A6' }}
@@ -633,52 +567,19 @@ export default function ArSat2Page() {
                                             </motion.span>
                                         )}
                                     </div>
-                                    <motion.p
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
-                                        className="text-sm text-gray-500 mb-4"
-                                    >
+                                    <p className="text-sm text-gray-500 mb-4">
                                         {plan.description_ar}
-                                    </motion.p>
-                                    <motion.p
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{
-                                            duration: 0.5,
-                                            delay: index * 0.15 + 0.4,
-                                            type: "spring",
-                                            stiffness: 150
-                                        }}
-                                        className="text-3xl font-bold text-[#671E5A]"
-                                    >
+                                    </p>
+                                    <p className="text-3xl font-bold text-[#671E5A]">
                                         {plan.price_display}
                                         <span className="text-3xl font-bold text-[#671E5A] pr-2">ر.س</span>
-                                    </motion.p>
-                                    <motion.p
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.5, delay: index * 0.15 + 0.5 }}
-                                        className="text-xs mb-6 border-b border-[#D9D9D9] pb-[12px]"
-                                    >
+                                    </p>
+                                    <p className="text-xs mb-6 border-b border-[#D9D9D9] pb-[12px]">
                                         {plan.terms_ar}
-                                    </motion.p>
+                                    </p>
                                     <ul className="space-y-3 mb-6 grow">
                                         {plan.features && plan.features.map((feature, idx) => (
-                                            <motion.li
-                                                key={idx}
-                                                initial={{ opacity: 0, x: -20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{
-                                                    duration: 0.4,
-                                                    delay: index * 0.15 + 0.6 + (idx * 0.1)
-                                                }}
-                                                className="flex items-start gap-2"
-                                            >
+                                            <li key={idx} className="flex items-start gap-2">
                                                 <motion.span
                                                     whileHover={{ scale: 1.2, rotate: 360 }}
                                                     transition={{ duration: 0.3 }}
@@ -689,15 +590,11 @@ export default function ArSat2Page() {
                                                     </svg>
                                                 </motion.span>
                                                 <span className="text-[14px] font-bold text-gray-700">{feature}</span>
-                                            </motion.li>
+                                            </li>
                                         ))}
                                     </ul>
                                     <Link href="/packages">
                                         <motion.button
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
                                             whileTap={{ scale: 0.95 }}
                                             className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group"
                                         >
@@ -707,14 +604,14 @@ export default function ArSat2Page() {
                                             </span>
                                         </motion.button>
                                     </Link>
-                                </motion.div>
+                                </ScrollDiv>
                             ))}
                         </div>
                     </main>
                 </div>
-            </motion.section>
+            </ScrollSection>
 
             <Footer />
-        </div >
+        </div>
     );
 }
