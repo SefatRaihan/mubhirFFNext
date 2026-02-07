@@ -372,6 +372,15 @@
   animation: shimmer 3s infinite;
 }
 
+/* Animated moving gradient background */
+/* Static gradient - no animation */
+.animated-gradient-bg {
+  background: linear-gradient(135deg, #1a0440 0%, #2A056D 25%, #6F0767 50%, #4c1d95 75%, #2A056D 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+
 /* 3D depth layers */
 .layer-front {
   transform: translateZ(100px);

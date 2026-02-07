@@ -4,6 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
 import FeatureCard from "@/components/FeatureCard/FeatureCard";
 import Navbar from "@/components/Navber/Navbar";
+import { LiquidEffectAnimation } from "@/components/ui/liquid-effect-animation";
 import CardLeftArrowIcon from "@/public/icons/CardLeftArrowIcon";
 import DownArrowIcon from "@/public/icons/DownArrowIcon";
 import IdeaIcon from "@/public/icons/IdeaIcon";
@@ -18,7 +19,7 @@ import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import XIcon from "@/public/icons/XIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewModal from "@/components/ReviewModal";
 import axios from "axios";
@@ -62,14 +63,31 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playButtonRef = useRef<HTMLDivElement>(null);
 
+  // 3D Mouse Tracking State
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHoveringHero, setIsHoveringHero] = useState(false);
+
+  // Badge Hover State for popup images
+  const [hoveredBadge, setHoveredBadge] = useState<'badge1' | 'badge2' | null>(null);
+
   // Hero 3D Animation Refs
   const heroSectionRef = useRef<HTMLElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement>(null);
+  const heroTitleWordsRef = useRef<HTMLSpanElement[]>([]);
   const heroBadge1Ref = useRef<HTMLSpanElement>(null);
   const heroBadge2Ref = useRef<HTMLSpanElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialRef = useRef<HTMLDivElement>(null);
   const heroStudentsRef = useRef<HTMLDivElement>(null);
+
+  // Section Refs for ScrollTrigger
+  const featuresGridRef = useRef<HTMLDivElement>(null);
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+
+  // Badge Popup Refs for GSAP
+  const badgePopup1Ref = useRef<HTMLDivElement>(null);
+  const badgePopup2Ref = useRef<HTMLDivElement>(null);
 
   // Register GSAP ScrollTrigger
   useEffect(() => {
@@ -104,135 +122,170 @@ export default function Home() {
     fetchReviews();
   }, []);
 
-  // GSAP 3D Hero Animations - Creative & Eye-catching
+  // Mouse tracking handler for 3D tilt effect
+  const handleHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (!heroSectionRef.current) return;
+    const rect = heroSectionRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+    setMousePosition({ x: x * 8, y: y * -8 }); // Max 8deg rotation
+  }, []);
+
+  const handleHeroMouseEnter = useCallback(() => setIsHoveringHero(true), []);
+  const handleHeroMouseLeave = useCallback(() => {
+    setIsHoveringHero(false);
+    setMousePosition({ x: 0, y: 0 });
+  }, []);
+
+  // Hero title words for word-by-word animation
+  const heroTitleWords = ['مبهر', 'شريكك', 'الذكي', 'لطريق', 'التفوق', 'في', 'اختبار', 'القدرات'];
+
+  // GSAP Creative Hero Animations - Clean & Elegant
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Set initial 3D perspective on hero section
-      if (heroSectionRef.current) {
-        gsap.set(heroSectionRef.current, {
-          perspective: 1200,
-          transformStyle: 'preserve-3d'
-        });
-      }
+      // Create a master timeline for orchestrated animations
+      const masterTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // ========== DRAMATIC HEADING ANIMATION ==========
+      // ========== HERO TITLE - ELEGANT BLUR-TO-FOCUS REVEAL ==========
       if (heroHeadingRef.current) {
-        // Dramatic entrance animation - no floating to avoid overlap
-        gsap.fromTo(heroHeadingRef.current,
+        masterTL.fromTo(heroHeadingRef.current,
           {
             opacity: 0,
-            y: 60,
-            scale: 0.9,
-            filter: 'blur(10px)',
+            y: 40,
+            filter: 'blur(20px)',
           },
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 1.2,
+          },
+          0.2
+        );
+      }
+
+      // ========== BADGES - BOUNCY ENTRANCE + SUBTLE FLOAT ==========
+      if (heroBadge1Ref.current) {
+        masterTL.fromTo(heroBadge1Ref.current,
+          { opacity: 0, scale: 0.3, y: 20 },
           {
             opacity: 1,
             scale: 1,
             y: 0,
-            filter: 'blur(0px)',
-            duration: 1.2,
-            ease: 'power4.out',
-            delay: 0.2
-          }
-        );
-      }
-
-      // ========== BADGE ANIMATIONS ==========
-      if (heroBadge1Ref.current) {
-        // Simple scale bounce entrance
-        gsap.fromTo(heroBadge1Ref.current,
-          { opacity: 0, scale: 0 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            delay: 0.5,
-            ease: 'back.out(1.7)'
-          }
+            duration: 0.7,
+            ease: 'back.out(2)',
+          },
+          0.6
         );
 
-        // Glow pulse effect
+        // Gentle floating - very subtle
         gsap.to(heroBadge1Ref.current, {
-          boxShadow: '0 0 25px 8px rgba(59, 130, 246, 0.5)',
-          duration: 1.5,
+          y: -6,
+          duration: 2.5,
           ease: 'sine.inOut',
           yoyo: true,
           repeat: -1,
-          delay: 1.5
+          delay: 2
         });
       }
 
       if (heroBadge2Ref.current) {
-        // Simple scale bounce entrance
-        gsap.fromTo(heroBadge2Ref.current,
-          { opacity: 0, scale: 0 },
+        masterTL.fromTo(heroBadge2Ref.current,
+          { opacity: 0, scale: 0.3, y: 20 },
           {
             opacity: 1,
             scale: 1,
-            duration: 0.8,
-            delay: 0.6,
-            ease: 'back.out(1.7)'
-          }
+            y: 0,
+            duration: 0.7,
+            ease: 'back.out(2)',
+          },
+          0.75
         );
 
-        // Glow pulse effect
+        // Gentle floating - offset timing
         gsap.to(heroBadge2Ref.current, {
-          boxShadow: '0 0 25px 8px rgba(147, 51, 234, 0.5)',
-          duration: 1.8,
+          y: -8,
+          duration: 3,
           ease: 'sine.inOut',
           yoyo: true,
           repeat: -1,
-          delay: 1.8
+          delay: 2.5
         });
       }
 
-      // ========== CTA BUTTON ==========
+      // ========== CTA BUTTON - SMOOTH SLIDE UP ==========
       if (heroCtaRef.current) {
-        gsap.fromTo(heroCtaRef.current,
-          { opacity: 0, y: 40, scale: 0.9 },
+        masterTL.fromTo(heroCtaRef.current,
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
             duration: 0.8,
-            delay: 0.8,
-            ease: 'power3.out'
-          }
+          },
+          0.9
         );
       }
 
-      // ========== STUDENTS SECTION ==========
+      // ========== STUDENTS SECTION - FADE SLIDE FROM RIGHT ==========
       if (heroStudentsRef.current) {
-        // Simple slide-in animation
-        gsap.fromTo(heroStudentsRef.current,
-          {
-            opacity: 0,
-            x: 80,
-          },
+        masterTL.fromTo(heroStudentsRef.current,
+          { opacity: 0, x: 50 },
           {
             opacity: 1,
             x: 0,
-            duration: 1,
-            delay: 1.2,
-            ease: 'power3.out'
+            duration: 0.9,
+          },
+          1.1
+        );
+      }
+
+      // ========== SOCIAL ICONS - FADE SLIDE FROM LEFT ==========
+      if (heroSocialRef.current) {
+        masterTL.fromTo(heroSocialRef.current,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.9,
+          },
+          1.2
+        );
+      }
+
+      // ========== FEATURE CARDS - STAGGERED FADE UP ==========
+      if (featuresGridRef.current) {
+        const cards = featuresGridRef.current.querySelectorAll('.feature-card');
+        gsap.fromTo(cards,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: featuresGridRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
         );
       }
 
-      // ========== SOCIAL ICONS ==========
-      if (heroSocialRef.current) {
-        // Simple slide-in animation
-        gsap.fromTo(heroSocialRef.current,
+      // ========== VIDEO SECTION - SCALE FADE ==========
+      if (videoSectionRef.current) {
+        gsap.fromTo(videoSectionRef.current,
+          { scale: 0.95, opacity: 0 },
           {
-            opacity: 0,
-            x: -80,
-          },
-          {
+            scale: 1,
             opacity: 1,
-            x: 0,
-            duration: 1,
-            delay: 1.4,
-            ease: 'power3.out'
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: videoSectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
           }
         );
       }
@@ -241,6 +294,80 @@ export default function Home() {
 
     return () => ctx.revert();
   }, []);
+
+  // GSAP Badge Popup Hover Animations
+  useEffect(() => {
+    if (hoveredBadge === 'badge1' && badgePopup1Ref.current) {
+      gsap.killTweensOf(badgePopup1Ref.current);
+      gsap.fromTo(badgePopup1Ref.current,
+        {
+          opacity: 0,
+          scale: 0.3,
+          y: 50,
+          rotateZ: -10,
+          display: 'block'
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          rotateZ: 3,
+          duration: 0.5,
+          ease: 'back.out(1.7)'
+        }
+      );
+    } else if (badgePopup1Ref.current) {
+      gsap.to(badgePopup1Ref.current, {
+        opacity: 0,
+        scale: 0.3,
+        y: 50,
+        rotateZ: -10,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (badgePopup1Ref.current) {
+            gsap.set(badgePopup1Ref.current, { display: 'none' });
+          }
+        }
+      });
+    }
+
+    if (hoveredBadge === 'badge2' && badgePopup2Ref.current) {
+      gsap.killTweensOf(badgePopup2Ref.current);
+      gsap.fromTo(badgePopup2Ref.current,
+        {
+          opacity: 0,
+          scale: 0.3,
+          y: 50,
+          rotateZ: 10,
+          display: 'block'
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          rotateZ: -3,
+          duration: 0.5,
+          ease: 'back.out(1.7)'
+        }
+      );
+    } else if (badgePopup2Ref.current) {
+      gsap.to(badgePopup2Ref.current, {
+        opacity: 0,
+        scale: 0.3,
+        y: 50,
+        rotateZ: 10,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (badgePopup2Ref.current) {
+            gsap.set(badgePopup2Ref.current, { display: 'none' });
+          }
+        }
+      });
+    }
+  }, [hoveredBadge]);
+
 
   // Handle pagination dot click
   const handleDotClick = (dotIndex: number) => {
@@ -433,27 +560,89 @@ export default function Home() {
   return (
     <div className="bg-white" dir="rtl">
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
-        {/* Navbar Component */}
-        <Navbar />
+      <section
+        ref={heroSectionRef}
+        className="animated-gradient-bg text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-visible relative"
+      >
+        {/* Liquid Effect Background - wrapped with overflow-hidden to preserve rounded corners */}
+        <div className="absolute inset-0 overflow-hidden rounded-0 md:rounded-2xl">
+          <LiquidEffectAnimation />
+        </div>
 
-        <div className="p-4">
+        {/* Navbar Component */}
+        <div className="relative z-10">
+          <Navbar />
+        </div>
+
+        <div className="p-4 relative z-10">
           {/* Hero Content */}
           <div className="relative text-center mt-16 md:mt-[128px]">
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
-              <span
-                ref={heroBadge1Ref}
-                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0"
+              {/* Badge 1 - #سؤال with hover image */}
+              <div
+                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60"
+                onMouseEnter={() => setHoveredBadge('badge1')}
+                onMouseLeave={() => setHoveredBadge(null)}
               >
-                #سؤال
-              </span>
-              <span
-                ref={heroBadge2Ref}
-                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0"
+                <span
+                  ref={heroBadge1Ref}
+                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
+                >
+                  #سؤال
+                </span>
+                {/* Popup Image for Badge 1 */}
+                <div
+                  ref={badgePopup1Ref}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 z-100 pointer-events-none"
+                  style={{ opacity: 0, display: 'none' }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-linear-to-br from-blue-500/50 to-purple-600/50 rounded-2xl blur-2xl scale-110" />
+                    <Image
+                      src="/image/arabic_content/content1.png"
+                      width={1000}
+                      height={800}
+                      alt="سؤال"
+                      className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
+                      style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge 2 - #قدرات with hover image */}
+              <div
+                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60"
+                onMouseEnter={() => setHoveredBadge('badge2')}
+                onMouseLeave={() => setHoveredBadge(null)}
               >
-                #قدرات
-              </span>
+                <span
+                  ref={heroBadge2Ref}
+                  className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
+                >
+                  #قدرات
+                </span>
+                {/* Popup Image for Badge 2 */}
+                <div
+                  ref={badgePopup2Ref}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 z-100 pointer-events-none"
+                  style={{ opacity: 0, display: 'none' }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-linear-to-br from-purple-500/50 to-pink-600/50 rounded-2xl blur-2xl scale-110" />
+                    <Image
+                      src="/image/arabic_content/content2.png"
+                      width={1000}
+                      height={800}
+                      alt="قدرات"
+                      className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
+                      style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
+
 
             <h1
               ref={heroHeadingRef}
@@ -736,7 +925,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={featuresGridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ perspective: '1000px' }}>
             {featuresData.map((feature, index) => (
               <FeatureCard
                 key={index}
@@ -751,6 +940,7 @@ export default function Home() {
 
       {/* Video Section */}
       < motion.section
+        ref={videoSectionRef}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
