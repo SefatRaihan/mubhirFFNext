@@ -662,7 +662,7 @@ export default function Home() {
         </div>
 
         {/* Navbar Component */}
-        <div className="relative z-10">
+        <div className="relative z-50">
           <Navbar />
         </div>
 
