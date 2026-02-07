@@ -352,38 +352,43 @@ export default function Home() {
       }
     }
 
-    // Pin the section and cycle tabs based on scroll progress
-    const pinTrigger = ScrollTrigger.create({
-      trigger: aiSatSectionRef.current,
-      start: 'center center',
-      end: '+=200%',  // Extra scroll distance for 4 tabs (3 transitions)
-      pin: true,
-      pinSpacing: true,
-      scrub: false,
-      onUpdate: (self) => {
-        const progress = self.progress; // 0 to 1
-        let targetTab: string;
+    // Pin the section and cycle tabs based on scroll progress (desktop only)
+    const isMobile = window.innerWidth < 768;
+    let pinTrigger: ScrollTrigger | null = null;
 
-        if (progress < 0.25) {
-          targetTab = 'tab1';
-        } else if (progress < 0.50) {
-          targetTab = 'tab2';
-        } else if (progress < 0.75) {
-          targetTab = 'tab3';
-        } else {
-          targetTab = 'tab4';
-        }
+    if (!isMobile) {
+      pinTrigger = ScrollTrigger.create({
+        trigger: aiSatSectionRef.current,
+        start: 'center center',
+        end: '+=200%',  // Extra scroll distance for 4 tabs (3 transitions)
+        pin: true,
+        pinSpacing: true,
+        scrub: false,
+        onUpdate: (self) => {
+          const progress = self.progress; // 0 to 1
+          let targetTab: string;
 
-        // Only update if the tab actually changed
-        if (activeTabRef.current !== targetTab) {
-          activeTabRef.current = targetTab;
-          setActiveTab(targetTab);
+          if (progress < 0.25) {
+            targetTab = 'tab1';
+          } else if (progress < 0.50) {
+            targetTab = 'tab2';
+          } else if (progress < 0.75) {
+            targetTab = 'tab3';
+          } else {
+            targetTab = 'tab4';
+          }
+
+          // Only update if the tab actually changed
+          if (activeTabRef.current !== targetTab) {
+            activeTabRef.current = targetTab;
+            setActiveTab(targetTab);
+          }
         }
-      }
-    });
+      });
+    }
 
     return () => {
-      pinTrigger.kill();
+      pinTrigger?.kill();
     };
   }, []);
 
