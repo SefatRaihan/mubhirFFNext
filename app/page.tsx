@@ -85,6 +85,13 @@ export default function Home() {
   const featuresGridRef = useRef<HTMLDivElement>(null);
   const videoSectionRef = useRef<HTMLDivElement>(null);
 
+  // AI SAT Section Refs for ScrollTrigger
+  const aiSatSectionRef = useRef<HTMLElement>(null);
+  const aiSatCircleRef = useRef<HTMLDivElement>(null);
+  const aiSatHeadingRef = useRef<HTMLDivElement>(null);
+  const aiSatTabsRef = useRef<HTMLDivElement>(null);
+  const aiSatContentRef = useRef<HTMLDivElement>(null);
+
   // Badge Popup Refs for GSAP
   const badgePopup1Ref = useRef<HTMLDivElement>(null);
   const badgePopup2Ref = useRef<HTMLDivElement>(null);
@@ -288,6 +295,126 @@ export default function Home() {
             }
           }
         );
+      }
+
+      // ========== AI SAT SECTION - CREATIVE SCROLL ANIMATIONS ==========
+      // Circle Icon - Bouncy Scale + Spin entrance
+      if (aiSatCircleRef.current) {
+        gsap.fromTo(aiSatCircleRef.current,
+          { scale: 0, rotation: -180, opacity: 0 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: aiSatSectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      }
+
+      // Heading - Blur-to-focus slide up
+      if (aiSatHeadingRef.current) {
+        const heading = aiSatHeadingRef.current.querySelector('h2');
+        const subtitle = aiSatHeadingRef.current.querySelector('p');
+
+        if (heading) {
+          gsap.fromTo(heading,
+            { y: 60, opacity: 0, filter: 'blur(12px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              duration: 1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: aiSatHeadingRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
+
+        if (subtitle) {
+          gsap.fromTo(subtitle,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: 0.3,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: aiSatHeadingRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
+      }
+
+      // Tabs - Staggered slide from right
+      if (aiSatTabsRef.current) {
+        const tabButtons = aiSatTabsRef.current.querySelectorAll('button');
+        gsap.fromTo(tabButtons,
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: aiSatTabsRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      }
+
+      // Tab Content Grid - Left panel slides from left, right panel slides from right
+      if (aiSatContentRef.current) {
+        const panels = aiSatContentRef.current.children;
+        if (panels[0]) {
+          gsap.fromTo(panels[0],
+            { x: -80, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: aiSatContentRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
+        if (panels[1]) {
+          gsap.fromTo(panels[1],
+            { x: 80, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.9,
+              delay: 0.15,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: aiSatContentRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
       }
 
     }, heroSectionRef);
@@ -776,20 +903,16 @@ export default function Home() {
       </section >
 
       {/* AI Based SAT Section */}
-      < motion.section
-        initial={{ opacity: 0, y: 50 }
-        }
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+      <section
+        ref={aiSatSectionRef}
         className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
       >
         {/* Circle Icon - positioned at top */}
-        <div className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
+        <div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
           <MiddleIcon />
         </div>
         <div className="container max-w-6xl px-4 py-8 sm:py-[120px]">
-          <div className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
+          <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
             <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
               استعد لأختبار القدرات <br />
               العامة بخطوات تفوق التوقعات مع مبهر
@@ -800,7 +923,7 @@ export default function Home() {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-center mb-8 sm:mb-16">
+          <div ref={aiSatTabsRef} className="flex justify-center mb-8 sm:mb-16">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full max-w-3xl">
               {['المدرسون', 'توقع الدرجة', 'الأختبارات', 'الشروحات'].map((tab, index) => (
                 <motion.button
@@ -826,7 +949,7 @@ export default function Home() {
           </div>
 
           {/* Tab Content */}
-          <div className="grid grid-cols-1 sm:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
+          <div ref={aiSatContentRef} className="grid grid-cols-1 sm:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -905,7 +1028,7 @@ export default function Home() {
             </AnimatePresence>
           </div>
         </div>
-      </motion.section >
+      </section>
 
       {/* All in One Place */}
       < motion.section
