@@ -70,6 +70,9 @@ export default function Home() {
   // Badge Hover State for popup images
   const [hoveredBadge, setHoveredBadge] = useState<'badge1' | 'badge2' | null>(null);
 
+  // Ref to track activeTab inside GSAP callbacks (avoids stale closures)
+  const activeTabRef = useRef('tab1');
+
   // Hero 3D Animation Refs
   const heroSectionRef = useRef<HTMLElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
@@ -297,129 +300,91 @@ export default function Home() {
         );
       }
 
-      // ========== AI SAT SECTION - CREATIVE SCROLL ANIMATIONS ==========
-      // Circle Icon - Bouncy Scale + Spin entrance
-      if (aiSatCircleRef.current) {
-        gsap.fromTo(aiSatCircleRef.current,
-          { scale: 0, rotation: -180, opacity: 0 },
-          {
-            scale: 1,
-            rotation: 0,
-            opacity: 1,
-            duration: 1,
-            ease: 'back.out(1.7)',
-            scrollTrigger: {
-              trigger: aiSatSectionRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none none'
-            }
-          }
-        );
-      }
-
-      // Heading - Blur-to-focus slide up
-      if (aiSatHeadingRef.current) {
-        const heading = aiSatHeadingRef.current.querySelector('h2');
-        const subtitle = aiSatHeadingRef.current.querySelector('p');
-
-        if (heading) {
-          gsap.fromTo(heading,
-            { y: 60, opacity: 0, filter: 'blur(12px)' },
-            {
-              y: 0,
-              opacity: 1,
-              filter: 'blur(0px)',
-              duration: 1,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: aiSatHeadingRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-              }
-            }
-          );
-        }
-
-        if (subtitle) {
-          gsap.fromTo(subtitle,
-            { y: 30, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              delay: 0.3,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: aiSatHeadingRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-              }
-            }
-          );
-        }
-      }
-
-      // Tabs - Staggered slide from right
-      if (aiSatTabsRef.current) {
-        const tabButtons = aiSatTabsRef.current.querySelectorAll('button');
-        gsap.fromTo(tabButtons,
-          { x: 40, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: aiSatTabsRef.current,
-              start: 'top 90%',
-              toggleActions: 'play none none none'
-            }
-          }
-        );
-      }
-
-      // Tab Content Grid - Left panel slides from left, right panel slides from right
-      if (aiSatContentRef.current) {
-        const panels = aiSatContentRef.current.children;
-        if (panels[0]) {
-          gsap.fromTo(panels[0],
-            { x: -80, opacity: 0 },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.9,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: aiSatContentRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-              }
-            }
-          );
-        }
-        if (panels[1]) {
-          gsap.fromTo(panels[1],
-            { x: 80, opacity: 0 },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.9,
-              delay: 0.15,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: aiSatContentRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-              }
-            }
-          );
-        }
-      }
-
     }, heroSectionRef);
 
     return () => ctx.revert();
+  }, []);
+
+  // ========== AI SAT SECTION - SCROLL-PINNED TAB CYCLING ==========
+  useEffect(() => {
+    if (!aiSatSectionRef.current) return;
+
+    const tabKeys = ['tab1', 'tab2', 'tab3', 'tab4'];
+
+    // Circle entrance animation (before pin)
+    if (aiSatCircleRef.current) {
+      gsap.fromTo(aiSatCircleRef.current,
+        { scale: 0, rotation: -180, opacity: 0 },
+        {
+          scale: 1, rotation: 0, opacity: 1,
+          duration: 1, ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: aiSatSectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }
+
+    // Heading blur-to-focus entrance (before pin)
+    if (aiSatHeadingRef.current) {
+      const heading = aiSatHeadingRef.current.querySelector('h2');
+      const subtitle = aiSatHeadingRef.current.querySelector('p');
+      if (heading) {
+        gsap.fromTo(heading,
+          { y: 60, opacity: 0, filter: 'blur(12px)' },
+          {
+            y: 0, opacity: 1, filter: 'blur(0px)',
+            duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+          }
+        );
+      }
+      if (subtitle) {
+        gsap.fromTo(subtitle,
+          { y: 30, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 0.8, delay: 0.3, ease: 'power2.out',
+            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+          }
+        );
+      }
+    }
+
+    // Pin the section and cycle tabs based on scroll progress
+    const pinTrigger = ScrollTrigger.create({
+      trigger: aiSatSectionRef.current,
+      start: 'center center',
+      end: '+=200%',  // Extra scroll distance for 4 tabs (3 transitions)
+      pin: true,
+      pinSpacing: true,
+      scrub: false,
+      onUpdate: (self) => {
+        const progress = self.progress; // 0 to 1
+        let targetTab: string;
+
+        if (progress < 0.25) {
+          targetTab = 'tab1';
+        } else if (progress < 0.50) {
+          targetTab = 'tab2';
+        } else if (progress < 0.75) {
+          targetTab = 'tab3';
+        } else {
+          targetTab = 'tab4';
+        }
+
+        // Only update if the tab actually changed
+        if (activeTabRef.current !== targetTab) {
+          activeTabRef.current = targetTab;
+          setActiveTab(targetTab);
+        }
+      }
+    });
+
+    return () => {
+      pinTrigger.kill();
+    };
   }, []);
 
   // GSAP Badge Popup Hover Animations
@@ -928,7 +893,7 @@ export default function Home() {
               {['المدرسون', 'توقع الدرجة', 'الأختبارات', 'الشروحات'].map((tab, index) => (
                 <motion.button
                   key={index}
-                  onClick={() => setActiveTab(`tab${index + 1}`)}
+                  onClick={() => { activeTabRef.current = `tab${index + 1}`; setActiveTab(`tab${index + 1}`); }}
                   initial={false}
                   animate={{
                     color: activeTab === `tab${index + 1}` ? '#000000' : '#98A2B3'
