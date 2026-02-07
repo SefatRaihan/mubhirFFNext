@@ -580,7 +580,7 @@ export default function Home() {
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
               {/* Badge 1 - #سؤال with hover image */}
               <div
-                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60"
+                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge1')}
                 onMouseLeave={() => setHoveredBadge(null)}
               >
@@ -612,7 +612,7 @@ export default function Home() {
 
               {/* Badge 2 - #قدرات with hover image */}
               <div
-                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60"
+                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge2')}
                 onMouseLeave={() => setHoveredBadge(null)}
               >
