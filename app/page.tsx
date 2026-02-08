@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
@@ -121,7 +121,7 @@ export default function Home() {
         setReviewsError('Failed to load reviews');
       }
     } catch (error) {
-      // console.error('Error fetching reviews:', error);
+      console.error('Error fetching reviews:', error);
       setReviewsError('Failed to load reviews');
     } finally {
       setReviewsLoading(false);
@@ -148,7 +148,7 @@ export default function Home() {
   }, []);
 
   // Hero title words for word-by-word animation
-  const heroTitleWords = ['????', '?????', '?????', '?????', '??????', '??', '??????', '???????'];
+  const heroTitleWords = ['مبهر', 'شريكك', 'الذكي', 'لطريق', 'التفوق', 'في', 'اختبار', 'القدرات'];
 
   // GSAP Creative Hero Animations - Clean & Elegant
   useEffect(() => {
@@ -481,28 +481,28 @@ export default function Home() {
   // FAQ data
   const faqData = [
     {
-      question: '??? ???? ?????? ????????? ?? ???? ?????? ?????? ????????? ?',
-      answer: '????? ?????? ????????? ?? ???? ??? ????? ????? ???? ?????? ?? ???? ?????? ????? ???????? ????? ???? ??????? ?????? ???? ????? ????????? ???? ????'
+      question: 'كيف يقوم الذكاء الاصطناعي في مبهر بتخصيص تجربتك التعليمية ؟',
+      answer: 'يعتمد الذكاء الاصطناعي في مبهر على تحليل أدائك بشكل مستمر، من خلال متابعة طريقة إجاباتك، وقياس أداء مستواك، وتحديد نقاط القوة والاحتياج لديك بدقة'
     },
     {
-      question: '?? ???? ???????? ??????? ?????? ?????? ????? ???? ?????',
-      answer: '????? ???????? ?????? ?????? ????????? ?????? ???????? ????? ????? ???????? ???????? ?????? ???? ???? ???? ???????? ?????? ?????? ???? ???????'
+      question: 'هل يوجد اختبارات تجريبية استطيع التدرب عليها داخل مبهر؟',
+      answer: 'اكتشف اختبارات متنوعة ومحدثة باستمرار، مدعومة بتسريبات دقيقة تحاكي الامتحان الحقيقي، لتتدرب بثقة وتصل ليوم الاختبار مستعدا لتحقيق أفضل النتائج'
     },
     {
-      question: '?? ?????? ??????? ???? ??? ????? ?????? / ????????? / ?????? ?',
-      answer: '???? ???? ???? ?????? ??? ??????? ??????? ???????????? ?????? ????? ??????? ???? ?????? ??????. ????? ?????? ??????? ?????? ?? ?? ???? ??? ????? ???? ?????? ???? ???? ??? ?????? ???? ?? ?????? ???? ???? ???? ???? ??? ????? ?????? ?? ?????????'
+      question: 'هل يمكنني استخدام مبهر على جهازي اللوحي / الكمبيوتر / الجوال ؟',
+      answer: 'نعم، يعمل مبهر بسلاسة على الأجهزة اللوحية والكمبيوترات ليمنحك تجربة استخدام مرنة وسريعة وواضحة. يمكنك متابعة مذاكرتك بسهولة في أي مكان وفي الوقت الذي يناسبك كذلك يعمل على الجوال ولكن كل مميزات مبهر تظهر بشكل أفضل على جهازك اللوحي أو الكمبيوتر'
     },
     {
-      question: '?? ???? ????? ?????? ?',
-      answer: '???? ???? ???? ?? ????? ?????? ???? 5 ???? ?????? ??? ????? ??? ???? ?????? ??? ??????? ???????? ??? ????????'
+      question: 'هل يوجد تجربة مجانية ؟',
+      answer: 'نعم، تقدر تبدأ بـ تجربة مجانية لمدة 5 أيام للتعرف على طريقة عمل مبهر وتجربة بعض الأسئلة والميزات قبل الاشتراك'
     },
     {
-      question: '?? ????? ???? ????? ?? ??????? ??? ??????? ?? ?????',
-      answer: '??? ???? ???? ????? ??? ?? ????? ????? ?? ?? ????. ?????? ??? ??? ??????? ???????'
+      question: 'هل أحتاج خبرة سابقة في القدرات قبل اشتراكي مع مبهر؟',
+      answer: 'لا، مبهر مبني ليبدأ معك من الصفر ويوضح لك كل خطوة. ويطورك حتى تصل للمستوى المطلوب'
     },
     {
-      question: '?? ????? ??? ??? ???????? ???????? ?? ?????????? ?',
-      answer: '???. ?? ???? ?? ???? ?????. ???? ????? ????? ??? ???? ????? ??????? ??? ??????? ?????? ????? ????? ??? ?????? ?????? ??? ????'
+      question: 'هل سيكون معي أحد للمساعدة والإجابة عن استفساراتي ؟',
+      answer: 'نعم. في مبهر لن تكون وحيدا. فريق الدعم سيكون معك خطوة بخطوة للإجابة على أسئلتك، ويوجهك لتبقى دايما على الطريق الصحيح نحو هدفك'
     }
   ];
 
@@ -510,42 +510,42 @@ export default function Home() {
   const featuresData = [
     {
       iconSrc: '/image/icon/feature-icon-1.png',
-      text: '???? ??? ??????? ?? ???? ?? 10000???? ????? ????????',
+      text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-2.png',
-      text: '??? ???? ??????? ????? ????? ??????',
+      text: 'شرح مبسط ومتكامل لجميع وحدات المنهج',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-3.png',
-      text: '?????? ????? ?????? ?????',
+      text: 'شروحات فيديو للمنهج كاملا',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-4.png',
-      text: '???? ????? ?? ???? ?????? ? ???? ????? ???? ?????',
+      text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-5.png',
-      text: '????? ?????? ????? ??????? ????? ?????? ???????',
+      text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-6.png',
-      text: '???? ??????? ????? ????? ?? ?? ????? ??????',
+      text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-7.png',
-      text: '???? ?????? ???? ???? ???????? ?? ????? ????? ???????',
+      text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي',
 
     },
     {
       iconSrc: '/image/icon/feature-icon-8.png',
-      text: '???? ????? ????? ???? ???? ???? ????? ?????? ????',
+      text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول',
 
     }
   ];
@@ -612,27 +612,27 @@ export default function Home() {
 
         if (json?.status === 'success' && Array.isArray(json.data)) {
           const features = [
-            '?????? ??? ????? ????? ?????.',
-            '?????? ?????? ??????? ????? ??????.',
-            '?? ?????? ???????? ??????? ???? ??? ?? ???? ?? ?????? / ??????? ??????',
-            '??? 24/7 ??????? ??? ??????.',
+            'الوصول إلى أسئلة تدريب قدرات.',
+            'تقارير مرحلية أسبوعية لتتبع التحسن.',
+            'قم بإجراء امتحانات التدريب بناء على أي مزيج من اللفظي / الكتابي والكمي',
+            'دعم 24/7 للإجابة على أسئلتك.',
           ];
 
           const titleTranslations: Record<string, string> = {
-            'Monthly Plan': '?????? ???????',
-            '3 Months Plan': '??? ? ????',
-            '6 Months Plan': '??? ? ????',
-            'Yearly Plan': '?????? ???????',
+            'Monthly Plan': 'الباقة الشهرية',
+            '3 Months Plan': 'خطة ٣ أشهر',
+            '6 Months Plan': 'خطة ٦ أشهر',
+            'Yearly Plan': 'الباقة السنوية',
           };
 
           const descriptionTranslations: Record<string, string> = {
-            'Perfect for starting your journey': '?????? ??????? ???? ??????',
-            'Ideal for focused preparation': '????? ?????? ??????????',
-            'Best for comprehensive prep': '??????? ??? ???? ?????????',
-            'Maximum value for long-term': '????? ????? ?????',
+            'Perfect for starting your journey': 'استكشف بالسرعة التي تناسبك',
+            'Ideal for focused preparation': 'مثالي لمواسم الامتحانات',
+            'Best for comprehensive prep': 'التنافس على أعلى المستويات',
+            'Maximum value for long-term': 'إتقان وتيرة قدرات',
           };
 
-          const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '??????????'[parseInt(d)]);
+          const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d)]);
 
           const plans = json.data.slice(0, 4).map((plan: any) => ({
             ...plan,
@@ -640,14 +640,14 @@ export default function Home() {
             description_ar: descriptionTranslations[plan.description] || plan.description,
             price_display: toArabicDigits(String(plan.price ?? '')),
             pricing_terms_ar: plan.pricing_terms,
-            terms_ar: '??? ?????? ?????',
+            terms_ar: 'لكل مستخدم شهريا',
             features,
           }));
 
           setPricingPlans(plans);
         }
       } catch (error) {
-        // console.error('Failed to load packages:', error);
+        console.error('Failed to load packages:', error);
       }
     };
 
@@ -675,7 +675,7 @@ export default function Home() {
           {/* Hero Content */}
           <div className="relative text-center mt-16 md:mt-[128px]">
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
-              {/* Badge 1 - #???? with hover image */}
+              {/* Badge 1 - #سؤال with hover image */}
               <div
                 className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge1')}
@@ -685,7 +685,7 @@ export default function Home() {
                   ref={heroBadge1Ref}
                   className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
                 >
-                  #????
+                  #سؤال
                 </span>
                 {/* Popup Image for Badge 1 */}
                 <div
@@ -699,7 +699,7 @@ export default function Home() {
                       src="/image/arabic_content/content1.png"
                       width={1000}
                       height={800}
-                      alt="????"
+                      alt="سؤال"
                       className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
                       style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
                     />
@@ -707,7 +707,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Badge 2 - #????? with hover image */}
+              {/* Badge 2 - #قدرات with hover image */}
               <div
                 className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge2')}
@@ -717,7 +717,7 @@ export default function Home() {
                   ref={heroBadge2Ref}
                   className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
                 >
-                  #?????
+                  #قدرات
                 </span>
                 {/* Popup Image for Badge 2 */}
                 <div
@@ -731,7 +731,7 @@ export default function Home() {
                       src="/image/arabic_content/content2.png"
                       width={1000}
                       height={800}
-                      alt="?????"
+                      alt="قدرات"
                       className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
                       style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
                     />
@@ -745,7 +745,7 @@ export default function Home() {
               ref={heroHeadingRef}
               className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px] text-glow-white opacity-0"
             >
-              ???? ????? ????? <br /> ????? ?????? ?? ?????? <br /> ???????
+              مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات
             </h1>
 
             <motion.p
@@ -754,8 +754,8 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
             >
-              ????? ????? ??? ?????? ?????? ?????? ????? ?? ?????? ?? ??????
-              ??????? ??????? ?????????
+              تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار
+              القدرات بالذكاء الإصطناعي
             </motion.p>
 
             <div
@@ -769,7 +769,7 @@ export default function Home() {
                     whileTap={{ scale: 0.95 }}
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
                   >
-                    ????? ????
+                    أكتشف الأن
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                       <LeftArrow />
                     </span>
@@ -837,7 +837,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 1.4 }}
                 className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
               >
-                ?????? ?? ?????? ?????? <br /> ????? ????????? ?????? ??????
+                الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
               </motion.span>
             </div>
             <div
@@ -845,12 +845,12 @@ export default function Home() {
               className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px] opacity-0"
             >
               {[
-                { href: "https://wa.me/966568876934", ariaLabel: "????? ???? ??? ??????", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
-                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "????? ???? ??? ????????", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
-                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "????? ???? ??? ??? ???", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
-                { href: "https://t.me/mubhirai", ariaLabel: "????? ???? ??? ????????", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
-                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "????? ???? ??? ?????", Icon: XIcon, bg: "bg-white", delay: 1.7 },
-                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "????? ???? ??? ???? ???", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
+                { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
+                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
+                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
+                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
+                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
+                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
               ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
                 <motion.div
                   key={index}
@@ -884,18 +884,18 @@ export default function Home() {
         <div className="container max-w-6xl px-4 py-8 sm:py-[120px]">
           <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
             <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
-              ????? ??????? ??????? <br />
-              ?????? ?????? ???? ???????? ?? ????
+              استعد لأختبار القدرات <br />
+              العامة بخطوات تفوق التوقعات مع مبهر
             </h2>
             <p className="text-sm sm:text-[16px] font-medium text-black mt-3">
-              ??? ????? � ????? ??? � ????? ?????
+              خطط مخصصة – تدريب ذكي – نتائج مبهرة
             </p>
           </div>
 
           {/* Tabs */}
           <div ref={aiSatTabsRef} className="flex justify-center mb-8 sm:mb-16">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full max-w-3xl">
-              {['????????', '???? ??????', '??????????', '????????'].map((tab, index) => (
+              {['المدرسون', 'توقع الدرجة', 'الأختبارات', 'الشروحات'].map((tab, index) => (
                 <motion.button
                   key={index}
                   onClick={() => { activeTabRef.current = `tab${index + 1}`; setActiveTab(`tab${index + 1}`); }}
@@ -937,28 +937,28 @@ export default function Home() {
 
                   {/* Heading */}
                   <h3 className="text-xl sm:text-2xl md:text-[35px] font-medium mb-2 leading-tight sm:leading-[44px] text-right">
-                    {activeTab === 'tab1' && <>???? ?? ???? ????  ?? ??</>}
-                    {activeTab === 'tab2' && <>????? ?????  ???????</>}
-                    {activeTab === 'tab3' && <>??????  ??????</>}
-                    {activeTab === 'tab4' && <>???  ???????</>}
+                    {activeTab === 'tab1' && <>اسأل من خلال صورة  أو نص</>}
+                    {activeTab === 'tab2' && <>طريقة بديلة  للإجابة</>}
+                    {activeTab === 'tab3' && <>اقتراح  اختبار</>}
+                    {activeTab === 'tab4' && <>شرح  الموضوع</>}
                   </h3>
 
                   {/* Description */}
                   {/* <p className="text-gray-600 mt-6 sm:mt-[216px] text-sm sm:text-[20px] font-normal text-right leading-7">
-                    {activeTab === 'tab1' && '?? ?????????? ??? ????? ?????? ??? ??????? ????? ?????? ?? ?? ???? ???? ?? ?????? ???? ?? ?? ?????? ???????? ?????? ??? ????? ?????'}
-                    {activeTab === 'tab2' && '?????? ???? ?????? ??? ???????? ????? ??? ??????? ????? ??????'}
-                    {activeTab === 'tab3' && '???? ??? ??????? ????? ?????? ??? ????? ?????'}
-                    {activeTab === 'tab4' && '???? ??? ??????? ????? ?????? ??? ?????'}
+                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
+                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
+                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
+                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
                   </p> */}
                   <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 ${activeTab === 'tab1' ? 'mt-6 sm:mt-[129px]' :
                     activeTab === 'tab2' ? 'mt-8 sm:mt-[186px]' :
                       activeTab === 'tab3' ? 'mt-4 sm:mt-[186px]' :
                         activeTab === 'tab4' ? 'mt-10 sm:mt-[214px]' : ''
                     }`}>
-                    {activeTab === 'tab1' && '?? ?????????? ??? ????? ?????? ??? ??????? ????? ?????? ?? ?? ???? ???? ?? ?????? ???? ?? ?? ?????? ???????? ?????? ??? ????? ?????'}
-                    {activeTab === 'tab2' && '?????? ???? ?????? ??? ???????? ????? ??? ??????? ????? ??????'}
-                    {activeTab === 'tab3' && '???? ??? ??????? ????? ?????? ??? ????? ?????'}
-                    {activeTab === 'tab4' && '???? ??? ??????? ????? ?????? ??? ?????'}
+                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
+                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
+                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
+                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
                   </p>
 
                   {/* Link Button */}
@@ -966,7 +966,7 @@ export default function Home() {
                     {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                     <Link href="/packages">
                       <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px] cursor-pointer">
-                        <span>???? ????</span>
+                        <span>ابدأ الأن</span>
                         <span>
                           <CardLeftArrowIcon />
                         </span>
@@ -991,7 +991,7 @@ export default function Home() {
                   src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.jpg`}
                   width={600}
                   height={400}
-                  alt={activeTab === 'tab1' ? '???? ?? ???? ???? ?? ?? - ????????' : activeTab === 'tab2' ? '???? ?????? - ????? ????? ???????' : activeTab === 'tab3' ? '?????? ?????? - ??????????' : '??? ??????? - ????????'}
+                  alt={activeTab === 'tab1' ? 'اسأل من خلال صورة أو نص - المدرسون' : activeTab === 'tab2' ? 'توقع الدرجة - طريقة بديلة للإجابة' : activeTab === 'tab3' ? 'اقتراح اختبار - الاختبارات' : 'شرح الموضوع - الشروحات'}
                   className="w-full h-auto"
                 />
               </motion.div>
@@ -1011,10 +1011,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto py-8 sm:py-[120px]">
           <div className="text-center mb-10">
             <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
-              ???? ????? ??? ??? ?? ???? ???? ??????? ??????
+              ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
             </h2>
             <p className="pt-4 text-base text-gray-600 mt-2">
-              ???? ????? ???? ?? ????? ??????? ????? ???
+              منصة رائعة تقدم لك تجربة تعليمية شاملة تضم
             </p>
           </div>
 
@@ -1050,7 +1050,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-10 lg:leading-[120px] text-center"
             >
-              ???? ????? ?????? ?? ??????? ?? ???? ??? ????
+              ابدأ طريقك للتميز في القدرات مع منصة تثق فيها
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -1059,7 +1059,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="mt-3 sm:mt-[15px] text-black text-center text-sm sm:text-base"
             >
-              ????? ??????? ???? ??? ?????
+              تجربة تعليمية تصنع فرق حقيقي
             </motion.p>
           </div>
 
@@ -1154,7 +1154,7 @@ export default function Home() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
           >
-            ????? ???? ??? ???? ???? ????? ?? ???????
+            أسعار مرنة لكل طالب يبغي يتفوق في القدرات
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -1163,7 +1163,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="mt-3 sm:mt-6 text-white text-center text-sm sm:text-base"
           >
-            ???? ????? ???? ????? ???????? ????? ????
+            اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
           </motion.p>
 
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
@@ -1220,7 +1220,7 @@ export default function Home() {
                         className="text-white text-xs font-semibold px-3 py-1 rounded-full"
                         style={{ backgroundColor: '#C445A6' }}
                       >
-                        ??? {plan.promotional_badge}%
+                        وفر {plan.promotional_badge}%
                       </motion.span>
                     )}
                   </div>
@@ -1246,7 +1246,7 @@ export default function Home() {
                     className="text-3xl font-bold text-[#671E5A]"
                   >
                     {plan.price_display}
-                    <span className="text-3xl font-bold text-[#671E5A] pr-2">?.?</span>
+                    <span className="text-3xl font-bold text-[#671E5A] pr-2">ر.س</span>
                   </motion.p>
                   <motion.p
                     initial={{ opacity: 0 }}
@@ -1295,7 +1295,7 @@ export default function Home() {
                     >
                       <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
                       <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                        ???? {plan.title_ar}
+                        ابدأ {plan.title_ar}
                       </span>
                     </motion.button>
                   </Link>
@@ -1322,7 +1322,7 @@ export default function Home() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-[28px] sm:text-5xl md:text-[60px] font-semibold text-center text-black"
           >
-            ?? ????????? ???? ???????
+            كل إستفسارات طلاب القدرات
             <br />
           </motion.h2>
           <motion.p
@@ -1332,7 +1332,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="mt-2 text-center text-gray-600"
           >
-            ??????? ???????
+            الأسئلة الشائعة
           </motion.p>
           <div className="mt-10 space-y-4">
             {faqData.map((faq, index) => (
@@ -1354,7 +1354,7 @@ export default function Home() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-black font-medium mb-[12px] mt-[32px] text-center cursor-pointer"
           >
-            ?? ??? ???? ??????
+            ما زلت لديك أسئلة؟
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -1369,7 +1369,7 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg hover:shadow-xl transition-shadow"
               >
-                ????? ????
+                تواصل معنا
                 <span className="flex items-center justify-center mr-6 w-8 h-8 bg-white text-white rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#671e5a" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12H21" />
@@ -1398,7 +1398,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
           >
-            <Image src="/image/review-cover.png" width={1200} height={800} alt="?????" className="w-full h-auto object-contain" />
+            <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
           </motion.div>
 
           {/* Content Grid */}
@@ -1413,7 +1413,7 @@ export default function Home() {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   className="text-[28px] md:text-5xl font-semibold mb-6 text-center lg:text-right"
                 >
-                  ???? ??????
+                  آراء طلابنا
                 </motion.h2>
 
                 {/* Button under title */}
@@ -1430,7 +1430,7 @@ export default function Home() {
                     whileTap={{ scale: 0.95 }}
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
                   >
-                    ???? ??????
+                    ابدأ تجربتك
                     <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
                       <LeftArrow />
                     </span>
@@ -1466,7 +1466,7 @@ export default function Home() {
                 ) : reviews.length === 0 ? (
                   // Empty state
                   <div className="text-center text-white py-10">
-                    <p>?? ???? ??????? ??????</p>
+                    <p>لا توجد تعليقات حالياً</p>
                   </div>
                 ) : (
                   // Display reviews (4 at a time with rotation)
@@ -1570,7 +1570,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="lg:hidden mt-8 w-full"
             >
-              <Image src="/image/review-cover.png" width={1200} height={800} alt="?????" className="w-full h-auto object-contain" />
+              <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
             </motion.div>
           </div>
         </div>
