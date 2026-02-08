@@ -43,13 +43,13 @@ export default function Navbar() {
         {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex items-center gap-6 space-x-reverse font-medium text-sm">
           <Link
-            href="/ar-sat"
+            href="/qudurat"
             className="text-[#1c164e] hover:text-[#91288c] transition"
           >
             دورات القدرات
           </Link>
           <Link
-            href="/ar-sat2"
+            href="/tahsili"
             className="text-[#1c164e] hover:text-[#91288c] transition"
           >
             دورات التحصيلي(قريبا)
@@ -120,7 +120,7 @@ export default function Navbar() {
           <div className="flex-1 overflow-y-auto px-4 py-6">
             <nav className="space-y-[8px]">
               <Link
-                href="/ar-sat"
+                href="/qudurat"
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -128,7 +128,7 @@ export default function Navbar() {
                 <CircleLeftArrowIcon />
               </Link>
               <Link
-                href="/ar-sat2"
+                href="/tahsili"
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
