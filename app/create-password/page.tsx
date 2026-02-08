@@ -201,7 +201,7 @@ export default function CreatePasswordPage() {
                         throw new Error(loginData?.message || 'Auto-login failed');
                     }
                 } catch (loginError: any) {
-                    console.error('Auto-login error:', loginError);
+                    // console.error('Auto-login error:', loginError);
 
                     // Clear signup data
                     localStorage.removeItem('signupData');
@@ -224,7 +224,7 @@ export default function CreatePasswordPage() {
                 }));
             }
         } catch (error: any) {
-            console.error('Create password error:', error);
+            // console.error('Create password error:', error);
 
             // Handle API error response
             if (error.response?.data?.message) {

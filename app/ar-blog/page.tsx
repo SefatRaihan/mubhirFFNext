@@ -67,7 +67,7 @@ export default function ArBlogPage() {
         const fetchBlogs = async () => {
             try {
                 setLoading(true);
-                console.log('Fetching from:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
+                // console.log('Fetching from:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`, {
                     method: "GET",
@@ -76,18 +76,18 @@ export default function ArBlogPage() {
                     },
                 });
 
-                console.log('Response status:', response.status);
+                // console.log('Response status:', response.status);
                 const data: ApiResponse = await response.json();
-                console.log('API Response:', data);
+                // console.log('API Response:', data);
 
                 if (data.success) {
-                    console.log('Blog data:', data.data);
+                    // console.log('Blog data:', data.data);
                     setBlogData(data.data);
                 } else {
-                    console.error('API returned success: false');
+                    // console.error('API returned success: false');
                 }
             } catch (error) {
-                console.error("Error fetching blogs:", error);
+                // console.error("Error fetching blogs:", error);
             } finally {
                 setLoading(false);
             }

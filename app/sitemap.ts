@@ -78,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }
         }
     } catch (error) {
-        console.error('Failed to fetch blogs for sitemap:', error);
+        // console.error('Failed to fetch blogs for sitemap:', error);
     }
 
     return [...staticPages, ...blogPages];

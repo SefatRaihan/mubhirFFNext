@@ -83,13 +83,13 @@ export default function PackagesPage() {
             // Check for token
             let token = Cookies.get('token');
 
-            console.group('%c📦 PACKAGES PAGE - Trial Check Started', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-            console.log('%cToken from cookies:', 'color: #2563eb;', token ? 'Found (' + token.substring(0, 20) + '...)' : 'NOT FOUND');
+            // console.group('%c📦 PACKAGES PAGE - Trial Check Started', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+            // console.log('%cToken from cookies:', 'color: #2563eb;', token ? 'Found (' + token.substring(0, 20) + '...)' : 'NOT FOUND');
 
             if (!token) {
                 // No token = not logged in, show trial option by default
-                console.log('%c⚠️ No token found - Showing trial option (user not logged in)', 'color: #ca8a04;');
-                console.groupEnd();
+                // console.log('%c⚠️ No token found - Showing trial option (user not logged in)', 'color: #ca8a04;');
+                // console.groupEnd();
                 setHasUsedTrial(false);
                 return;
             }
@@ -105,18 +105,18 @@ export default function PackagesPage() {
                 });
 
                 // 🔍 Debug Console - Show FULL API Response
-                console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                console.log('%cAPI Endpoint:', 'color: #2563eb;', '/cms/free-trail');
-                console.log('%cResponse Status:', 'color: #2563eb;', response.status);
+                // console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                // console.log('%cAPI Endpoint:', 'color: #2563eb;', '/cms/free-trail');
+                // console.log('%cResponse Status:', 'color: #2563eb;', response.status);
 
                 // Try to parse JSON response
                 let data: any = null;
                 try {
                     data = await response.json();
-                    console.log('%c📋 Full API Response:', 'color: #16a34a; font-weight: bold;');
-                    console.log(data);
+                    // console.log('%c📋 Full API Response:', 'color: #16a34a; font-weight: bold;');
+                    // console.log(data);
                 } catch (e) {
-                    console.log('%c⚠️ Could not parse JSON response', 'color: #ea580c;');
+                    // console.log('%c⚠️ Could not parse JSON response', 'color: #ea580c;');
                 }
 
                 // Determine if user has used trial based on response
@@ -125,7 +125,7 @@ export default function PackagesPage() {
                 if (response.status === 403) {
                     // Status 403: Trial is expired/used
                     hasUsed = true;
-                    console.log('%c🔴 403 Forbidden - Trial EXPIRED', 'color: #dc2626; font-weight: bold;');
+                    // console.log('%c🔴 403 Forbidden - Trial EXPIRED', 'color: #dc2626; font-weight: bold;');
                 } else if (response.ok) {
                     // Status 200-299: Check various fields for expiry
                     // Handle different possible field names and types
@@ -151,27 +151,27 @@ export default function PackagesPage() {
                             hasUsed = true;
                         }
                     }
-                    console.log('%c🟢 200 OK - Checking response fields', 'color: #16a34a;');
+                    // console.log('%c🟢 200 OK - Checking response fields', 'color: #16a34a;');
                 } else {
                     // Other errors: Default to false (show trial option)
-                    console.log('%c🟡 Other Status - Defaulting to show trial', 'color: #ca8a04;');
+                    // console.log('%c🟡 Other Status - Defaulting to show trial', 'color: #ca8a04;');
                 }
 
-                console.table({
-                    'Response Status': response.status,
-                    'hasUsedTrial (computed)': {
-                        value: hasUsed,
-                        meaning: hasUsed ? '❌ User has USED trial - Show regular prices' : '✅ User CAN get trial - Show trial prices'
-                    }
-                });
-                console.groupEnd();
+                // console.table({
+                //     'Response Status': response.status,
+                //     'hasUsedTrial (computed)': {
+                //         value: hasUsed,
+                //         meaning: hasUsed ? '❌ User has USED trial - Show regular prices' : '✅ User CAN get trial - Show trial prices'
+                //     }
+                // });
+                // console.groupEnd();
 
                 setHasUsedTrial(hasUsed);
             } catch (error) {
-                console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                console.log('%c❌ Network Error:', 'color: #dc2626; font-weight: bold;', error);
-                console.log('%cFallback:', 'color: #6b7280;', 'Showing trial option (safe default)');
-                console.groupEnd();
+                // console.group('%c📦 PACKAGES PAGE - Trial Eligibility Check', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                // console.log('%c❌ Network Error:', 'color: #dc2626; font-weight: bold;', error);
+                // console.log('%cFallback:', 'color: #6b7280;', 'Showing trial option (safe default)');
+                // console.groupEnd();
                 setHasUsedTrial(false);
             }
         };
@@ -201,7 +201,7 @@ export default function PackagesPage() {
                     setPackages(mappedPackages);
                 }
             } catch (error) {
-                console.error('Error fetching packages:', error);
+                // console.error('Error fetching packages:', error);
             } finally {
                 setLoading(false);
             }
@@ -230,14 +230,14 @@ export default function PackagesPage() {
         if (!selectedPkg) return;
 
         // 🔍 DEBUG: Log all cookies to see what's available
-        console.group('%c🛒 PACKAGES PAGE - Proceed to Payment', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-        console.log('%cAll Cookies:', 'color: #2563eb; font-weight: bold;', document.cookie);
-        console.log('%cCookies.get("token"):', 'color: #16a34a;', Cookies.get('token'));
-        console.groupEnd();
+        // console.group('%c🛒 PACKAGES PAGE - Proceed to Payment', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+        // console.log('%cAll Cookies:', 'color: #2563eb; font-weight: bold;', document.cookie);
+        // console.log('%cCookies.get("token"):', 'color: #16a34a;', Cookies.get('token'));
+        // console.groupEnd();
 
         // Check if user is authenticated
         const token = Cookies.get('token');
-        console.log('%c🔑 Token found:', 'color: #7A2060; font-weight: bold;', token ? 'YES - Going to checkout' : 'NO - Redirecting to login');
+        // console.log('%c🔑 Token found:', 'color: #7A2060; font-weight: bold;', token ? 'YES - Going to checkout' : 'NO - Redirecting to login');
         if (!token) {
             // Store selected package and redirect to login
             Cookies.set('selectedPlan', JSON.stringify(selectedPkg));

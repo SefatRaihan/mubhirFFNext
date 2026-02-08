@@ -59,7 +59,7 @@ export default function PasswordResetPage() {
                 alert(data?.message || 'فشل في إرسال رمز التحقق');
             }
         } catch (error) {
-            console.error('Password reset error:', error);
+            // console.error('Password reset error:', error);
             alert('حدث خطأ ما. الرجاء المحاولة مرة أخرى.');
         } finally {
             setLoading(false);

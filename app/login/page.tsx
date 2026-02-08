@@ -96,13 +96,13 @@ function LoginContent() {
                 setSuccess(data.message);
 
                 // 🔍 Debug - Log full login response
-                console.group('%c🔐 LOGIN PAGE - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                console.log('%c📋 Full Response:', 'color: #2563eb; font-weight: bold;');
-                console.log(data);
-                console.log('%c👤 User Object:', 'color: #16a34a; font-weight: bold;');
-                console.log(data.user);
-                console.log('%c🔍 is_trial field:', 'color: #ea580c; font-weight: bold;', data.user?.is_trial);
-                console.groupEnd();
+                // console.group('%c🔐 LOGIN PAGE - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                // console.log('%c📋 Full Response:', 'color: #2563eb; font-weight: bold;');
+                // console.log(data);
+                // console.log('%c👤 User Object:', 'color: #16a34a; font-weight: bold;');
+                // console.log(data.user);
+                // console.log('%c🔍 is_trial field:', 'color: #ea580c; font-weight: bold;', data.user?.is_trial);
+                // console.groupEnd();
 
                 // Save tokens & user info to cookies
                 // Note: secure: true only works on HTTPS, so we conditionally set it
@@ -155,7 +155,7 @@ function LoginContent() {
                 setError(data.message || 'فشل تسجيل الدخول. حاول مرة أخرى.');
             }
         } catch (err) {
-            console.error('Login error:', err);
+            // console.error('Login error:', err);
             setError('حدث خطأ. حاول مرة أخرى لاحقًا.');
         } finally {
             setLoading(false);

@@ -69,7 +69,7 @@ export default function ArContactUsPage() {
                 alert("حدث خطأ: " + (data.message || "يرجى المحاولة مرة أخرى"));
             }
         } catch (error) {
-            console.error("Error:", error);
+            // console.error("Error:", error);
             alert("خطأ في الشبكة، يرجى المحاولة لاحقاً.");
         } finally {
             setIsSubmitting(false);

@@ -230,7 +230,7 @@ export default function VerificationCodePage() {
             router.push('/create-password');
 
         } catch (error: any) {
-            console.error('Verification error:', error);
+            // console.error('Verification error:', error);
 
             // Show user-friendly error message
             if (error.response?.data?.message) {
@@ -267,7 +267,7 @@ export default function VerificationCodePage() {
             if (response.data.success) {
                 if (response.data.otp) {
                     alert(`رمز التحقق الجديد هو: ${response.data.otp}`);
-                    console.log('New OTP:', response.data.otp);
+                    // console.log('New OTP:', response.data.otp);
                 } else {
                     alert('تم إرسال رمز تحقق جديد إلى جوالك.');
                 }
@@ -275,7 +275,7 @@ export default function VerificationCodePage() {
                 alert(response.data.message || 'فشل إرسال الرمز. حاول مرة أخرى.');
             }
         } catch (error: any) {
-            console.error('Resend OTP error:', error);
+            // console.error('Resend OTP error:', error);
             alert('حدث خطأ أثناء إعادة إرسال الرمز.');
         }
     };

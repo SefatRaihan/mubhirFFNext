@@ -87,7 +87,7 @@ export default function SignupPage() {
                 // Check if OTP is returned in response (for development/staging)
                 if (response.data.otp) {
                     alert(`رمز التحقق هو: ${response.data.otp}`);
-                    console.log('OTP:', response.data.otp);
+                    // console.log('OTP:', response.data.otp);
                 }
 
                 // Navigate to verification page (phone stored in localStorage)
@@ -98,7 +98,7 @@ export default function SignupPage() {
             }
         } catch (error: any) {
             // Handle network or server errors
-            console.error('Signup error:', error);
+            // console.error('Signup error:', error);
 
             // Show user-friendly error message
             if (error.response?.data?.message) {

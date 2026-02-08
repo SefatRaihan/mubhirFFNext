@@ -82,7 +82,7 @@ export default function ArSat2Page() {
                     setPricingPlans(plans);
                 }
             } catch (error) {
-                console.error('Failed to load packages:', error);
+                // console.error('Failed to load packages:', error);
             }
         };
 

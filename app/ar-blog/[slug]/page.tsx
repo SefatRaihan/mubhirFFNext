@@ -122,25 +122,25 @@ export default function BlogDetailsPage() {
                 setLoading(true);
                 // Use the blog API endpoint
                 const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`;
-                console.log('Fetching blogs from:', apiUrl);
-                console.log('Looking for slug:', blogSlug);
+                // console.log('Fetching blogs from:', apiUrl);
+                // console.log('Looking for slug:', blogSlug);
 
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
-                console.log('API Response:', data);
+                // console.log('API Response:', data);
 
                 if (data.success) {
                     // Normalize the URL slug for comparison
                     const normalizedUrlSlug = normalizeArabicSlug(blogSlug as string);
-                    console.log('Normalized URL slug:', normalizedUrlSlug);
+                    // console.log('Normalized URL slug:', normalizedUrlSlug);
 
                     // Find the blog with matching slug across all categories
                     let foundBlog: Blog | null = null;
                     for (const category of data.data) {
                         const blog = category.blogs.find((b: Blog) => {
                             const normalizedApiSlug = normalizeArabicSlug(b.slug);
-                            console.log('Comparing:', normalizedUrlSlug, '===', normalizedApiSlug);
+                            // console.log('Comparing:', normalizedUrlSlug, '===', normalizedApiSlug);
                             return normalizedApiSlug === normalizedUrlSlug;
                         });
                         if (blog) {
@@ -151,18 +151,18 @@ export default function BlogDetailsPage() {
 
                     if (foundBlog) {
                         setBlog(foundBlog);
-                        console.log('Found blog:', foundBlog);
-                        console.log('Author data:', foundBlog.author);
+                        // console.log('Found blog:', foundBlog);
+                        // console.log('Author data:', foundBlog.author);
                         document.title = `${foundBlog.title} - مبهر`;
 
                         // Fetch related blogs (same category)
                         fetchRelatedBlogs(foundBlog.post_category_id, foundBlog.id);
                     } else {
-                        console.error('Blog not found with slug:', blogSlug);
+                        // console.error('Blog not found with slug:', blogSlug);
                     }
                 }
             } catch (error) {
-                console.error("Error fetching blog details:", error);
+                // console.error("Error fetching blog details:", error);
             } finally {
                 setLoading(false);
             }
@@ -183,7 +183,7 @@ export default function BlogDetailsPage() {
                     }
                 }
             } catch (error) {
-                console.error("Error fetching related blogs:", error);
+                // console.error("Error fetching related blogs:", error);
             }
         };
 
@@ -487,7 +487,7 @@ export default function BlogDetailsPage() {
                                     {(() => {
                                         // Use image_url directly from API response, fallback to default avatar
                                         const authorImageUrl = blog.author?.image_url || "/image/avater1.png";
-                                        console.log('Author image URL:', authorImageUrl);
+                                        // console.log('Author image URL:', authorImageUrl);
 
                                         return (
                                             <Image

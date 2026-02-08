@@ -71,21 +71,21 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
             const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/review-store`;
 
             // Log request details
-            console.log('=== Review Submission Started ===');
-            console.log('Endpoint:', endpoint);
-            console.log('Request Data:', requestData);
+            // console.log('=== Review Submission Started ===');
+            // console.log('Endpoint:', endpoint);
+            // console.log('Request Data:', requestData);
 
             // Submit the review to API
             const response = await axios.post(endpoint, requestData);
 
             // Log response details
-            console.log('Response Status:', response.status);
-            console.log('Response Data:', response.data);
+            // console.log('Response Status:', response.status);
+            // console.log('Response Data:', response.data);
 
             if (response.data.status) {
-                console.log('✅ Review submitted successfully!');
-                console.log('Review ID:', response.data.data?.id);
-                console.log('Message:', response.data.message);
+                // console.log('✅ Review submitted successfully!');
+                // console.log('Review ID:', response.data.data?.id);
+                // console.log('Message:', response.data.message);
 
                 // Store submission timestamp for rate limiting
                 localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
@@ -125,16 +125,16 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
                 console.error('Request Config:', error.config);
 
                 // Check if phone number is not registered (status 400)
-                console.log('🔍 Checking unregistered phone condition:');
-                console.log('Status is 400?', error.response?.status === 400);
-                console.log('Message:', error.response?.data?.message);
-                console.log('Contains "does not match"?', error.response?.data?.message?.includes('does not match any registered user'));
+                // console.log('🔍 Checking unregistered phone condition:');
+                // console.log('Status is 400?', error.response?.status === 400);
+                // console.log('Message:', error.response?.data?.message);
+                // console.log('Contains "does not match"?', error.response?.data?.message?.includes('does not match any registered user'));
 
                 if (
                     error.response?.status === 400 &&
                     error.response?.data?.message?.includes('does not match any registered user')
                 ) {
-                    console.log('✅ Showing unregistered phone warning toast');
+                    // console.log('✅ Showing unregistered phone warning toast');
                     toast.warning('رقم الهاتف غير مسجل. يرجى التسجيل أولاً.', {
                         position: 'top-right',
                         autoClose: 2500,
@@ -155,7 +155,7 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
             });
         } finally {
             setIsSubmitting(false);
-            console.log('=== Review Submission Ended ===');
+            // console.log('=== Review Submission Ended ===');
         }
     };
 

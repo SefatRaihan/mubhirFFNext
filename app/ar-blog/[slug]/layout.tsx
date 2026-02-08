@@ -76,7 +76,7 @@ async function getBlogData(slug: string): Promise<BlogData | null> {
             }
         }
     } catch (error) {
-        console.error('Error fetching blog data:', error);
+        // console.error('Error fetching blog data:', error);
     }
     return null;
 }

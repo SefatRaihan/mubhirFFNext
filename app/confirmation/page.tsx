@@ -70,17 +70,17 @@ function ConfirmationContent() {
                     const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}&is_auto_subscribe=${isAutoSubscribe}&is_only_free=${isOnlyFree}`;
 
                     // Debug log for callback
-                    console.group('%c📞 CONFIRMATION CALLBACK DEBUG', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                    console.log('%c🔗 Callback URL:', 'color: #2563eb; font-weight: bold;', callbackUrl);
-                    console.table({
-                        'tap_id': tapId,
-                        'is_auto_subscribe': isAutoSubscribe,
-                        'is_only_free': isOnlyFree,
-                        'Scenario': isAutoSubscribe === 1 ? '1: Auto-subscribe enabled' :
-                            isOnlyFree === 1 ? '2: Free trial only' :
-                                '3: Payment (used trial)'
-                    });
-                    console.groupEnd();
+                    // console.group('%c📞 CONFIRMATION CALLBACK DEBUG', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                    // console.log('%c🔗 Callback URL:', 'color: #2563eb; font-weight: bold;', callbackUrl);
+                    // console.table({
+                    //     'tap_id': tapId,
+                    //     'is_auto_subscribe': isAutoSubscribe,
+                    //     'is_only_free': isOnlyFree,
+                    //     'Scenario': isAutoSubscribe === 1 ? '1: Auto-subscribe enabled' :
+                    //         isOnlyFree === 1 ? '2: Free trial only' :
+                    //             '3: Payment (used trial)'
+                    // });
+                    // console.groupEnd();
 
                     const response = await fetch(callbackUrl, {
                         headers: { Authorization: `Bearer ${token}` },
@@ -116,7 +116,7 @@ function ConfirmationContent() {
                 }
 
             } catch (error) {
-                console.error('Error verifying payment:', error);
+                // console.error('Error verifying payment:', error);
                 setApiMessage('An error occurred. Please try again.');
                 setSuccess(false);
             } finally {

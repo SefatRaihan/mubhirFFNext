@@ -146,7 +146,7 @@ export default function CreateNewPasswordPage() {
                 }));
             }
         } catch (error: any) {
-            console.error('Reset password error:', error);
+            // console.error('Reset password error:', error);
 
             // Handle JSON parsing errors
             if (error.message === 'Server returned non-JSON response') {

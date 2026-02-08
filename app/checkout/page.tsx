@@ -1004,7 +1004,7 @@ export default function CheckoutPage() {
                     const plan = JSON.parse(planCookie);
                     setSelectedPlan(plan);
                 } catch (e) {
-                    console.error('Failed to parse selected plan:', e);
+                    // console.error('Failed to parse selected plan:', e);
                 }
             }
 
@@ -1034,7 +1034,7 @@ export default function CheckoutPage() {
                     setIsTrial(userData.is_trial === 1 || userData.is_trial === true);
                 }
             } catch (error) {
-                console.error('Failed to fetch user data:', error);
+                // console.error('Failed to fetch user data:', error);
             } finally {
                 setLoading(false);
             }
@@ -1149,8 +1149,8 @@ export default function CheckoutPage() {
                 toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             }
         } catch (error: any) {
-            console.error('❌ Coupon application error:', error);
-            console.error('Error response:', error.response?.data);
+            // console.error('❌ Coupon application error:', error);
+            // console.error('Error response:', error.response?.data);
             const errorMessage = error.response?.data?.message || error.response?.data?.error || 'رمز القسيمة غير صالح';
             toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
         }
@@ -1250,66 +1250,66 @@ export default function CheckoutPage() {
             }
 
             // 🔍 Enhanced Debug Console for Checkout Payment
-            console.group('%c💳 CHECKOUT PAYMENT DEBUG', 'color: #7A2060; font-size: 16px; font-weight: bold;');
+            // console.group('%c💳 CHECKOUT PAYMENT DEBUG', 'color: #7A2060; font-size: 16px; font-weight: bold;');
 
             // Scenario Detection
-            const scenarioNumber = !isTrial ? (autoRenew ? 1 : 2) : 3;
-            const scenarioDesc = {
-                1: 'Auto-pay ON + is_trial=0 → FREE TRIAL (No Amount)',
-                2: 'Auto-pay OFF + is_trial=0 → FREE TRIAL (No Amount)',
-                3: 'is_trial=1 → PAYMENT REQUIRED (Amount Sent)'
-            };
+            // const scenarioNumber = !isTrial ? (autoRenew ? 1 : 2) : 3;
+            // const scenarioDesc = {
+            //     1: 'Auto-pay ON + is_trial=0 → FREE TRIAL (No Amount)',
+            //     2: 'Auto-pay OFF + is_trial=0 → FREE TRIAL (No Amount)',
+            //     3: 'is_trial=1 → PAYMENT REQUIRED (Amount Sent)'
+            // };
 
-            console.log('%c📋 ACTIVE SCENARIO: #' + scenarioNumber, 'color: #28235B; font-size: 14px; font-weight: bold;');
-            console.log('%c' + scenarioDesc[scenarioNumber as keyof typeof scenarioDesc], 'color: #671E5A; font-style: italic;');
+            // console.log('%c📋 ACTIVE SCENARIO: #' + scenarioNumber, 'color: #28235B; font-size: 14px; font-weight: bold;');
+            // console.log('%c' + scenarioDesc[scenarioNumber as keyof typeof scenarioDesc], 'color: #671E5A; font-style: italic;');
 
-            console.group('%c🔑 Key Variables', 'color: #2563eb; font-weight: bold;');
-            console.table({
-                'is_trial (Backend)': { value: isTrial, meaning: isTrial ? '1 = User USED free trial' : '0 = User CAN get trial' },
-                'autoRenew (Checkbox)': { value: autoRenew, meaning: autoRenew ? 'User wants auto-subscribe' : 'User does NOT want auto-subscribe' },
-                'fromTrial (Cookie)': { value: fromTrial, meaning: fromTrial ? 'Came from trial flow' : 'Came from paid flow' }
-            });
-            console.groupEnd();
+            // console.group('%c🔑 Key Variables', 'color: #2563eb; font-weight: bold;');
+            // console.table({
+            //     'is_trial (Backend)': { value: isTrial, meaning: isTrial ? '1 = User USED free trial' : '0 = User CAN get trial' },
+            //     'autoRenew (Checkbox)': { value: autoRenew, meaning: autoRenew ? 'User wants auto-subscribe' : 'User does NOT want auto-subscribe' },
+            //     'fromTrial (Cookie)': { value: fromTrial, meaning: fromTrial ? 'Came from trial flow' : 'Came from paid flow' }
+            // });
+            // console.groupEnd();
 
-            console.group('%c📤 API Payload Sent', 'color: #16a34a; font-weight: bold;');
-            const apiPayload: Record<string, any> = {
-                'package_id': selectedPlan?.id || '0',
-                'is_auto_subscribe': !isTrial ? (autoRenew ? '1' : '0') : '0',
-                'first_name': formData.firstName,
-                'last_name': formData.lastName,
-                'email': formData.email,
-                'phone': formData.phone,
-                'date_of_birth': formData.dateOfBirth,
-                'gender': formData.gender,
-                'grade': formData.secondarySchoolGrade,
-                'endpoint': 'confirmation'
-            };
+            // console.group('%c📤 API Payload Sent', 'color: #16a34a; font-weight: bold;');
+            // const apiPayload: Record<string, any> = {
+            //     'package_id': selectedPlan?.id || '0',
+            //     'is_auto_subscribe': !isTrial ? (autoRenew ? '1' : '0') : '0',
+            //     'first_name': formData.firstName,
+            //     'last_name': formData.lastName,
+            //     'email': formData.email,
+            //     'phone': formData.phone,
+            //     'date_of_birth': formData.dateOfBirth,
+            //     'gender': formData.gender,
+            //     'grade': formData.secondarySchoolGrade,
+            //     'endpoint': 'confirmation'
+            // };
 
-            // Add amount only if isTrial is true
-            if (isTrial) {
-                apiPayload['amount'] = finalAmount + ' SAR';
-            } else {
-                apiPayload['amount'] = '❌ NOT SENT (Free Trial)';
-            }
+            // // Add amount only if isTrial is true
+            // if (isTrial) {
+            //     apiPayload['amount'] = finalAmount + ' SAR';
+            // } else {
+            //     apiPayload['amount'] = '❌ NOT SENT (Free Trial)';
+            // }
 
-            // Add discount if applied
-            if (discountId !== null && discount > 0) {
-                apiPayload['discount_id'] = discountId;
-                apiPayload['discount_amount'] = discount + ' SAR';
-            }
-            console.table(apiPayload);
-            console.groupEnd();
+            // // Add discount if applied
+            // if (discountId !== null && discount > 0) {
+            //     apiPayload['discount_id'] = discountId;
+            //     apiPayload['discount_amount'] = discount + ' SAR';
+            // }
+            // console.table(apiPayload);
+            // console.groupEnd();
 
-            console.group('%c💵 Price Calculation', 'color: #ea580c; font-weight: bold;');
-            console.table({
-                'Original Price': originalPrice + ' SAR',
-                'Discount Applied': discount > 0 ? '-' + discount + ' SAR' : 'None',
-                'Final Amount': !isTrial ? '0 SAR (Free Trial)' : finalAmount + ' SAR',
-                'Payment Required': isTrial ? '✅ YES' : '❌ NO'
-            });
-            console.groupEnd();
+            // console.group('%c💵 Price Calculation', 'color: #ea580c; font-weight: bold;');
+            // console.table({
+            //     'Original Price': originalPrice + ' SAR',
+            //     'Discount Applied': discount > 0 ? '-' + discount + ' SAR' : 'None',
+            //     'Final Amount': !isTrial ? '0 SAR (Free Trial)' : finalAmount + ' SAR',
+            //     'Payment Required': isTrial ? '✅ YES' : '❌ NO'
+            // });
+            // console.groupEnd();
 
-            console.groupEnd(); // End main group
+            // console.groupEnd(); // End main group
 
             // Call /cms/tap/pay API for both free trial and paid flows
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, {
@@ -1326,7 +1326,7 @@ export default function CheckoutPage() {
                     ? Object.entries(data.errors).map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`).join('\n')
                     : data.message || 'فشل إنشاء الدفع';
 
-                console.error('API Error Response:', data);
+                // console.error('API Error Response:', data);
                 alert(`خطأ في الدفع:\n${errorMsg}`);
                 setSubmitting(false);
                 return;
@@ -1344,13 +1344,13 @@ export default function CheckoutPage() {
                 window.location.href = data.charge.data.transaction.url;
             } else {
                 // Unexpected response format
-                console.error('Unexpected response format:', data);
+                // console.error('Unexpected response format:', data);
                 alert('حدث خطأ غير متوقع. حاول مرة أخرى لاحقًا.');
                 setSubmitting(false);
             }
 
         } catch (error) {
-            console.error('Checkout error:', error);
+            // console.error('Checkout error:', error);
             alert('حدث خطأ. حاول مرة أخرى لاحقًا.');
             setSubmitting(false);
         }

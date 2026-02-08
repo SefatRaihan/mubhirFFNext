@@ -86,9 +86,9 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
   // 🔍 DEBUG: Log middleware checks
-  console.log('[MIDDLEWARE] Path:', pathname);
-  console.log('[MIDDLEWARE] token cookie:', token ? 'FOUND' : 'NOT FOUND');
-  console.log('[MIDDLEWARE] All cookies:', request.cookies.getAll().map(c => c.name).join(', '));
+  // console.log('[MIDDLEWARE] Path:', pathname);
+  // console.log('[MIDDLEWARE] token cookie:', token ? 'FOUND' : 'NOT FOUND');
+  // console.log('[MIDDLEWARE] All cookies:', request.cookies.getAll().map(c => c.name).join(', '));
 
   // Check if current route is protected
   const isProtectedRoute = protectedRoutes.some((route) =>

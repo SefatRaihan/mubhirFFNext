@@ -122,7 +122,7 @@ export default function ResetCodePage() {
                 alert(data?.message || 'فشل في التحقق من الرمز. حاول مرة أخرى.');
             }
         } catch (error) {
-            console.error('OTP verification error:', error);
+            // console.error('OTP verification error:', error);
             alert('حدث خطأ. حاول مرة أخرى.');
         } finally {
             setLoading(false);
@@ -180,7 +180,7 @@ export default function ResetCodePage() {
                 alert(data?.message || 'فشل في إعادة إرسال الرمز. حاول مرة أخرى.');
             }
         } catch (error) {
-            console.error('Resend OTP error:', error);
+            // console.error('Resend OTP error:', error);
             alert('حدث خطأ أثناء إعادة إرسال الرمز.');
         } finally {
             setResending(false);
