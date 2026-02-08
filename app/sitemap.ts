@@ -24,13 +24,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         },
         {
-            url: `${baseUrl}/ar-sat`,
+            url: `${baseUrl}/qudurat`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/ar-sat2`,
+            url: `${baseUrl}/tahsili`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.9,
