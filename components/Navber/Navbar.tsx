@@ -140,7 +140,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>ملخص</span>
+                <span>من نحن</span>
                 <CircleLeftArrowIcon />
               </Link>
               <Link
@@ -148,7 +148,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>الاعلانات</span>
+                <span>اتصل بنا</span>
                 <CircleLeftArrowIcon />
               </Link>
               <Link
@@ -156,17 +156,10 @@ export default function Navbar() {
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>الرزم</span>
+                <span>المدونة</span>
                 <CircleLeftArrowIcon />
               </Link>
-              <Link
-                href="/ar-aboutUs"
-                className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span>من نحن</span>
-                <CircleLeftArrowIcon />
-              </Link>
+
             </nav>
           </div>
 
