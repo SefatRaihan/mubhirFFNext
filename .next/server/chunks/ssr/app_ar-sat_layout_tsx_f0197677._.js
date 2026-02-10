@@ -1,3 +1,0 @@
-module.exports=[4603,a=>{"use strict";var b=a.i(7997);let c="https://test.mubhir.ai",d={title:"اختبار القدرات العامة",description:"استعد لاختبار القدرات العامة مع منصة مبهر. تحضير دقيق، خطة مدروسة ونتائج مبهرة.",alternates:{canonical:`${c}/ar-sat`},openGraph:{title:"اختبار القدرات العامة",description:"استعد لاختبار القدرات العامة مع منصة مبهر",url:`${c}/ar-sat`}};function e({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>e,"metadata",0,d])}];
-
-//# sourceMappingURL=app_ar-sat_layout_tsx_f0197677._.js.map
