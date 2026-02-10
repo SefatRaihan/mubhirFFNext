@@ -33,11 +33,6 @@ interface PricingPlan {
 export default function ArSat2Page() {
     const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
 
-    // Set page title
-    useEffect(() => {
-        document.title = 'مبهر - اختبار التحصيلي (قريباً)';
-    }, []);
-
     // Fetch pricing plans
     useEffect(() => {
         const loadPlans = async () => {

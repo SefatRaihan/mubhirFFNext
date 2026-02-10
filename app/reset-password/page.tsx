@@ -170,13 +170,6 @@ export default function CreateNewPasswordPage() {
         }
     };
 
-    /**
-     * Set page title
-     */
-    useEffect(() => {
-        document.title = 'مبهر - إعادة تعيين كلمة المرور';
-    }, []);
-
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* Main Content Container */}

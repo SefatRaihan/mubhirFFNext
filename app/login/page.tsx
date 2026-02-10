@@ -162,13 +162,6 @@ function LoginContent() {
         }
     };
 
-    /**
-     * Set Page Title
-     */
-    useEffect(() => {
-        document.title = 'مبهر - تسجيل الدخول';
-    }, []);
-
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* Main Content Container */}

@@ -1044,13 +1044,6 @@ export default function CheckoutPage() {
     }, [router]);
 
     /**
-     * Set page title
-     */
-    useEffect(() => {
-        document.title = 'مبهر - إتمام الدفع';
-    }, []);
-
-    /**
      * Handle input change
      */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

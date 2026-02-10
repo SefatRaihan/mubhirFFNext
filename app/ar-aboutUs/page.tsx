@@ -24,10 +24,6 @@ export default function ArAboutUsPage() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // Set page title
-  useEffect(() => {
-    document.title = 'مبهر - من نحن';
-  }, []);
 
   const faqData = [
     {

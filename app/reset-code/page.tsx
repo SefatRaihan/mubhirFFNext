@@ -187,13 +187,6 @@ export default function ResetCodePage() {
         }
     };
 
-    /**
-     * Set page title
-     */
-    useEffect(() => {
-        document.title = 'مبهر - رمز التحقق';
-    }, []);
-
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* Main Content Container */}

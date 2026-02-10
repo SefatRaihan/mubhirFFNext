@@ -254,9 +254,6 @@ export default function PackagesPage() {
         // Use window.location.href for full page navigation (ensures cookies are sent to middleware)
         window.location.href = '/checkout';
     };
-    useEffect(() => {
-        document.title = 'مبهر - اختر باقتك';
-    }, []);
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* Main Container */}

@@ -96,11 +96,6 @@ export default function ArBlogPage() {
         fetchBlogs();
     }, []);
 
-    // Set page title
-    useEffect(() => {
-        document.title = 'مبهر - المدونة';
-    }, []);
-
     // Get all categories
     const categories = blogData.map(cat => ({
         id: cat.category_id,

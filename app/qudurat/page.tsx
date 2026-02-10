@@ -126,11 +126,6 @@ export default function ArSatPage() {
     loadPlans();
   }, []);
 
-  // Set page title
-  useEffect(() => {
-    document.title = 'مبهر - اختبار القدرات';
-  }, []);
-
   return (
     <div className="bg-white" dir="rtl">
 

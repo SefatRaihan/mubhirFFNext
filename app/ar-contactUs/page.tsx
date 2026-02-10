@@ -23,11 +23,6 @@ export default function ArContactUsPage() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Set page title
-    useEffect(() => {
-        document.title = 'مبهر - اتصل بنا';
-    }, []);
-
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {

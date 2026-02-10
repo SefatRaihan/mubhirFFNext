@@ -128,13 +128,6 @@ function ConfirmationContent() {
     }, [searchParams, router]);
 
     /**
-     * Set page title
-     */
-    useEffect(() => {
-        document.title = 'مبهر - تأكيد';
-    }, []);
-
-    /**
      * Handle redirect to platform
      */
     const handleGoToMubhir = () => {

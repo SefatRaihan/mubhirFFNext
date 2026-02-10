@@ -111,10 +111,6 @@ export default function SignupPage() {
         }
     };
 
-    useEffect(() => {
-        document.title = 'مبهر - إنشاء حساب جديد';
-    }, []);
-
     return (
         <div className="bg-white min-h-screen" dir="rtl">
             {/* DatePicker styles commented out - not needed without DOB field */}
