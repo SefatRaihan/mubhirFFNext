@@ -737,6 +737,33 @@ export default function BlogDetailsPage() {
                         font-style: italic;
                         color: #4a5568;
                     }
+                    /* Table Styles */
+                    .blog-content table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 1.5rem 0;
+                        direction: rtl;
+                        border: 1px solid #d1d5db;
+                    }
+                    .blog-content thead {
+                        background-color: #f3f4f6;
+                    }
+                    .blog-content th,
+                    .blog-content tr:first-child td {
+                        padding: 12px 16px;
+                        text-align: right;
+                        font-weight: 700;
+                        color: #1a202c;
+                        border: 1px solid #d1d5db;
+                        background-color: #f3f4f6;
+                    }
+                    .blog-content td {
+                        padding: 10px 16px;
+                        text-align: right;
+                        color: #2d3748;
+                        border: 1px solid #d1d5db;
+                    }
+
                 `}</style>
             </section >
 
