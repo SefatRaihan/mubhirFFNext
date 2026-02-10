@@ -128,7 +128,7 @@ export default function ArBlogPage() {
         if (searchQuery.trim()) {
             allBlogs = allBlogs.filter(blog =>
                 blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                blog.tags.toLowerCase().includes(searchQuery.toLowerCase())
+                (blog.tags || '').toLowerCase().includes(searchQuery.toLowerCase())
             );
         }
 
@@ -358,7 +358,7 @@ export default function ArBlogPage() {
                                                 </div>
                                                 <div className="p-5">
                                                     <span className="inline-block text-xs font-semibold px-3 py-1 bg-[#FFF5F7] text-[#671E5A] rounded-full mb-3">
-                                                        {blog.post_category.name}
+                                                        {blog.post_category?.name || 'عام'}
                                                     </span>
                                                     <h2 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#671e5a] transition-colors">
                                                         {blog.title}
