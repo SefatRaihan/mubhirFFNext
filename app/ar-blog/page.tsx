@@ -234,11 +234,11 @@ export default function ArBlogPage() {
             )}
             {/* First Section: Nav to Blog Cards */}
             <header style={{ backgroundColor: "#f7e8f5" }} className="m-4 rounded-2xl">
-                <div className="p-4">
-                    <Navbar />
 
+                <Navbar />
+                <div className="p-4">
                     {/* Main Content */}
-                    <main className="max-w-6xl mx-auto px-4 py-6">
+                    <main className="">
                         {/* Title and Search */}
                         <div className="mb-8 text-center mt-[60px]">
                             <h1 className="text-2xl md:text-[56px] font-semibold leading-tight md:leading-none">
