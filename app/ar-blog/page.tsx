@@ -56,7 +56,7 @@ interface ApiResponse {
 
 export default function ArBlogPage() {
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<number | string>("all");
     const [blogData, setBlogData] = useState<CategoryData[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -106,7 +106,7 @@ export default function ArBlogPage() {
     const getFilteredBlogs = (): Blog[] => {
         let allBlogs: Blog[] = [];
 
-        if (selectedCategory === null) {
+        if (selectedCategory === "all") {
             // Show all blogs from all categories
             blogData.forEach(category => {
                 allBlogs = [...allBlogs, ...category.blogs];
@@ -286,10 +286,10 @@ export default function ArBlogPage() {
                             <div className="flex flex-wrap justify-center gap-3 mt-6">
                                 <button
                                     onClick={() => {
-                                        setSelectedCategory(null);
+                                        setSelectedCategory("all");
                                         setCurrentPage(1);
                                     }}
-                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === null
+                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === "all"
                                         ? "bg-[#671e5a] text-white"
                                         : "bg-white text-gray-700 border border-gray-300 hover:border-[#671e5a] hover:text-[#671e5a]"
                                         }`}
