@@ -1029,9 +1029,36 @@ export default function CheckoutPage() {
                         address: userData.address || '',
                         city: userData.city || '',
                         postCode: userData.post_code || '',
+                        gender: userData.gender || '',
+                        dateOfBirth: userData.date_of_birth || '',
+                        secondarySchoolGrade: userData.grade || '',
                     }));
                     // Set is_trial from user data: 0 = can get trial, 1 = used trial
                     setIsTrial(userData.is_trial === 1 || userData.is_trial === true);
+
+                    // Pre-fill DatePicker date object if DOB exists
+                    if (userData.date_of_birth) {
+                        const dobStr = userData.date_of_birth;
+                        let dob: Date | null = null;
+                        if (dobStr.includes('/')) {
+                            const parts = dobStr.split('/');
+                            if (parts.length === 3) {
+                                dob = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                            }
+                        } else if (dobStr.includes('-')) {
+                            const parts = dobStr.split('-');
+                            if (parts.length === 3) {
+                                if (parts[0].length === 4) {
+                                    dob = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                                } else {
+                                    dob = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                                }
+                            }
+                        }
+                        if (dob && !isNaN(dob.getTime())) {
+                            setDateOfBirthDate(dob);
+                        }
+                    }
                 }
             } catch (error) {
                 // console.error('Failed to fetch user data:', error);
@@ -1602,7 +1629,8 @@ export default function CheckoutPage() {
                                             value={formData.gender}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
+                                            disabled={isTrial}
+                                            className={`w-full border border-gray-300 rounded px-4 py-2 ${isTrial ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
                                         >
                                             <option value="">اختر الجنس</option>
                                             <option value="male">ذكر</option>
@@ -1621,10 +1649,11 @@ export default function CheckoutPage() {
                                             minDate={new Date('1920-01-01')}
                                             placeholderText="اختر تاريخ الميلاد"
                                             required
+                                            disabled={isTrial}
                                             showYearDropdown
                                             showMonthDropdown
                                             dropdownMode="select"
-                                            className="custom-datepicker"
+                                            className={isTrial ? 'custom-datepicker bg-gray-100 text-gray-600 cursor-not-allowed' : 'custom-datepicker'}
                                         />
                                     </div>
                                 </div>
@@ -1640,7 +1669,8 @@ export default function CheckoutPage() {
                                         value={formData.secondarySchoolGrade}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
+                                        disabled={isTrial}
+                                        className={`w-full border border-gray-300 rounded px-4 py-2 ${isTrial ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
                                     >
                                         <option value="">حدد الدرجة</option>
                                         <option value="اول ثانوي">اول ثانوي</option>
