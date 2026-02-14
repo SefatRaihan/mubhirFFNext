@@ -1030,13 +1030,13 @@ export default function CheckoutPage() {
                         city: userData.city || '',
                         postCode: userData.post_code || '',
                         gender: userData.gender || '',
-                        dateOfBirth: userData.date_of_birth || '',
                         secondarySchoolGrade: userData.grade || '',
                     }));
                     // Set is_trial from user data: 0 = can get trial, 1 = used trial
                     setIsTrial(userData.is_trial === 1 || userData.is_trial === true);
 
                     // Pre-fill DatePicker date object if DOB exists
+                    // Also convert to DD/MM/YYYY format for the API payload
                     if (userData.date_of_birth) {
                         const dobStr = userData.date_of_birth;
                         let dob: Date | null = null;
@@ -1057,6 +1057,13 @@ export default function CheckoutPage() {
                         }
                         if (dob && !isNaN(dob.getTime())) {
                             setDateOfBirthDate(dob);
+                            // Format as DD/MM/YYYY for the API (backend expects this format)
+                            const day = String(dob.getDate()).padStart(2, '0');
+                            const month = String(dob.getMonth() + 1).padStart(2, '0');
+                            const year = dob.getFullYear();
+                            setFormData(prev => ({ ...prev, dateOfBirth: `${day}/${month}/${year}` }));
+                        } else {
+                            setFormData(prev => ({ ...prev, dateOfBirth: userData.date_of_birth }));
                         }
                     }
                 }
