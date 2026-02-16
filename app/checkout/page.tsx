@@ -982,8 +982,9 @@ export default function CheckoutPage() {
     const [selectedPlan, setSelectedPlan] = useState<any>(null);
     const [fromTrial, setFromTrial] = useState(false);
     const [dateOfBirthDate, setDateOfBirthDate] = useState<Date | null>(null);
-    const [autoRenew, setAutoRenew] = useState(false); // Auto-renew subscription checkbox
+    const [autoRenew, setAutoRenew] = useState(true); // Auto-renew subscription checkbox (default: selected)
     const [isTrial, setIsTrial] = useState(false); // Backend is_trial: 0 = can get trial, 1 = used trial
+    const [showCouponWarning, setShowCouponWarning] = useState(false); // Modal for coupon warning
 
     /**
      * Load user data and selected plan
@@ -1400,6 +1401,27 @@ export default function CheckoutPage() {
             {/* Toast Notification Container */}
             <ToastContainer rtl={true} />
 
+            {/* Coupon Warning Modal */}
+            {showCouponWarning && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowCouponWarning(false)}>
+                    <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center" onClick={(e) => e.stopPropagation()}>
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FEF6FD] flex items-center justify-center">
+                            <svg className="w-8 h-8 text-[#7A2060]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-lg font-bold text-[#28235B] mb-2">تنبيه</h3>
+                        <p className="text-gray-600 mb-6">لا يمكن استخدام رمز القسيمة بدون الاشتراك التلقائي. تم إزالة القسيمة المطبقة.</p>
+                        <button
+                            onClick={() => setShowCouponWarning(false)}
+                            className="w-full bg-[#7A2060] text-white py-3 rounded-full font-semibold hover:bg-[#5a1848] transition"
+                        >
+                            حسناً
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Custom styles for react-datepicker */}
             <style jsx global>{`
                 .custom-datepicker {
@@ -1701,12 +1723,14 @@ export default function CheckoutPage() {
                                     type="text"
                                     value={couponCode}
                                     onChange={(e) => setCouponCode(e.target.value)}
-                                    className="flex-1 bg-white border border-gray-300 rounded px-1 py-1 focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
+                                    disabled={!autoRenew}
+                                    className={`flex-1 border border-gray-300 rounded px-1 py-1 ${!autoRenew ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
                                 />
                                 <button
                                     type="button"
                                     onClick={handleApplyCoupon}
-                                    className="px-6 py-2 border border-[#7A2060] text-[#7A2060] rounded-full hover:bg-[#7A2060] hover:text-white transition"
+                                    disabled={!autoRenew}
+                                    className={`px-6 py-2 border rounded-full transition ${!autoRenew ? 'border-gray-300 text-gray-400 cursor-not-allowed' : 'border-[#7A2060] text-[#7A2060] hover:bg-[#7A2060] hover:text-white'}`}
                                 >
                                     تطبيق الكود
                                 </button>
@@ -1794,7 +1818,16 @@ export default function CheckoutPage() {
                                         <input
                                             type="checkbox"
                                             checked={autoRenew}
-                                            onChange={(e) => setAutoRenew(e.target.checked)}
+                                            onChange={(e) => {
+                                                const checked = e.target.checked;
+                                                setAutoRenew(checked);
+                                                if (!checked && (discount > 0 || couponCode.trim())) {
+                                                    setShowCouponWarning(true);
+                                                    setCouponCode('');
+                                                    setDiscount(0);
+                                                    setDiscountId(null);
+                                                }
+                                            }}
                                             className="w-5 h-5 border-gray-300 rounded focus:ring-[#671E5A] cursor-pointer"
                                             style={{ accentColor: '#671E5A' }}
                                         />
