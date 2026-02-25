@@ -149,34 +149,29 @@ export default function CreatePasswordPage() {
                     const loginData = await loginResponse.json();
 
                     if (loginResponse.ok && loginData?.token) {
-                        // Store auth token in cookies
-                        Cookies.set('token', loginData.token, {
+                        // Determine environment for cookie options
+                        const isProduction = window.location.protocol === 'https:';
+                        const cookieOptions = {
                             expires: 1,
                             path: '/',
-                            domain: '.mubhir.ai', // Works across all subdomains
-                            secure: true,
-                            sameSite: 'Strict',
-                        });
+                            ...(isProduction && {
+                                domain: '.mubhir.ai',
+                                secure: true,
+                                sameSite: 'Strict' as const,
+                            }),
+                        };
+
+                        // Store auth token in cookies
+                        Cookies.set('token', loginData.token, cookieOptions);
 
                         // Store user data if available
                         if (loginData.user) {
-                            Cookies.set('user', JSON.stringify(loginData.user), {
-                                expires: 1,
-                                path: '/',
-                                domain: '.mubhir.ai', // Works across all subdomains
-                                secure: true,
-                                sameSite: 'Strict',
-                            });
+                            Cookies.set('user', JSON.stringify(loginData.user), cookieOptions);
                         }
 
                         // Store redirect URL if provided
                         if (loginData.redirect_url) {
-                            Cookies.set('redirect_url', loginData.redirect_url, {
-                                expires: 1,
-                                path: '/',
-                                domain: '.mubhir.ai', // Works across all subdomains
-                                secure: true,
-                            });
+                            Cookies.set('redirect_url', loginData.redirect_url, cookieOptions);
                         }
 
                         // Clear signup data from localStorage
