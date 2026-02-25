@@ -883,7 +883,7 @@ export default function Home() {
         </div>
         <div className="container max-w-6xl px-4 py-[48px] sm:py-[120px]">
           <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
-            <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 lg:leading-[76px] font-bold mb-3 sm:mb-4">
+            <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 md:leading-[70px] lg:leading-[76px] font-bold mb-3 sm:mb-4">
               استعد لأختبار القدرات <br />
               العامة بخطوات تفوق التوقعات مع مبهر
             </h2>
