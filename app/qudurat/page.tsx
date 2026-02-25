@@ -127,7 +127,7 @@ export default function ArSatPage() {
   }, []);
 
   return (
-    <div className="bg-white" dir="rtl">
+    <div className="bg-white overflow-x-hidden" dir="rtl">
 
       {/* Header Section */}
       <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
@@ -305,7 +305,7 @@ export default function ArSatPage() {
 
       {/* We help Section */}
       <ScrollSection className="font-sans text-gray-900 bg-[#F7E8F5] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
-        <div className="max-w-7xl mx-auto py-[120px]">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
           <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]" amount={0.3}>
             نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
           </ScrollH2>
@@ -374,7 +374,7 @@ export default function ArSatPage() {
 
       {/* All in one place Section */}
       <ScrollSection className="font-sans text-gray-900 bg-[#F7F5FF] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
-        <div className="max-w-7xl mx-auto px-4 py-[120px]">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
             <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
@@ -478,7 +478,7 @@ export default function ArSatPage() {
         style={{ backgroundImage: "url('/image/Vector.svg')" }}
         amount={0.1}
       >
-        <div className="max-w-7xl mx-auto px-4 py-[120px]">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
             <ScrollH2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none" amount={0.3}>
@@ -715,7 +715,7 @@ export default function ArSatPage() {
 
       {/* How Mubhir helps Section */}
       <ScrollSection className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
-        <div className="max-w-7xl mx-auto px-4 py-[120px]">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
           {/* Header (Centered) */}
           <div className="mx-auto max-w-[610px] space-y-4">
             <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
@@ -754,7 +754,7 @@ export default function ArSatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+                className="mx-auto max-w-7xl lg:px-8 py-10"
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
@@ -801,7 +801,7 @@ export default function ArSatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+                className="mx-auto max-w-7xl lg:px-8 py-10"
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
                   <div className="flex justify-center">
@@ -843,7 +843,7 @@ export default function ArSatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+                className="mx-auto max-w-7xl lg:px-8 py-10"
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
                   <div className="flex justify-center">
@@ -881,7 +881,7 @@ export default function ArSatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+                className="mx-auto max-w-7xl lg:px-8 py-10"
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
@@ -928,7 +928,7 @@ export default function ArSatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"
+                className="mx-auto max-w-7xl lg:px-8 py-10"
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
                   <div className="flex justify-center">
@@ -1023,7 +1023,7 @@ export default function ArSatPage() {
 
       {/* Your Questions Answered Section */}
       <ScrollSection className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
-        <div className="container max-w-6xl px-4 py-[120px]">
+        <div className="container max-w-6xl px-4 py-12 sm:py-[120px]">
           <ScrollH2 className="text-[56px] font-semibold text-center text-black" amount={0.3}>
             كل إستفسارات طلاب القدرات
             <br />
@@ -1059,7 +1059,7 @@ export default function ArSatPage() {
       </ScrollSection>
 
       {/* CTA Section */}
-      <ScrollSection className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.2}>
+      <ScrollSection className="bg-[#691d5e] text-white px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.2}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Right Content */}
           <ScrollDiv className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-right space-y-6" initialX={50} initialY={0} amount={0.3} delay={0.1}>
