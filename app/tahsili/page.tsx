@@ -85,7 +85,7 @@ export default function ArSat2Page() {
     }, []);
 
     return (
-        <div className="bg-white" dir="rtl">
+        <div className="bg-white overflow-x-hidden" dir="rtl">
             {/* Header Section */}
             <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
                 <Navbar />
