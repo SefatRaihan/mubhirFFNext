@@ -30,7 +30,7 @@ export default function Navbar() {
         </div>
 
         {/* Hamburger Menu (Mobile) */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             id="hamburger-btn"
             onClick={() => setMobileMenuOpen(true)}
@@ -41,7 +41,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links (Desktop) */}
-        <div className="hidden md:flex items-center gap-6 space-x-reverse font-medium text-sm">
+        <div className="hidden lg:flex items-center gap-6 space-x-reverse font-medium text-sm">
           <Link
             href="/qudurat"
             className="text-[#1c164e] hover:text-[#91288c] transition"
@@ -75,7 +75,7 @@ export default function Navbar() {
         </div>
 
         {/* Buttons (Desktop) */}
-        <div className="hidden md:flex items-center flex-row-reverse space-x-4 space-x-reverse">
+        <div className="hidden lg:flex items-center flex-row-reverse space-x-4 space-x-reverse">
           <Link href="/login">
             <button className="px-5 py-1.5 rounded-full bg-[#91288c] text-white font-medium text-sm hover:bg-[#7d1c79] transition">
               تسجيل الدخول
@@ -93,7 +93,7 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden fixed inset-0 bg-white z-50 flex flex-col m-4 rounded-xl"
+          className="lg:hidden fixed inset-0 bg-white z-50 flex flex-col m-4 rounded-xl"
         >
           {/* Header with Logo and Close Button */}
           <div className="flex items-center justify-between p-4 border-b border-[#D9D9D9]">
