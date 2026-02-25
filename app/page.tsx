@@ -655,7 +655,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-white" dir="rtl">
+    <div className="bg-white overflow-x-hidden" dir="rtl">
       {/* Hero Section */}
       <section
         ref={heroSectionRef}
