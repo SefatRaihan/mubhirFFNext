@@ -59,9 +59,9 @@ export default function ArAboutUsPage() {
   ];
 
   return (
-    <div className="bg-white" dir="rtl">
+    <div className="bg-white overflow-x-hidden" dir="rtl">
       {/* Header Section */}
-      <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white m-4 rounded-2xl">
+      <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
         <Navbar />
         <div className="p-4">
           {/* Hero Section */}
@@ -463,7 +463,7 @@ export default function ArAboutUsPage() {
         className="bg-[#F2F4F7] my-4 md:m-4 rounded-0 md:rounded-2xl"
         amount={0.2}
       >
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center py-[120px]">
+        <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center py-12 sm:py-[120px]">
           {/* Right Side: Heading and Description */}
           <ScrollDiv
             initialX={50}
@@ -471,10 +471,10 @@ export default function ArAboutUsPage() {
             amount={0.3}
             delay={0.1}
           >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-semibold leading-tight text-center md:text-right">
               تعرف على مؤسس منصة مبهر
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-6">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-6 text-center md:text-right">
               نؤمن بأن لكل طالب طموح، هناك درجة يستحقها و نحن هنا لنساعدك على
               الوصول إليها
             </p>
@@ -499,7 +499,7 @@ export default function ArAboutUsPage() {
                 الطالب على اجتياز الأختبار، بل تمكينهم من تحقيق أعلى الدرجات
                 بأقل توتر، وأكثر فاعلية.
               </p>
-              <p className="text-gray-800 font-semibold text-sm sm:text-base mt-[114px]">
+              <p className="text-gray-800 font-semibold text-sm sm:text-base mt-6 md:mt-[114px]">
                 عبدالله الغامدي
               </p>
               <p className="text-gray-600 text-xs sm:text-sm">
@@ -512,7 +512,7 @@ export default function ArAboutUsPage() {
 
       {/* FAQ Section */}
       <ScrollSection
-        className="bg-[#eaecf0] flex justify-center m-4 rounded-2xl"
+        className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
         amount={0.1}
       >
         <div className="container max-w-6xl px-4 py-[120px]">
@@ -570,7 +570,7 @@ export default function ArAboutUsPage() {
 
       {/* CTA Section */}
       <ScrollSection
-        className="bg-[#691d5e] text-white rounded-lg px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl"
+        className="bg-[#691d5e] text-white px-4 pt-12 md:pt-20 my-4 md:m-4 rounded-0 md:rounded-2xl"
         amount={0.2}
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
