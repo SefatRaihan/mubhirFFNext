@@ -221,7 +221,7 @@ export default function ArBlogPage() {
     };
 
     return (
-        <div className="bg-white font-sans" dir="rtl">
+        <div className="bg-white font-sans overflow-x-hidden" dir="rtl">
             {/* JSON-LD Blog Schema */}
             {filteredBlogs.length > 0 && (
                 <Script
@@ -233,7 +233,7 @@ export default function ArBlogPage() {
                 />
             )}
             {/* First Section: Nav to Blog Cards */}
-            <header style={{ backgroundColor: "#f7e8f5" }} className="m-4 rounded-2xl">
+            <header style={{ backgroundColor: "#f7e8f5" }} className="mb-4 md:m-4 rounded-0 md:rounded-2xl">
 
                 <Navbar />
                 <div className="p-4">
