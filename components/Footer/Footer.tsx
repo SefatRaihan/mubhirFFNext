@@ -132,8 +132,7 @@ export default function Footer() {
             </div> */}
 
             <div
-              className="flex space-x-4"
-              style={{ marginBottom: "60px" }}
+              className="flex space-x-4 justify-center mb-0 md:mb-[60px]"
             >
               <Link href="https://wa.me/966568876934" aria-label="تواصل معنا عبر واتساب">
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
@@ -217,8 +216,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-gray-300 mt-8 pt-6 pb-4">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row-reverse justify-center text-xs text-gray-600 space-y-4 md:space-y-0">
+      <div className="border-t border-gray-300  pt-6 pb-4">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row-reverse justify-center items-center text-center text-xs text-gray-600 space-y-4 md:space-y-0">
           <span>جميع الحقوق محفوظة لشركة (مبارك) لعام 2026</span>
         </div>
       </div>
