@@ -72,7 +72,7 @@ export default function ArContactUsPage() {
     };
 
     return (
-        <div className="bg-white" dir="rtl">
+        <div className="bg-white overflow-x-hidden" dir="rtl">
             {/* Header Section */}
             <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
                 <Navbar />
@@ -245,280 +245,282 @@ export default function ArContactUsPage() {
             </header>
 
             {/* Contact Form Section */}
-            <section className="mx-auto max-w-6xl shadow-sm overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-12">
-                    {/* Right: Contact Info Cards */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="lg:col-span-5 border-t lg:border-t-0 p-6 sm:p-10 flex flex-col"
-                    >
-                        <motion.header
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            className="mb-8"
+            <div style={{ backgroundImage: "url('/image/Vector.svg')" }}>
+                <section className="mx-auto max-w-6xl overflow-hidden">
+                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                        {/* Right: Contact Info Cards */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="lg:col-span-5  p-6 sm:p-10 flex flex-col"
                         >
-                            <h2 className="text-4xl font-bold text-gray-900 mb-2">
-                                نموذج الاتصال
-                            </h2>
-                            <p className="text-gray-500">نحن نحب أن يَسمع فريقنا منك!</p>
-                        </motion.header>
-
-                        <div className="space-y-5">
-                            {/* Twitter (X) card */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.3 }}
-                                whileHover={{ scale: 1.02, x: -5 }}
-                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
-                            >
-                                <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="w-5 h-5"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M18 2h3l-7.5 8.5L22 22h-7l-4.5-6L5 22H2l8-9.1L2 2h7l4 5.3L18 2z" />
-                                    </svg>
-                                </span>
-                                <div>
-                                    <div className="text-xs text-gray-500 mb-1">(X) تويتر</div>
-                                    <div className="text-lg font-semibold text-gray-800">
-                                        Twitter إلى انتقل
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Email card */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.4 }}
-                                whileHover={{ scale: 1.02, x: -5 }}
-                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
-                            >
-                                <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="w-5 h-5"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M4 6h16v12H4z"></path>
-                                        <path d="M22 6l-10 7L2 6"></path>
-                                    </svg>
-                                </span>
-                                <div>
-                                    <div className="text-xs text-gray-500 mb-1">
-                                        البريد الإلكتروني
-                                    </div>
-                                    <div className="text-lg font-semibold text-gray-800">
-                                        info@mubhir.ai
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Phone card */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.5 }}
-                                whileHover={{ scale: 1.02, x: -5 }}
-                                className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
-                            >
-                                <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="w-5 h-5"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8 9a16 16 0 0 0 7 7l.56-1.23a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92z" />
-                                    </svg>
-                                </span>
-                                <div>
-                                    <div className="text-xs text-gray-500 mb-1">الهاتف</div>
-                                    <div
-                                        className="text-lg font-semibold text-gray-800"
-                                        dir="ltr"
-                                    >
-                                        +966 568876934
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-
-                    {/* Left: Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="lg:col-span-7 p-6 sm:p-10"
-                    >
-                        <motion.form
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            onSubmit={handleSubmit}
-                            className="mt-2 space-y-6"
-                        >
-                            {/* Full name */}
-                            <motion.label
-                                initial={{ opacity: 0, y: 30 }}
+                            <motion.header
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.3 }}
-                                className="block"
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="mb-8"
                             >
-                                <span className="block text-gray-700 font-medium mb-2">
-                                    الاسم الكامل <span className="text-purple-700">*</span>
-                                </span>
-                                <input
-                                    name="fullName"
-                                    type="text"
-                                    placeholder="الاسم الأول"
-                                    required
-                                    value={formData.fullName}
-                                    onChange={handleInputChange}
-                                    className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
-                                />
-                            </motion.label>
+                                <h2 className="text-4xl font-bold text-gray-900 mb-2">
+                                    نموذج الاتصال
+                                </h2>
+                                <p className="text-gray-500">نحن نحب أن يَسمع فريقنا منك!</p>
+                            </motion.header>
 
-                            {/* Email */}
-                            <motion.label
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.4 }}
-                                className="block"
-                            >
-                                <span className="block text-gray-700 font-medium mb-2">
-                                    البريد الإلكتروني <span className="text-purple-700">*</span>
-                                </span>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder="البريد الإلكتروني"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
-                                />
-                            </motion.label>
-
-                            {/* Phone (with country selector) */}
-                            <motion.label
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.5 }}
-                                className="block"
-                            >
-                                <span className="block text-gray-700 font-medium mb-2">
-                                    الجوال <span className="text-purple-700">*</span>
-                                </span>
-
-                                <div className="relative">
-                                    <div className="flex items-stretch">
-                                        {/* Phone number input */}
-                                        <input
-                                            id="phoneNumber"
-                                            name="phoneNumber"
-                                            type="tel"
-                                            inputMode="tel"
-                                            placeholder="5xxxxxxxx"
-                                            required
-                                            value={formData.phoneNumber}
-                                            onChange={handleInputChange}
-                                            className="flex-1 rounded-r-xl border border-gray-200 border-s border-y px-4 py-3 text-right placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#671e5a]"
-                                        />
-
-                                        {/* Fixed Saudi country code */}
-                                        <div className="flex items-center gap-2 rounded-e-xl border border-gray-200 border-e border-y px-3 text-gray-700 bg-gray-50">
-                                            <span className="text-xl leading-none">🇸🇦</span>
-                                            <span className="text-sm">+966</span>
+                            <div className="space-y-5">
+                                {/* Twitter (X) card */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.3 }}
+                                    whileHover={{ scale: 1.02, x: -5 }}
+                                    className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                                >
+                                    <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className="w-5 h-5"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M18 2h3l-7.5 8.5L22 22h-7l-4.5-6L5 22H2l8-9.1L2 2h7l4 5.3L18 2z" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div className="text-xs text-gray-500 mb-1">(X) تويتر</div>
+                                        <div className="text-lg font-semibold text-gray-800">
+                                            Twitter إلى انتقل
                                         </div>
                                     </div>
-                                </div>
-                            </motion.label>
+                                </motion.div>
 
-                            {/* Message */}
-                            <motion.label
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.6 }}
-                                className="block"
-                            >
-                                <span className="block text-gray-700 font-medium mb-2">
-                                    رسالة <span className="text-purple-700">*</span>
-                                </span>
-                                <textarea
-                                    name="message"
-                                    rows={6}
-                                    placeholder="الرسالة"
-                                    required
-                                    value={formData.message}
-                                    onChange={handleInputChange}
-                                    className="w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400 resize-none"
-                                ></textarea>
-                            </motion.label>
+                                {/* Email card */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
+                                    whileHover={{ scale: 1.02, x: -5 }}
+                                    className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                                >
+                                    <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M4 6h16v12H4z"></path>
+                                            <path d="M22 6l-10 7L2 6"></path>
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div className="text-xs text-gray-500 mb-1">
+                                            البريد الإلكتروني
+                                        </div>
+                                        <div className="text-lg font-semibold text-gray-800">
+                                            info@mubhir.ai
+                                        </div>
+                                    </div>
+                                </motion.div>
 
-                            {/* Bottom bar button */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                {/* Phone card */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    whileHover={{ scale: 1.02, x: -5 }}
+                                    className="flex items-center gap-[20px] rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 cursor-pointer"
+                                >
+                                    <span className="shrink-0 grid place-items-center size-10 rounded-full bg-white border border-gray-200">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8 9a16 16 0 0 0 7 7l.56-1.23a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92z" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div className="text-xs text-gray-500 mb-1">الهاتف</div>
+                                        <div
+                                            className="text-lg font-semibold text-gray-800"
+                                            dir="ltr"
+                                        >
+                                            +966 568876934
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+
+                        {/* Left: Form */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="lg:col-span-7 p-6 sm:p-10"
+                        >
+                            <motion.form
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.7 }}
-                                className="mt-8"
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                onSubmit={handleSubmit}
+                                className="mt-2 space-y-6"
                             >
-                                <div className="no-hover relative w-full rounded-full bg-[#671E5A]">
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="w-full flex items-center justify-between gap-4 text-white px-1 pl-6 py-1 rounded-full disabled:opacity-50"
-                                    >
-                                        {/* Circular back icon (on the right in RTL) */}
-                                        <span className="shrink-0 size-12 grid place-items-center bg-white text-[#671E5A] rounded-full">
-                                            <svg
-                                                width="22"
-                                                height="22"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                aria-hidden="true"
-                                            >
-                                                <path d="M15 5l7 7-7 7"></path>
-                                                <path d="M22 12H3"></path>
-                                            </svg>
-                                        </span>
-                                        <span className="ms-auto text-lg">
-                                            {isSubmitting ? "جاري الإرسال..." : "اتصل بنا"}
-                                        </span>
-                                    </button>
-                                </div>
-                            </motion.div>
-                        </motion.form>
-                    </motion.div>
-                </div>
-            </section>
+                                {/* Full name */}
+                                <motion.label
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.3 }}
+                                    className="block"
+                                >
+                                    <span className="block text-gray-700 font-medium mb-2">
+                                        الاسم الكامل <span className="text-purple-700">*</span>
+                                    </span>
+                                    <input
+                                        name="fullName"
+                                        type="text"
+                                        placeholder="الاسم الأول"
+                                        required
+                                        value={formData.fullName}
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-xl border border-gray-200 bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
+                                    />
+                                </motion.label>
+
+                                {/* Email */}
+                                <motion.label
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
+                                    className="block"
+                                >
+                                    <span className="block text-gray-700 font-medium mb-2">
+                                        البريد الإلكتروني <span className="text-purple-700">*</span>
+                                    </span>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="البريد الإلكتروني"
+                                        required
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-xl border border-gray-200 bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400"
+                                    />
+                                </motion.label>
+
+                                {/* Phone (with country selector) */}
+                                <motion.label
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    className="block"
+                                >
+                                    <span className="block text-gray-700 font-medium mb-2">
+                                        الجوال <span className="text-purple-700">*</span>
+                                    </span>
+
+                                    <div className="relative">
+                                        <div className="flex items-stretch">
+                                            {/* Phone number input */}
+                                            <input
+                                                id="phoneNumber"
+                                                name="phoneNumber"
+                                                type="tel"
+                                                inputMode="tel"
+                                                placeholder="5xxxxxxxx"
+                                                required
+                                                value={formData.phoneNumber}
+                                                onChange={handleInputChange}
+                                                className="flex-1 rounded-r-xl border border-gray-200 bg-[#FFFFFF] border-s border-y px-4 py-3 text-right placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#671e5a]"
+                                            />
+
+                                            {/* Fixed Saudi country code */}
+                                            <div className="flex items-center gap-2 rounded-e-xl border border-gray-200 border-e border-y px-3 text-gray-700 bg-gray-50">
+                                                <span className="text-xl leading-none">🇸🇦</span>
+                                                <span className="text-sm">+966</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.label>
+
+                                {/* Message */}
+                                <motion.label
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.6 }}
+                                    className="block"
+                                >
+                                    <span className="block text-gray-700 font-medium mb-2">
+                                        رسالة <span className="text-purple-700">*</span>
+                                    </span>
+                                    <textarea
+                                        name="message"
+                                        rows={6}
+                                        placeholder="الرسالة"
+                                        required
+                                        value={formData.message}
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-xl border border-gray-200 bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#671e5a] px-4 py-3 text-right placeholder-gray-400 resize-none"
+                                    ></textarea>
+                                </motion.label>
+
+                                {/* Bottom bar button */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.7 }}
+                                    className="mt-8"
+                                >
+                                    <div className="no-hover relative w-full rounded-full bg-[#671E5A]">
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="w-full flex items-center justify-between gap-4 text-white px-1 pl-6 py-1 rounded-full disabled:opacity-50"
+                                        >
+                                            {/* Circular back icon (on the right in RTL) */}
+                                            <span className="shrink-0 size-12 grid place-items-center bg-white text-[#671E5A] rounded-full">
+                                                <svg
+                                                    width="22"
+                                                    height="22"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M15 5l7 7-7 7"></path>
+                                                    <path d="M22 12H3"></path>
+                                                </svg>
+                                            </span>
+                                            <span className="ms-auto text-lg">
+                                                {isSubmitting ? "جاري الإرسال..." : "اتصل بنا"}
+                                            </span>
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.form>
+                        </motion.div>
+                    </div>
+                </section>
+            </div>
 
             <Footer />
         </div>
