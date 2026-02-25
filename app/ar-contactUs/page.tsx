@@ -74,7 +74,7 @@ export default function ArContactUsPage() {
     return (
         <div className="bg-white" dir="rtl">
             {/* Header Section */}
-            <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white m-4 rounded-2xl">
+            <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
                 <Navbar />
                 <div className="p-4">
                     {/* Hero Section */}
