@@ -32,7 +32,7 @@ export default function FaqItem({ question, answer, index, isOpen, onToggle }: F
                 <motion.h3
                     animate={{ color: isOpen ? "#671E5A" : "#000000" }}
                     transition={{ duration: 0.3 }}
-                    className="text-xl font-semibold text-right"
+                    className="text-base sm:text-xl font-semibold text-right"
                 >
                     {question}
                 </motion.h3>

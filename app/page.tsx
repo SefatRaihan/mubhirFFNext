@@ -305,13 +305,13 @@ export default function Home() {
     return () => ctx.revert();
   }, []);
 
-  // ========== AI SAT SECTION - SCROLL-PINNED TAB CYCLING ==========
+  // ========== AI SAT SECTION - SCROLL ANIMATIONS + DESKTOP-ONLY PIN ==========
   useEffect(() => {
     if (!aiSatSectionRef.current) return;
 
     const tabKeys = ['tab1', 'tab2', 'tab3', 'tab4'];
 
-    // Circle entrance animation (before pin)
+    // Circle entrance animation — runs on ALL devices (safe one-shot animation)
     if (aiSatCircleRef.current) {
       gsap.fromTo(aiSatCircleRef.current,
         { scale: 0, rotation: -180, opacity: 0 },
@@ -327,45 +327,46 @@ export default function Home() {
       );
     }
 
-    // Heading blur-to-focus entrance (before pin)
+    // Heading blur-to-focus entrance — runs on ALL devices (safe one-shot animation)
     if (aiSatHeadingRef.current) {
       const heading = aiSatHeadingRef.current.querySelector('h2');
       const subtitle = aiSatHeadingRef.current.querySelector('p');
       if (heading) {
         gsap.fromTo(heading,
-          { y: 60, opacity: 0, filter: 'blur(12px)' },
+          { y: 40, opacity: 0, filter: 'blur(8px)' },
           {
             y: 0, opacity: 1, filter: 'blur(0px)',
-            duration: 1, ease: 'power3.out',
-            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+            duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 90%', toggleActions: 'play none none none' }
           }
         );
       }
       if (subtitle) {
         gsap.fromTo(subtitle,
-          { y: 30, opacity: 0 },
+          { y: 20, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.8, delay: 0.3, ease: 'power2.out',
-            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+            y: 0, opacity: 1, duration: 0.6, delay: 0.2, ease: 'power2.out',
+            scrollTrigger: { trigger: aiSatHeadingRef.current, start: 'top 90%', toggleActions: 'play none none none' }
           }
         );
       }
     }
 
-    // Pin the section and cycle tabs based on scroll progress (desktop only)
-    const isMobile = window.innerWidth < 768;
+    // Pin + scroll-based tab cycling — DESKTOP ONLY (>=1024px)
+    // Pinning breaks layout on tablet/mobile due to position:fixed injection
+    const isDesktop = window.innerWidth >= 1024;
     let pinTrigger: ScrollTrigger | null = null;
 
-    if (!isMobile) {
+    if (isDesktop) {
       pinTrigger = ScrollTrigger.create({
         trigger: aiSatSectionRef.current,
         start: 'center center',
-        end: '+=200%',  // Extra scroll distance for 4 tabs (3 transitions)
+        end: '+=200%',
         pin: true,
         pinSpacing: true,
         scrub: false,
         onUpdate: (self) => {
-          const progress = self.progress; // 0 to 1
+          const progress = self.progress;
           let targetTab: string;
 
           if (progress < 0.25) {
@@ -378,7 +379,6 @@ export default function Home() {
             targetTab = 'tab4';
           }
 
-          // Only update if the tab actually changed
           if (activeTabRef.current !== targetTab) {
             activeTabRef.current = targetTab;
             setActiveTab(targetTab);
@@ -659,7 +659,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         ref={heroSectionRef}
-        className="animated-gradient-bg text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-visible relative"
+        className="animated-gradient-bg text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden relative"
       >
         {/* Liquid Effect Background - wrapped with overflow-hidden to preserve rounded corners */}
         <div className="absolute inset-0 overflow-hidden rounded-0 md:rounded-2xl">
@@ -677,7 +677,7 @@ export default function Home() {
             <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
               {/* Badge 1 - #سؤال with hover image */}
               <div
-                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 p-4 z-20"
+                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-24 lg:right-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge1')}
                 onMouseLeave={() => setHoveredBadge(null)}
               >
@@ -709,7 +709,7 @@ export default function Home() {
 
               {/* Badge 2 - #قدرات with hover image */}
               <div
-                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 p-4 z-20"
+                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-24 lg:left-40 md:top-60 p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge2')}
                 onMouseLeave={() => setHoveredBadge(null)}
               >
@@ -743,7 +743,7 @@ export default function Home() {
 
             <h1
               ref={heroHeadingRef}
-              className="text-4xl md:text-[76px] font-bold md:leading-[86px] leading-[44px] text-glow-white opacity-0"
+              className="text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white opacity-0"
             >
               مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات
             </h1>
@@ -919,7 +919,7 @@ export default function Home() {
           </div>
 
           {/* Tab Content */}
-          <div ref={aiSatContentRef} className="grid grid-cols-1 sm:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
+          <div ref={aiSatContentRef} className="grid grid-cols-1 lg:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -950,11 +950,7 @@ export default function Home() {
                     {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
                     {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
                   </p> */}
-                  <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 ${activeTab === 'tab1' ? 'mt-6 sm:mt-[129px]' :
-                    activeTab === 'tab2' ? 'mt-8 sm:mt-[186px]' :
-                      activeTab === 'tab3' ? 'mt-4 sm:mt-[186px]' :
-                        activeTab === 'tab4' ? 'mt-10 sm:mt-[214px]' : ''
-                    }`}>
+                  <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 mt-auto pt-6`}>
                     {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
                     {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
                     {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
@@ -1010,7 +1006,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto py-8 sm:py-[120px]">
           <div className="text-center mb-10">
-            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-[52px] lg:leading-[120px]">
+            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-tight sm:leading-[52px] lg:leading-[120px]">
               ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
             </h2>
             <p className="pt-4 text-base text-gray-600 mt-2">
@@ -1048,7 +1044,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-10 lg:leading-[120px] text-center"
+              className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[120px] text-center"
             >
               ابدأ طريقك للتميز في القدرات مع منصة تثق فيها
             </motion.h2>
@@ -1152,7 +1148,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-10 lg:leading-[120px] text-center"
+            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[120px] text-center"
           >
             أسعار مرنة لكل طالب يبغي يتفوق في القدرات
           </motion.h2>
@@ -1167,7 +1163,7 @@ export default function Home() {
           </motion.p>
 
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
-            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mx-auto">
               {pricingPlans.map((plan, index) => (
                 <motion.div
                   key={plan.id}
@@ -1441,13 +1437,13 @@ export default function Home() {
 
             {/* Testimonials Grid */}
             <div className="relative z-30 mt-4 lg:mt-10">
-              <div className="flex flex-col lg:flex-row justify-start gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
                 {reviewsLoading ? (
                   // Loading skeleton
                   [...Array(4)].map((_, index) => (
                     <div
                       key={index}
-                      className="bg-white/50 animate-pulse rounded-[28px] w-full max-w-[340px] p-7 shadow-lg"
+                      className="bg-white/50 animate-pulse rounded-[28px] w-full p-7 shadow-lg"
                     >
                       <div className="flex gap-1 mb-3">
                         {[...Array(5)].map((_, i) => (
@@ -1487,7 +1483,7 @@ export default function Home() {
                         boxShadow: "0 20px 40px -10px rgba(122, 31, 104, 0.3)",
                         transition: { duration: 0.3 }
                       }}
-                      className="bg-white text-[#2B1A2F] rounded-[28px] w-full max-w-[340px] p-7 shadow-lg cursor-pointer"
+                      className="bg-white text-[#2B1A2F] rounded-[28px] w-full p-7 shadow-lg cursor-pointer"
                       style={{ transformStyle: "preserve-3d" }}
                     >
                       {/* Star Rating */}
