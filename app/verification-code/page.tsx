@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
@@ -45,16 +45,18 @@ interface RegisterVerifyPayload {
 export default function VerificationCodePage() {
     const router = useRouter();
 
-    // Get phone number from localStorage
-    const getPhoneFromStorage = () => {
+    // Get phone number from localStorage (lazy initializer — only runs once on mount)
+    const [phone] = useState(() => {
         if (typeof window === 'undefined') return 'Your phone';
         const stored = localStorage.getItem('signupData');
         if (!stored) return 'Your phone';
-        const data = JSON.parse(stored);
-        return data.phone || 'Your phone';
-    };
-
-    const phone = getPhoneFromStorage();
+        try {
+            const data = JSON.parse(stored);
+            return data.phone || 'Your phone';
+        } catch {
+            return 'Your phone';
+        }
+    });
 
     // OTP state - 4 digit code
     const [otp, setOtp] = useState<string[]>(['', '', '', '']);
@@ -65,19 +67,28 @@ export default function VerificationCodePage() {
     // Loading state
     const [loading, setLoading] = useState(false);
 
+    // Timer ref — single interval, no recreation every second
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
     /**
      * Countdown Timer Effect
-     * Decrements timeLeft every second until it reaches 0
+     * Uses a single interval that runs until timeLeft reaches 0
      */
     useEffect(() => {
-        if (timeLeft <= 0) return;
-
-        const timer = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
+        timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    if (timerRef.current) clearInterval(timerRef.current);
+                    return 0;
+                }
+                return prev - 1;
+            });
         }, 1000);
 
-        return () => clearInterval(timer);
-    }, [timeLeft]);
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current);
+        };
+    }, []); // Empty deps — runs once on mount
 
     /**
      * Get Signup Data from localStorage
@@ -252,6 +263,18 @@ export default function VerificationCodePage() {
         setTimeLeft(120);
         setOtp(['', '', '', '']);
 
+        // Restart the timer interval
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    if (timerRef.current) clearInterval(timerRef.current);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
         const userData = getSignupData();
         if (!userData) {
             alert('انتهت الجلسة. يرجى التسجيل مرة أخرى.');
@@ -301,6 +324,7 @@ export default function VerificationCodePage() {
                                     width={100}
                                     height={100}
                                     className="w-[100px] h-[100px]"
+                                    priority
                                 />
                                 <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                     مبهر
