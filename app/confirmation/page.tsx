@@ -76,25 +76,8 @@ function ConfirmationContent() {
 
                 // If tap_id exists, verify payment
                 if (tapId) {
-                    // Get is_auto_subscribe and is_only_free from saved order data
-                    const isAutoSubscribe = parsedOrderData?.isAutoSubscribe ?? 0;
-                    const isOnlyFree = parsedOrderData?.isOnlyFree ?? 0;
-
-                    // Build callback URL with all required params
-                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}&is_auto_subscribe=${isAutoSubscribe}&is_only_free=${isOnlyFree}`;
-
-                    // Debug log for callback
-                    // console.group('%c📞 CONFIRMATION CALLBACK DEBUG', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                    // console.log('%c🔗 Callback URL:', 'color: #2563eb; font-weight: bold;', callbackUrl);
-                    // console.table({
-                    //     'tap_id': tapId,
-                    //     'is_auto_subscribe': isAutoSubscribe,
-                    //     'is_only_free': isOnlyFree,
-                    //     'Scenario': isAutoSubscribe === 1 ? '1: Auto-subscribe enabled' :
-                    //         isOnlyFree === 1 ? '2: Free trial only' :
-                    //             '3: Payment (used trial)'
-                    // });
-                    // console.groupEnd();
+                    // Build callback URL
+                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`;
 
                     const response = await axios.get(callbackUrl, {
                         headers: { Authorization: `Bearer ${token}` },
