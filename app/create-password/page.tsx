@@ -5,9 +5,14 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import dynamic from 'next/dynamic';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Lazy-load ToastContainer (~50KB with styles/animations)
+const ToastContainer = dynamic(
+    () => import('react-toastify').then((mod) => mod.ToastContainer),
+    { ssr: false }
+);
 
 /**
  * Form Data Interface
@@ -43,16 +48,18 @@ interface CreatePasswordResponse {
 export default function CreatePasswordPage() {
     const router = useRouter();
 
-    // Get phone number from localStorage
-    const getPhoneFromStorage = () => {
+    // Get phone number from localStorage (lazy initializer — only runs once on mount)
+    const [mobile_no] = useState(() => {
         if (typeof window === 'undefined') return '';
         const stored = localStorage.getItem('signupData');
         if (!stored) return '';
-        const data = JSON.parse(stored);
-        return data.phone || data.mobile_no || data.phoneNumber || '';
-    };
-
-    const mobile_no = getPhoneFromStorage();
+        try {
+            const data = JSON.parse(stored);
+            return data.phone || data.mobile_no || data.phoneNumber || '';
+        } catch {
+            return '';
+        }
+    });
 
     // Form state
     const [formData, setFormData] = useState<PasswordFormData>({
@@ -141,8 +148,8 @@ export default function CreatePasswordPage() {
                     loginFormData.append('login', mobile_no);
                     loginFormData.append('password', formData.enterNewPassword);
 
-                    // Call login API with the credentials
-                    const loginResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, loginFormData);
+                    // Call login API with the credentials (using apiClient for timeout protection)
+                    const loginResponse = await apiClient.post('/login', loginFormData);
 
                     const loginData = loginResponse.data;
 
@@ -175,7 +182,8 @@ export default function CreatePasswordPage() {
                         // Clear signup data from localStorage
                         localStorage.removeItem('signupData');
 
-                        // Show success toast
+                        // Show success toast (lazy import to keep initial bundle small)
+                        const { toast } = await import('react-toastify');
                         toast.success('تم إنشاء الحساب!.', {
                             position: 'top-right',
                             autoClose: 2000,
@@ -200,6 +208,7 @@ export default function CreatePasswordPage() {
                     localStorage.removeItem('signupData');
 
                     // If auto-login fails, show info toast
+                    const { toast } = await import('react-toastify');
                     toast.info('يرجى المحاولة مرة أخرى', {
                         position: 'top-right',
                         autoClose: 3000,
@@ -271,6 +280,7 @@ export default function CreatePasswordPage() {
                                     width={100}
                                     height={100}
                                     className="w-[100px] h-[100px]"
+                                    priority
                                 />
                                 <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                     مبهر
