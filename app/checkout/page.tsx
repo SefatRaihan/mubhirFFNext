@@ -685,9 +685,9 @@ export default function CheckoutPage() {
                                     </div>
 
                                     {/* Note */}
-                                    <p className="text-xs text-gray-500 mt-4">
+                                    {/* <p className="text-xs text-gray-500 mt-4">
                                         {`*قد يتم خصم ${(Number(packagePrice) - discount).toFixed(2)} ريال سعودي تلقائيًا بعد ${pricingTerms}`}
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
 

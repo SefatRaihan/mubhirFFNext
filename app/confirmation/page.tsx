@@ -47,14 +47,23 @@ function ConfirmationContent() {
             const tapId = searchParams.get('tap_id');
             const token = Cookies.get('token');
 
+            // 🔍 DEBUG: Log confirmation page checks
+            console.log('[CONFIRMATION] 🔍 Page loaded');
+            console.log('[CONFIRMATION] tap_id:', tapId);
+            console.log('[CONFIRMATION] token:', token ? 'FOUND' : 'NOT FOUND');
+            console.log('[CONFIRMATION] All cookies:', document.cookie);
+            console.log('[CONFIRMATION] searchParams:', searchParams.toString());
+            console.log('[CONFIRMATION] Full URL:', window.location.href);
 
             // Only redirect to login if there's no token AND no tap_id
             // When returning from Tap payment gateway, token cookie may be lost
             // but tap_id in the URL proves this is a valid payment callback
             if (!token && !tapId) {
+                console.log('[CONFIRMATION] ❌ No token AND no tap_id → redirecting to /login');
                 router.push('/login');
                 return;
             }
+            console.log('[CONFIRMATION] ✅ Proceeding with verification');
 
             try {
                 // Load order data from localStorage first (needed for callback params)
@@ -67,8 +76,25 @@ function ConfirmationContent() {
 
                 // If tap_id exists, verify payment
                 if (tapId) {
-                    // Build callback URL
-                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`;
+                    // Get is_auto_subscribe and is_only_free from saved order data
+                    const isAutoSubscribe = parsedOrderData?.isAutoSubscribe ?? 0;
+                    const isOnlyFree = parsedOrderData?.isOnlyFree ?? 0;
+
+                    // Build callback URL with all required params
+                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}&is_auto_subscribe=${isAutoSubscribe}&is_only_free=${isOnlyFree}`;
+
+                    // Debug log for callback
+                    // console.group('%c📞 CONFIRMATION CALLBACK DEBUG', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+                    // console.log('%c🔗 Callback URL:', 'color: #2563eb; font-weight: bold;', callbackUrl);
+                    // console.table({
+                    //     'tap_id': tapId,
+                    //     'is_auto_subscribe': isAutoSubscribe,
+                    //     'is_only_free': isOnlyFree,
+                    //     'Scenario': isAutoSubscribe === 1 ? '1: Auto-subscribe enabled' :
+                    //         isOnlyFree === 1 ? '2: Free trial only' :
+                    //             '3: Payment (used trial)'
+                    // });
+                    // console.groupEnd();
 
                     const response = await axios.get(callbackUrl, {
                         headers: { Authorization: `Bearer ${token}` },
@@ -88,10 +114,9 @@ function ConfirmationContent() {
                         return;
                     }
                 } else {
-                    setSuccess(false);
-                    setApiMessage('No payment information found.');
-                    setLoading(false);
-                    return;
+                    // No tap_id means free trial or already verified
+                    setSuccess(true);
+                    setApiMessage('Your Subscription has been Activated!');
                 }
 
                 // Fetch user data
@@ -206,6 +231,7 @@ function ConfirmationContent() {
     }
 
     // Extract order details
+    const isTrial = orderData?.fromTrial || false;
     const packageTitle = orderData?.selectedPlan?.title_ar || orderData?.selectedPlan?.title_en || 'SAT I - Monthly';
     const packagePrice = orderData?.selectedPlan?.price || orderData?.selectedPlan?.price_numeric || 99;
     const discount = orderData?.discount || 0;
@@ -251,18 +277,41 @@ function ConfirmationContent() {
                         <h3 className="text-lg font-semibold text-black mb-4">{packageTitle}</h3>
 
                         <div className="space-y-3">
-                            {/* Total */}
-                            <div className="flex justify-between items-center">
-                                <span className="text-gray-700">المجموع</span>
-                                <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
-                            </div>
+                            {isTrial ? (
+                                // Free Trial Layout
+                                <>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-700">تجربة لمدة ٣ أيام</span>
+                                        <span className="font-semibold">0.00 ريال سعودي</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-700">بعد فترة تجربة لمدة ٣ أيام</span>
+                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي*</span>
+                                    </div>
+                                    {/* Referral Discount for Trial (if coupon applied) */}
+                                    {couponApplied && (
+                                        <div className="flex justify-between items-center text-green-600">
+                                            <span>خصم الإحالة</span>
+                                            <span>-{discount.toFixed(2)} ريال سعودي</span>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                // Paid Subscription Layout
+                                <>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-700">Total</span>
+                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
+                                    </div>
 
-                            {/* Referral Discount (only if coupon applied) */}
-                            {couponApplied && (
-                                <div className="flex justify-between items-center text-green-600">
-                                    <span>خصم الإحالة</span>
-                                    <span>-{discount.toFixed(2)} ريال سعودي</span>
-                                </div>
+                                    {/* Referral Discount (only if coupon applied) */}
+                                    {couponApplied && (
+                                        <div className="flex justify-between items-center text-green-600">
+                                            <span>Referral Discount</span>
+                                            <span>-SAR {discount.toFixed(2)}</span>
+                                        </div>
+                                    )}
+                                </>
                             )}
 
                             {/* Divider */}
@@ -271,8 +320,23 @@ function ConfirmationContent() {
                             {/* Order Total */}
                             <div className="flex justify-between items-center font-bold text-lg">
                                 <span>إجمالي المبلغ المستحق الآن (1)</span>
-                                <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
+                                <span>{isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
                             </div>
+
+                            {/* After Trial Total (if trial and discount applied) */}
+                            {isTrial && couponApplied && (
+                                <div className="flex justify-between items-center font-bold text-lg text-green-600">
+                                    <span>المبلغ بعد التجربة (مع الخصم)</span>
+                                    <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
+                                </div>
+                            )}
+
+                            {/* Note */}
+                            <p className="text-xs text-gray-500 mt-4">
+                                {isTrial
+                                    ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
+                                    : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after subscription period`}
+                            </p>
                         </div>
                     </div>
 
