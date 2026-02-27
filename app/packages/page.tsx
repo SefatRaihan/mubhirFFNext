@@ -4,9 +4,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import apiClient from '@/lib/axios';
+import dynamic from 'next/dynamic';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Lazy-load ToastContainer (~50KB deferred)
+const ToastContainer = dynamic(
+    () => import('react-toastify').then((mod) => mod.ToastContainer),
+    { ssr: false }
+);
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 // it's shown right now, but when I click any of the pacakge it redirect to the login page, but it have to go to the chaekput page, then what is the problem here
@@ -126,7 +132,7 @@ export default function PackagesPage() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
+                const response = await apiClient.get('/packages');
                 const json: PackagesResponse = response.data;
 
                 if (json.status === 'success') {
@@ -174,7 +180,7 @@ export default function PackagesPage() {
         }
 
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+            const response = await apiClient.get('/cms/me', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -193,6 +199,7 @@ export default function PackagesPage() {
                 setShowTrialModal(true);
             }
         } catch (error) {
+            const { toast } = await import('react-toastify');
             toast.error('حدث خطأ. حاول مرة أخرى لاحقًا.', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -206,6 +213,7 @@ export default function PackagesPage() {
      */
     const handleTrialProceed = async () => {
         if (!trialGender || !trialDOBDate || !trialGrade) {
+            const { toast } = await import('react-toastify');
             toast.error('الرجاء ملء جميع الحقول المطلوبة', {
                 position: 'top-right',
                 autoClose: 2000,
@@ -238,7 +246,7 @@ export default function PackagesPage() {
             payload.append('date_of_birth', formattedDOB);
             payload.append('grade', trialGrade);
 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, payload, {
+            const response = await apiClient.post('/cms/free-trail', payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -294,6 +302,7 @@ export default function PackagesPage() {
                 return;
             }
             setTrialSubmitting(false);
+            const { toast } = await import('react-toastify');
             toast.error('حدث خطأ. حاول مرة أخرى لاحقًا.', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -369,6 +378,7 @@ export default function PackagesPage() {
                             width={80}
                             height={80}
                             className="w-20 h-20"
+                            priority
                         />
                         <h1 className="text-5xl font-bold text-[#28235B] mr-2">مبهير</h1>
                     </div>
