@@ -126,8 +126,8 @@ export default function PackagesPage() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
-                const json: PackagesResponse = await response.json();
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
+                const json: PackagesResponse = response.data;
 
                 if (json.status === 'success') {
                     // Map packages with Arabic translations
@@ -238,20 +238,13 @@ export default function PackagesPage() {
             payload.append('date_of_birth', formattedDOB);
             payload.append('grade', trialGrade);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, {
-                method: 'POST',
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/free-trail`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-                body: payload,
             });
 
-            let data: any = null;
-            try {
-                data = await response.json();
-            } catch (e) {
-                // Could not parse JSON
-            }
+            const data: any = response.data;
 
             // Debug: Log API response
             console.group('%c🔍 TRIAL MODAL - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
@@ -263,9 +256,7 @@ export default function PackagesPage() {
             // Determine if user has used trial
             let hasUsed = false;
 
-            if (response.status === 403) {
-                hasUsed = true;
-            } else if (response.ok && data) {
+            if (data) {
                 if (data.isExpired === true || data.isExpired === 'true' || data.isExpired === 1 || data.isExpired === '1') hasUsed = true;
                 if (data.is_expired === true || data.is_expired === 'true' || data.is_expired === 1 || data.is_expired === '1') hasUsed = true;
                 if (data.expired === true || data.expired === 'true' || data.expired === 1 || data.expired === '1') hasUsed = true;
@@ -293,7 +284,15 @@ export default function PackagesPage() {
             setTrialSubmitting(false);
             setResultType('success');
             setShowResultModal(true);
-        } catch (error) {
+        } catch (error: any) {
+            // Handle 403 status from axios (trial already used)
+            if (error?.response?.status === 403) {
+                setShowTrialModal(false);
+                setTrialSubmitting(false);
+                setResultType('error');
+                setShowResultModal(true);
+                return;
+            }
             setTrialSubmitting(false);
             toast.error('حدث خطأ. حاول مرة أخرى لاحقًا.', {
                 position: 'top-right',

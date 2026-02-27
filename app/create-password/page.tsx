@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
+import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -141,14 +142,11 @@ export default function CreatePasswordPage() {
                     loginFormData.append('password', formData.enterNewPassword);
 
                     // Call login API with the credentials
-                    const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
-                        method: 'POST',
-                        body: loginFormData,
-                    });
+                    const loginResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, loginFormData);
 
-                    const loginData = await loginResponse.json();
+                    const loginData = loginResponse.data;
 
-                    if (loginResponse.ok && loginData?.token) {
+                    if (loginData?.token) {
                         // Determine environment for cookie options
                         const isProduction = window.location.protocol === 'https:';
                         const cookieOptions = {

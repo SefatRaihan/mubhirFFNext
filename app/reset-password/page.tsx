@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import axios from 'axios';
 
 /**
  * Password Form Data Interface
@@ -111,50 +112,25 @@ export default function CreateNewPasswordPage() {
         try {
             setLoading(true);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/createNewPassword`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    mobile_no: phone,
-                    password: formData.enterNewPassword,
-                    password_confirmation: formData.reEnterNewPassword,
-                }),
+            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/createNewPassword`, {
+                mobile_no: phone,
+                password: formData.enterNewPassword,
+                password_confirmation: formData.reEnterNewPassword,
             });
 
-            // Check if response is JSON
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('Server returned non-JSON response');
-            }
+            // Clear session storage
+            sessionStorage.removeItem('reset_phone');
+            sessionStorage.removeItem('verified_otp');
 
-            const data = await response.json();
+            // Show success message
+            alert('تم إعادة تعيين كلمة المرور بنجاح! يرجى تسجيل الدخول.');
 
-            if (response.ok) {
-                // Clear session storage
-                sessionStorage.removeItem('reset_phone');
-                sessionStorage.removeItem('verified_otp');
-
-                // Show success message
-                alert('تم إعادة تعيين كلمة المرور بنجاح! يرجى تسجيل الدخول.');
-
-                // Navigate to login page
-                router.push('/login');
-            } else {
-                setErrors((prev) => ({
-                    ...prev,
-                    apiError: data?.message || 'حدث خطأ ما.',
-                }));
-            }
+            // Navigate to login page
+            router.push('/login');
         } catch (error: any) {
             // console.error('Reset password error:', error);
 
-            // Handle JSON parsing errors
-            if (error.message === 'Server returned non-JSON response') {
-                setErrors((prev) => ({
-                    ...prev,
-                    apiError: 'خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً.',
-                }));
-            } else if (error.response?.data?.message) {
+            if (error?.response?.data?.message) {
                 setErrors((prev) => ({
                     ...prev,
                     apiError: error.response.data.message,

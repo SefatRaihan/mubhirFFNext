@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import axios from 'axios';
 
 /**
  * Reset Verification Code Page Component
@@ -103,27 +104,18 @@ export default function ResetCodePage() {
     const verifyOtp = async (otpValue: string) => {
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/verifyOtp`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    mobile_no: phone,
-                    otp: otpValue,
-                }),
+            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/verifyOtp`, {
+                mobile_no: phone,
+                otp: otpValue,
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                // OTP verified, navigate to reset password page
-                sessionStorage.setItem('verified_otp', otpValue);
-                router.push('/reset-password');
-            } else {
-                alert(data?.message || 'فشل في التحقق من الرمز. حاول مرة أخرى.');
-            }
-        } catch (error) {
+            // OTP verified, navigate to reset password page
+            sessionStorage.setItem('verified_otp', otpValue);
+            router.push('/reset-password');
+        } catch (error: any) {
             // console.error('OTP verification error:', error);
-            alert('حدث خطأ. حاول مرة أخرى.');
+            const message = error?.response?.data?.message || 'حدث خطأ. حاول مرة أخرى.';
+            alert(message);
         } finally {
             setLoading(false);
         }
@@ -162,26 +154,19 @@ export default function ResetCodePage() {
 
         try {
             setResending(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/generateOtp`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mobile_no: phone }),
+            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/generateOtp`, {
+                mobile_no: phone,
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                alert('تم إرسال رمز جديد إلى جوالك.');
-                setOtp(['', '', '', '']);
-                setTimeLeft(120);
-                // Focus first input
-                setTimeout(() => document.getElementById('otp-1')?.focus(), 50);
-            } else {
-                alert(data?.message || 'فشل في إعادة إرسال الرمز. حاول مرة أخرى.');
-            }
-        } catch (error) {
+            alert('تم إرسال رمز جديد إلى جوالك.');
+            setOtp(['', '', '', '']);
+            setTimeLeft(120);
+            // Focus first input
+            setTimeout(() => document.getElementById('otp-1')?.focus(), 50);
+        } catch (error: any) {
             // console.error('Resend OTP error:', error);
-            alert('حدث خطأ أثناء إعادة إرسال الرمز.');
+            const message = error?.response?.data?.message || 'حدث خطأ أثناء إعادة إرسال الرمز.';
+            alert(message);
         } finally {
             setResending(false);
         }

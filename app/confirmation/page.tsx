@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 /**
  * Confirmation Page Content Component
@@ -82,13 +83,13 @@ function ConfirmationContent() {
                     // });
                     // console.groupEnd();
 
-                    const response = await fetch(callbackUrl, {
+                    const response = await axios.get(callbackUrl, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 
-                    const data = await response.json();
+                    const data = response.data;
 
-                    if (response.ok && looksSuccessful(data)) {
+                    if (looksSuccessful(data)) {
                         setSuccess(true);
                         setApiMessage(data.message || 'Payment successful.');
                         // Clean URL
@@ -106,13 +107,13 @@ function ConfirmationContent() {
                 }
 
                 // Fetch user data
-                const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (userResponse.ok) {
-                    const user = await userResponse.json();
-                    setUserData(user);
+                try {
+                    const userResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    setUserData(userResponse.data);
+                } catch (userError) {
+                    // Silently ignore user data fetch errors
                 }
 
             } catch (error) {
