@@ -1,13 +1,25 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import PhoneInput from 'react-phone-number-input';
+import dynamic from 'next/dynamic';
 import 'react-phone-number-input/style.css';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import axios from 'axios';
+import apiClient from '@/lib/axios';
+
+// Lazy-load the heavy PhoneInput component (~100KB+ with country data)
+const PhoneInput = dynamic(() => import('react-phone-number-input'), {
+    ssr: false,
+    loading: () => (
+        <input
+            className="w-full px-4 py-2 text-right bg-white"
+            placeholder="٠١١ ٢٣٤ ٥٦٧٨"
+            disabled
+        />
+    ),
+});
 
 /**
  * Login Form Data Interface
@@ -55,7 +67,6 @@ function LoginContent() {
     // UI state
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     /**
      * Handle Input Change
@@ -78,7 +89,6 @@ function LoginContent() {
         e.preventDefault();
         setLoading(true);
         setError('');
-        setSuccess('');
 
         try {
             // Create FormData for API request
@@ -86,11 +96,9 @@ function LoginContent() {
             formBody.append('login', formData.phone);
             formBody.append('password', formData.password);
 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, formBody);
+            const response = await apiClient.post('/login', formBody);
 
             const data: LoginResponse = response.data;
-
-            setSuccess(data.message);
 
             // 🔍 Debug - Log full login response
             // console.group('%c🔐 LOGIN PAGE - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
@@ -181,6 +189,7 @@ function LoginContent() {
                                     width={100}
                                     height={100}
                                     className="w-[100px] h-[100px]"
+                                    priority
                                 />
                                 <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                     مبهر
@@ -242,7 +251,6 @@ function LoginContent() {
 
                             {/* Error/Success Messages */}
                             {error && <p className="text-red-600 text-sm">{error}</p>}
-                            {success && <p className="text-green-600 text-sm">{success}</p>}
 
                             {/* Login Button */}
                             <button
