@@ -1163,7 +1163,7 @@ export default function Home() {
           </motion.p>
 
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
-            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mx-auto">
+            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
               {pricingPlans.map((plan, index) => (
                 <motion.div
                   key={plan.id}
