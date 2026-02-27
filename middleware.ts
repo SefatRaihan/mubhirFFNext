@@ -86,9 +86,11 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
   // 🔍 DEBUG: Log middleware checks
-  // console.log('[MIDDLEWARE] Path:', pathname);
-  // console.log('[MIDDLEWARE] token cookie:', token ? 'FOUND' : 'NOT FOUND');
-  // console.log('[MIDDLEWARE] All cookies:', request.cookies.getAll().map(c => c.name).join(', '));
+  console.log('[MIDDLEWARE] Path:', pathname);
+  console.log('[MIDDLEWARE] token cookie:', token ? 'FOUND' : 'NOT FOUND');
+  console.log('[MIDDLEWARE] All cookies:', request.cookies.getAll().map(c => c.name).join(', '));
+  console.log('[MIDDLEWARE] Search params:', request.nextUrl.searchParams.toString());
+  console.log('[MIDDLEWARE] Full URL:', request.url);
 
   // Check if current route is protected
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -116,10 +118,18 @@ export function middleware(request: NextRequest) {
    */
   if (isProtectedRoute && !token) {
     // Allow /confirmation with tap_id parameter (payment gateway callback)
-    if (pathname === '/confirmation' && request.nextUrl.searchParams.has('tap_id')) {
+    const hasTapId = request.nextUrl.searchParams.has('tap_id');
+    console.log('[MIDDLEWARE] 🚨 Protected route WITHOUT token!');
+    console.log('[MIDDLEWARE] pathname:', pathname);
+    console.log('[MIDDLEWARE] has tap_id:', hasTapId);
+    console.log('[MIDDLEWARE] tap_id value:', request.nextUrl.searchParams.get('tap_id'));
+
+    if (pathname === '/confirmation' && hasTapId) {
+      console.log('[MIDDLEWARE] ✅ Allowing /confirmation with tap_id');
       return NextResponse.next();
     }
 
+    console.log('[MIDDLEWARE] ❌ Redirecting to /login');
     const loginUrl = new URL("/login", request.url);
     // Add redirect parameter to send user back after login
     loginUrl.searchParams.set("redirect", pathname);

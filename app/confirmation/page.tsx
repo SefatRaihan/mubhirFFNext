@@ -47,10 +47,23 @@ function ConfirmationContent() {
             const tapId = searchParams.get('tap_id');
             const token = Cookies.get('token');
 
-            if (!token) {
+            // 🔍 DEBUG: Log confirmation page checks
+            console.log('[CONFIRMATION] 🔍 Page loaded');
+            console.log('[CONFIRMATION] tap_id:', tapId);
+            console.log('[CONFIRMATION] token:', token ? 'FOUND' : 'NOT FOUND');
+            console.log('[CONFIRMATION] All cookies:', document.cookie);
+            console.log('[CONFIRMATION] searchParams:', searchParams.toString());
+            console.log('[CONFIRMATION] Full URL:', window.location.href);
+
+            // Only redirect to login if there's no token AND no tap_id
+            // When returning from Tap payment gateway, token cookie may be lost
+            // but tap_id in the URL proves this is a valid payment callback
+            if (!token && !tapId) {
+                console.log('[CONFIRMATION] ❌ No token AND no tap_id → redirecting to /login');
                 router.push('/login');
                 return;
             }
+            console.log('[CONFIRMATION] ✅ Proceeding with verification');
 
             try {
                 // Load order data from localStorage first (needed for callback params)
