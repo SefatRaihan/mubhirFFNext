@@ -17,6 +17,7 @@ import {
 import { useParams } from "next/navigation";
 import CarLeftArrowIcon from "@/public/icons/CarLeftArrowIcon";
 import CarRightArrowIcon from "@/public/icons/CarRightArrowIcon";
+import axios from "axios";
 
 // TypeScript Interfaces
 interface BlogBlock {
@@ -125,8 +126,8 @@ export default function BlogDetailsPage() {
                 // console.log('Fetching blogs from:', apiUrl);
                 // console.log('Looking for slug:', blogSlug);
 
-                const response = await fetch(apiUrl);
-                const data = await response.json();
+                const response = await axios.get(apiUrl);
+                const data = response.data;
 
                 // console.log('API Response:', data);
 
@@ -170,8 +171,8 @@ export default function BlogDetailsPage() {
 
         const fetchRelatedBlogs = async (categoryId: number, currentBlogId: number) => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
-                const data = await response.json();
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
+                const data = response.data;
 
                 if (data.success) {
                     const categoryData = data.data.find((cat: any) => cat.category_id === categoryId);

@@ -13,6 +13,7 @@ import XIcon from "@/public/icons/XIcon";
 import SnapIcon from "@/public/icons/SnapIcon";
 import LeftArrow from "@/public/icons/LeftArrow";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function ArContactUsPage() {
     const [formData, setFormData] = useState({
@@ -42,30 +43,20 @@ export default function ArContactUsPage() {
         };
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/contact-us`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(bodyData),
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/contact-us`, bodyData);
+
+            const data = response.data;
+            alert(data.message || "تم إرسال رسالتك بنجاح!");
+            setFormData({
+                fullName: "",
+                email: "",
+                phoneNumber: "",
+                message: "",
             });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                alert(data.message || "تم إرسال رسالتك بنجاح!");
-                setFormData({
-                    fullName: "",
-                    email: "",
-                    phoneNumber: "",
-                    message: "",
-                });
-            } else {
-                alert("حدث خطأ: " + (data.message || "يرجى المحاولة مرة أخرى"));
-            }
-        } catch (error) {
+        } catch (error: any) {
             // console.error("Error:", error);
-            alert("خطأ في الشبكة، يرجى المحاولة لاحقاً.");
+            const message = error?.response?.data?.message || "خطأ في الشبكة، يرجى المحاولة لاحقاً.";
+            alert("حدث خطأ: " + message);
         } finally {
             setIsSubmitting(false);
         }

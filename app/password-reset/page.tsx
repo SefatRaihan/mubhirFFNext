@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import axios from 'axios';
 
 /**
  * Password Reset Page Component
@@ -43,24 +44,18 @@ export default function PasswordResetPage() {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/generateOtp`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mobile_no: formData.phone }),
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/generateOtp`, {
+                mobile_no: formData.phone,
             });
-            const data = await response.json();
 
-            if (response.ok) {
-                // Save phone to sessionStorage
-                sessionStorage.setItem('reset_phone', formData.phone);
-                // Navigate to verification code page
-                router.push('/reset-code');
-            } else {
-                alert(data?.message || 'فشل في إرسال رمز التحقق');
-            }
-        } catch (error) {
+            // Save phone to sessionStorage
+            sessionStorage.setItem('reset_phone', formData.phone);
+            // Navigate to verification code page
+            router.push('/reset-code');
+        } catch (error: any) {
             // console.error('Password reset error:', error);
-            alert('حدث خطأ ما. الرجاء المحاولة مرة أخرى.');
+            const message = error?.response?.data?.message || 'حدث خطأ ما. الرجاء المحاولة مرة أخرى.';
+            alert(message);
         } finally {
             setLoading(false);
         }

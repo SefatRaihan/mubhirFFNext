@@ -13,6 +13,7 @@ import XIcon from "@/public/icons/XIcon";
 import SnapIcon from "@/public/icons/SnapIcon";
 import { motion } from "framer-motion";
 import { ScrollAnimated, ScrollSection, ScrollDiv, ScrollH2, ScrollP } from "@/components/ScrollAnimated/ScrollAnimated";
+import axios from "axios";
 
 interface PricingPlan {
     id: number;
@@ -37,8 +38,8 @@ export default function ArSat2Page() {
     useEffect(() => {
         const loadPlans = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`, { cache: 'no-store' });
-                const json = await res.json();
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
+                const json = res.data;
 
                 if (json?.status === 'success' && Array.isArray(json.data)) {
                     const features = [

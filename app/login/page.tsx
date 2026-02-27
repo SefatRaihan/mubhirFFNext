@@ -7,6 +7,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import axios from 'axios';
 
 /**
  * Login Form Data Interface
@@ -85,81 +86,75 @@ function LoginContent() {
             formBody.append('login', formData.phone);
             formBody.append('password', formData.password);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
-                method: 'POST',
-                body: formBody,
-            });
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, formBody);
 
-            const data: LoginResponse = await response.json();
+            const data: LoginResponse = response.data;
 
-            if (response.ok) {
-                setSuccess(data.message);
+            setSuccess(data.message);
 
-                // 🔍 Debug - Log full login response
-                // console.group('%c🔐 LOGIN PAGE - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-                // console.log('%c📋 Full Response:', 'color: #2563eb; font-weight: bold;');
-                // console.log(data);
-                // console.log('%c👤 User Object:', 'color: #16a34a; font-weight: bold;');
-                // console.log(data.user);
-                // console.log('%c🔍 is_trial field:', 'color: #ea580c; font-weight: bold;', data.user?.is_trial);
-                // console.groupEnd();
+            // 🔍 Debug - Log full login response
+            // console.group('%c🔐 LOGIN PAGE - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+            // console.log('%c📋 Full Response:', 'color: #2563eb; font-weight: bold;');
+            // console.log(data);
+            // console.log('%c👤 User Object:', 'color: #16a34a; font-weight: bold;');
+            // console.log(data.user);
+            // console.log('%c🔍 is_trial field:', 'color: #ea580c; font-weight: bold;', data.user?.is_trial);
+            // console.groupEnd();
 
-                // Save tokens & user info to cookies
-                // Note: secure: true only works on HTTPS, so we conditionally set it
-                const isProduction = window.location.protocol === 'https:';
-                const cookieOptions = {
+            // Save tokens & user info to cookies
+            // Note: secure: true only works on HTTPS, so we conditionally set it
+            const isProduction = window.location.protocol === 'https:';
+            const cookieOptions = {
+                expires: 1,
+                path: '/',
+                ...(isProduction && {
+                    domain: '.mubhir.ai', // Works across all subdomains (dev, test, sat, etc.)
+                    secure: true,
+                    sameSite: 'Strict' as const,
+                }),
+            };
+
+            Cookies.set('token', data.token, cookieOptions);
+            Cookies.set('user', JSON.stringify(data.user), cookieOptions);
+            if (data.redirect_url) {
+                Cookies.set('redirect_url', data.redirect_url, {
                     expires: 1,
-                    path: '/',
-                    ...(isProduction && {
-                        domain: '.mubhir.ai', // Works across all subdomains (dev, test, sat, etc.)
-                        secure: true,
-                        sameSite: 'Strict' as const,
-                    }),
-                };
-
-                Cookies.set('token', data.token, cookieOptions);
-                Cookies.set('user', JSON.stringify(data.user), cookieOptions);
-                if (data.redirect_url) {
-                    Cookies.set('redirect_url', data.redirect_url, {
-                        expires: 1,
-                        secure: true,
-                    });
-                }
-
-                // Check if user has active package
-                const hasActivePackage =
-                    data?.is_active_package === true ||
-                    data?.is_active_package === 'true';
-
-                if (hasActivePackage && data.redirect_url) {
-                    // Before redirecting, remove local cookies for security
-                    Cookies.remove('token');
-                    Cookies.remove('user');
-                    Cookies.remove('redirect_url');
-
-                    // Redirect to sat.mubhir.ai
-                    window.location.href = data.redirect_url;
-                    return;
-                }
-
-                // Otherwise, check cookies and navigate accordingly
-                const selectedPlanCookie = Cookies.get('selectedPlan');
-
-                // Redirect logic:
-                // 1. If user has selected a plan → go to checkout
-                // 2. Otherwise → go to packages page to select a plan
-
-                if (selectedPlanCookie) {
-                    router.push('/checkout');
-                } else {
-                    router.push('/packages');
-                }
-            } else {
-                setError(data.message || 'فشل تسجيل الدخول. حاول مرة أخرى.');
+                    secure: true,
+                });
             }
-        } catch (err) {
+
+            // Check if user has active package
+            const hasActivePackage =
+                data?.is_active_package === true ||
+                data?.is_active_package === 'true';
+
+            if (hasActivePackage && data.redirect_url) {
+                // Before redirecting, remove local cookies for security
+                Cookies.remove('token');
+                Cookies.remove('user');
+                Cookies.remove('redirect_url');
+
+                // Redirect to sat.mubhir.ai
+                window.location.href = data.redirect_url;
+                return;
+            }
+
+            // Otherwise, check cookies and navigate accordingly
+            const selectedPlanCookie = Cookies.get('selectedPlan');
+
+            // Redirect logic:
+            // 1. If user has selected a plan → go to checkout
+            // 2. Otherwise → go to packages page to select a plan
+
+            if (selectedPlanCookie) {
+                router.push('/checkout');
+            } else {
+                router.push('/packages');
+            }
+        } catch (err: any) {
             // console.error('Login error:', err);
-            setError('حدث خطأ. حاول مرة أخرى لاحقًا.');
+            const message = err?.response?.data?.message || 'حدث خطأ. حاول مرة أخرى لاحقًا.';
+            setError(message);
         } finally {
             setLoading(false);
         }

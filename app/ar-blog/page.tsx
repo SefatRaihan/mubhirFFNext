@@ -8,6 +8,7 @@ import Navbar from "@/components/Navber/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PagiLeftArrowIcon from "@/public/icons/PagiLeftArrowIcon";
 import PagiRightArrowIcon from "@/public/icons/PagiRightArrowIcon";
+import axios from "axios";
 
 // TypeScript Interfaces
 interface BlogBlock {
@@ -69,15 +70,9 @@ export default function ArBlogPage() {
                 setLoading(true);
                 // console.log('Fetching from:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`);
 
-                // console.log('Response status:', response.status);
-                const data: ApiResponse = await response.json();
+                const data: ApiResponse = response.data;
                 // console.log('API Response:', data);
 
                 if (data.success) {

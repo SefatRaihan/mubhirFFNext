@@ -607,8 +607,8 @@ export default function Home() {
   useEffect(() => {
     const loadPlans = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`, { cache: 'no-store' });
-        const json = await res.json();
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/packages`);
+        const json = res.data;
 
         if (json?.status === 'success' && Array.isArray(json.data)) {
           const features = [

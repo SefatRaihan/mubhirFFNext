@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Script from 'next/script';
+import axios from 'axios';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://test.mubhir.ai';
 
@@ -61,8 +62,8 @@ function normalizeArabicSlug(text: string): string {
 async function getBlogData(slug: string): Promise<BlogData | null> {
     try {
         const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/get-blogs`;
-        const response = await fetch(apiUrl, { cache: 'no-store' });
-        const data = await response.json();
+        const response = await axios.get(apiUrl);
+        const data = response.data;
 
         if (data.success) {
             const normalizedUrlSlug = normalizeArabicSlug(slug);
