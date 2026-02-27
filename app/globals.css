@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Hero section keyframe animations - must be outside @layer for Tailwind v4 */
 @keyframes fadeInUp {
   from {
