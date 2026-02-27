@@ -214,7 +214,6 @@ function ConfirmationContent() {
     }
 
     // Extract order details
-    const isTrial = orderData?.fromTrial || false;
     const packageTitle = orderData?.selectedPlan?.title_ar || orderData?.selectedPlan?.title_en || 'SAT I - Monthly';
     const packagePrice = orderData?.selectedPlan?.price || orderData?.selectedPlan?.price_numeric || 99;
     const discount = orderData?.discount || 0;
@@ -260,41 +259,18 @@ function ConfirmationContent() {
                         <h3 className="text-lg font-semibold text-black mb-4">{packageTitle}</h3>
 
                         <div className="space-y-3">
-                            {isTrial ? (
-                                // Free Trial Layout
-                                <>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">تجربة لمدة ٣ أيام</span>
-                                        <span className="font-semibold">0.00 ريال سعودي</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">بعد فترة تجربة لمدة ٣ أيام</span>
-                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي*</span>
-                                    </div>
-                                    {/* Referral Discount for Trial (if coupon applied) */}
-                                    {couponApplied && (
-                                        <div className="flex justify-between items-center text-green-600">
-                                            <span>خصم الإحالة</span>
-                                            <span>-{discount.toFixed(2)} ريال سعودي</span>
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                // Paid Subscription Layout
-                                <>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">Total</span>
-                                        <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
-                                    </div>
+                            {/* Total */}
+                            <div className="flex justify-between items-center">
+                                <span className="text-gray-700">المجموع</span>
+                                <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
+                            </div>
 
-                                    {/* Referral Discount (only if coupon applied) */}
-                                    {couponApplied && (
-                                        <div className="flex justify-between items-center text-green-600">
-                                            <span>Referral Discount</span>
-                                            <span>-SAR {discount.toFixed(2)}</span>
-                                        </div>
-                                    )}
-                                </>
+                            {/* Referral Discount (only if coupon applied) */}
+                            {couponApplied && (
+                                <div className="flex justify-between items-center text-green-600">
+                                    <span>خصم الإحالة</span>
+                                    <span>-{discount.toFixed(2)} ريال سعودي</span>
+                                </div>
                             )}
 
                             {/* Divider */}
@@ -303,23 +279,8 @@ function ConfirmationContent() {
                             {/* Order Total */}
                             <div className="flex justify-between items-center font-bold text-lg">
                                 <span>إجمالي المبلغ المستحق الآن (1)</span>
-                                <span>{isTrial ? '0.00' : (Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
+                                <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
                             </div>
-
-                            {/* After Trial Total (if trial and discount applied) */}
-                            {isTrial && couponApplied && (
-                                <div className="flex justify-between items-center font-bold text-lg text-green-600">
-                                    <span>المبلغ بعد التجربة (مع الخصم)</span>
-                                    <span>{(Number(packagePrice) - discount).toFixed(2)} ريال سعودي</span>
-                                </div>
-                            )}
-
-                            {/* Note */}
-                            <p className="text-xs text-gray-500 mt-4">
-                                {isTrial
-                                    ? '*يتطلب الوصول الكامل المستمر خطة تحضير امتحان مدفوعة'
-                                    : `*May be charged SAR ${(Number(packagePrice) - discount).toFixed(2)} automatically after subscription period`}
-                            </p>
                         </div>
                     </div>
 
