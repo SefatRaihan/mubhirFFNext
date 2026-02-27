@@ -1,15 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import PhoneInput from 'react-phone-number-input';
+import dynamic from 'next/dynamic';
 import 'react-phone-number-input/style.css';
-// DatePicker commented out - DOB will be collected in checkout page
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
 import type { SignupFormData, OtpGenerationResponse } from '@/types/auth';
+
+// Lazy-load the heavy PhoneInput component (~100KB+ with country data)
+const PhoneInput = dynamic(() => import('react-phone-number-input'), {
+    ssr: false,
+    loading: () => (
+        <input
+            className="w-full px-4 py-2 text-right bg-white"
+            placeholder="٠١١ ٢٣٤ ٥٦٧٨"
+            disabled
+        />
+    ),
+});
 
 /**
  * Signup Page Component
@@ -135,6 +144,7 @@ export default function SignupPage() {
                                     width={100}
                                     height={100}
                                     className="w-[100px] h-[100px]"
+                                    priority
                                 />
                                 <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                     مبهر
