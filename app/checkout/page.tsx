@@ -16,12 +16,10 @@ import type { CheckoutFormData } from '@/types/auth';
 /**
  * Checkout Page Component
  * 
- * Handles both free trial and paid package checkout flows.
+ * Handles paid package checkout flow only.
  * Pre-fills email and phone from signup (read-only).
- * Collects DOB, gender, and school grade.
- * Disables coupon for trial users.
- * 
- * UPDATED: Now uses /cms/tap/pay for both free trial and paid flows
+ * Gender, DOB, and school grade are pre-filled and read-only.
+ * Always sends amount to /cms/tap/pay and redirects to Tap payment gateway.
  */
 export default function CheckoutPage() {
     const router = useRouter();
@@ -46,11 +44,7 @@ export default function CheckoutPage() {
     const [discount, setDiscount] = useState(0);
     const [discountId, setDiscountId] = useState<number | null>(null);
     const [selectedPlan, setSelectedPlan] = useState<any>(null);
-    const [fromTrial, setFromTrial] = useState(false);
     const [dateOfBirthDate, setDateOfBirthDate] = useState<Date | null>(null);
-    const [autoRenew, setAutoRenew] = useState(true); // Auto-renew subscription checkbox (default: selected)
-    const [isTrial, setIsTrial] = useState(false); // Backend is_trial: 0 = can get trial, 1 = used trial
-    const [showCouponWarning, setShowCouponWarning] = useState(false); // Modal for coupon warning
 
     /**
      * Load user data and selected plan
@@ -75,9 +69,7 @@ export default function CheckoutPage() {
                 }
             }
 
-            // Check if this is a trial flow
-            const trialCookie = Cookies.get('fromTrial');
-            setFromTrial(trialCookie === 'true');
+
 
             // Fetch user data from API
             try {
@@ -98,8 +90,7 @@ export default function CheckoutPage() {
                     gender: userData.gender || '',
                     secondarySchoolGrade: userData.grade || '',
                 }));
-                // Set is_trial from user data: 0 = can get trial, 1 = used trial
-                setIsTrial(userData.is_trial === 1 || userData.is_trial === true);
+
 
                 // Pre-fill DatePicker date object if DOB exists
                 // Also convert to DD/MM/YYYY format for the API payload
@@ -250,7 +241,7 @@ export default function CheckoutPage() {
 
     /**
      * Handle form submission
-     * UPDATED: Always uses /cms/tap/pay API for both free trial and paid flows
+     * Always uses /cms/tap/pay API — paid flow only, redirects to Tap payment gateway
      */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -263,36 +254,10 @@ export default function CheckoutPage() {
                 return;
             }
 
-            // Calculate is_auto_subscribe and is_only_free based on 3 scenarios:
-            // Scenario 1: Auto-pay ON + is_trial=0 → is_auto_subscribe=1, is_only_free=0
-            // Scenario 2: Auto-pay OFF + is_trial=0 → is_auto_subscribe=0, is_only_free=1
-            // Scenario 3: is_trial=1 (used trial) → is_auto_subscribe=0, is_only_free=0
-            let isAutoSubscribe: number;
-            let isOnlyFree: number;
-
-            if (!isTrial && autoRenew) {
-                // Scenario 1: User can get trial + wants auto-subscribe
-                isAutoSubscribe = 1;
-                isOnlyFree = 0;
-            } else if (!isTrial && !autoRenew) {
-                // Scenario 2: User can get trial + does NOT want auto-subscribe
-                isAutoSubscribe = 0;
-                isOnlyFree = 1;
-            } else {
-                // Scenario 3: User already used trial - payment required
-                isAutoSubscribe = 0;
-                isOnlyFree = 0;
-            }
-
             // Save order data to localStorage for confirmation page
             const orderData = {
-                fromTrial,
                 selectedPlan,
                 discount,
-                autoRenew,
-                isTrial, // Backend is_trial value
-                isAutoSubscribe, // For callback API
-                isOnlyFree, // For callback API
                 ...formData,
             };
             localStorage.setItem('checkoutData', JSON.stringify(orderData));
@@ -305,26 +270,8 @@ export default function CheckoutPage() {
             const originalPrice = selectedPlan?.price || 0;
             const finalAmount = Math.max(0, Number(originalPrice) - discount).toFixed(2);
 
-            /**
-             * Payment logic based on backend is_trial field:
-             * 
-             * is_trial = 0 (false): User CAN get free trial (hasn't used it)
-             * is_trial = 1 (true): User has USED the free trial
-             * 
-             * Scenarios:
-             * 1. Auto-pay ON + is_trial == false (0): is_auto_subscribe = 1, NO amount
-             * 2. Auto-pay OFF + is_trial == false (0): is_auto_subscribe = 0, NO amount
-             * 3. is_trial == true (1): Amount must be sent
-             */
-            if (!isTrial) {
-                // User can get free trial - NO amount sent regardless of autoRenew
-                payload.append('is_auto_subscribe', autoRenew ? '1' : '0');
-                // No amount appended - user gets free trial
-            } else {
-                // User already used trial - MUST send amount
-                payload.append('is_auto_subscribe', '0');
-                payload.append('amount', finalAmount);
-            }
+            // Always send amount (paid flow only)
+            payload.append('amount', finalAmount);
 
             payload.append('first_name', formData.firstName);
             payload.append('last_name', formData.lastName);
@@ -341,94 +288,23 @@ export default function CheckoutPage() {
                 payload.append('discount_amount', discount.toString());
             }
 
-            // 🔍 Enhanced Debug Console for Checkout Payment
-            // console.group('%c💳 CHECKOUT PAYMENT DEBUG', 'color: #7A2060; font-size: 16px; font-weight: bold;');
-
-            // Scenario Detection
-            // const scenarioNumber = !isTrial ? (autoRenew ? 1 : 2) : 3;
-            // const scenarioDesc = {
-            //     1: 'Auto-pay ON + is_trial=0 → FREE TRIAL (No Amount)',
-            //     2: 'Auto-pay OFF + is_trial=0 → FREE TRIAL (No Amount)',
-            //     3: 'is_trial=1 → PAYMENT REQUIRED (Amount Sent)'
-            // };
-
-            // console.log('%c📋 ACTIVE SCENARIO: #' + scenarioNumber, 'color: #28235B; font-size: 14px; font-weight: bold;');
-            // console.log('%c' + scenarioDesc[scenarioNumber as keyof typeof scenarioDesc], 'color: #671E5A; font-style: italic;');
-
-            // console.group('%c🔑 Key Variables', 'color: #2563eb; font-weight: bold;');
-            // console.table({
-            //     'is_trial (Backend)': { value: isTrial, meaning: isTrial ? '1 = User USED free trial' : '0 = User CAN get trial' },
-            //     'autoRenew (Checkbox)': { value: autoRenew, meaning: autoRenew ? 'User wants auto-subscribe' : 'User does NOT want auto-subscribe' },
-            //     'fromTrial (Cookie)': { value: fromTrial, meaning: fromTrial ? 'Came from trial flow' : 'Came from paid flow' }
-            // });
-            // console.groupEnd();
-
-            // console.group('%c📤 API Payload Sent', 'color: #16a34a; font-weight: bold;');
-            // const apiPayload: Record<string, any> = {
-            //     'package_id': selectedPlan?.id || '0',
-            //     'is_auto_subscribe': !isTrial ? (autoRenew ? '1' : '0') : '0',
-            //     'first_name': formData.firstName,
-            //     'last_name': formData.lastName,
-            //     'email': formData.email,
-            //     'phone': formData.phone,
-            //     'date_of_birth': formData.dateOfBirth,
-            //     'gender': formData.gender,
-            //     'grade': formData.secondarySchoolGrade,
-            //     'endpoint': 'confirmation'
-            // };
-
-            // // Add amount only if isTrial is true
-            // if (isTrial) {
-            //     apiPayload['amount'] = finalAmount + ' SAR';
-            // } else {
-            //     apiPayload['amount'] = '❌ NOT SENT (Free Trial)';
-            // }
-
-            // // Add discount if applied
-            // if (discountId !== null && discount > 0) {
-            //     apiPayload['discount_id'] = discountId;
-            //     apiPayload['discount_amount'] = discount + ' SAR';
-            // }
-            // console.table(apiPayload);
-            // console.groupEnd();
-
-            // console.group('%c💵 Price Calculation', 'color: #ea580c; font-weight: bold;');
-            // console.table({
-            //     'Original Price': originalPrice + ' SAR',
-            //     'Discount Applied': discount > 0 ? '-' + discount + ' SAR' : 'None',
-            //     'Final Amount': !isTrial ? '0 SAR (Free Trial)' : finalAmount + ' SAR',
-            //     'Payment Required': isTrial ? '✅ YES' : '❌ NO'
-            // });
-            // console.groupEnd();
-
-            // console.groupEnd(); // End main group
-
-            // Call /cms/tap/pay API for both free trial and paid flows
+            // Call /cms/tap/pay API — always redirects to Tap payment gateway
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
             const data = response.data;
 
-            // Check response type:
-            // - If free trial activated: {message: "Free trail activated.", status: true}
-            // - If payment required: {charge: {data: {transaction: {url: "..."}}}}
-
-            if (data.message === 'Free trail activated.' && data.status === true) {
-                // Free trial was activated - redirect to confirmation page
-                router.push('/confirmation');
-            } else if (data.charge?.data?.transaction?.url) {
-                // Payment required - redirect to payment gateway
+            if (data.charge?.data?.transaction?.url) {
+                // Redirect to Tap payment gateway
                 window.location.href = data.charge.data.transaction.url;
             } else {
                 // Unexpected response format
-                // console.error('Unexpected response format:', data);
                 alert('حدث خطأ غير متوقع. حاول مرة أخرى لاحقًا.');
                 setSubmitting(false);
             }
 
         } catch (error: any) {
-            // console.error('Checkout error:', error);
             if (error?.response?.data) {
                 const errData = error.response.data;
                 const errorMsg = errData.errors
@@ -459,26 +335,7 @@ export default function CheckoutPage() {
             {/* Toast Notification Container */}
             <ToastContainer rtl={true} />
 
-            {/* Coupon Warning Modal */}
-            {showCouponWarning && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowCouponWarning(false)}>
-                    <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center" onClick={(e) => e.stopPropagation()}>
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FEF6FD] flex items-center justify-center">
-                            <svg className="w-8 h-8 text-[#7A2060]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                            </svg>
-                        </div>
-                        <h3 className="text-lg font-bold text-[#28235B] mb-2">تنبيه</h3>
-                        <p className="text-gray-600 mb-6">لا يمكن استخدام رمز القسيمة بدون الاشتراك التلقائي. تم إزالة القسيمة المطبقة.</p>
-                        <button
-                            onClick={() => setShowCouponWarning(false)}
-                            className="w-full bg-[#7A2060] text-white py-3 rounded-full font-semibold hover:bg-[#5a1848] transition"
-                        >
-                            حسناً
-                        </button>
-                    </div>
-                </div>
-            )}
+
 
             {/* Custom styles for react-datepicker */}
             <style jsx global>{`
@@ -716,8 +573,8 @@ export default function CheckoutPage() {
                                             value={formData.gender}
                                             onChange={handleChange}
                                             required
-                                            disabled={isTrial}
-                                            className={`w-full border border-gray-300 rounded px-4 py-2 ${isTrial ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
+                                            disabled={!!formData.gender}
+                                            className={`w-full border border-gray-300 rounded px-4 py-2 ${formData.gender ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
                                         >
                                             <option value="">اختر الجنس</option>
                                             <option value="male">ذكر</option>
@@ -736,11 +593,11 @@ export default function CheckoutPage() {
                                             minDate={new Date('1920-01-01')}
                                             placeholderText="اختر تاريخ الميلاد"
                                             required
-                                            disabled={isTrial}
+                                            disabled={!!dateOfBirthDate}
                                             showYearDropdown
                                             showMonthDropdown
                                             dropdownMode="select"
-                                            className={isTrial ? 'custom-datepicker bg-gray-100 text-gray-600 cursor-not-allowed' : 'custom-datepicker'}
+                                            className={dateOfBirthDate ? 'custom-datepicker bg-gray-100 text-gray-600 cursor-not-allowed' : 'custom-datepicker'}
                                         />
                                     </div>
                                 </div>
@@ -756,8 +613,8 @@ export default function CheckoutPage() {
                                         value={formData.secondarySchoolGrade}
                                         onChange={handleChange}
                                         required
-                                        disabled={isTrial}
-                                        className={`w-full border border-gray-300 rounded px-4 py-2 ${isTrial ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
+                                        disabled={!!formData.secondarySchoolGrade}
+                                        className={`w-full border border-gray-300 rounded px-4 py-2 ${formData.secondarySchoolGrade ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
                                     >
                                         <option value="">حدد الدرجة</option>
                                         <option value="اول ثانوي">اول ثانوي</option>
@@ -781,14 +638,12 @@ export default function CheckoutPage() {
                                     type="text"
                                     value={couponCode}
                                     onChange={(e) => setCouponCode(e.target.value)}
-                                    disabled={!autoRenew}
-                                    className={`flex-1 border border-gray-300 rounded px-1 py-1 ${!autoRenew ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]'}`}
+                                    className="flex-1 border border-gray-300 rounded px-1 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-[#7A2060]"
                                 />
                                 <button
                                     type="button"
                                     onClick={handleApplyCoupon}
-                                    disabled={!autoRenew}
-                                    className={`px-6 py-2 border rounded-full transition ${!autoRenew ? 'border-gray-300 text-gray-400 cursor-not-allowed' : 'border-[#7A2060] text-[#7A2060] hover:bg-[#7A2060] hover:text-white'}`}
+                                    className="px-6 py-2 border rounded-full transition border-[#7A2060] text-[#7A2060] hover:bg-[#7A2060] hover:text-white"
                                 >
                                     تطبيق الكود
                                 </button>
@@ -808,7 +663,7 @@ export default function CheckoutPage() {
                                 <div className="space-y-3">
                                     {/* Package Price */}
                                     <div className="flex justify-between items-center">
-                                        <span className="text-gray-700">Total</span>
+                                        <span className="text-gray-700">المجموع</span>
                                         <span className="font-semibold">{Number(packagePrice).toFixed(2)} ريال سعودي</span>
                                     </div>
 
