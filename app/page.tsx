@@ -25,6 +25,7 @@ import ReviewModal from "@/components/ReviewModal";
 import axios from "axios";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LeftArrowRQ from "@/public/icons/LeftArrowRQ";
 
 interface PricingPlan {
   id: number;
@@ -762,18 +763,20 @@ export default function Home() {
               ref={heroCtaRef}
               className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer opacity-0"
             >
-              <div className="relative inline-block">
+              <motion.div
+                className="relative inline-block"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Link href="/packages">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
+                  <button
+                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    أكتشف الأن
-                    <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
-                      <LeftArrow />
+                    احصل على تجربتك المجانية لمدة 3 أيام!
+                    <span className="relative flex items-center justify-center mr-3 bg-white  rounded-full">
+                      <LeftArrowRQ />
                     </span>
-                  </motion.button>
+                  </button>
                 </Link>
                 {/* <motion.div
                   initial={{ opacity: 0, rotate: 0 }}
@@ -793,10 +796,10 @@ export default function Home() {
                   src="/image/bitcoin2.png"
                   width={50}
                   height={50}
-                  className="absolute right-32 md:right-33 top-6"
+                  className="absolute left-0 -translate-x-1/2 top-6"
                   alt="bitcoin"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -873,14 +876,14 @@ export default function Home() {
       </section >
 
       {/* AI Based SAT Section */}
-      <section
+      < section
         ref={aiSatSectionRef}
         className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
       >
         {/* Circle Icon - positioned at top */}
-        <div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
+        < div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10" >
           <MiddleIcon />
-        </div>
+        </div >
         <div className="container max-w-6xl px-4 py-[48px] sm:py-[120px]">
           <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
             <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 md:leading-[70px] lg:leading-[76px] font-bold mb-3 sm:mb-4">
@@ -994,11 +997,12 @@ export default function Home() {
             </AnimatePresence>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* All in One Place */}
       < motion.section
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 50 }
+        }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}

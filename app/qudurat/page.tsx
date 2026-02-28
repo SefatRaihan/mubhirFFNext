@@ -13,6 +13,7 @@ import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
 import LeftArrow from "@/public/icons/LeftArrow";
+import LeftArrowRQ from "@/public/icons/LeftArrowRQ";
 import CircleCorrectIcon from "@/public/icons/CircleCorrectIcon";
 import CorrectIcon from "@/public/icons/CorrectIcon";
 import LeftClrArrow from "@/public/icons/LeftClrArrow";
@@ -186,28 +187,30 @@ export default function ArSatPage() {
               transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
               className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
             >
-              <div className="relative inline-block">
+              <motion.div
+                className="relative inline-block"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                 <Link href="/packages">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-white text-[#671e5a] font-medium rounded-full shadow-lg hover:bg-[#671e5a] hover:text-white transition-colors duration-300 cursor-pointer"
+                  <button
+                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    بدء الاستخدام
-                    <span className="relative flex items-center justify-center mr-3 bg-[#671e5a] text-white rounded-full">
-                      <LeftArrow />
+                    احصل على تجربتك المجانية لمدة 3 أيام!
+                    <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
+                      <LeftArrowRQ />
                     </span>
-                  </motion.button>
+                  </button>
                 </Link>
                 <Image
                   src="/image/bitcoin2.png"
-                  className="absolute right-32 md:right-33 top-6"
+                  className="absolute left-0 -translate-x-1/2 top-6"
                   alt="bitcoin2"
                   width={50}
                   height={50}
                 />
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 
