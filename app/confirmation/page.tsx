@@ -4,9 +4,15 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
-import { toast, ToastContainer } from 'react-toastify';
+import dynamic from 'next/dynamic';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import apiClient from '@/lib/axios';
+
+// Lazy-load ToastContainer (~50KB deferred)
+const ToastContainer = dynamic(
+    () => import('react-toastify').then((mod) => mod.ToastContainer),
+    { ssr: false }
+);
 
 /**
  * Confirmation Page Content Component
@@ -47,23 +53,14 @@ function ConfirmationContent() {
             const tapId = searchParams.get('tap_id');
             const token = Cookies.get('token');
 
-            // 🔍 DEBUG: Log confirmation page checks
-            console.log('[CONFIRMATION] 🔍 Page loaded');
-            console.log('[CONFIRMATION] tap_id:', tapId);
-            console.log('[CONFIRMATION] token:', token ? 'FOUND' : 'NOT FOUND');
-            console.log('[CONFIRMATION] All cookies:', document.cookie);
-            console.log('[CONFIRMATION] searchParams:', searchParams.toString());
-            console.log('[CONFIRMATION] Full URL:', window.location.href);
-
             // Only redirect to login if there's no token AND no tap_id
             // When returning from Tap payment gateway, token cookie may be lost
             // but tap_id in the URL proves this is a valid payment callback
             if (!token && !tapId) {
-                console.log('[CONFIRMATION] ❌ No token AND no tap_id → redirecting to /login');
                 router.push('/login');
                 return;
             }
-            console.log('[CONFIRMATION] ✅ Proceeding with verification');
+
 
             try {
                 // Load order data from localStorage first (needed for callback params)
@@ -76,10 +73,7 @@ function ConfirmationContent() {
 
                 // If tap_id exists, verify payment
                 if (tapId) {
-                    // Build callback URL
-                    const callbackUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/callback?tap_id=${tapId}`;
-
-                    const response = await axios.get(callbackUrl, {
+                    const response = await apiClient.get(`/cms/tap/callback?tap_id=${tapId}`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 
@@ -104,7 +98,7 @@ function ConfirmationContent() {
 
                 // Fetch user data
                 try {
-                    const userResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+                    const userResponse = await apiClient.get('/cms/me', {
                         headers: { Authorization: `Bearer ${token}` },
                     });
                     setUserData(userResponse.data);
@@ -141,15 +135,17 @@ function ConfirmationContent() {
      */
     useEffect(() => {
         if (success && !loading) {
-            // Show success toast with redirect message
-            toast.success('تم تفعيل اشتراكك بنجاح! 🎉\nسيتم توجيهك تلقائيًا خلال 5 ثوانٍ...', {
-                position: 'top-center',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                rtl: true,
+            // Show success toast with redirect message (lazy import)
+            import('react-toastify').then(({ toast }) => {
+                toast.success('تم تفعيل اشتراكك بنجاح! 🎉\nسيتم توجيهك تلقائيًا خلال 5 ثوانٍ...', {
+                    position: 'top-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    rtl: true,
+                });
             });
 
             // Auto-redirect after 5 seconds
@@ -188,6 +184,7 @@ function ConfirmationContent() {
                                     width={100}
                                     height={100}
                                     className="w-[100px] h-[100px]"
+                                    priority
                                 />
                                 <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                     مبهر
@@ -243,6 +240,7 @@ function ConfirmationContent() {
                                 width={100}
                                 height={100}
                                 className="w-[100px] h-[100px]"
+                                priority
                             />
                             <h1 className="text-[66px] md:text-[88px] font-semibold text-[#28235B] tracking-[-0.07em]">
                                 مبهر
