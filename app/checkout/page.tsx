@@ -3,15 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import PhoneInput from 'react-phone-number-input';
+import dynamic from 'next/dynamic';
 import 'react-phone-number-input/style.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import apiClient from '@/lib/axios';
 import 'react-toastify/dist/ReactToastify.css';
 import type { CheckoutFormData } from '@/types/auth';
+
+// Lazy-load heavy components
+const PhoneInput = dynamic(() => import('react-phone-number-input'), {
+    ssr: false,
+    loading: () => (
+        <input className="w-full px-4 py-2 text-right bg-gray-100" disabled />
+    ),
+});
+const ToastContainer = dynamic(
+    () => import('react-toastify').then((mod) => mod.ToastContainer),
+    { ssr: false }
+);
 
 /**
  * Checkout Page Component
@@ -73,7 +84,7 @@ export default function CheckoutPage() {
 
             // Fetch user data from API
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/me`, {
+                const response = await apiClient.get('/cms/me', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -161,11 +172,13 @@ export default function CheckoutPage() {
      */
     const handleApplyCoupon = async () => {
         if (!couponCode.trim()) {
+            const { toast } = await import('react-toastify');
             toast.error('الرجاء إدخال رمز القسيمة', { position: 'top-right', autoClose: 2000 });
             return;
         }
 
         if (!selectedPlan?.id) {
+            const { toast } = await import('react-toastify');
             toast.error('الرجاء اختيار باقة أولاً', { position: 'top-right', autoClose: 2000 });
             return;
         }
@@ -187,8 +200,8 @@ export default function CheckoutPage() {
             // console.log('📤 Sending request to:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`);
 
             // Call apply-discount API
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/apply-discount`,
+            const response = await apiClient.post(
+                '/cms/apply-discount',
                 formData,
                 {
                     headers: {
@@ -213,28 +226,33 @@ export default function CheckoutPage() {
 
                 setDiscount(Number(discountData.discount_amount));
                 setDiscountId(discountData.discount_id || null);
+                const { toast } = await import('react-toastify');
                 toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else if (response.data?.discount) {
                 // Fallback for different response format
                 // console.log('✅ Discount applied:', response.data.discount, 'SAR');
                 setDiscount(Number(response.data.discount));
                 setDiscountId(response.data.discount_id || null);
+                const { toast } = await import('react-toastify');
                 toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else if (response.data?.discount_amount) {
                 // Another fallback
                 // console.log('✅ Discount applied:', response.data.discount_amount, 'SAR');
                 setDiscount(Number(response.data.discount_amount));
                 setDiscountId(response.data.discount_id || null);
+                const { toast } = await import('react-toastify');
                 toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             } else {
                 // console.log('⚠️ No discount amount in response, but request succeeded');
                 // console.log('Response data:', response.data);
+                const { toast } = await import('react-toastify');
                 toast.success('تم تطبيق القسيمة بنجاح!', { position: 'top-right', autoClose: 2000 });
             }
         } catch (error: any) {
             // console.error('❌ Coupon application error:', error);
             // console.error('Error response:', error.response?.data);
             const errorMessage = error.response?.data?.message || error.response?.data?.error || 'رمز القسيمة غير صالح';
+            const { toast } = await import('react-toastify');
             toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
         }
     };
@@ -289,7 +307,7 @@ export default function CheckoutPage() {
             }
 
             // Call /cms/tap/pay API — always redirects to Tap payment gateway
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cms/tap/pay`, payload, {
+            const response = await apiClient.post('/cms/tap/pay', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -421,6 +439,7 @@ export default function CheckoutPage() {
                             width={80}
                             height={80}
                             className="w-20 h-20"
+                            priority
                         />
                         <h1 className="text-5xl font-bold text-[#28235B] mr-2">مبهر</h1>
                     </div>
