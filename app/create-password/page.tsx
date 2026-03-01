@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
@@ -13,6 +13,9 @@ const ToastContainer = dynamic(
     () => import('react-toastify').then((mod) => mod.ToastContainer),
     { ssr: false }
 );
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 /**
  * Form Data Interface
@@ -43,7 +46,9 @@ interface CreatePasswordResponse {
  * Create Password Page Component
  * 
  * Allows users to set their password after successful OTP verification.
- * After password creation, automatically logs in the user and redirects to packages page.
+ * After password creation, automatically logs in the user,
+ * then activates the free trial (if not already used) and redirects to dashboard.
+ * If trial is already used, redirects to packages page.
  */
 export default function CreatePasswordPage() {
     const router = useRouter();
@@ -77,6 +82,45 @@ export default function CreatePasswordPage() {
     // Loading state
     const [loading, setLoading] = useState(false);
 
+    // ─── Trial Modal State ───
+    const [showTrialModal, setShowTrialModal] = useState(false);
+    const [trialGender, setTrialGender] = useState('');
+    const [trialDOBDate, setTrialDOBDate] = useState<Date | null>(null);
+    const [trialGrade, setTrialGrade] = useState('');
+    const [trialSubmitting, setTrialSubmitting] = useState(false);
+
+    // ─── Result Modal State (success/error after trial API call) ───
+    const [showResultModal, setShowResultModal] = useState(false);
+    const [resultType, setResultType] = useState<'success' | 'error'>('success');
+    const resultTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Auto-close result modal (2s for error, 5s for success)
+    useEffect(() => {
+        if (showResultModal) {
+            const duration = 2000;
+            resultTimerRef.current = setTimeout(() => {
+                setShowResultModal(false);
+                if (resultType === 'success') {
+                    // Redirect to student dashboard
+                    const redirectUrl = Cookies.get('redirect_url');
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        router.push('/');
+                    }
+                } else {
+                    // Trial already used → redirect to packages
+                    router.push('/packages');
+                }
+            }, duration);
+        }
+        return () => {
+            if (resultTimerRef.current) {
+                clearTimeout(resultTimerRef.current);
+            }
+        };
+    }, [showResultModal, resultType, router]);
+
     /**
      * Password Validation Regex
      * Requires: 8+ chars, uppercase, lowercase, number, special character
@@ -90,6 +134,94 @@ export default function CreatePasswordPage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         // Clear errors when user types
         setErrors({ passwordMatch: '', passwordStrength: '', apiError: '' });
+    };
+
+    /**
+     * Handle trial modal proceed button
+     * Validates form, then calls /cms/free-trail API to activate trial
+     */
+    const handleTrialProceed = async () => {
+        if (!trialGender || !trialDOBDate || !trialGrade) {
+            const { toast } = await import('react-toastify');
+            toast.error('الرجاء ملء جميع الحقول المطلوبة', {
+                position: 'top-right',
+                autoClose: 2000,
+            });
+            return;
+        }
+
+        setTrialSubmitting(true);
+
+        const token = Cookies.get('token');
+
+        // Format DOB as DD/MM/YYYY for the API
+        const day = String(trialDOBDate.getDate()).padStart(2, '0');
+        const month = String(trialDOBDate.getMonth() + 1).padStart(2, '0');
+        const year = trialDOBDate.getFullYear();
+        const formattedDOB = `${day}/${month}/${year}`;
+
+        try {
+            // Build FormData payload
+            const payload = new FormData();
+            payload.append('gender', trialGender);
+            payload.append('date_of_birth', formattedDOB);
+            payload.append('grade', trialGrade);
+
+            const response = await apiClient.post('/cms/free-trail', payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data: any = response.data;
+
+            // Determine if user has already used trial
+            let hasUsed = false;
+
+            if (data) {
+                if (data.isExpired === true || data.isExpired === 'true' || data.isExpired === 1 || data.isExpired === '1') hasUsed = true;
+                if (data.is_expired === true || data.is_expired === 'true' || data.is_expired === 1 || data.is_expired === '1') hasUsed = true;
+                if (data.expired === true || data.expired === 'true' || data.expired === 1 || data.expired === '1') hasUsed = true;
+                if (data.status === 'expired' || data.status === 'used') hasUsed = true;
+                if (data.is_trial === 1 || data.is_trial === '1' || data.is_trial === true) hasUsed = true;
+            }
+
+            if (hasUsed) {
+                // Trial already used - show error result modal → will redirect to /packages
+                setShowTrialModal(false);
+                setTrialSubmitting(false);
+                setResultType('error');
+                setShowResultModal(true);
+                return;
+            }
+
+            // Store trial profile data in cookies
+            Cookies.set('fromTrial', 'true', { path: '/' });
+            Cookies.set('trialGender', trialGender, { path: '/' });
+            Cookies.set('trialDOB', formattedDOB, { path: '/' });
+            Cookies.set('trialGrade', trialGrade, { path: '/' });
+
+            // Show success result modal (will auto-redirect to dashboard after 5s)
+            setShowTrialModal(false);
+            setTrialSubmitting(false);
+            setResultType('success');
+            setShowResultModal(true);
+        } catch (error: any) {
+            // Handle 403 status (trial already used)
+            if (error?.response?.status === 403) {
+                setShowTrialModal(false);
+                setTrialSubmitting(false);
+                setResultType('error');
+                setShowResultModal(true);
+                return;
+            }
+            setTrialSubmitting(false);
+            const { toast } = await import('react-toastify');
+            toast.error('حدث خطأ. حاول مرة أخرى لاحقًا.', {
+                position: 'top-right',
+                autoClose: 3000,
+            });
+        }
     };
 
     /**
@@ -182,28 +314,64 @@ export default function CreatePasswordPage() {
                         // Clear signup data from localStorage
                         localStorage.removeItem('signupData');
 
-                        // Show success toast (lazy import to keep initial bundle small)
-                        const { toast } = await import('react-toastify');
-                        toast.success('تم إنشاء الحساب!.', {
-                            position: 'top-right',
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                        });
+                        // Show success toast (disabled for now)
+                        // const { toast } = await import('react-toastify');
+                        // toast.success('تم إنشاء الحساب!.', {
+                        //     position: 'top-right',
+                        //     autoClose: 2000,
+                        //     hideProgressBar: false,
+                        //     closeOnClick: true,
+                        //     pauseOnHover: true,
+                        //     draggable: true,
+                        // });
 
-                        // Redirect to packages page after a short delay
-                        setTimeout(() => {
-                            router.push('/packages');
-                        }, 500);
+                        // Check if user already has an active package → go to dashboard
+                        const hasActivePackage =
+                            loginData?.is_active_package === true ||
+                            loginData?.is_active_package === 'true';
+
+                        if (hasActivePackage && loginData.redirect_url) {
+                            // User already has active package → redirect to dashboard
+                            setTimeout(() => {
+                                window.location.href = loginData.redirect_url;
+                            }, 500);
+                            return;
+                        }
+
+                        // Check trial status via /cms/me
+                        try {
+                            const meResponse = await apiClient.get('/cms/me', {
+                                headers: {
+                                    Authorization: `Bearer ${loginData.token}`,
+                                },
+                            });
+
+                            const userData = meResponse.data;
+
+                            if (userData.is_trial === 1) {
+                                // User already used the free trial → redirect to packages
+                                setTimeout(() => {
+                                    router.push('/packages');
+                                }, 500);
+                            } else {
+                                // User hasn't used free trial → show trial modal
+                                setLoading(false);
+                                setTimeout(() => {
+                                    setShowTrialModal(true);
+                                }, 600);
+                            }
+                        } catch {
+                            // If /cms/me fails, show the trial modal anyway
+                            setLoading(false);
+                            setTimeout(() => {
+                                setShowTrialModal(true);
+                            }, 600);
+                        }
                     } else {
                         // Login failed after password creation
                         throw new Error(loginData?.message || 'Auto-login failed');
                     }
                 } catch (loginError: any) {
-                    // console.error('Auto-login error:', loginError);
-
                     // Clear signup data
                     localStorage.removeItem('signupData');
 
@@ -213,11 +381,6 @@ export default function CreatePasswordPage() {
                         position: 'top-right',
                         autoClose: 3000,
                     });
-
-                    // Don't redirect to login - let user stay on this page
-                    // setTimeout(() => {
-                    //     router.push('/login');
-                    // }, 500);
                 }
             } else {
                 setErrors((prev) => ({
@@ -226,8 +389,6 @@ export default function CreatePasswordPage() {
                 }));
             }
         } catch (error: any) {
-            // console.error('Create password error:', error);
-
             // Handle API error response
             if (error.response?.data?.message) {
                 setErrors((prev) => ({
@@ -372,6 +533,320 @@ export default function CreatePasswordPage() {
                     </div>
                 </div>
             </div>
+
+            {/* ─── Free Trial Modal (same as packages page) ─── */}
+            {showTrialModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={() => setShowTrialModal(false)}>
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+                        {/* Close Button */}
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowTrialModal(false);
+                                // If user closes modal without submitting, go to packages
+                                router.push('/packages');
+                            }}
+                            className="absolute top-4 left-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-500 hover:bg-white hover:text-gray-700 transition shadow-sm cursor-pointer"
+                        >
+                            ✕
+                        </button>
+
+                        {/* Gradient Header */}
+                        <div className="bg-linear-to-l from-[#7A2060] to-[#28235B] px-6 md:px-8 pt-8 pb-6 text-center">
+                            <div className="text-5xl mb-3">🎉</div>
+                            <h2 className="text-2xl font-bold text-white mb-2">
+                                ابدأ رحلتك نحو التفوق مجانًا!
+                            </h2>
+                            <p className="text-white/80 text-sm">
+                                أكمل بياناتك وابدأ تجربتك المجانية لمدة 3 أيام الآن
+                            </p>
+                        </div>
+
+                        {/* Form Fields */}
+                        <div className="px-6 md:px-8 py-6 space-y-5">
+                            {/* Gender & DOB side by side */}
+                            <div className="grid grid-cols-2 gap-4">
+                                {/* Gender */}
+                                <div>
+                                    <label htmlFor="trialGender" className="flex items-center gap-2 mb-2 font-semibold text-[#28235B] text-right">
+                                        <span className="text-lg">👤</span>
+                                        الجنس*
+                                    </label>
+                                    <select
+                                        id="trialGender"
+                                        value={trialGender}
+                                        onChange={(e) => setTrialGender(e.target.value)}
+                                        required
+                                        className="w-full bg-[#F9F5FB] border-2 border-gray-200 rounded-xl px-4 py-3 text-right focus:outline-none focus:ring-2 focus:ring-[#7A2060] focus:border-[#7A2060] transition-all"
+                                    >
+                                        <option value="">اختر الجنس</option>
+                                        <option value="male">ذكر</option>
+                                        <option value="female">أنثى</option>
+                                    </select>
+                                </div>
+
+                                {/* Date of Birth */}
+                                <div>
+                                    <label htmlFor="trialDOB" className="flex items-center gap-2 mb-2 font-semibold text-[#28235B] text-right">
+                                        <span className="text-lg">📅</span>
+                                        تاريخ الميلاد*
+                                    </label>
+                                    <DatePicker
+                                        selected={trialDOBDate}
+                                        onChange={(date: Date | null) => setTrialDOBDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        maxDate={new Date()}
+                                        minDate={new Date('1920-01-01')}
+                                        placeholderText="اختر تاريخ الميلاد"
+                                        showYearDropdown
+                                        showMonthDropdown
+                                        dropdownMode="select"
+                                        className="custom-datepicker-modal"
+                                        withPortal
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Secondary School Grade */}
+                            <div>
+                                <label htmlFor="trialGrade" className="flex items-center gap-2 mb-2 font-semibold text-[#28235B] text-right">
+                                    <span className="text-lg">🎓</span>
+                                    المرحلة الثانوية*
+                                </label>
+                                <select
+                                    id="trialGrade"
+                                    value={trialGrade}
+                                    onChange={(e) => setTrialGrade(e.target.value)}
+                                    required
+                                    className="w-full bg-[#F9F5FB] border-2 border-gray-200 rounded-xl px-4 py-3 text-right focus:outline-none focus:ring-2 focus:ring-[#7A2060] focus:border-[#7A2060] transition-all"
+                                >
+                                    <option value="">حدد الدرجة</option>
+                                    <option value="اول ثانوي">اول ثانوي</option>
+                                    <option value="ثاني ثانوي">ثاني ثانوي</option>
+                                    <option value="ثالث ثانوي">ثالث ثانوي</option>
+                                </select>
+                            </div>
+
+                            {/* Proceed Button */}
+                            <button
+                                type="button"
+                                onClick={handleTrialProceed}
+                                disabled={trialSubmitting}
+                                className="w-full bg-linear-to-l from-[#7A2060] to-[#9B3080] text-white py-3.5 rounded-full font-semibold hover:from-[#5a1848] hover:to-[#7A2060] transition-all shadow-lg shadow-[#7A2060]/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-lg"
+                            >
+                                {trialSubmitting ? 'جاري المعالجة...' : '🚀 ابدأ التجربة المجانية'}
+                            </button>
+
+                            {/* Trust Badge */}
+                            <p className="text-center text-xs text-gray-400 mt-2">
+                                🔒 بياناتك محمية ولن تتم مشاركتها
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ─── Result Modal (Success / Error) ─── */}
+            {showResultModal && (
+                <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className={`bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden result-modal-enter`}>
+                        {/* Top tinted background area */}
+                        <div className={`pt-10 pb-10 flex justify-center ${resultType === 'success' ? 'bg-emerald-50' : 'bg-red-50'
+                            }`}>
+                            <div className="relative w-32 h-32">
+                                {/* Outer pulsing glow rings */}
+                                <div className={`absolute inset-0 rounded-full result-glow-ring-1 ${resultType === 'success' ? 'bg-emerald-300' : 'bg-red-300'
+                                    }`} />
+                                <div className={`absolute inset-0 rounded-full result-glow-ring-2 ${resultType === 'success' ? 'bg-emerald-200' : 'bg-red-200'
+                                    }`} />
+
+                                {/* SVG circular progress border */}
+                                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 128 128">
+                                    {/* Background track */}
+                                    <circle
+                                        cx="64" cy="64" r="58"
+                                        fill="none"
+                                        stroke={resultType === 'success' ? '#d1fae5' : '#fecaca'}
+                                        strokeWidth="5"
+                                    />
+                                    {/* Animated progress */}
+                                    <circle
+                                        cx="64" cy="64" r="58"
+                                        fill="none"
+                                        stroke={resultType === 'success' ? '#10b981' : '#ef4444'}
+                                        strokeWidth="5"
+                                        strokeLinecap="round"
+                                        strokeDasharray="364.42"
+                                        strokeDashoffset="364.42"
+                                        className={resultType === 'error' ? 'result-progress-circle-error' : 'result-progress-circle-success'}
+                                    />
+                                </svg>
+
+                                {/* Inner icon circle */}
+                                <div className={`absolute inset-4 rounded-full flex items-center justify-center shadow-lg ${resultType === 'success'
+                                    ? 'bg-linear-to-br from-emerald-400 to-emerald-600'
+                                    : 'bg-linear-to-br from-red-400 to-red-600'
+                                    }`}>
+                                    {resultType === 'success' ? (
+                                        <svg className="w-14 h-14 text-white result-icon-animate" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" className="result-check-path" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="w-14 h-14 text-white result-icon-animate" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="px-8 pt-5 pb-8 text-center">
+                            <h3 className={`text-2xl font-bold mb-2 ${resultType === 'success' ? 'text-emerald-600' : 'text-red-600'
+                                }`}>
+                                {resultType === 'success'
+                                    ? 'تم تفعيل التجربة المجانية بنجاح!'
+                                    : 'لقد استخدمت النسخة التجريبية بالفعل'}
+                            </h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                {resultType === 'success'
+                                    ? 'سيتم تحويلك إلى لوحة التحكم خلال ثوانٍ...'
+                                    : 'سيتم تحويلك إلى صفحة الباقات...'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Custom styles for modal DatePicker & result animations */}
+            <style jsx global>{`
+                .custom-datepicker-modal {
+                    width: 100%;
+                    background-color: #F9F5FB;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 0.75rem;
+                    padding: 0.75rem 1rem;
+                    text-align: right;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    box-sizing: border-box;
+                }
+                
+                .custom-datepicker-modal:focus {
+                    outline: none;
+                    border: 2px solid #7a2060;
+                    box-shadow: 0 0 0 2px rgba(122, 32, 96, 0.15);
+                }
+                
+                .react-datepicker {
+                    font-family: inherit;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 0.75rem;
+                    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+                    overflow: hidden;
+                }
+                
+                .react-datepicker__header {
+                    background: linear-gradient(to left, #7a2060, #28235B);
+                    border-bottom: none;
+                    border-radius: 0;
+                    padding-top: 0.75rem;
+                }
+                
+                .react-datepicker__current-month,
+                .react-datepicker__day-name {
+                    color: white;
+                    font-weight: 600;
+                }
+                
+                .react-datepicker__year-select,
+                .react-datepicker__month-select {
+                    background-color: white;
+                    color: #7a2060;
+                    font-weight: 600;
+                    border: 1px solid rgba(255,255,255,0.4);
+                    border-radius: 0.375rem;
+                    padding: 0.25rem 0.5rem;
+                    cursor: pointer;
+                }
+                
+                .react-datepicker__year-select option,
+                .react-datepicker__month-select option {
+                    color: #1f2937;
+                }
+                
+                .react-datepicker__day--selected,
+                .react-datepicker__day--keyboard-selected {
+                    background-color: #7a2060 !important;
+                    color: white !important;
+                    border-radius: 50%;
+                }
+                
+                .react-datepicker__day:hover {
+                    background-color: #f3e8f0;
+                    border-radius: 50%;
+                }
+                
+                .react-datepicker__day--disabled {
+                    color: #d1d5db;
+                }
+
+                .react-datepicker__navigation-icon::before {
+                    border-color: white;
+                }
+
+                /* Result modal animations */
+                @keyframes resultModalEnter {
+                    0% { transform: scale(0.8); opacity: 0; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+
+                @keyframes circleProgress {
+                    from { stroke-dashoffset: 364.42; }
+                    to { stroke-dashoffset: 0; }
+                }
+
+                @keyframes iconPop {
+                    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+                    60% { transform: scale(1.15) rotate(0deg); }
+                    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+                }
+
+                @keyframes glowPulse1 {
+                    0%, 100% { transform: scale(1.2); opacity: 0.15; }
+                    50% { transform: scale(1.35); opacity: 0.25; }
+                }
+
+                @keyframes glowPulse2 {
+                    0%, 100% { transform: scale(1.45); opacity: 0.08; }
+                    50% { transform: scale(1.6); opacity: 0.15; }
+                }
+
+                .result-modal-enter {
+                    animation: resultModalEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+                }
+
+                .result-progress-circle-success {
+                    animation: circleProgress 2s linear forwards;
+                }
+
+                .result-progress-circle-error {
+                    animation: circleProgress 2s linear forwards;
+                }
+
+                .result-icon-animate {
+                    animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+                    opacity: 0;
+                }
+
+                .result-glow-ring-1 {
+                    animation: glowPulse1 2s ease-in-out infinite;
+                }
+
+                .result-glow-ring-2 {
+                    animation: glowPulse2 2s ease-in-out 0.5s infinite;
+                }
+            `}</style>
         </div>
     );
 }

@@ -768,7 +768,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link href="/packages">
+                <Link href="/signup">
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >

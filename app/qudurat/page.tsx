@@ -193,7 +193,7 @@ export default function ArSatPage() {
                 whileTap={{ scale: 0.95 }}
               >
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-                <Link href="/packages">
+                <Link href="/signup">
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
