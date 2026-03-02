@@ -158,7 +158,7 @@ export default function ArAboutUsPage() {
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image
-                    src="/image/Image-28.png"
+                    src="/image/avt1.png"
                     alt="student1"
                     width={55}
                     height={55}
@@ -171,7 +171,7 @@ export default function ArAboutUsPage() {
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image
-                    src="/image/Image-29.png"
+                    src="/image/avt4.png"
                     alt="student2"
                     width={55}
                     height={55}
@@ -184,7 +184,7 @@ export default function ArAboutUsPage() {
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image
-                    src="/image/Image-30.png"
+                    src="/image/avt3.png"
                     alt="student3"
                     width={55}
                     height={55}
