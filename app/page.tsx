@@ -963,7 +963,7 @@ export default function Home() {
                   {/* Link Button */}
                   <div className="mt-3 sm:mt-[14px]">
                     {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-                    <Link href="/packages">
+                    <Link href="/signup">
                       <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px] cursor-pointer">
                         <span>ابدأ الأن</span>
                         <span>

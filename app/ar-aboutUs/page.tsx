@@ -119,7 +119,7 @@ export default function ArAboutUsPage() {
             >
               <div className="relative inline-block">
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-                <Link href="/packages">
+                <Link href="/signup">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -446,7 +446,7 @@ export default function ArAboutUsPage() {
             delay={0.4}
           >
             {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-            <Link href="/packages">
+            <Link href="/signup">
               <button className="flex items-center bg-[#671e5a] text-white font-medium rounded-full pr-5 pl-2 py-2 shadow-lg">
                 ابدأ الآن
                 <span className="flex items-center justify-center mr-6 w-8 h-8 bg-white text-white rounded-full">
