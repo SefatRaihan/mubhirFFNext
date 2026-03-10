@@ -28,6 +28,7 @@ interface Package {
     pricing_terms: string;
     terms_per_month: string;
     promotional_badge: number;
+    package_type?: string;
     title_ar?: string;
     description_ar?: string;
     price_display?: string;
@@ -55,7 +56,7 @@ export default function PackagesPage() {
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
-    const [selectedExam, setSelectedExam] = useState<'sat1' | null>('sat1');
+    const [selectedExam, setSelectedExam] = useState<'sat1' | 'sat2' | null>('sat1');
 
     // Check if user has used trial (from API)
     const [hasUsedTrial, setHasUsedTrial] = useState(false);
@@ -398,10 +399,11 @@ export default function PackagesPage() {
                     >
                         <div className="flex items-start">
                             <input
-                                type="checkbox"
+                                type="radio"
+                                name="examType"
                                 checked={selectedExam === 'sat1'}
                                 onChange={() => setSelectedExam('sat1')}
-                                className="mt-1 ml-3 w-5 h-5 text-[#7A2060] border-gray-300 rounded focus:ring-[#7A2060]"
+                                className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
                                 <h3 className="text-lg font-bold text-black">اختبار قدرات الأول</h3>
@@ -412,17 +414,25 @@ export default function PackagesPage() {
                         </div>
                     </div>
 
-                    {/* SAT II - Coming Soon */}
-                    <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50 opacity-60 cursor-not-allowed">
+                    {/* SAT II */}
+                    <div
+                        onClick={() => setSelectedExam('sat2')}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedExam === 'sat2'
+                            ? 'border-[#7A2060] bg-[#FFF5FC]'
+                            : 'border-gray-300 bg-white'
+                            }`}
+                    >
                         <div className="flex items-start">
                             <input
-                                type="checkbox"
-                                disabled
-                                className="mt-1 ml-3 w-5 h-5 border-gray-300 rounded"
+                                type="radio"
+                                name="examType"
+                                checked={selectedExam === 'sat2'}
+                                onChange={() => setSelectedExam('sat2')}
+                                className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
-                                <h3 className="text-lg font-bold text-gray-500">اختبار SAT II (قريبًا)</h3>
-                                <p className="text-sm text-gray-400">
+                                <h3 className="text-lg font-bold text-black">اختبار دورات التحصيلي</h3>
+                                <p className="text-sm text-gray-600">
                                     للمتخصصين في مجالات محددة والذين يتطلعون إلى صقل مهاراتهم
                                 </p>
                             </div>
@@ -448,7 +458,11 @@ export default function PackagesPage() {
                     <>
                         {/* Package Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                            {packages.slice(0, 4).map((pkg) => (
+                            {packages.filter((pkg) => {
+                                if (selectedExam === 'sat1') return pkg.package_type === 'SAT 1';
+                                if (selectedExam === 'sat2') return pkg.package_type === 'SAT 2';
+                                return true;
+                            }).map((pkg) => (
                                 <div
                                     key={pkg.id}
                                     className="border-2 border-gray-300 bg-white rounded-lg p-5"
