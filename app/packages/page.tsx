@@ -399,10 +399,11 @@ export default function PackagesPage() {
                     >
                         <div className="flex items-start">
                             <input
-                                type="checkbox"
+                                type="radio"
+                                name="examType"
                                 checked={selectedExam === 'sat1'}
                                 onChange={() => setSelectedExam('sat1')}
-                                className="mt-1 ml-3 w-5 h-5 text-[#7A2060] border-gray-300 rounded focus:ring-[#7A2060]"
+                                className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
                                 <h3 className="text-lg font-bold text-black">اختبار قدرات الأول</h3>
@@ -423,10 +424,11 @@ export default function PackagesPage() {
                     >
                         <div className="flex items-start">
                             <input
-                                type="checkbox"
+                                type="radio"
+                                name="examType"
                                 checked={selectedExam === 'sat2'}
                                 onChange={() => setSelectedExam('sat2')}
-                                className="mt-1 ml-3 w-5 h-5 text-[#7A2060] border-gray-300 rounded focus:ring-[#7A2060]"
+                                className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
                                 <h3 className="text-lg font-bold text-black">اختبار دورات التحصيلي</h3>
