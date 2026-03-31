@@ -197,7 +197,7 @@ export default function ArSatPage() {
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    احصل على تجربتك المجانية لمدة 3 أيام!
+                    احصل على تجربتك المجانية لمدة ٣٠ يومًا!
                     <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
                       <LeftArrowRQ />
                     </span>
