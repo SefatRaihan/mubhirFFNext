@@ -83,21 +83,53 @@ function ConfirmationContent() {
                 // If transactionNo exists, verify payment
                 if (transactionNo) {
                     console.log('📤 Calling callback API:', `/cms/paylink/callback?transactionNo=${transactionNo}`);
-                    const response = await apiClient.get(`/cms/paylink/callback?transactionNo=${transactionNo}`, {
-                        headers: { Authorization: `Bearer ${token}` },
-                    });
+                    
+                    try {
+                        const response = await apiClient.get(`/cms/paylink/callback?transactionNo=${transactionNo}`, {
+                            headers: { Authorization: `Bearer ${token}` },
+                        });
 
-                    const data = response.data;
-                    console.log('📥 Callback response:', JSON.stringify(data, null, 2));
+                        const data = response.data;
+                        console.log('📥 Callback response:', JSON.stringify(data, null, 2));
 
-                    if (looksSuccessful(data)) {
-                        setSuccess(true);
-                        setApiMessage(data.message || 'Payment successful.');
-                        // Clean URL
-                        window.history.replaceState({}, document.title, '/confirmation');
-                    } else {
-                        setSuccess(false);
-                        setApiMessage(data.message || 'Payment verification failed.');
+                        // PAID (200) — { ok: true, message: "Payment successful! ..." }
+                        if (data.ok === true) {
+                            setSuccess(true);
+                            setApiMessage(data.message || 'تم الدفع بنجاح!');
+                            window.history.replaceState({}, document.title, '/confirmation');
+                        } else {
+                            setSuccess(false);
+                            setApiMessage(data.message || 'فشل التحقق من الدفع.');
+                            setLoading(false);
+                            return;
+                        }
+                    } catch (callbackError: any) {
+                        console.error('❌ Callback API error:', callbackError);
+                        const errData = callbackError?.response?.data;
+                        console.error('❌ Callback error data:', errData);
+
+                        if (errData) {
+                            // PENDING/DECLINED (400) — { ok: false, message: "Do Not Honor", errors: [...] }
+                            // CANCELLED (400) — { ok: false, message: "Payment was cancelled." }
+                            let errorMsg = errData.message || 'فشل الدفع.';
+                            
+                            // If there are detailed errors, append them
+                            if (errData.errors && Array.isArray(errData.errors) && errData.errors.length > 0) {
+                                const errorDetails = errData.errors
+                                    .map((err: any) => err.errorMessage || err.errorTitle || '')
+                                    .filter(Boolean)
+                                    .join(', ');
+                                if (errorDetails) {
+                                    errorMsg = `${errData.message}: ${errorDetails}`;
+                                }
+                            }
+                            
+                            setSuccess(false);
+                            setApiMessage(errorMsg);
+                        } else {
+                            setSuccess(false);
+                            setApiMessage('حدث خطأ. حاول مرة أخرى.');
+                        }
                         setLoading(false);
                         return;
                     }
@@ -119,7 +151,7 @@ function ConfirmationContent() {
 
             } catch (error) {
                 console.error('❌ Error verifying payment:', error);
-                setApiMessage('An error occurred. Please try again.');
+                setApiMessage('حدث خطأ. حاول مرة أخرى.');
                 setSuccess(false);
             } finally {
                 setLoading(false);
