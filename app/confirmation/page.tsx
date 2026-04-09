@@ -55,15 +55,22 @@ function ConfirmationContent() {
             console.log('🔍 Full URL:', window.location.href);
             console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
 
-            const transactionNo = searchParams.get('transactionNo') || searchParams.get('orderNumber');
+            // Try to get transactionNo from URL first, then fallback to localStorage
+            const transactionNo = searchParams.get('transactionNo') 
+                || searchParams.get('orderNumber') 
+                || localStorage.getItem('paylink_transactionNo');
             const token = Cookies.get('token');
 
             console.log('🔑 Token:', token ? 'exists' : 'MISSING');
-            console.log('🧾 transactionNo:', transactionNo);
+            console.log('🧾 transactionNo:', transactionNo, 
+                transactionNo ? `(from ${searchParams.get('transactionNo') ? 'URL' : 'localStorage'})` : '');
+
+            // Clean up localStorage after reading
+            if (transactionNo && localStorage.getItem('paylink_transactionNo')) {
+                localStorage.removeItem('paylink_transactionNo');
+            }
 
             // Only redirect to login if there's no token AND no transactionNo
-            // When returning from payment gateway, token cookie may be lost
-            // but transactionNo in the URL proves this is a valid payment callback
             if (!token && !transactionNo) {
                 console.log('❌ No token and no transactionNo — redirecting to login');
                 router.push('/login');

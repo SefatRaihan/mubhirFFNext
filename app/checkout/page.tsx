@@ -320,6 +320,11 @@ export default function CheckoutPage() {
 
             if (data.transaction_url) {
                 console.log('✅ Redirect URL found:', data.transaction_url);
+                // Save transactionNo to localStorage so confirmation page can use it
+                // even if Paylink doesn't include it in the redirect URL
+                if (data.transactionNo) {
+                    localStorage.setItem('paylink_transactionNo', data.transactionNo);
+                }
                 window.location.href = data.transaction_url;
             } else {
                 console.error('❌ No redirect URL in response. Full response:', data);
