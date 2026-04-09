@@ -50,13 +50,22 @@ function ConfirmationContent() {
      */
     useEffect(() => {
         const verifyAndLoad = async () => {
-            const transactionNo = searchParams.get('transactionNo');
+            // Log all URL params for debugging
+            console.log('🔍 Confirmation page loaded');
+            console.log('🔍 Full URL:', window.location.href);
+            console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
+
+            const transactionNo = searchParams.get('transactionNo') || searchParams.get('orderNumber');
             const token = Cookies.get('token');
+
+            console.log('🔑 Token:', token ? 'exists' : 'MISSING');
+            console.log('🧾 transactionNo:', transactionNo);
 
             // Only redirect to login if there's no token AND no transactionNo
             // When returning from payment gateway, token cookie may be lost
             // but transactionNo in the URL proves this is a valid payment callback
             if (!token && !transactionNo) {
+                console.log('❌ No token and no transactionNo — redirecting to login');
                 router.push('/login');
                 return;
             }
@@ -73,11 +82,13 @@ function ConfirmationContent() {
 
                 // If transactionNo exists, verify payment
                 if (transactionNo) {
+                    console.log('📤 Calling callback API:', `/cms/paylink/callback?transactionNo=${transactionNo}`);
                     const response = await apiClient.get(`/cms/paylink/callback?transactionNo=${transactionNo}`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 
                     const data = response.data;
+                    console.log('📥 Callback response:', JSON.stringify(data, null, 2));
 
                     if (looksSuccessful(data)) {
                         setSuccess(true);
@@ -103,11 +114,11 @@ function ConfirmationContent() {
                     });
                     setUserData(userResponse.data);
                 } catch (userError) {
-                    // Silently ignore user data fetch errors
+                    console.error('⚠️ Failed to fetch user data:', userError);
                 }
 
             } catch (error) {
-                // console.error('Error verifying payment:', error);
+                console.error('❌ Error verifying payment:', error);
                 setApiMessage('An error occurred. Please try again.');
                 setSuccess(false);
             } finally {
