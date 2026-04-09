@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
@@ -41,6 +41,7 @@ interface PricingPlan {
   terms_ar: string;
   promotional_badge?: number;
   features: string[];
+  package_type?: string;
 }
 
 interface Review {
@@ -56,6 +57,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('tab1');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [pricingType, setPricingType] = useState<'qudrat' | 'tahsili'>('qudrat');
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(true);
@@ -635,7 +637,7 @@ export default function Home() {
 
           const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d)]);
 
-          const plans = json.data.slice(0, 4).map((plan: any) => ({
+          const plans = json.data.map((plan: any) => ({
             ...plan,
             title_ar: titleTranslations[plan.title] || plan.title,
             description_ar: descriptionTranslations[plan.description] || plan.description,
@@ -1166,9 +1168,57 @@ export default function Home() {
             اختر الخطة التي تناسب ميزانيتك وتدعم هدفك
           </motion.p>
 
+          {/* SAT1 / SAT2 Toggle */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            className="flex justify-center mt-6 sm:mt-8"
+          >
+            <div className="inline-flex rounded-full p-1 gap-2">
+              {[
+                { key: 'qudrat' as const, label: 'قدرات' },
+                { key: 'tahsili' as const, label: 'تحصيلي' },
+              ].map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => setPricingType(item.key)}
+                  className="relative flex items-center gap-2 rounded-2xl text-sm sm:text-base font-semibold transition-all duration-300 cursor-pointer text-[#671E5A] border border-[#A16A99]"
+                  style={{
+                    padding: '16px 20px 16px 16px',
+                    backgroundColor: pricingType === item.key
+                      ? '#F1E9F0'
+                      : 'rgba(241, 233, 240, 0.9)',
+                    boxShadow: pricingType === item.key
+                      ? '0 0 20px 0 rgba(255, 255, 255, 0.5)'
+                      : 'none',
+                  }}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full border-2 border-[#A16A99] flex items-center justify-center transition-colors duration-300">
+                      {pricingType === item.key && (
+                        <motion.span
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="w-2.5 h-2.5 rounded-full bg-[#671E5A]"
+                        />
+                      )}
+                    </span>
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
             <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
-              {pricingPlans.map((plan, index) => (
+              {pricingPlans.filter((plan) => {
+                if (pricingType === 'qudrat') return plan.package_type === 'SAT 1';
+                if (pricingType === 'tahsili') return plan.package_type === 'SAT 2';
+                return true;
+              }).map((plan, index) => (
                 <motion.div
                   key={plan.id}
                   initial={{ opacity: 0, y: 50, rotateX: -15 }}
