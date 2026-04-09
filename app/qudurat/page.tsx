@@ -35,6 +35,7 @@ interface PricingPlan {
   terms_ar: string;
   promotional_badge?: number;
   features: string[];
+  package_type?: string;
 }
 
 export default function ArSatPage() {
@@ -108,7 +109,7 @@ export default function ArSatPage() {
 
           const toArabicDigits = (s: string) => String(s).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d)]);
 
-          const plans = json.data.slice(0, 4).map((plan: any) => ({
+          const plans = json.data.filter((p: any) => p.package_type === 'SAT 1').map((plan: any) => ({
             ...plan,
             title_ar: titleTranslations[plan.title] || plan.title,
             description_ar: descriptionTranslations[plan.description] || plan.description,
