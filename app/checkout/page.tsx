@@ -30,7 +30,7 @@ const ToastContainer = dynamic(
  * Handles paid package checkout flow only.
  * Pre-fills email and phone from signup (read-only).
  * Gender, DOB, and school grade are pre-filled and read-only.
- * Always sends amount to /cms/tap/pay and redirects to Tap payment gateway.
+ * Always sends amount to /cms/paylink/pay and redirects to payment gateway.
  */
 export default function CheckoutPage() {
     const router = useRouter();
@@ -259,14 +259,16 @@ export default function CheckoutPage() {
 
     /**
      * Handle form submission
-     * Always uses /cms/tap/pay API — paid flow only, redirects to Tap payment gateway
+     * Always uses /cms/paylink/pay API — paid flow only, redirects to payment gateway
      */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
+        console.log('🚀 handleSubmit started');
 
         try {
             const token = Cookies.get('token');
+            console.log('🔑 Token:', token ? 'exists' : 'MISSING');
             if (!token) {
                 router.push('/login');
                 return;
@@ -280,49 +282,55 @@ export default function CheckoutPage() {
             };
             localStorage.setItem('checkoutData', JSON.stringify(orderData));
 
-            // Prepare form data for /cms/tap/pay API
-            const payload = new FormData();
-            payload.append('package_id', selectedPlan?.id || '0');
-
-            // Calculate final amount (apply discount if any)
+            // Prepare JSON payload for /cms/paylink/pay API
             const originalPrice = selectedPlan?.price || 0;
             const finalAmount = Math.max(0, Number(originalPrice) - discount).toFixed(2);
 
-            // Always send amount (paid flow only)
-            payload.append('amount', finalAmount);
-
-            payload.append('first_name', formData.firstName);
-            payload.append('last_name', formData.lastName);
-            payload.append('email', formData.email);
-            payload.append('phone', formData.phone);
-            payload.append('date_of_birth', formData.dateOfBirth);
-            payload.append('gender', formData.gender);
-            payload.append('grade', formData.secondarySchoolGrade);
-            payload.append('endpoint', 'confirmation');
+            const payload: Record<string, any> = {
+                package_id: selectedPlan?.id || '0',
+                amount: finalAmount,
+                first_name: formData.firstName,
+                last_name: formData.lastName,
+                email: formData.email,
+                phone: formData.phone,
+                date_of_birth: formData.dateOfBirth,
+                gender: formData.gender,
+                grade: formData.secondarySchoolGrade,
+                endpoint: 'confirmation',
+            };
 
             // Add discount information if coupon was applied
             if (discountId !== null && discount > 0) {
-                payload.append('discount_id', discountId.toString());
-                payload.append('discount_amount', discount.toString());
+                payload.discount_id = discountId;
+                payload.discount_amount = discount;
             }
 
-            // Call /cms/tap/pay API — always redirects to Tap payment gateway
-            const response = await apiClient.post('/cms/tap/pay', payload, {
-                headers: { Authorization: `Bearer ${token}` },
+            console.log('📤 Sending payload to /cms/paylink/pay:', JSON.stringify(payload, null, 2));
+
+            // Call /cms/paylink/pay API — redirects to payment gateway
+            const response = await apiClient.post('/cms/paylink/pay', payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             const data = response.data;
+            console.log('📥 API Response:', JSON.stringify(data, null, 2));
 
-            if (data.charge?.data?.transaction?.url) {
-                // Redirect to Tap payment gateway
-                window.location.href = data.charge.data.transaction.url;
+            if (data.transaction_url) {
+                console.log('✅ Redirect URL found:', data.transaction_url);
+                window.location.href = data.transaction_url;
             } else {
-                // Unexpected response format
+                console.error('❌ No redirect URL in response. Full response:', data);
                 alert('حدث خطأ غير متوقع. حاول مرة أخرى لاحقًا.');
                 setSubmitting(false);
             }
 
         } catch (error: any) {
+            console.error('❌ handleSubmit error:', error);
+            console.error('❌ Error response data:', error?.response?.data);
+            console.error('❌ Error status:', error?.response?.status);
             if (error?.response?.data) {
                 const errData = error.response.data;
                 const errorMsg = errData.errors

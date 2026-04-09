@@ -50,13 +50,13 @@ function ConfirmationContent() {
      */
     useEffect(() => {
         const verifyAndLoad = async () => {
-            const tapId = searchParams.get('tap_id');
+            const transactionNo = searchParams.get('transactionNo');
             const token = Cookies.get('token');
 
-            // Only redirect to login if there's no token AND no tap_id
-            // When returning from Tap payment gateway, token cookie may be lost
-            // but tap_id in the URL proves this is a valid payment callback
-            if (!token && !tapId) {
+            // Only redirect to login if there's no token AND no transactionNo
+            // When returning from payment gateway, token cookie may be lost
+            // but transactionNo in the URL proves this is a valid payment callback
+            if (!token && !transactionNo) {
                 router.push('/login');
                 return;
             }
@@ -71,9 +71,9 @@ function ConfirmationContent() {
                     setOrderData(parsedOrderData);
                 }
 
-                // If tap_id exists, verify payment
-                if (tapId) {
-                    const response = await apiClient.get(`/cms/tap/callback?tap_id=${tapId}`, {
+                // If transactionNo exists, verify payment
+                if (transactionNo) {
+                    const response = await apiClient.get(`/cms/paylink/callback?transactionNo=${transactionNo}`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 
@@ -91,7 +91,7 @@ function ConfirmationContent() {
                         return;
                     }
                 } else {
-                    // No tap_id means free trial or already verified
+                    // No transactionNo means free trial or already verified
                     setSuccess(true);
                     setApiMessage('Your Subscription has been Activated!');
                 }
