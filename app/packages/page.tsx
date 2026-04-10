@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
@@ -49,7 +49,7 @@ interface PackagesResponse {
  * Displays available SAT preparation packages with pricing and features.
  * Shows 5-day trial option only for users who haven't used it yet.
  */
-export default function PackagesPage() {
+function PackagesPageContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -885,5 +885,13 @@ export default function PackagesPage() {
                 }
             `}</style>
         </div>
+    );
+}
+
+export default function PackagesPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#671E5A]"></div></div>}>
+            <PackagesPageContent />
+        </Suspense>
     );
 }
