@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import Navbar from "@/components/Navber/Navbar";
 import Footer from "@/components/Footer/Footer";
 import WhatsappIcon from "@/public/icons/WhatsappIcon";
@@ -35,8 +37,19 @@ interface PricingPlan {
 }
 
 export default function ArSat2Page() {
+    const router = useRouter();
     const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
     const [activeTab, setActiveTab] = useState("tab1");
+
+    const handlePackageSelect = (plan: PricingPlan) => {
+        Cookies.set('selectedPlan', JSON.stringify(plan), { path: '/' });
+        const token = Cookies.get('token');
+        if (!token) {
+            router.push('/login');
+            return;
+        }
+        window.location.href = '/checkout';
+    };
 
     // Fetch pricing plans
     useEffect(() => {
@@ -1117,17 +1130,16 @@ export default function ArSat2Page() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <Link href="/packages">
-                                        <motion.button
+                                    <motion.button
+                                            onClick={() => handlePackageSelect(plan)}
                                             whileTap={{ scale: 0.95 }}
-                                            className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group"
+                                            className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
                                         >
                                             <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
                                             <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                                                 ابدأ {plan.title_ar}
                                             </span>
                                         </motion.button>
-                                    </Link>
                                 </ScrollDiv>
                             ))}
                         </div>
