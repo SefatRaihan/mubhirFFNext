@@ -1347,22 +1347,62 @@ export default function Home() {
                     ))}
                   </ul>
                   <motion.button
-                      onClick={() => handlePackageSelect(plan)}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
-                    >
-                      <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
-                      <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                        ابدأ {plan.title_ar}
-                      </span>
-                    </motion.button>
+                    onClick={() => handlePackageSelect(plan)}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
+                  >
+                    <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+                    <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                      ابدأ {plan.title_ar}
+                    </span>
+                  </motion.button>
                 </motion.div>
               ))}
             </div>
+
+            {/* Free Trial Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex justify-center mt-10"
+            >
+              <motion.button
+                onClick={() => {
+                  Cookies.set('trialAudience', pricingType === 'tahsili' ? 'sat2' : 'sat1', { path: '/' });
+                  router.push('/signup');
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-4 py-1 pr-6 pl-1 bg-[#EBE5F5] font-semibold rounded-full cursor-pointer"
+                style={{ boxShadow: '0 0 20px rgba(255, 255, 255, 0.5)' }}
+              >
+                <span
+                  className="font-semibold"
+                  style={{
+                    background: 'linear-gradient(to left, #6F0767, #2A056D)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  احصل على تجربتك المجانية لمدة ٣٠ يومًا!
+                </span>
+                <span
+                  className="flex items-center justify-center w-10 h-10 rounded-full"
+                  style={{ background: 'linear-gradient(to left, #6F0767, #2A056D)' }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 12H5" />
+                    <path d="M12 19l-7-7 7-7" />
+                  </svg>
+                </span>
+              </motion.button>
+            </motion.div>
           </main>
         </div>
       </motion.section >
