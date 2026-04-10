@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
@@ -512,42 +512,42 @@ export default function Home() {
   // Features data
   const featuresData = [
     {
-      iconSrc: '/image/icon/feature-icon-1.png',
+      iconSrc: '/image/icon/feature-icon-1.webp',
       text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-2.png',
+      iconSrc: '/image/icon/feature-icon-2.webp',
       text: 'شرح مبسط ومتكامل لجميع وحدات المنهج',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-3.png',
+      iconSrc: '/image/icon/feature-icon-3.webp',
       text: 'شروحات فيديو للمنهج كاملا',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-4.png',
+      iconSrc: '/image/icon/feature-icon-4.webp',
       text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-5.png',
+      iconSrc: '/image/icon/feature-icon-5.webp',
       text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-6.png',
+      iconSrc: '/image/icon/feature-icon-6.webp',
       text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-7.png',
+      iconSrc: '/image/icon/feature-icon-7.webp',
       text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-8.png',
+      iconSrc: '/image/icon/feature-icon-8.webp',
       text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول',
 
     }
@@ -818,14 +818,14 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/avt1.png" width={55} height={55} alt="student1" />
+                  <Image src="/image/avt1.webp" width={55} height={55} alt="student1" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/avt4.png" width={55} height={55} alt="student2" />
+                  <Image src="/image/avt4.webp" width={55} height={55} alt="student2" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
@@ -833,7 +833,7 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
-                  <Image src="/image/avt3.png" width={55} height={55} alt="student3" />
+                  <Image src="/image/avt3.webp" width={55} height={55} alt="student3" />
                 </motion.div>
               </div>
               <motion.span
@@ -989,7 +989,7 @@ export default function Home() {
                 className="bg-[#291548] rounded-xl p-4 sm:p-6 flex items-center justify-center overflow-hidden"
               >
                 <Image
-                  src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.jpg`}
+                  src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.webp`}
                   width={600}
                   height={400}
                   alt={activeTab === 'tab1' ? 'اسأل من خلال صورة أو نص - المدرسون' : activeTab === 'tab2' ? 'توقع الدرجة - طريقة بديلة للإجابة' : activeTab === 'tab3' ? 'اقتراح اختبار - الاختبارات' : 'شرح الموضوع - الشروحات'}
@@ -1078,7 +1078,7 @@ export default function Home() {
                 ref={videoRef}
                 id="videoPlayer"
                 className="w-full h-full object-cover cursor-pointer"
-                poster="/image/poster.png"
+                poster="/image/poster.webp"
                 preload="metadata"
                 onClick={handleVideoClick}
               >
@@ -1448,7 +1448,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
           >
-            <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+            <Image src="/image/review-cover.webp" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
           </motion.div>
 
           {/* Content Grid */}
@@ -1620,7 +1620,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="lg:hidden mt-8 w-full"
             >
-              <Image src="/image/review-cover.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+              <Image src="/image/review-cover.webp" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
             </motion.div>
           </div>
         </div>
