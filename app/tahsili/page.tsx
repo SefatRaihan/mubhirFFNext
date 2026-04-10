@@ -11,9 +11,11 @@ import TiktokIcon from "@/public/icons/TiktokIcon";
 import TelegramIcon from "@/public/icons/TelegramIcon";
 import XIcon from "@/public/icons/XIcon";
 import SnapIcon from "@/public/icons/SnapIcon";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ScrollAnimated, ScrollSection, ScrollDiv, ScrollH2, ScrollP } from "@/components/ScrollAnimated/ScrollAnimated";
 import axios from "axios";
+import LeftArrowRQ from "@/public/icons/LeftArrowRQ";
+import CircleCorrectIcon from "@/public/icons/CircleCorrectIcon";
 
 interface PricingPlan {
     id: number;
@@ -34,6 +36,7 @@ interface PricingPlan {
 
 export default function ArSat2Page() {
     const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+    const [activeTab, setActiveTab] = useState("tab1");
 
     // Fetch pricing plans
     useEffect(() => {
@@ -138,8 +141,39 @@ export default function ArSat2Page() {
                             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
                             className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
-                            المزيد حول ما سنقدمه أدناه!
+                            اختبار SAT هو بوابتك إلى أفضل الجامعات، وفي مبهر، نضمن لك أن تكون مستعدًا تمامًا للتفوق فيه.
                         </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+                            className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+                        >
+                            <motion.div
+                                className="relative inline-block"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
+                                <Link href="/signup">
+                                    <button
+                                        className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
+                                    >
+                                        احصل على تجربتك المجانية لمدة ٣٠ يومًا!
+                                        <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
+                                            <LeftArrowRQ />
+                                        </span>
+                                    </button>
+                                </Link>
+                                <Image
+                                    src="/image/bitcoin2.png"
+                                    className="absolute left-0 -translate-x-1/2 top-6"
+                                    alt="bitcoin2"
+                                    width={50}
+                                    height={50}
+                                />
+                            </motion.div>
+                        </motion.div>
                     </div>
 
                     {/* Social Section */}
@@ -245,18 +279,18 @@ export default function ArSat2Page() {
                         className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
                         amount={0.5}
                     >
-                        نحن نساعد جميع الطلاب في <br />
-                        <span className="relative inline-block pb-2">
-                            المملكة العربية
+                        نفس الميزات الرائعة <br />
+                        للتحضير{" "}
+                        <span className="relative inline-block pb-3">
+                            لاختبارات التحصيلي
                             <Image
                                 src="/image/Vector 1.svg"
                                 alt="تسطير"
-                                width={300}
-                                height={10}
-                                className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
+                                width={600}
+                                height={20}
+                                className="absolute right-0 bottom-0 w-full h-[20px] pointer-events-none select-none"
                             />
                         </span>
-                        السعودية
                     </ScrollH2>
                     <ScrollP
                         className="text-sm text-gray-500 mt-1 text-center"
@@ -514,6 +548,499 @@ export default function ArSat2Page() {
                 </div>
             </ScrollSection>
 
+            {/* All exam Section */}
+            <ScrollSection className="font-sans text-gray-900 bg-white my-4 md:m-4 rounded-0 md:rounded-2xl"
+                style={{ backgroundImage: "url('/image/Vector.svg')" }}
+                amount={0.1}
+            >
+                <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
+                    {/* Header (Centered) */}
+                    <div className="text-center">
+                        <ScrollH2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none" amount={0.3}>
+                            أقسام اختبارات القدرات
+                        </ScrollH2>
+                        <ScrollP className="text-sm text-gray-500 mt-1" amount={0.3} delay={0.1}>
+                            أفضل منصة للتدرب على اختبار القدرات العامة
+                        </ScrollP>
+                    </div>
+
+                    {/* Quantitative Section */}
+                    <div className="mt-[56px]">
+                        <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+                            <div className="flex-1">
+                                {/* Button Section */}
+                                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                    القسم الكمي
+                                </div>
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                                    طور مهاراتك في <br />
+                                    الكمي مع مبهر
+                                </h3>
+
+                                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
+                                    في هذا القسم، ستتحدى قدراتك في حل المشكلات، والقياس، والأستنتاج
+                                    المنطقي. استعد لتوظيف مهاراتك الكمية في مواقف متنوعة تتطلب
+                                    تفكيرا دقيقا وحلولا ذكية. أثبت نفسك، وكن مستعًدا لأكتشاف مدى
+                                    قوة تحليلك.
+                                </p>
+                            </div>
+                            <div className="w-full lg:w-[465px]">
+                                <Image
+                                    src="/image/arabic_content/2-MQuantitative.png"
+                                    className="w-full"
+                                    alt="القسم الكمي"
+                                    width={465}
+                                    height={300}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Cards */}
+                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-6">
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/HeartOfAlgebra.png"
+                                    alt="العمليات الحسابية"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">العمليات الحسابية</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Problem-SolvingSkills.png"
+                                    alt="الجبر"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">الجبر</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=PassportToAdvancedMath.png"
+                                    alt="الهندسة"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">الهندسة</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=math.png"
+                                    alt="التحليل البياني"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">التحليل البياني</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=PassportToAdvancedMath.png"
+                                    alt="القياس والمنطق"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">القياس والمنطق</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=math.png"
+                                    alt="مسائل عقلية"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">مسائل عقلية</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Verbal Section */}
+                    <div className="mt-[56px]">
+                        <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+                            <div className="flex-1">
+                                {/* Button Section */}
+                                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                    القسم اللفظي
+                                </div>
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                                    أتقن مهاراتك اللفظية
+                                </h3>
+
+                                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
+                                    ففي هذا القسم من اختبار القدرات العامة، تقاس مهاراتك اللغوية
+                                    بكل دقة وذكاء. ستتدرب على فهم النصوص، واستخلاص المعاني، وإكمال
+                                    الجمل، والتعامل مع التناظر اللفظي بكل سلاسة.
+                                </p>
+                            </div>
+                            <div className="w-full">
+                                <Image
+                                    src="/image/arabic_content/2-MVerbal.png"
+                                    className="w-full"
+                                    alt="القسم اللفظي"
+                                    width={600}
+                                    height={400}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Cards */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=ReadingComprehension.png"
+                                    alt="الخطأ السياقي"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">الخطأ السياقي</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=VocabularyInContext.png"
+                                    alt="إكمال الجمل"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">إكمال الجمل</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=Grammar&Usage.png"
+                                    alt="استيعاب المقروء استخدام"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">
+                                    استيعاب المقروء استخدام
+                                </p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=CommandOfEvidence.png"
+                                    alt="المفردة الشاذة"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">المفردة الشاذة</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=RhetoricalSkills.png"
+                                    alt="القياس والمنطق"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">القياس والمنطق</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ScrollSection >
+
+            {/* How Mubhir helps Section */}
+            <ScrollSection className="font-sans text-gray-900 bg-[#EAECF0] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
+                <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
+                    {/* Header (Centered) */}
+                    <div className="mx-auto max-w-[610px] space-y-4">
+                        <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
+                            كيف يساعدك مبهر على التفوق في اختبار القدرات
+                        </ScrollH2>
+                        <ScrollP className="text-[16px] text-black mt-1 text-center" amount={0.3} delay={0.1}>
+                            ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
+                        </ScrollP>
+                    </div>
+
+                    {/* Tabs */}
+                    <div className="flex justify-center mb-8 sm:mb-16 mt-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4 w-full max-w-3xl">
+                            {['وضع التدريب', 'محاكاة اختبار القدرات', 'بنك الأسئلة', 'منهج متكامل', 'مكافآت الإحالة'].map((tab, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setActiveTab(`tab${index + 1}`)}
+                                    className={`py-1 text-center font-medium text-sm sm:text-[18px] border-b-4 transition-colors cursor-pointer ${activeTab === `tab${index + 1}`
+                                        ? 'text-black border-[#4F46F4]'
+                                        : 'text-[#98A2B3] border-[#D0D5DD]'
+                                        }`}
+                                >
+                                    {tab}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Tab Content */}
+                    <AnimatePresence mode="wait">
+                        {/* Tab 1: وضع التدريب */}
+                        {activeTab === 'tab1' && (
+                            <motion.div
+                                key="tab1"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="mx-auto max-w-7xl lg:px-8 py-10"
+                            >
+                                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                                        <div className="order-1 lg:order-2">
+                                            <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                                وضع التدريب المكثف
+                                            </div>
+                                            <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                                                تدريب شخصي مصمم خصيصاً لك، لتتعلم بذكاء وتنجح بثقة
+                                            </h2>
+                                            <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                                                نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                                            </p>
+                                            <ul className="mt-40 space-y-3 text-gray-800">
+                                                {[
+                                                    'صمم اختباراتٍ تجريبية حسب مستوى الصعوبة والوقت والموضوعات.',
+                                                    'احصل على تعليقاتٍ فورية وتفسيرات فيديو لكل سؤال.',
+                                                    'ركز على نقاط ضعفك وقم ببناء الثقة خطوة بخطوة.'
+                                                ].map((item, idx) => (
+                                                    <li key={idx} className="flex items-start gap-3">
+                                                        <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                                                            <CircleCorrectIcon />
+                                                        </span>
+                                                        <span>{item}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="order-2 lg:order-1">
+                                            <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                                                <Image src="/image/trainingMode.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Tab 2: محاكاة اختبار القدرات */}
+                        {activeTab === 'tab2' && (
+                            <motion.div
+                                key="tab2"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="mx-auto max-w-7xl lg:px-8 py-10"
+                            >
+                                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                                    <div className="flex justify-center">
+                                        <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                                            محاكاة قدرات
+                                        </div>
+                                    </div>
+                                    <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                                        تدريب مثل الاختبار الحقيقي
+                                    </h2>
+                                    <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                                        نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                                    </p>
+                                    <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+                                        {[
+                                            { text: 'قم بإجراء +1,000 اختبار وهمي مصمم من قبل الخبراء', color: '#EEE3FF', stroke: '#761DFF' },
+                                            { text: 'جرّب ظروف اختبار قدرات الحقيقية', color: '#E0F7FF', stroke: '#00AFE6' },
+                                            { text: 'تحليلات مفصلة وتتبع الأداء', color: '#FFE9F5', stroke: '#FF0086' }
+                                        ].map((card, idx) => (
+                                            <div key={idx} className="relative rounded-3xl bg-[#F9FAFB] shadow-soft p-8">
+                                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z" fill={card.color} />
+                                                    <path d="M22.6668 16C22.6668 12.3181 19.6821 9.33329 16.0002 9.33329C12.3183 9.33329 9.3335 12.3181 9.3335 16C9.3335 19.6819 12.3183 22.6666 16.0002 22.6666C19.6821 22.6666 22.6668 19.6819 22.6668 16Z" stroke={card.stroke} />
+                                                    <path d="M13.3335 16.5C13.3335 16.5 14.4002 17.1084 14.9335 18C14.9335 18 16.5335 14.5 18.6668 13.3334" stroke={card.stroke} strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <p className="mt-10 text-lg">{card.text}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Tab 3: بنك الأسئلة */}
+                        {activeTab === 'tab3' && (
+                            <motion.div
+                                key="tab3"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="mx-auto max-w-7xl lg:px-8 py-10"
+                            >
+                                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                                    <div className="flex justify-center">
+                                        <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                                            بنك الأسئلة
+                                        </div>
+                                    </div>
+                                    <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                                        ابق في الطليعة
+                                    </h2>
+                                    <p className="mt-4 max-w-3xl mx-auto text-center text-black text-base">
+                                        نحن نساعد الطلاب في جميع أنحاء <br /> الشرق الأوسط على زيادة درجات <br /> قدرات الخاصة بهم بكفاءة.
+                                    </p>
+                                    <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        {[
+                                            'الآلاف من أحدث أسئلة قدرات مطابقة',
+                                            'يغطي جميع مستويات الصعوبة ، من المبتدئين إلى المتقدمين',
+                                            'أسئلة برعاية معلمين خبراء لضمان الدقة'
+                                        ].map((text, idx) => (
+                                            <div key={idx} className="text-center">
+                                                <Image src="/image/questionBank.jpg" alt="Question Bank" width={300} height={200} className="rounded-3xl bg-[#F9FAFB] shadow-sm p-8 mx-auto" />
+                                                <p className="mt-3 text-lg">{text}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Tab 4: منهج متكامل */}
+                        {activeTab === 'tab4' && (
+                            <motion.div
+                                key="tab4"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="mx-auto max-w-7xl lg:px-8 py-10"
+                            >
+                                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                                        <div className="order-2 lg:order-1">
+                                            <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                                دروس فيديو
+                                            </div>
+                                            <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
+                                                تعلم أكثر ذكاء وليس أصعب
+                                            </h2>
+                                            <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
+                                                نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار القدرات العامة بأذكى الطرق وأعلى كفاءة.
+                                            </p>
+                                            <ul className="mt-40 space-y-3 text-gray-800">
+                                                {[
+                                                    'حلول فيديو خطوة بخطوة لكل سؤال.',
+                                                    'يتم تدريسها من قبل مدربين خبراء لتبسيط المفاهيم المعقدة.',
+                                                    'تعزيز التعلم باستخدام تقنيات حل المشكلات التفاعلية.'
+                                                ].map((item, idx) => (
+                                                    <li key={idx} className="flex items-start gap-3">
+                                                        <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#7E22CE]/20">
+                                                            <CircleCorrectIcon />
+                                                        </span>
+                                                        <span>{item}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="order-1 lg:order-2">
+                                            <div className="relative rounded-2xl bg-[#F9FAFB] shadow-md ring-1 ring-gray-100 overflow-hidden">
+                                                <Image src="/image/integratedApproach.jpg" alt="واجهة تفاعلية" width={600} height={400} className="w-full h-auto object-cover px-7 py-24" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Tab 5: مكافآت الإحالة */}
+                        {activeTab === 'tab5' && (
+                            <motion.div
+                                key="tab5"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="mx-auto max-w-7xl lg:px-8 py-10"
+                            >
+                                <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm">
+                                    <div className="flex justify-center">
+                                        <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] px-4 py-1 border-2 border-[#EAECF0] text-sm font-semibold mb-3">
+                                            مكافآت الإحالة
+                                        </div>
+                                    </div>
+                                    <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-[-1.5px]">
+                                        مكافآت الإحالة - دعوة واكسب
+                                    </h2>
+                                    <p className="mt-4 max-w-3xl mx-auto text-center text-gray-600 text-base">
+                                        نحن نساعد الطلاب في جميع أنحاء الشرق الأوسط على زيادة درجات قدرات الخاصة بهم بكفاءة.
+                                    </p>
+                                    <section className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                                        <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                                            <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                                                <Image src="/image/icon/gift.png" alt="شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية." width={64} height={64} />
+                                            </div>
+                                            <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                                                شارك مبهر مع الأصدقاء واكسب أرصدة ومكافآت اختبار حصرية.
+                                            </p>
+                                        </div>
+                                        <div className="relative rounded-3xl bg-[#F9FAFB] p-6 sm:p-8 shadow-soft">
+                                            <div className="rounded-3xl bg-[#F9FAFB] shadow-soft">
+                                                <Image src="/image/icon/mortarboard-01.png" alt="ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك" width={64} height={64} />
+                                            </div>
+                                            <p className="mt-10 sm:mt-12 text-lg leading-9 text-gray-900">
+                                                ساعد أصدقائك على النجاح مع الحصول على مكافآت لنفسك
+                                            </p>
+                                        </div>
+                                    </section>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </ScrollSection>
 
             {/* Pricing Section */}
             <ScrollSection
