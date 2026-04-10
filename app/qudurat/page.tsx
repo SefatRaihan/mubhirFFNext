@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import Navbar from "@/components/Navber/Navbar";
 import SnapIcon from "@/public/icons/SnapIcon";
 import XIcon from "@/public/icons/XIcon";
@@ -39,7 +41,18 @@ interface PricingPlan {
 }
 
 export default function ArSatPage() {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handlePackageSelect = (plan: PricingPlan) => {
+    Cookies.set('selectedPlan', JSON.stringify(plan), { path: '/' });
+    const token = Cookies.get('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+    window.location.href = '/checkout';
+  };
   const [activeTab, setActiveTab] = useState("tab1");
   const [faqOpen, setFaqOpen] = useState<number[]>([]);
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
@@ -1013,12 +1026,12 @@ export default function ArSatPage() {
                       </li>
                     ))}
                   </ul>
-                  {/* <Link href="https://cms.mubhir.ai/ar-checkout"> */}
-                  <Link href="/checkout">
-                    <button className="w-full border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full py-2 font-semibold mt-6">
-                      ابدأ {plan.title_ar}
-                    </button>
-                  </Link>
+                  <button
+                    onClick={() => handlePackageSelect(plan)}
+                    className="w-full border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full py-2 font-semibold mt-6 cursor-pointer"
+                  >
+                    ابدأ {plan.title_ar}
+                  </button>
                 </div>
               ))}
             </div>

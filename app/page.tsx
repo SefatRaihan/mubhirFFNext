@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
@@ -19,6 +19,8 @@ import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import XIcon from "@/public/icons/XIcon";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewModal from "@/components/ReviewModal";
@@ -54,6 +56,7 @@ interface Review {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('tab1');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
@@ -63,6 +66,16 @@ export default function Home() {
   const [reviewsLoading, setReviewsLoading] = useState(true);
   const [reviewsError, setReviewsError] = useState<string | null>(null);
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+
+  const handlePackageSelect = (plan: PricingPlan) => {
+    Cookies.set('selectedPlan', JSON.stringify(plan), { path: '/' });
+    const token = Cookies.get('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+    window.location.href = '/checkout';
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const playButtonRef = useRef<HTMLDivElement>(null);
 
@@ -1333,22 +1346,20 @@ export default function Home() {
                       </motion.li>
                     ))}
                   </ul>
-                  {/* <Link href="https://cms.mubhir.ai/ar-checkout"> */}
-                  <Link href="/checkout">
-                    <motion.button
+                  <motion.button
+                      onClick={() => handlePackageSelect(plan)}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.15 + 0.8 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group"
+                      className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
                     >
                       <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
                       <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                         ابدأ {plan.title_ar}
                       </span>
                     </motion.button>
-                  </Link>
                 </motion.div>
               ))}
             </div>
