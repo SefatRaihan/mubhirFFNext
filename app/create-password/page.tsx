@@ -166,6 +166,7 @@ export default function CreatePasswordPage() {
             payload.append('gender', trialGender);
             payload.append('date_of_birth', formattedDOB);
             payload.append('grade', trialGrade);
+            payload.append('audience', Cookies.get('trialAudience') || 'sat1');
 
             const response = await apiClient.post('/cms/free-trail', payload, {
                 headers: {
@@ -200,6 +201,7 @@ export default function CreatePasswordPage() {
             Cookies.set('trialGender', trialGender, { path: '/' });
             Cookies.set('trialDOB', formattedDOB, { path: '/' });
             Cookies.set('trialGrade', trialGrade, { path: '/' });
+            Cookies.remove('trialAudience');
 
             // Show success result modal (will auto-redirect to dashboard after 5s)
             setShowTrialModal(false);
