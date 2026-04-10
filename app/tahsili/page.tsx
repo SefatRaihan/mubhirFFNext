@@ -167,17 +167,18 @@ export default function ArSat2Page() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-                                <Link href="/signup">
-                                    <button
-                                        className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
-                                    >
-                                        احصل على تجربتك المجانية لمدة ٣٠ يومًا!
-                                        <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
-                                            <LeftArrowRQ />
-                                        </span>
-                                    </button>
-                                </Link>
+                                <button
+                                    onClick={() => {
+                                        Cookies.set('trialAudience', 'sat2', { path: '/' });
+                                        router.push('/signup');
+                                    }}
+                                    className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
+                                >
+                                    احصل على تجربتك المجانية لمدة ٣٠ يومًا!
+                                    <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
+                                        <LeftArrowRQ />
+                                    </span>
+                                </button>
                                 <Image
                                     src="/image/bitcoin2.png"
                                     className="absolute left-0 -translate-x-1/2 top-6"
