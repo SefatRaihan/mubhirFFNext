@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
@@ -51,12 +51,23 @@ interface PackagesResponse {
  */
 export default function PackagesPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // Read initial exam selection from URL query param (?sat1 or ?sat2)
+    const initialExam: 'sat1' | 'sat2' = searchParams.has('sat2') ? 'sat2' : 'sat1';
+
+    // Auto-redirect /packages to /packages?sat1 if no exam param is present
+    useEffect(() => {
+        if (!searchParams.has('sat1') && !searchParams.has('sat2')) {
+            router.replace('/packages?sat1', { scroll: false });
+        }
+    }, [searchParams, router]);
 
     // State
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
-    const [selectedExam, setSelectedExam] = useState<'sat1' | 'sat2' | null>('sat1');
+    const [selectedExam, setSelectedExam] = useState<'sat1' | 'sat2'>(initialExam);
 
     // Check if user has used trial (from API)
     const [hasUsedTrial, setHasUsedTrial] = useState(false);
@@ -246,6 +257,7 @@ export default function PackagesPage() {
             payload.append('gender', trialGender);
             payload.append('date_of_birth', formattedDOB);
             payload.append('grade', trialGrade);
+            payload.append('audience', selectedExam);
 
             const response = await apiClient.post('/cms/free-trail', payload, {
                 headers: {
@@ -391,7 +403,10 @@ export default function PackagesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     {/* SAT I */}
                     <div
-                        onClick={() => setSelectedExam('sat1')}
+                        onClick={() => {
+                            setSelectedExam('sat1');
+                            router.replace('/packages?sat1', { scroll: false });
+                        }}
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedExam === 'sat1'
                             ? 'border-[#7A2060] bg-[#FFF5FC]'
                             : 'border-gray-300 bg-white'
@@ -402,7 +417,10 @@ export default function PackagesPage() {
                                 type="radio"
                                 name="examType"
                                 checked={selectedExam === 'sat1'}
-                                onChange={() => setSelectedExam('sat1')}
+                                onChange={() => {
+                                    setSelectedExam('sat1');
+                                    router.replace('/packages?sat1', { scroll: false });
+                                }}
                                 className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
@@ -416,7 +434,10 @@ export default function PackagesPage() {
 
                     {/* SAT II */}
                     <div
-                        onClick={() => setSelectedExam('sat2')}
+                        onClick={() => {
+                            setSelectedExam('sat2');
+                            router.replace('/packages?sat2', { scroll: false });
+                        }}
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedExam === 'sat2'
                             ? 'border-[#7A2060] bg-[#FFF5FC]'
                             : 'border-gray-300 bg-white'
@@ -427,7 +448,10 @@ export default function PackagesPage() {
                                 type="radio"
                                 name="examType"
                                 checked={selectedExam === 'sat2'}
-                                onChange={() => setSelectedExam('sat2')}
+                                onChange={() => {
+                                    setSelectedExam('sat2');
+                                    router.replace('/packages?sat2', { scroll: false });
+                                }}
                                 className="mt-1 ml-3 w-5 h-5 accent-[#7A2060] cursor-pointer"
                             />
                             <div>
