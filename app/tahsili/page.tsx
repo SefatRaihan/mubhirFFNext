@@ -136,7 +136,8 @@ export default function ArSat2Page() {
                             className="text-2xl md:text-[76px] font-bold leading-tight md:leading-[86px] text-center"
                         >
                             <span className="relative inline-block pb-2">
-                                اختبارات
+                                {/* امتحانات ودورات تحصيلي متوفرة الآن! */}
+                                متوفرة الآن
                                 <Image
                                     src="/image/Vector 1.svg"
                                     alt="تسطير"
@@ -145,7 +146,7 @@ export default function ArSat2Page() {
                                     className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                 />
                             </span>
-                            ودورات كل المدونات <br />قريبا!
+                            ودورات تحصيلي <br />امتحانات!
                         </motion.h1>
 
                         <motion.p
@@ -154,7 +155,7 @@ export default function ArSat2Page() {
                             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
                             className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
-                            اختبار SAT هو بوابتك إلى أفضل الجامعات، وفي مبهر، نضمن لك أن تكون مستعدًا تمامًا للتفوق فيه.
+                            يُعدّ تحصيلي بوابتك إلى أفضل الجامعات، وفي مبهر نحرص على إعدادك بشكل كامل لتحقيق التفوق فيه.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -584,18 +585,14 @@ export default function ArSat2Page() {
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    القسم الكمي
+                                    الفيزياء
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    طور مهاراتك في <br />
-                                    الكمي مع مبهر
+                                    طوّر مهاراتك في <br />الفيزياء مع مبهر
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
-                                    في هذا القسم، ستتحدى قدراتك في حل المشكلات، والقياس، والأستنتاج
-                                    المنطقي. استعد لتوظيف مهاراتك الكمية في مواقف متنوعة تتطلب
-                                    تفكيرا دقيقا وحلولا ذكية. أثبت نفسك، وكن مستعًدا لأكتشاف مدى
-                                    قوة تحليلك.
+                                    في هذا القسم، ستستكشف مفاهيم الفيزياء الأساسية وتطبيقاتها في الحياة اليومية. استعد لفهم القوانين الطبيعية وتحليل الظواهر بدقة، من خلال مسائل متنوعة تتطلب تفكيرًا منطقيًا وحلولًا ذكية.
                                 </p>
                             </div>
                             <div className="w-full lg:w-[465px]">
@@ -710,22 +707,20 @@ export default function ArSat2Page() {
                         </div>
                     </div>
 
-                    {/* Verbal Section */}
+                    {/* math Section */}
                     <div className="mt-[56px]">
                         <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    القسم اللفظي
+                                    الكيمياء
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    أتقن مهاراتك اللفظية
+                                    طوّر مهاراتك في الكيمياء مع مبهر
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
-                                    ففي هذا القسم من اختبار القدرات العامة، تقاس مهاراتك اللغوية
-                                    بكل دقة وذكاء. ستتدرب على فهم النصوص، واستخلاص المعاني، وإكمال
-                                    الجمل، والتعامل مع التناظر اللفظي بكل سلاسة.
+                                    في هذا القسم، ستتعرف على أساسيات الكيمياء وتفاعلاتها المختلفة. استعد لفهم تركيب المواد والتغيرات التي تطرأ عليها، عبر مسائل تطبيقية تعزز قدرتك على التحليل والاستنتاج.
                                 </p>
                             </div>
                             <div className="w-full">
@@ -796,6 +791,205 @@ export default function ArSat2Page() {
                                     height={56}
                                 />
                                 <p className="mt-3 text-[20px] font-semibold">القياس والمنطق</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-[56px]">
+                        <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+                            <div className="flex-1">
+                                {/* Button Section */}
+                                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                    الرياضيات
+                                </div>
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                                    طوّر مهاراتك في الرياضيات <br />مع مبهر
+                                </h3>
+
+                                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
+                                    في هذا القسم، ستنمي قدراتك في التفكير الرياضي وحل المسائل بدقة. استعد لتطبيق المفاهيم الرياضية في مواقف متنوعة، واختبار مهاراتك في التحليل والاستنتاج بشكل متقدم.
+                                </p>
+                            </div>
+                            <div className="w-full lg:w-[465px]">
+                                <Image
+                                    src="/image/arabic_content/2-MQuantitative.png"
+                                    className="w-full"
+                                    alt="القسم الكمي"
+                                    width={465}
+                                    height={300}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Cards */}
+                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-6">
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/HeartOfAlgebra.png"
+                                    alt="العمليات الحسابية"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">الجبر</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Problem-SolvingSkills.png"
+                                    alt="الجبر"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">الهندسة</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=PassportToAdvancedMath.png"
+                                    alt="الهندسة"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">الإحصاء</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=math.png"
+                                    alt="التحليل البياني"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">المعادلات</p>
+                            </div>
+                            <div
+                                className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
+                                style={{
+                                    boxShadow:
+                                        "0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 6px rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Image
+                                    className="w-14 h-14 text-purple-500"
+                                    src="/image/icon/Type=PassportToAdvancedMath.png"
+                                    alt="القياس والمنطق"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-2 text-[20px] font-semibold">العمليات الحسابية</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* Verbal Section */}
+                    <div className="mt-[56px]">
+                        <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
+                            <div className="flex-1">
+                                {/* Button Section */}
+                                <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
+                                    الأحياء
+                                </div>
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                                    طوّر مهاراتك في الأحياء مع مبهر
+                                </h3>
+
+                                <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
+                                    في هذا القسم، ستتعرف على الكائنات الحية ووظائفها الحيوية. استعد لاستكشاف الأنظمة البيولوجية وفهم العلاقات بينها، من خلال مسائل تساعدك على التفكير العلمي والتحليل العميق.
+                                </p>
+                            </div>
+                            <div className="w-full">
+                                <Image
+                                    src="/image/arabic_content/2-MVerbal.png"
+                                    className="w-full"
+                                    alt="القسم اللفظي"
+                                    width={600}
+                                    height={400}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Cards */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=ReadingComprehension.png"
+                                    alt="الخطأ السياقي"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">تركيب الخلية</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=VocabularyInContext.png"
+                                    alt="إكمال الجمل"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">جسم الإنسان</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=Grammar&Usage.png"
+                                    alt="استيعاب المقروء استخدام"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">
+                                    المركبات
+                                </p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=CommandOfEvidence.png"
+                                    alt="المفردة الشاذة"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">الأنظمة البيئية</p>
+                            </div>
+
+                            <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
+                                <Image
+                                    className="w-14 h-14 object-contain"
+                                    src="/image/icon/Type=RhetoricalSkills.png"
+                                    alt="القياس والمنطق"
+                                    width={56}
+                                    height={56}
+                                />
+                                <p className="mt-3 text-[20px] font-semibold">الكائنات الحية</p>
                             </div>
                         </div>
                     </div>
@@ -1132,15 +1326,15 @@ export default function ArSat2Page() {
                                         ))}
                                     </ul>
                                     <motion.button
-                                            onClick={() => handlePackageSelect(plan)}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
-                                        >
-                                            <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
-                                            <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                                                ابدأ {plan.title_ar}
-                                            </span>
-                                        </motion.button>
+                                        onClick={() => handlePackageSelect(plan)}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="relative w-full border border-[#671E5A] text-[#671E5A] rounded-full py-2 font-semibold mt-6 overflow-hidden group cursor-pointer"
+                                    >
+                                        <div className="absolute inset-0 bg-[#671E5A] rounded-full translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+                                        <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                                            ابدأ {plan.title_ar}
+                                        </span>
+                                    </motion.button>
                                 </ScrollDiv>
                             ))}
                         </div>
