@@ -207,7 +207,7 @@ export default function ArSat2Page() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt1.png"
+                                        src="/image/avt1.webp"
                                         alt="student1"
                                         width={55}
                                         height={55}
@@ -220,7 +220,7 @@ export default function ArSat2Page() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt4.png"
+                                        src="/image/avt4.webp"
                                         alt="student2"
                                         width={55}
                                         height={55}
@@ -233,7 +233,7 @@ export default function ArSat2Page() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt3.png"
+                                        src="/image/avt3.webp"
                                         alt="student3"
                                         width={55}
                                         height={55}
@@ -572,27 +572,27 @@ export default function ArSat2Page() {
                     {/* Header (Centered) */}
                     <div className="text-center">
                         <ScrollH2 className="text-4xl text-center md:text-[56px] pb-4 font-bold leading-tight md:leading-none" amount={0.3}>
-                            أقسام اختبارات القدرات
+                            فئات التعليم
                         </ScrollH2>
                         <ScrollP className="text-sm text-gray-500 mt-1" amount={0.3} delay={0.1}>
                             أفضل منصة للتدرب على اختبار القدرات العامة
                         </ScrollP>
                     </div>
 
-                    {/* Quantitative Section */}
+                    {/* physics Section */}
                     <div className="mt-[56px]">
                         <div className="flex flex-col lg:flex-row bg-[#F2F4F7] rounded-lg py-16 px-10 gap-8 lg:gap-32">
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    الفيزياء
+                                    قسم الفيزياء
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    طوّر مهاراتك في <br />الفيزياء مع مبهر
+                                    أتقن قوانين الفيزياء وطبّقها على <br /> مشاكل واقعية وافتراضية
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
-                                    في هذا القسم، ستستكشف مفاهيم الفيزياء الأساسية وتطبيقاتها في الحياة اليومية. استعد لفهم القوانين الطبيعية وتحليل الظواهر بدقة، من خلال مسائل متنوعة تتطلب تفكيرًا منطقيًا وحلولًا ذكية.
+                                    مارس مبادئ الفيزياء واستعد لتطبيق فهمك لحل المشكلات الفيزيائية المعقدة.
                                 </p>
                             </div>
                             <div className="w-full lg:w-[465px]">
@@ -622,7 +622,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">العمليات الحسابية</p>
+                                <p className="mt-2 text-[20px] font-semibold">الميكانيكا</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -638,7 +638,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">الجبر</p>
+                                <p className="mt-2 text-[20px] font-semibold">خصائص المادة</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -654,7 +654,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">الهندسة</p>
+                                <p className="mt-2 text-[20px] font-semibold">الديناميكا الحرارية والأمواج</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -670,7 +670,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">التحليل البياني</p>
+                                <p className="mt-2 text-[20px] font-semibold">الكهرباء والمغناطيسية</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -686,7 +686,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">القياس والمنطق</p>
+                                <p className="mt-2 text-[20px] font-semibold">الفيزياء الحديثة</p>
                             </div>
                             {/* <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -713,14 +713,14 @@ export default function ArSat2Page() {
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    الكيمياء
+                                    قسم الكيمياء
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    طوّر مهاراتك في الكيمياء مع مبهر
+                                    حل التفاعلات الكيميائية بسرعة. فهم  <br /> تأثيرها على بيئتنا.
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
-                                    في هذا القسم، ستتعرف على أساسيات الكيمياء وتفاعلاتها المختلفة. استعد لفهم تركيب المواد والتغيرات التي تطرأ عليها، عبر مسائل تطبيقية تعزز قدرتك على التحليل والاستنتاج.
+                                    يغطي منهج الكيمياء في المرحلة الثانوية أساسيات ومستويات متوسطة من دورات الكيمياء الجامعية، مما يسمح بالالتحاق بالدورات المتقدمة.
                                 </p>
                             </div>
                             <div className="w-full">
@@ -744,7 +744,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">الخطأ السياقي</p>
+                                <p className="mt-3 text-[20px] font-semibold"> الكيمياء الفيزيائية</p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -755,7 +755,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">إكمال الجمل</p>
+                                <p className="mt-3 text-[20px] font-semibold">الكيمياء غير العضوية</p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -779,7 +779,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">المفردة الشاذة</p>
+                                <p className="mt-3 text-[20px] font-semibold">الكيمياء العضوية</p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -790,7 +790,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">القياس والمنطق</p>
+                                <p className="mt-3 text-[20px] font-semibold">الكيمياء البيئية</p>
                             </div>
                         </div>
                     </div>
@@ -799,14 +799,14 @@ export default function ArSat2Page() {
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    الرياضيات
+                                    قسم الرياضيات
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    طوّر مهاراتك في الرياضيات <br />مع مبهر
+                                    قم بتسريع حل المسائل الرياضية في  <br />المواضيع العددية والمكانية والإحصائية.
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
-                                    في هذا القسم، ستنمي قدراتك في التفكير الرياضي وحل المسائل بدقة. استعد لتطبيق المفاهيم الرياضية في مواقف متنوعة، واختبار مهاراتك في التحليل والاستنتاج بشكل متقدم.
+                                    تفوق على زملائك في الجامعة في الرياضيات من خلال التدرب على مستويات متعددة من الصعوبة.
                                 </p>
                             </div>
                             <div className="w-full lg:w-[465px]">
@@ -852,7 +852,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">الهندسة</p>
+                                <p className="mt-2 text-[20px] font-semibold">الجبر وأنظمة الأعداد</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -868,7 +868,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">الإحصاء</p>
+                                <p className="mt-2 text-[20px] font-semibold">حساب التفاضل والتكامل</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -884,7 +884,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">المعادلات</p>
+                                <p className="mt-2 text-[20px] font-semibold">الهندسة وعلم المثلثات</p>
                             </div>
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -900,7 +900,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">العمليات الحسابية</p>
+                                <p className="mt-2 text-[20px] font-semibold">الاحتمالات والإحصاء </p>
                             </div>
 
                         </div>
@@ -912,14 +912,14 @@ export default function ArSat2Page() {
                             <div className="flex-1">
                                 {/* Button Section */}
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
-                                    الأحياء
+                                    قسم الأحياء
                                 </div>
                                 <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    طوّر مهاراتك في الأحياء مع مبهر
+                                    عمّق فهمك للحياة وعملياتها المختلفة وعلاقاتها.
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
-                                    في هذا القسم، ستتعرف على الكائنات الحية ووظائفها الحيوية. استعد لاستكشاف الأنظمة البيولوجية وفهم العلاقات بينها، من خلال مسائل تساعدك على التفكير العلمي والتحليل العميق.
+                                    ابقَ على اطلاع دائم بآخر مستجدات علوم الحياة التي تغطي جميع الجوانب من المواضيع الجزيئية إلى المواضيع البيئية.
                                 </p>
                             </div>
                             <div className="w-full">
@@ -943,7 +943,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">تركيب الخلية</p>
+                                <p className="mt-6 text-[20px] font-semibold">علم الأحياء الخلوي </p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -954,7 +954,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">جسم الإنسان</p>
+                                <p className="mt-3 text-[20px] font-semibold"> علم الوراثة والبيولوجيا الجزيئية</p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -966,7 +966,7 @@ export default function ArSat2Page() {
                                     height={56}
                                 />
                                 <p className="mt-3 text-[20px] font-semibold">
-                                    المركبات
+                                    التنوع والتصنيف
                                 </p>
                             </div>
 
@@ -978,7 +978,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">الأنظمة البيئية</p>
+                                <p className="mt-3 text-[20px] font-semibold">علم التشريح وعلم وظائف الأعضاء (علم النبات وعلم الحيوان) </p>
                             </div>
 
                             <div className="bg-[#F2F4F7] rounded-lg p-4 shadow-[0_4px_15px_rgba(0,0,0,0.1),0_1px_6px_rgba(0,0,0,0.05)] min-h-[160px] flex flex-col justify-between">
@@ -989,7 +989,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">الكائنات الحية</p>
+                                <p className="mt-3 text-[20px] font-semibold"> علم البيئة والتطور</p>
                             </div>
                         </div>
                     </div>
