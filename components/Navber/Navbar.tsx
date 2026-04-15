@@ -52,7 +52,7 @@ export default function Navbar() {
             href="/tahsili"
             className="text-[#1c164e] hover:text-[#91288c] transition"
           >
-            دورات التحصيلي(قريبا)
+            دورات التحصيلي
           </Link>
           <Link
             href="/ar-aboutUs"
@@ -132,7 +132,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-3 text-[#1c164e] text-medium "
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>دورات التحصيلي(قريبا)</span>
+                <span>دورات التحصيلي</span>
                 <CircleLeftArrowIcon />
               </Link>
               <Link
