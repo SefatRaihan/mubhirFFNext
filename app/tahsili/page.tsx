@@ -597,17 +597,17 @@ export default function ArSat2Page() {
                             </div>
                             <div className="w-full lg:w-[465px]">
                                 <Image
-                                    src="/image/arabic_content/2-MQuantitative.png"
-                                    className="w-full"
-                                    alt="القسم الكمي"
+                                    src="/image/arabic_content/physics.jpg"
+                                    alt="الفيزياء"
                                     width={465}
                                     height={300}
+                                    className="w-full h-auto rounded-lg"
                                 />
                             </div>
                         </div>
 
                         {/* Cards */}
-                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
                                 style={{
@@ -688,7 +688,7 @@ export default function ArSat2Page() {
                                 />
                                 <p className="mt-2 text-[20px] font-semibold">القياس والمنطق</p>
                             </div>
-                            <div
+                            {/* <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
                                 style={{
                                     boxShadow:
@@ -703,7 +703,7 @@ export default function ArSat2Page() {
                                     height={56}
                                 />
                                 <p className="mt-2 text-[20px] font-semibold">مسائل عقلية</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -725,11 +725,11 @@ export default function ArSat2Page() {
                             </div>
                             <div className="w-full">
                                 <Image
-                                    src="/image/arabic_content/2-MVerbal.png"
-                                    className="w-full"
-                                    alt="القسم اللفظي"
-                                    width={600}
-                                    height={400}
+                                    src="/image/arabic_content/chemistry.jpg"
+                                    alt="الكيمياء"
+                                    width={465}
+                                    height={300}
+                                    className="w-full h-auto rounded-lg"
                                 />
                             </div>
                         </div>
@@ -811,17 +811,17 @@ export default function ArSat2Page() {
                             </div>
                             <div className="w-full lg:w-[465px]">
                                 <Image
-                                    src="/image/arabic_content/2-MQuantitative.png"
-                                    className="w-full"
-                                    alt="القسم الكمي"
+                                    src="/image/arabic_content/mathematics.jpg"
+                                    alt="الرياضيات"
                                     width={465}
                                     height={300}
+                                    className="w-full h-auto rounded-lg"
                                 />
                             </div>
                         </div>
 
                         {/* Cards */}
-                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
                             <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
                                 style={{
@@ -924,11 +924,11 @@ export default function ArSat2Page() {
                             </div>
                             <div className="w-full">
                                 <Image
-                                    src="/image/arabic_content/2-MVerbal.png"
-                                    className="w-full"
-                                    alt="القسم اللفظي"
-                                    width={600}
-                                    height={400}
+                                    src="/image/arabic_content/neighborhoods.jpg"
+                                    alt="الأحياء"
+                                    width={465}
+                                    height={300}
+                                    className="w-full h-auto rounded-lg"
                                 />
                             </div>
                         </div>
