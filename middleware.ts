@@ -108,14 +108,13 @@ export function middleware(request: NextRequest) {
    * Scenario 1: User trying to access protected route without authentication
    * Action: Redirect to login page
    * 
-   * EXCEPTION: Allow /confirmation with tap_id parameter (payment callback)
-   * This allows users returning from payment gateway to access the confirmation page
+   * EXCEPTION: Allow /confirmation page without auth (payment callback)
+   * After Paylink payment, the gateway redirects back without transactionNo in URL.
+   * The transactionNo is stored in localStorage and the page handles verification itself.
    */
   if (isProtectedRoute && !token) {
-    // Allow /confirmation with tap_id parameter (payment gateway callback)
-    const hasTapId = request.nextUrl.searchParams.has('tap_id');
-
-    if (pathname === '/confirmation' && hasTapId) {
+    // Always allow /confirmation — page handles auth and payment verification internally
+    if (pathname === '/confirmation') {
       return NextResponse.next();
     }
 

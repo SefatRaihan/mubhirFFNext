@@ -50,13 +50,30 @@ function ConfirmationContent() {
      */
     useEffect(() => {
         const verifyAndLoad = async () => {
-            const tapId = searchParams.get('tap_id');
+            // Log all URL params for debugging
+            console.log('🔍 Confirmation page loaded');
+            console.log('🔍 Full URL:', window.location.href);
+            console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
+
+            // Try to get orderId/transactionNo from URL first, then fallback to localStorage
+            const transactionNo = searchParams.get('orderId')
+                || searchParams.get('transactionNo')
+                || searchParams.get('orderNumber')
+                || localStorage.getItem('paylink_transactionNo');
             const token = Cookies.get('token');
 
-            // Only redirect to login if there's no token AND no tap_id
-            // When returning from Tap payment gateway, token cookie may be lost
-            // but tap_id in the URL proves this is a valid payment callback
-            if (!token && !tapId) {
+            console.log('🔑 Token:', token ? 'exists' : 'MISSING');
+            console.log('🧾 transactionNo:', transactionNo,
+                transactionNo ? `(from ${searchParams.get('transactionNo') ? 'URL' : 'localStorage'})` : '');
+
+            // Clean up localStorage after reading
+            if (transactionNo && localStorage.getItem('paylink_transactionNo')) {
+                localStorage.removeItem('paylink_transactionNo');
+            }
+
+            // Only redirect to login if there's no token AND no transactionNo
+            if (!token && !transactionNo) {
+                console.log('❌ No token and no transactionNo — redirecting to login');
                 router.push('/login');
                 return;
             }
@@ -71,27 +88,61 @@ function ConfirmationContent() {
                     setOrderData(parsedOrderData);
                 }
 
-                // If tap_id exists, verify payment
-                if (tapId) {
-                    const response = await apiClient.get(`/cms/tap/callback?tap_id=${tapId}`, {
-                        headers: { Authorization: `Bearer ${token}` },
-                    });
+                // If transactionNo exists, verify payment
+                if (transactionNo) {
+                    console.log('📤 Calling callback API:', `/cms/geidea/callback?orderId=${transactionNo}`);
 
-                    const data = response.data;
+                    try {
+                        const response = await apiClient.get(`/cms/geidea/callback?orderId=${transactionNo}`, {
+                            headers: { Authorization: `Bearer ${token}` },
+                        });
 
-                    if (looksSuccessful(data)) {
-                        setSuccess(true);
-                        setApiMessage(data.message || 'Payment successful.');
-                        // Clean URL
-                        window.history.replaceState({}, document.title, '/confirmation');
-                    } else {
-                        setSuccess(false);
-                        setApiMessage(data.message || 'Payment verification failed.');
+                        const data = response.data;
+                        console.log('📥 Callback response:', JSON.stringify(data, null, 2));
+
+                        // PAID (200) — { ok: true, message: "Payment successful! ..." }
+                        if (data.ok === true) {
+                            setSuccess(true);
+                            setApiMessage(data.message || 'تم الدفع بنجاح!');
+                            window.history.replaceState({}, document.title, '/confirmation');
+                        } else {
+                            setSuccess(false);
+                            setApiMessage(data.message || 'فشل التحقق من الدفع.');
+                            setLoading(false);
+                            return;
+                        }
+                    } catch (callbackError: any) {
+                        console.error('❌ Callback API error:', callbackError);
+                        const errData = callbackError?.response?.data;
+                        console.error('❌ Callback error data:', errData);
+
+                        if (errData) {
+                            // PENDING/DECLINED (400) — { ok: false, message: "Do Not Honor", errors: [...] }
+                            // CANCELLED (400) — { ok: false, message: "Payment was cancelled." }
+                            let errorMsg = errData.message || 'فشل الدفع.';
+
+                            // If there are detailed errors, append them
+                            if (errData.errors && Array.isArray(errData.errors) && errData.errors.length > 0) {
+                                const errorDetails = errData.errors
+                                    .map((err: any) => err.errorMessage || err.errorTitle || '')
+                                    .filter(Boolean)
+                                    .join(', ');
+                                if (errorDetails) {
+                                    errorMsg = `${errData.message}: ${errorDetails}`;
+                                }
+                            }
+
+                            setSuccess(false);
+                            setApiMessage(errorMsg);
+                        } else {
+                            setSuccess(false);
+                            setApiMessage('حدث خطأ. حاول مرة أخرى.');
+                        }
                         setLoading(false);
                         return;
                     }
                 } else {
-                    // No tap_id means free trial or already verified
+                    // No transactionNo means free trial or already verified
                     setSuccess(true);
                     setApiMessage('Your Subscription has been Activated!');
                 }
@@ -103,12 +154,12 @@ function ConfirmationContent() {
                     });
                     setUserData(userResponse.data);
                 } catch (userError) {
-                    // Silently ignore user data fetch errors
+                    console.error('⚠️ Failed to fetch user data:', userError);
                 }
 
             } catch (error) {
-                // console.error('Error verifying payment:', error);
-                setApiMessage('An error occurred. Please try again.');
+                console.error('❌ Error verifying payment:', error);
+                setApiMessage('حدث خطأ. حاول مرة أخرى.');
                 setSuccess(false);
             } finally {
                 setLoading(false);
