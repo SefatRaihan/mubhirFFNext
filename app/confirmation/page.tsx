@@ -55,14 +55,15 @@ function ConfirmationContent() {
             console.log('🔍 Full URL:', window.location.href);
             console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
 
-            // Try to get transactionNo from URL first, then fallback to localStorage
-            const transactionNo = searchParams.get('transactionNo') 
-                || searchParams.get('orderNumber') 
+            // Try to get orderId/transactionNo from URL first, then fallback to localStorage
+            const transactionNo = searchParams.get('orderId')
+                || searchParams.get('transactionNo')
+                || searchParams.get('orderNumber')
                 || localStorage.getItem('paylink_transactionNo');
             const token = Cookies.get('token');
 
             console.log('🔑 Token:', token ? 'exists' : 'MISSING');
-            console.log('🧾 transactionNo:', transactionNo, 
+            console.log('🧾 transactionNo:', transactionNo,
                 transactionNo ? `(from ${searchParams.get('transactionNo') ? 'URL' : 'localStorage'})` : '');
 
             // Clean up localStorage after reading
@@ -89,10 +90,10 @@ function ConfirmationContent() {
 
                 // If transactionNo exists, verify payment
                 if (transactionNo) {
-                    console.log('📤 Calling callback API:', `/cms/paylink/callback?transactionNo=${transactionNo}`);
-                    
+                    console.log('📤 Calling callback API:', `/cms/geidea/callback?orderId=${transactionNo}`);
+
                     try {
-                        const response = await apiClient.get(`/cms/paylink/callback?transactionNo=${transactionNo}`, {
+                        const response = await apiClient.get(`/cms/geidea/callback?orderId=${transactionNo}`, {
                             headers: { Authorization: `Bearer ${token}` },
                         });
 
@@ -119,7 +120,7 @@ function ConfirmationContent() {
                             // PENDING/DECLINED (400) — { ok: false, message: "Do Not Honor", errors: [...] }
                             // CANCELLED (400) — { ok: false, message: "Payment was cancelled." }
                             let errorMsg = errData.message || 'فشل الدفع.';
-                            
+
                             // If there are detailed errors, append them
                             if (errData.errors && Array.isArray(errData.errors) && errData.errors.length > 0) {
                                 const errorDetails = errData.errors
@@ -130,7 +131,7 @@ function ConfirmationContent() {
                                     errorMsg = `${errData.message}: ${errorDetails}`;
                                 }
                             }
-                            
+
                             setSuccess(false);
                             setApiMessage(errorMsg);
                         } else {

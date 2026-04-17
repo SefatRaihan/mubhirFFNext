@@ -30,7 +30,7 @@ const ToastContainer = dynamic(
  * Handles paid package checkout flow only.
  * Pre-fills email and phone from signup (read-only).
  * Gender, DOB, and school grade are pre-filled and read-only.
- * Always sends amount to /cms/paylink/pay and redirects to payment gateway.
+ * Always sends amount to /cms/geidea/pay and redirects to payment gateway.
  */
 export default function CheckoutPage() {
     const router = useRouter();
@@ -259,7 +259,7 @@ export default function CheckoutPage() {
 
     /**
      * Handle form submission
-     * Always uses /cms/paylink/pay API — paid flow only, redirects to payment gateway
+     * Always uses /cms/geidea/pay API — paid flow only, redirects to payment gateway
      */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
             };
             localStorage.setItem('checkoutData', JSON.stringify(orderData));
 
-            // Prepare JSON payload for /cms/paylink/pay API
+            // Prepare JSON payload for /cms/geidea/pay API
             const originalPrice = selectedPlan?.price || 0;
             const finalAmount = Math.max(0, Number(originalPrice) - discount).toFixed(2);
 
@@ -305,10 +305,10 @@ export default function CheckoutPage() {
                 payload.discount_amount = discount;
             }
 
-            console.log('📤 Sending payload to /cms/paylink/pay:', JSON.stringify(payload, null, 2));
+            console.log('📤 Sending payload to /cms/geidea/pay:', JSON.stringify(payload, null, 2));
 
-            // Call /cms/paylink/pay API — redirects to payment gateway
-            const response = await apiClient.post('/cms/paylink/pay', payload, {
+            // Call /cms/geidea/pay API — redirects to payment gateway
+            const response = await apiClient.post('/cms/geidea/pay', payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
