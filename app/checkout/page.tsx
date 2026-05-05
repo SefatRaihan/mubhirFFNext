@@ -438,6 +438,22 @@ export default function CheckoutPage() {
                 .react-datepicker__day--disabled {
                     color: #d1d5db;
                 }
+
+                /* Disabled datepicker - match gender/grade disabled styling */
+                .custom-datepicker:disabled,
+                .custom-datepicker.bg-gray-100 {
+                    background-color: #f3f4f6 !important;
+                    color: #4b5563 !important;
+                    cursor: not-allowed !important;
+                    border-color: #d1d5db;
+                }
+
+                /* Hide calendar icon when datepicker is disabled */
+                .react-datepicker-wrapper:has(.custom-datepicker:disabled) .react-datepicker__calendar-icon,
+                .react-datepicker__input-container:has(.custom-datepicker:disabled) svg,
+                .react-datepicker__input-container:has(.custom-datepicker:disabled) .react-datepicker__calendar-icon {
+                    display: none !important;
+                }
             `}</style>
 
             {/* Main Container */}
