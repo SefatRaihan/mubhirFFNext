@@ -42,7 +42,19 @@ export default function ArSat2Page() {
     const [activeTab, setActiveTab] = useState("tab1");
 
     const handlePackageSelect = (plan: PricingPlan) => {
-        Cookies.set('selectedPlan', JSON.stringify(plan), { path: '/' });
+        // Store only essential fields to avoid exceeding ~4KB cookie size limit
+        const planForCookie = {
+            id: plan.id,
+            title: plan.title,
+            title_ar: plan.title_ar,
+            title_en: plan.title,
+            price: plan.price,
+            price_display: plan.price_display,
+            pricing_terms: plan.pricing_terms,
+            pricing_terms_ar: plan.pricing_terms_ar,
+            package_type: plan.package_type,
+        };
+        Cookies.set('selectedPlan', JSON.stringify(planForCookie), { path: '/' });
         const token = Cookies.get('token');
         if (!token) {
             router.push('/login');

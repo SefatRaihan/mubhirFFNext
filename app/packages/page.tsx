@@ -329,7 +329,19 @@ function PackagesPageContent() {
     const handlePackageSelect = (pkg: Package) => {
         const token = Cookies.get('token');
 
-        Cookies.set('selectedPlan', JSON.stringify(pkg), { path: '/' });
+        // Store only essential fields to avoid exceeding ~4KB cookie size limit
+        const pkgForCookie = {
+            id: pkg.id,
+            title: pkg.title,
+            title_ar: pkg.title_ar,
+            title_en: pkg.title,
+            price: pkg.price,
+            price_display: pkg.price_display,
+            pricing_terms: pkg.pricing_terms,
+            pricing_terms_ar: pkg.pricing_terms_ar,
+            package_type: pkg.package_type,
+        };
+        Cookies.set('selectedPlan', JSON.stringify(pkgForCookie), { path: '/' });
         Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true', { path: '/' });
 
         if (!token) {
@@ -361,9 +373,23 @@ function PackagesPageContent() {
         // Check if user is authenticated
         const token = Cookies.get('token');
         // console.log('%c🔑 Token found:', 'color: #7A2060; font-weight: bold;', token ? 'YES - Going to checkout' : 'NO - Redirecting to login');
+
+        // Store only essential fields to avoid exceeding ~4KB cookie size limit
+        const pkgForCookie = {
+            id: selectedPkg.id,
+            title: selectedPkg.title,
+            title_ar: selectedPkg.title_ar,
+            title_en: selectedPkg.title,
+            price: selectedPkg.price,
+            price_display: selectedPkg.price_display,
+            pricing_terms: selectedPkg.pricing_terms,
+            pricing_terms_ar: selectedPkg.pricing_terms_ar,
+            package_type: selectedPkg.package_type,
+        };
+
         if (!token) {
             // Store selected package and redirect to login
-            Cookies.set('selectedPlan', JSON.stringify(selectedPkg));
+            Cookies.set('selectedPlan', JSON.stringify(pkgForCookie));
             // Set trial flag based on whether user has used trial
             Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
             router.push('/login');
@@ -371,7 +397,7 @@ function PackagesPageContent() {
         }
 
         // Navigate to checkout using full page navigation to ensure cookies are sent
-        Cookies.set('selectedPlan', JSON.stringify(selectedPkg), { path: '/' });
+        Cookies.set('selectedPlan', JSON.stringify(pkgForCookie), { path: '/' });
         // Set trial flag: true if user hasn't used trial, false if they have
         Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true', { path: '/' });
         // Use window.location.href for full page navigation (ensures cookies are sent to middleware)
