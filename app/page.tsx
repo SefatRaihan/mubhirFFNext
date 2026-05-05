@@ -1247,7 +1247,7 @@ export default function Home() {
           </motion.div>
 
           <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
-            <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+            <div id="plansGrid" className="flex flex-wrap justify-center gap-6 mx-auto">
               {pricingPlans.filter((plan) => {
                 if (pricingType === 'qudrat') return plan.package_type === 'SAT 1';
                 if (pricingType === 'tahsili') return plan.package_type === 'SAT 2';
@@ -1269,7 +1269,7 @@ export default function Home() {
                     boxShadow: "0 25px 50px -12px rgba(103, 30, 90, 0.25)",
                     transition: { duration: 0.3 }
                   }}
-                  className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col cursor-pointer"
+                  className="bg-white shadow-md rounded-2xl p-6 w-full md:w-[calc(50%_-_12px)] lg:w-[calc(33.333%_-_16px)] min-w-[300px] flex flex-col cursor-pointer"
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   <div className="flex items-center justify-between mb-2">

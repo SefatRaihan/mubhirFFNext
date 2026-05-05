@@ -1292,11 +1292,11 @@ export default function ArSat2Page() {
                     </ScrollP>
 
                     <main className="max-w-6xl mx-auto flex flex-col px-0 md:px-4 py-6">
-                        <div id="plansGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+                        <div id="plansGrid" className="flex flex-wrap justify-center gap-6 mx-auto">
                             {pricingPlans.map((plan, index) => (
                                 <ScrollDiv
                                     key={plan.id}
-                                    className="bg-white shadow-md rounded-2xl p-6 w-full flex flex-col cursor-pointer hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300"
+                                    className="bg-white shadow-md rounded-2xl p-6 w-full md:w-[calc(50%_-_12px)] lg:w-[calc(33.333%_-_16px)] min-w-[300px] flex flex-col cursor-pointer hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300"
                                     amount={0.2}
                                     initialRotateX={-15}
                                     delay={index * 0.15}
