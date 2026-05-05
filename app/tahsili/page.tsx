@@ -59,12 +59,21 @@ export default function ArSat2Page() {
                 const json = res.data;
 
                 if (json?.status === 'success' && Array.isArray(json.data)) {
-                    const features = [
+                    const defaultFeatures = [
                         'الوصول إلى أسئلة تدريب قدرات.',
                         'تقارير مرحلية أسبوعية لتتبع التحسن.',
                         'قم بإجراء امتحانات التدريب بناء على أي مزيج من اللفظي / الكتابي والكمي',
                         'دعم 24/7 للإجابة على أسئلتك.',
                     ];
+
+                    const getFeatures = (plan: any): string[] => {
+                        const apiFeatures = [plan.feature_1, plan.feature_2, plan.feature_3, plan.feature_4];
+                        const hasAny = apiFeatures.some((f: any) => f !== null && f !== undefined && f !== '');
+                        if (hasAny) {
+                            return apiFeatures.filter((f: any): f is string => f !== null && f !== undefined && f !== '');
+                        }
+                        return defaultFeatures;
+                    };
 
                     const titleTranslations: Record<string, string> = {
                         'Monthly Plan': 'الباقة الشهرية',
@@ -89,7 +98,7 @@ export default function ArSat2Page() {
                         price_display: toArabicDigits(String(plan.price ?? '')),
                         pricing_terms_ar: plan.pricing_terms,
                         terms_ar: 'لكل مستخدم شهريا',
-                        features,
+                        features: getFeatures(plan),
                     }));
 
                     setPricingPlans(plans);
