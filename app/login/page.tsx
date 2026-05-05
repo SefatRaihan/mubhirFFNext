@@ -155,9 +155,9 @@ function LoginContent() {
             // 2. Otherwise → go to packages page to select a plan
 
             if (selectedPlanCookie) {
-                router.push('/checkout');
+                window.location.href = '/checkout';
             } else {
-                router.push('/packages');
+                window.location.href = '/packages';
             }
         } catch (err: any) {
             // console.error('Login error:', err);
