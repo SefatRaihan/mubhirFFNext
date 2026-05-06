@@ -149,7 +149,7 @@ export default function Home() {
         setReviewsError('Failed to load reviews');
       }
     } catch (error) {
-      console.error('Error fetching reviews:', error);
+      // console.error('Error fetching reviews:', error);
       setReviewsError('Failed to load reviews');
     } finally {
       setReviewsLoading(false);
@@ -684,7 +684,7 @@ export default function Home() {
           setPricingPlans(plans);
         }
       } catch (error) {
-        console.error('Failed to load packages:', error);
+        // console.error('Failed to load packages:', error);
       }
     };
 

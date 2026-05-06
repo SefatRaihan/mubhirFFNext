@@ -264,11 +264,11 @@ export default function CheckoutPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
-        console.log('🚀 handleSubmit started');
+        // console.log('🚀 handleSubmit started');
 
         try {
             const token = Cookies.get('token');
-            console.log('🔑 Token:', token ? 'exists' : 'MISSING');
+            // console.log('🔑 Token:', token ? 'exists' : 'MISSING');
             if (!token) {
                 router.push('/login');
                 return;
@@ -305,7 +305,7 @@ export default function CheckoutPage() {
                 payload.discount_amount = discount;
             }
 
-            console.log('📤 Sending payload to /cms/geidea/pay:', JSON.stringify(payload, null, 2));
+            // console.log('📤 Sending payload to /cms/geidea/pay:', JSON.stringify(payload, null, 2));
 
             // Call /cms/geidea/pay API — redirects to payment gateway
             const response = await apiClient.post('/cms/geidea/pay', payload, {
@@ -316,10 +316,10 @@ export default function CheckoutPage() {
             });
 
             const data = response.data;
-            console.log('📥 API Response:', JSON.stringify(data, null, 2));
+            // console.log('📥 API Response:', JSON.stringify(data, null, 2));
 
             if (data.transaction_url) {
-                console.log('✅ Redirect URL found:', data.transaction_url);
+                // console.log('✅ Redirect URL found:', data.transaction_url);
                 // Save transactionNo to localStorage so confirmation page can use it
                 // even if Paylink doesn't include it in the redirect URL
                 if (data.transactionNo) {
@@ -327,15 +327,15 @@ export default function CheckoutPage() {
                 }
                 window.location.href = data.transaction_url;
             } else {
-                console.error('❌ No redirect URL in response. Full response:', data);
+                // console.error('❌ No redirect URL in response. Full response:', data);
                 alert('حدث خطأ غير متوقع. حاول مرة أخرى لاحقًا.');
                 setSubmitting(false);
             }
 
         } catch (error: any) {
-            console.error('❌ handleSubmit error:', error);
-            console.error('❌ Error response data:', error?.response?.data);
-            console.error('❌ Error status:', error?.response?.status);
+            // console.error('❌ handleSubmit error:', error);
+            // console.error('❌ Error response data:', error?.response?.data);
+            // console.error('❌ Error status:', error?.response?.status);
             if (error?.response?.data) {
                 const errData = error.response.data;
                 const errorMsg = errData.errors

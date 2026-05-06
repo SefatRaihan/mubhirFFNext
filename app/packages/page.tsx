@@ -244,12 +244,12 @@ function PackagesPageContent() {
         const formattedDOB = `${day}/${month}/${year}`;
 
         // Debug: Log form data
-        console.group('%c📋 TRIAL MODAL - Form Data', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-        console.log('%cGender:', 'color: #2563eb;', trialGender);
-        console.log('%cDate of Birth:', 'color: #2563eb;', formattedDOB);
-        console.log('%cGrade:', 'color: #2563eb;', trialGrade);
-        console.log('%cToken:', 'color: #2563eb;', token ? token.substring(0, 20) + '...' : 'NOT FOUND');
-        console.groupEnd();
+        // console.group('%c📋 TRIAL MODAL - Form Data', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+        // console.log('%cGender:', 'color: #2563eb;', trialGender);
+        // console.log('%cDate of Birth:', 'color: #2563eb;', formattedDOB);
+        // console.log('%cGrade:', 'color: #2563eb;', trialGrade);
+        // console.log('%cToken:', 'color: #2563eb;', token ? token.substring(0, 20) + '...' : 'NOT FOUND');
+        // console.groupEnd();
 
         try {
             // Build FormData payload
@@ -268,11 +268,11 @@ function PackagesPageContent() {
             const data: any = response.data;
 
             // Debug: Log API response
-            console.group('%c🔍 TRIAL MODAL - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
-            console.log('%cStatus:', 'color: #2563eb;', response.status);
-            console.log('%cFull Response Data:', 'color: #16a34a; font-weight: bold;');
-            console.log(data);
-            console.groupEnd();
+            // console.group('%c🔍 TRIAL MODAL - API Response', 'color: #7A2060; font-size: 14px; font-weight: bold;');
+            // console.log('%cStatus:', 'color: #2563eb;', response.status);
+            // console.log('%cFull Response Data:', 'color: #16a34a; font-weight: bold;');
+            // console.log(data);
+            // console.groupEnd();
 
             // Determine if user has used trial
             let hasUsed = false;

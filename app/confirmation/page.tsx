@@ -51,9 +51,9 @@ function ConfirmationContent() {
     useEffect(() => {
         const verifyAndLoad = async () => {
             // Log all URL params for debugging
-            console.log('🔍 Confirmation page loaded');
-            console.log('🔍 Full URL:', window.location.href);
-            console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
+            // console.log('🔍 Confirmation page loaded');
+            // console.log('🔍 Full URL:', window.location.href);
+            // console.log('🔍 All search params:', Object.fromEntries(searchParams.entries()));
 
             // Try to get orderId/transactionNo from URL first, then fallback to localStorage
             const transactionNo = searchParams.get('orderId')
@@ -62,9 +62,9 @@ function ConfirmationContent() {
                 || localStorage.getItem('paylink_transactionNo');
             const token = Cookies.get('token');
 
-            console.log('🔑 Token:', token ? 'exists' : 'MISSING');
-            console.log('🧾 transactionNo:', transactionNo,
-                transactionNo ? `(from ${searchParams.get('transactionNo') ? 'URL' : 'localStorage'})` : '');
+            // console.log('🔑 Token:', token ? 'exists' : 'MISSING');
+            // console.log('🧾 transactionNo:', transactionNo,
+            //     transactionNo ? `(from ${searchParams.get('transactionNo') ? 'URL' : 'localStorage'})` : '');
 
             // Clean up localStorage after reading
             if (transactionNo && localStorage.getItem('paylink_transactionNo')) {
@@ -73,7 +73,7 @@ function ConfirmationContent() {
 
             // Only redirect to login if there's no token AND no transactionNo
             if (!token && !transactionNo) {
-                console.log('❌ No token and no transactionNo — redirecting to login');
+                // console.log('❌ No token and no transactionNo — redirecting to login');
                 router.push('/login');
                 return;
             }
@@ -90,7 +90,7 @@ function ConfirmationContent() {
 
                 // If transactionNo exists, verify payment
                 if (transactionNo) {
-                    console.log('📤 Calling callback API:', `/cms/geidea/callback?orderId=${transactionNo}`);
+                    // console.log('📤 Calling callback API:', `/cms/geidea/callback?orderId=${transactionNo}`);
 
                     try {
                         const response = await apiClient.get(`/cms/geidea/callback?orderId=${transactionNo}`, {
@@ -98,7 +98,7 @@ function ConfirmationContent() {
                         });
 
                         const data = response.data;
-                        console.log('📥 Callback response:', JSON.stringify(data, null, 2));
+                        // console.log('📥 Callback response:', JSON.stringify(data, null, 2));
 
                         // PAID (200) — { ok: true, message: "Payment successful! ..." }
                         if (data.ok === true) {
@@ -112,9 +112,9 @@ function ConfirmationContent() {
                             return;
                         }
                     } catch (callbackError: any) {
-                        console.error('❌ Callback API error:', callbackError);
+                        // console.error('❌ Callback API error:', callbackError);
                         const errData = callbackError?.response?.data;
-                        console.error('❌ Callback error data:', errData);
+                        // console.error('❌ Callback error data:', errData);
 
                         if (errData) {
                             // PENDING/DECLINED (400) — { ok: false, message: "Do Not Honor", errors: [...] }
@@ -154,11 +154,11 @@ function ConfirmationContent() {
                     });
                     setUserData(userResponse.data);
                 } catch (userError) {
-                    console.error('⚠️ Failed to fetch user data:', userError);
+                    // console.error('⚠️ Failed to fetch user data:', userError);
                 }
 
             } catch (error) {
-                console.error('❌ Error verifying payment:', error);
+                // console.error('❌ Error verifying payment:', error);
                 setApiMessage('حدث خطأ. حاول مرة أخرى.');
                 setSuccess(false);
             } finally {
