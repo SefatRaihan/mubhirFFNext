@@ -108,21 +108,21 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
 
                 onClose();
             } else {
-                console.error('❌ Review submission failed');
-                console.error('Response:', response.data);
+                // console.error('❌ Review submission failed');
+                // console.error('Response:', response.data);
                 toast.error('حدث خطأ أثناء إرسال التعليق. يرجى المحاولة مرة أخرى.', {
                     position: 'top-right',
                     autoClose: 2000,
                 });
             }
         } catch (error) {
-            console.error('=== Error submitting review ===');
-            console.error('Error:', error);
+            // console.error('=== Error submitting review ===');
+            // console.error('Error:', error);
 
             if (axios.isAxiosError(error)) {
-                console.error('Response Status:', error.response?.status);
-                console.error('Response Data:', error.response?.data);
-                console.error('Request Config:', error.config);
+                // console.error('Response Status:', error.response?.status);
+                // console.error('Response Data:', error.response?.data);
+                // console.error('Request Config:', error.config);
 
                 // Check if phone number is not registered (status 400)
                 // console.log('🔍 Checking unregistered phone condition:');
