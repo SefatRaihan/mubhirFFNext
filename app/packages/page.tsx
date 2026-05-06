@@ -28,6 +28,7 @@ interface Package {
     pricing_terms: string;
     terms_per_month: string;
     promotional_badge: number;
+    other_description?: string | null;
     package_type?: string;
     title_ar?: string;
     description_ar?: string;
@@ -153,7 +154,9 @@ function PackagesPageContent() {
                         ...pkg,
                         title_ar: titleTranslations[pkg.title] || pkg.title,
                         description_ar: descriptionTranslations[pkg.description] || pkg.description,
-                        pricing_terms_ar: pricingTermsTranslations[pkg.pricing_terms] || pkg.pricing_terms,
+                        pricing_terms_ar: pkg.pricing_terms === 'others' && pkg.other_description
+                            ? pkg.other_description
+                            : pricingTermsTranslations[pkg.pricing_terms] || pkg.pricing_terms,
                         price_display: pkg.price,
                     }));
 
