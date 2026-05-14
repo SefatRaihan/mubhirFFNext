@@ -722,7 +722,7 @@ export default function Home() {
                   ref={heroBadge1Ref}
                   className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
                 >
-                  #سؤال
+                  #اختبارات
                 </span>
                 {/* Popup Image for Badge 1 */}
                 <div
@@ -754,7 +754,7 @@ export default function Home() {
                   ref={heroBadge2Ref}
                   className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
                 >
-                  #قدرات
+                  #تحصيلي
                 </span>
                 {/* Popup Image for Badge 2 */}
                 <div
@@ -782,7 +782,8 @@ export default function Home() {
               ref={heroHeadingRef}
               className="text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white opacity-0"
             >
-              مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات
+              {/* مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات */}
+              مبهر شريكك الذكي <br /> للتفوق في اختبارات القدرات <br /> والتحصيلي
             </h1>
 
             <motion.p
@@ -791,8 +792,9 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
             >
-              تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار
-              القدرات بالذكاء الإصطناعي
+              {/* تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار
+              القدرات بالذكاء الإصطناعي */}
+              تحضير دقيق خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار القدرات والتحصيلي بالذكاء الاصطناعي
             </motion.p>
 
             <div
@@ -923,8 +925,10 @@ export default function Home() {
         <div className="container max-w-6xl px-4 py-[48px] sm:py-[120px]">
           <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
             <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 md:leading-[70px] lg:leading-[76px] font-bold mb-3 sm:mb-4">
-              استعد لأختبار القدرات <br />
-              العامة بخطوات تفوق التوقعات مع مبهر
+              {/* استعد لأختبار القدرات <br />
+              العامة بخطوات تفوق التوقعات مع مبهر */}
+
+              استعد لاختبارات القدرات العامة <br /> والتحصيلي بخطوات تفوق توقعاتك مع مبهر
             </h2>
             <p className="text-sm sm:text-[16px] font-medium text-black mt-3">
               خطط مخصصة – تدريب ذكي – نتائج مبهرة
@@ -1046,8 +1050,8 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto px-4 py-12 sm:py-[120px]">
           <div className="text-center mb-10">
-            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-tight sm:leading-[52px] lg:leading-[120px]">
-              ابدأ رحلتك للـ ١٠٠ مع أقوى منصة للقدرات العامة
+            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-tight sm:leading-[52px] lg:leading-[100px]">
+              ابدأ رحلتك نحو الـ ۱۰۰ مع أقوى منصة للتحضير لاختبارات القدرات العامة والتحصيلي
             </h2>
             <p className="pt-4 text-base text-gray-600 mt-2">
               منصة رائعة تقدم لك تجربة تعليمية شاملة تضم
@@ -1084,9 +1088,9 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[120px] text-center"
+              className="text-[28px] sm:text-[48px] lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
             >
-              ابدأ طريقك للتميز في القدرات مع منصة تثق فيها
+              طريقك للتميز في القدرات والتحصيلي يبدأ مع منصة موثوقة تصنع الفرق
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -1188,9 +1192,9 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[120px] text-center"
+            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
           >
-            أسعار مرنة لكل طالب يبغي يتفوق في القدرات
+            أسعار مميزة لكل طالب يبغى يتفوق في القدرات والتحصيلي بأقل تكلفة وأعلى نتائج
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -1442,9 +1446,9 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-[28px] sm:text-5xl md:text-[60px] font-semibold text-center text-black"
+            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
           >
-            كل إستفسارات طلاب القدرات
+            كل ما يهم طلاب القدرات والتحصيلي من استفسارات وإجابات
             <br />
           </motion.h2>
           <motion.p

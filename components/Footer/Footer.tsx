@@ -210,7 +210,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="text-[#344054] font-medium text-sm md:text-[16px]">
-            منصة تقدم اختبارات تجريبية وموارد <br /> لاختبار القدرات العامة.
+            منصة متكاملة تقدم اختبارات تجريبية <br /> وموارد تعليمية لاختبارات القدرات <br /> العامة والتحصيلي
           </p>
         </div>
       </div>
