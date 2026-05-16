@@ -350,7 +350,7 @@ export default function ArSat2Page() {
                             />
                         </span> */}
 
-                        جهز نفسك للتحصيل بثقة مع مهبر، ابدأ معنا انطلاقة قوية نحو التفوق في التحصيل بدعم فعّال يرفع مستواك، لتحقق أعلى الدرجات بأسهل وأسرع طريقة.
+                        جهز نفسك للتحصيلي بثقة مع مبهر، إبدأ معنا انطلاقة قوية نحو التفوق في التحصيلي بدعم فعال يرفع مستواك لتحقيق أعلى الدرجات بأسهل وأسرع طريقة
                     </ScrollH2>
                     <ScrollP
                         className="text-sm text-gray-500 mt-1 text-center"
@@ -1222,7 +1222,7 @@ export default function ArSat2Page() {
                                                 دروس فيديو
                                             </div>
                                             <h2 className="text-3xl sm:text-4xl xl:text-4xl font-semibold leading-tight tracking-tight">
-                                                الصورة هنا لازم تتغير لان الكلام اللي فيها عن القدرات
+                                                تعلم بذكاء وليس بعناء مع مبهر
                                             </h2>
                                             <p className="mt-3 text-gray-600 text-[16px] font-normal leading-relaxed">
                                                 نحن نساعد جميع طلاب المملكة على تحقيق أقصى درجاتهم في اختبار التحصيلي بأذكى الطرق وأعلى كفاءة
