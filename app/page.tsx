@@ -96,7 +96,7 @@ export default function Home() {
   const [isHoveringHero, setIsHoveringHero] = useState(false);
 
   // Badge Hover State for popup images
-  const [hoveredBadge, setHoveredBadge] = useState<'badge1' | 'badge2' | null>(null);
+  const [hoveredBadge, setHoveredBadge] = useState<'badge1' | 'badge2' | 'badge3' | 'badge4' | null>(null);
 
   // Ref to track activeTab inside GSAP callbacks (avoids stale closures)
   const activeTabRef = useRef('tab1');
@@ -108,6 +108,8 @@ export default function Home() {
   const heroTitleWordsRef = useRef<HTMLSpanElement[]>([]);
   const heroBadge1Ref = useRef<HTMLSpanElement>(null);
   const heroBadge2Ref = useRef<HTMLSpanElement>(null);
+  const heroBadge3Ref = useRef<HTMLSpanElement>(null);
+  const heroBadge4Ref = useRef<HTMLSpanElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialRef = useRef<HTMLDivElement>(null);
   const heroStudentsRef = useRef<HTMLDivElement>(null);
@@ -248,6 +250,54 @@ export default function Home() {
           yoyo: true,
           repeat: -1,
           delay: 2.5
+        });
+      }
+
+      if (heroBadge3Ref.current) {
+        masterTL.fromTo(heroBadge3Ref.current,
+          { opacity: 0, scale: 0.3, y: 20 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'back.out(2)',
+          },
+          0.85
+        );
+
+        // Gentle floating - offset timing
+        gsap.to(heroBadge3Ref.current, {
+          y: -7,
+          duration: 2.8,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 2.2
+        });
+      }
+
+      if (heroBadge4Ref.current) {
+        masterTL.fromTo(heroBadge4Ref.current,
+          { opacity: 0, scale: 0.3, y: 20 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'back.out(2)',
+          },
+          0.95
+        );
+
+        // Gentle floating - offset timing
+        gsap.to(heroBadge4Ref.current, {
+          y: -5,
+          duration: 3.2,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 2.8
         });
       }
 
@@ -711,54 +761,22 @@ export default function Home() {
         <div className="p-4 relative z-10">
           {/* Hero Content */}
           <div className="relative text-center mt-16 md:mt-[128px]">
-            <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
-              {/* Badge 1 - #سؤال with hover image */}
+            <div className="flex flex-wrap justify-center gap-3 md:gap-0 mb-4 md:mb-0">
+              {/* Badge 1 - #تحصيلي */}
               <div
-                className="relative group cursor-pointer transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-24 lg:right-40 md:top-60 p-4 z-20"
+                className="relative group cursor-pointer transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-44 p-2 md:p-4 z-20"
                 onMouseEnter={() => setHoveredBadge('badge1')}
                 onMouseLeave={() => setHoveredBadge(null)}
               >
                 <span
                   ref={heroBadge1Ref}
-                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
-                >
-                  #اختبارات
-                </span>
-                {/* Popup Image for Badge 1 */}
-                <div
-                  ref={badgePopup1Ref}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 z-100 pointer-events-none"
-                  style={{ opacity: 0, display: 'none' }}
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-linear-to-br from-blue-500/50 to-purple-600/50 rounded-2xl blur-2xl scale-110" />
-                    <Image
-                      src="/image/arabic_content/content1.png"
-                      width={1000}
-                      height={800}
-                      alt="سؤال"
-                      className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
-                      style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Badge 2 - #قدرات with hover image */}
-              <div
-                className="relative group cursor-pointer transform rotate-15 md:rotate-25 md:absolute md:left-24 lg:left-40 md:top-60 p-4 z-20"
-                onMouseEnter={() => setHoveredBadge('badge2')}
-                onMouseLeave={() => setHoveredBadge(null)}
-              >
-                <span
-                  ref={heroBadge2Ref}
                   className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
                 >
                   #تحصيلي
                 </span>
-                {/* Popup Image for Badge 2 */}
+                {/* Popup Image for Badge 1 */}
                 <div
-                  ref={badgePopup2Ref}
+                  ref={badgePopup1Ref}
                   className="absolute top-full left-1/2 -translate-x-1/2 mt-4 z-100 pointer-events-none"
                   style={{ opacity: 0, display: 'none' }}
                 >
@@ -768,12 +786,68 @@ export default function Home() {
                       src="/image/arabic_content/content2.png"
                       width={1000}
                       height={800}
-                      alt="قدرات"
+                      alt="تحصيلي"
                       className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
                       style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Badge 2 - #اختبارات */}
+              <div
+                className="relative group cursor-pointer transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-44 p-2 md:p-4 z-20"
+                onMouseEnter={() => setHoveredBadge('badge2')}
+                onMouseLeave={() => setHoveredBadge(null)}
+              >
+                <span
+                  ref={heroBadge2Ref}
+                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
+                >
+                  #اختبارات
+                </span>
+                {/* Popup Image for Badge 2 */}
+                <div
+                  ref={badgePopup2Ref}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 z-100 pointer-events-none"
+                  style={{ opacity: 0, display: 'none' }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-linear-to-br from-blue-500/50 to-purple-600/50 rounded-2xl blur-2xl scale-110" />
+                    <Image
+                      src="/image/arabic_content/content1.png"
+                      width={1000}
+                      height={800}
+                      alt="اختبارات"
+                      className="rounded-2xl shadow-2xl border-4 border-white/40 relative z-10"
+                      style={{ width: '400px', height: 'auto', maxWidth: 'none' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge 3 - #سؤال */}
+              <div
+                className="relative group cursor-pointer transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] p-2 md:p-4 z-20"
+              >
+                <span
+                  ref={heroBadge3Ref}
+                  className="bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 inline-block"
+                >
+                  #سؤال
+                </span>
+              </div>
+
+              {/* Badge 4 - #قدرات */}
+              <div
+                className="relative group cursor-pointer transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] p-2 md:p-4 z-20"
+              >
+                <span
+                  ref={heroBadge4Ref}
+                  className="bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 inline-block"
+                >
+                  #قدرات
+                </span>
               </div>
             </div>
 
