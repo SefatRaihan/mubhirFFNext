@@ -131,33 +131,55 @@ export default function ArSat2Page() {
                 <div className="p-4">
                     {/* Hero Section */}
                     <div className="relative text-center mt-16 md:mt-[128px]">
-                        <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
+                        <div className="flex flex-wrap justify-center gap-3 md:gap-0 mb-4 md:mb-0">
+                            {/* Badge 1 - #تحصيلي */}
                             <motion.span
-                                initial={{ opacity: 0, scale: 0, rotate: -15 }}
-                                animate={{ opacity: 1, scale: 1, rotate: -15 }}
+                                initial={{ opacity: 0, scale: 0, rotate: -12 }}
+                                animate={{ opacity: 1, scale: 1, rotate: -12 }}
                                 transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
-                                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
-                                dir="ltr"
+                                className="transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 cursor-pointer z-20"
                             >
-                                سؤال#
+                                #تحصيلي
                             </motion.span>
+
+                            {/* Badge 2 - #اختبارات */}
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: 10 }}
+                                animate={{ opacity: 1, scale: 1, rotate: 10 }}
+                                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer z-20"
+                            >
+                                #اختبارات
+                            </motion.span>
+
+                            {/* Badge 3 - #سؤال */}
                             <motion.span
                                 initial={{ opacity: 0, scale: 0, rotate: 15 }}
                                 animate={{ opacity: 1, scale: 1, rotate: 15 }}
-                                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
-                                className="transform rotate-15 md:rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+                                transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 cursor-pointer z-20"
                             >
-                                #اختبار تحصيلي
+                                #سؤال
+                            </motion.span>
+
+                            {/* Badge 4 - #دورات */}
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: -10 }}
+                                animate={{ opacity: 1, scale: 1, rotate: -10 }}
+                                transition={{ duration: 0.5, delay: 0.5, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 cursor-pointer z-20"
+                            >
+                                #دورات
                             </motion.span>
                         </div>
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                            className="text-2xl md:text-[76px] font-bold leading-tight md:leading-[86px] text-center"
+                            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
                         >
-                            <span className="relative inline-block pb-2">
-                                {/* امتحانات ودورات تحصيلي متوفرة الآن! */}
+                            {/* <span className="relative inline-block pb-2">
+                                
                                 متوفرة الآن
                                 <Image
                                     src="/image/Vector 1.svg"
@@ -166,8 +188,8 @@ export default function ArSat2Page() {
                                     height={10}
                                     className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                 />
-                            </span>
-                            ودورات تحصيلي <br />امتحانات!
+                            </span> */}
+                            جاهز للتحصيلي؟<br /> الحين متوفرة أقوى الدورات المكثفة مع نماذج اختبارات تحاكي الاختبار الحقيقي
                         </motion.h1>
 
                         <motion.p
@@ -176,7 +198,7 @@ export default function ArSat2Page() {
                             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
                             className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
-                            يُعدّ تحصيلي بوابتك إلى أفضل الجامعات، وفي مبهر نحرص على إعدادك بشكل كامل لتحقيق التفوق فيه.
+                            التحصيلي هو بوابتك للقبول في أفضل الجامعات ومعنا بتدخل الاختبار وأنت واثق ومتمكن
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -1028,10 +1050,10 @@ export default function ArSat2Page() {
                     {/* Header (Centered) */}
                     <div className="mx-auto max-w-[610px] space-y-4">
                         <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
-                            كيف يساعدك مبهر على التفوق في اختبار القدرات
+                            كيف يجهزك مبهر للتفوق <br /> في اختبار التحصيلي ؟
                         </ScrollH2>
                         <ScrollP className="text-[16px] text-black mt-1 text-center" amount={0.3} delay={0.1}>
-                            ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
+                            التحصيلي هو بوابتك للقبول في أفضل الجامعات ومعنا بتدخل الاختبار وانت واثق ومتمكن
                         </ScrollP>
                     </div>
 
