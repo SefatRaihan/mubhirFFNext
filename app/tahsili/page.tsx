@@ -1148,7 +1148,7 @@ export default function ArSat2Page() {
                                     </p>
                                     <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
                                         {[
-                                            { text: 'أكثر من 1,000 اختبار تجريبي من إعداد خبراء', color: '#EEE3FF', stroke: '#761DFF' },
+                                            { text: 'أكثر من ١٠٠٠ سؤال تم اعدادها على يد معلمين خبراء بخبرة تفوق ال١٠ سنوات', color: '#EEE3FF', stroke: '#761DFF' },
                                             { text: 'تجربة تحاكي أجواء اختبار التحصيلي الحقيقية', color: '#E0F7FF', stroke: '#00AFE6' },
                                             { text: 'تحليلات دقيقة لتتبع الأداء ومعرفة نقاط القوة والضعف', color: '#FFE9F5', stroke: '#FF0086' }
                                         ].map((card, idx) => (
