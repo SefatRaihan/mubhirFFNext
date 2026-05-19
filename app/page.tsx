@@ -618,7 +618,7 @@ export default function Home() {
     },
     {
       iconSrc: '/image/icon/feature-icon-7.webp',
-      text: 'منهج متكامل يغطي جميع المهارات في القسم الكمي واللفظي',
+      text: 'منهج متكامل يغطي جميع المهارات في القدرات والتحصيلي',
 
     },
     {
