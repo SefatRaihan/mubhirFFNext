@@ -443,7 +443,7 @@ export default function ArSat2Page() {
                             className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none"
                             amount={0.5}
                         >
-                            ماذا تقدم منصة مهبر في اختبار التحصيلي؟
+                            ماذا تقدم منصة مبهر  في اختبار التحصيلي؟
                         </ScrollH2>
                         <ScrollP
                             className="text-sm text-gray-500 mt-4"
