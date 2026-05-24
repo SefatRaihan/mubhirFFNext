@@ -632,8 +632,8 @@ export default function ArSat2Page() {
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                                     قسم الفيزياء
                                 </div>
-                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    أتقن مفاهيم وقوانين الفيزياء بأسلوب سهل <br /> وعملي، وتعلّم تطبيقها على مسائل متنوعة من <br /> واقع الحياة وأسئلة الاختبارات
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px] lg:max-w-[490px]">
+                                    أتقن مفاهيم وقوانين الفيزياء بأسلوب سهل وعملي، وتعلّم تطبيقها على مسائل متنوعة من واقع الحياة وأسئلة الاختبارات
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
@@ -731,7 +731,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-2 text-[20px] font-semibold">هنا يُصنع أفضل تصميم لكل مادة</p>
+                                <p className="mt-2 text-[20px] font-semibold">الفيزياء الحديثة</p>
                             </div>
                             {/* <div
                                 className="bg-[#F2F4F7] rounded-lg p-4 text-right shadow-sm space-y-28"
@@ -760,8 +760,8 @@ export default function ArSat2Page() {
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                                     قسم الكيمياء
                                 </div>
-                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    حل التفاعلات الكيميائية بسرعة وفهم تأثيره <br /> في الحياة والبيئة
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px] lg:max-w-[490px]">
+                                    حل التفاعلات الكيميائية بسرعة وفهم تأثيره في الحياة والبيئة
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-[144px] mb-6">
@@ -836,7 +836,7 @@ export default function ArSat2Page() {
                                     width={56}
                                     height={56}
                                 />
-                                <p className="mt-3 text-[20px] font-semibold">يفضل وضع تصاميم في كل مادة
+                                <p className="mt-3 text-[20px] font-semibold">الكيمياء البيئية
                                 </p>
                             </div>
                         </div>
@@ -848,8 +848,8 @@ export default function ArSat2Page() {
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                                     قسم الرياضيات
                                 </div>
-                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
-                                    سرع مهاراتك في حل المسائل الرياضية <br /> بكل سهولة ودقة
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px] lg:max-w-[400px]">
+                                    سرع مهاراتك في حل المسائل الرياضية بكل سهولة ودقة
                                 </h3>
 
                                 <p className="text-gray-600 font-normal text-[16px] lg:w-[413px] mt-18 mb-6">
@@ -961,7 +961,7 @@ export default function ArSat2Page() {
                                 <div className="inline-flex items-center rounded-full bg-[#F9FAFB] text-[#671E5A] border-2 border-[#EAECF0] px-4 py-1 text-sm font-semibold mb-3">
                                     قسم الأحياء
                                 </div>
-                                <h3 className="text-2xl font-semibold mt-2 mb-[76px]">
+                                <h3 className="text-2xl font-semibold mt-2 mb-[76px] lg:max-w-[490px]">
                                     قسم يساعدك على فهم الحياة من أصغر تفاصيلها إلى أوسع أنظمتها، ودراسة العمليات الحيوية وعلاقات الكائنات الحية ببيئتها
                                 </h3>
 
