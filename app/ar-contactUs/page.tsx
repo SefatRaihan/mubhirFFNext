@@ -158,7 +158,7 @@ export default function ArContactUsPage() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt1.png"
+                                        src="/image/avt1.webp"
                                         alt="student1"
                                         width={55}
                                         height={55}
@@ -171,7 +171,7 @@ export default function ArContactUsPage() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt4.png"
+                                        src="/image/avt4.webp"
                                         alt="student2"
                                         width={55}
                                         height={55}
@@ -184,7 +184,7 @@ export default function ArContactUsPage() {
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
-                                        src="/image/avt3.png"
+                                        src="/image/avt3.webp"
                                         alt="student3"
                                         width={55}
                                         height={55}
