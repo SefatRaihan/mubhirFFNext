@@ -76,12 +76,12 @@ export default function Navbar() {
 
         {/* Buttons (Desktop) */}
         <div className="hidden lg:flex items-center flex-row-reverse space-x-4 space-x-reverse">
-          <Link href="/login">
+          <Link href="/login" prefetch={false}>
             <button className="px-5 py-1.5 rounded-full bg-[#91288c] text-white font-medium text-sm hover:bg-[#7d1c79] transition">
               تسجيل الدخول
             </button>
           </Link>
-          <Link href="/signup">
+          <Link href="/signup" prefetch={false}>
             <button className="px-5 py-1.5 rounded-full border border-[#91288c] text-[#91288c] font-medium text-sm hover:bg-[#f7ecf9] transition">
               تسجيل
             </button>
@@ -167,6 +167,7 @@ export default function Navbar() {
           <div className="p-4 flex gap-3">
             <Link
               href="/signup"
+              prefetch={false}
               className="flex-1"
             >
               <button className="w-full px-6 py-3 rounded-full border border-[#91288c] text-[#91288c] font-medium hover:bg-[#f7ecf9] transition">
@@ -175,6 +176,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/login"
+              prefetch={false}
               className="flex-1"
             >
               <button className="w-full px-6 py-3 rounded-full bg-[#91288c] text-white font-medium hover:bg-[#7d1c79] transition">
