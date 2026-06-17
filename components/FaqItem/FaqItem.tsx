@@ -44,27 +44,21 @@ export default function FaqItem({ question, answer, index, isOpen, onToggle }: F
                     {isOpen ? <UpArrowIcon /> : <DownArrowIcon />}
                 </motion.span>
             </button>
-            <AnimatePresence initial={false}>
-                {isOpen && (
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                    >
-                        <motion.div
-                            initial={{ y: -10 }}
-                            animate={{ y: 0 }}
-                            exit={{ y: -10 }}
-                            transition={{ duration: 0.3 }}
-                            className="mt-4 text-gray-700 text-right"
-                        >
-                            {answer}
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <motion.div
+                initial={false}
+                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+            >
+                <motion.div
+                    initial={false}
+                    animate={{ y: isOpen ? 0 : -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 text-gray-700 text-right"
+                >
+                    {answer}
+                </motion.div>
+            </motion.div>
         </motion.div>
     );
 }
