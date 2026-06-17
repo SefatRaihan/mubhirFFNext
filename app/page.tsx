@@ -110,6 +110,7 @@ export default function Home() {
   const heroBadge2Ref = useRef<HTMLSpanElement>(null);
   const heroBadge3Ref = useRef<HTMLSpanElement>(null);
   const heroBadge4Ref = useRef<HTMLSpanElement>(null);
+  const heroParagraphRef = useRef<HTMLParagraphElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialRef = useRef<HTMLDivElement>(null);
   const heroStudentsRef = useRef<HTMLDivElement>(null);
@@ -201,6 +202,22 @@ export default function Home() {
             duration: 1.2,
           },
           0.2
+        );
+      }
+
+      // ========== HERO PARAGRAPH - SMOOTH SLIDE UP ==========
+      if (heroParagraphRef.current) {
+        masterTL.fromTo(heroParagraphRef.current,
+          {
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+          },
+          0.6
         );
       }
 
@@ -766,7 +783,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-44 p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge1Ref}
-                  className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
+                  className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
                 >
                   #تحصيلي
                 </span>
@@ -776,7 +793,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-44 p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge2Ref}
-                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
+                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
                 >
                   #اختبارات
                 </span>
@@ -786,7 +803,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge3Ref}
-                  className="bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 inline-block"
+                  className="bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 inline-block"
                 >
                   #سؤال
                 </span>
@@ -796,7 +813,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge4Ref}
-                  className="bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md opacity-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 inline-block"
+                  className="bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 inline-block"
                 >
                   #قدرات
                 </span>
@@ -806,26 +823,24 @@ export default function Home() {
 
             <h1
               ref={heroHeadingRef}
-              className="text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white opacity-0"
+              className="text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white"
             >
               {/* مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات */}
               مبهر شريكك الذكي <br /> للتفوق في اختبارات القدرات <br /> والتحصيلي
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+            <p
+              ref={heroParagraphRef}
               className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
             >
               {/* تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار
               القدرات بالذكاء الإصطناعي */}
               تحضير دقيق خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار القدرات والتحصيلي بالذكاء الاصطناعي
-            </motion.p>
+            </p>
 
             <div
               ref={heroCtaRef}
-              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer opacity-0"
+              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
             >
               <motion.div
                 className="relative inline-block"
@@ -871,45 +886,34 @@ export default function Home() {
           <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
             <div
               ref={heroStudentsRef}
-              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1 opacity-0"
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
+                <div
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image src="/image/avt1.webp" width={55} height={55} alt="student1" />
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                </div>
+                <div
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image src="/image/avt4.webp" width={55} height={55} alt="student2" />
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
+                </div>
+                <div
                   className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                 >
                   <Image src="/image/avt3.webp" width={55} height={55} alt="student3" />
-                </motion.div>
+                </div>
               </div>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.4 }}
+              <span
                 className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
               >
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
-              </motion.span>
+              </span>
             </div>
             <div
               ref={heroSocialRef}
-              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px] opacity-0"
+              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px]"
             >
               {[
                 { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
@@ -921,9 +925,6 @@ export default function Home() {
               ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay, type: "spring", stiffness: 200 }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >
