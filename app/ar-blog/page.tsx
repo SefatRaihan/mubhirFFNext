@@ -246,6 +246,7 @@ export default function ArBlogPage() {
                                         width={100}
                                         height={10}
                                         className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
+                                        style={{ height: 'auto' }}
                                     />
                                 </span>
                             </h1>
@@ -411,6 +412,7 @@ export default function ArBlogPage() {
                                     width={100}
                                     height={8}
                                     className="bottom-0 w-full h-2 -z-10 pointer-events-none"
+                                    style={{ height: 'auto' }}
                                 />
                             </span>
                         </h2>

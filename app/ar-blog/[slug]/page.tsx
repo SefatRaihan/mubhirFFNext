@@ -453,6 +453,7 @@ export default function BlogDetailsPage() {
                                     width={200}
                                     height={10}
                                     className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
+                                    style={{ height: 'auto' }}
                                 />
                             </span>
                         </h1>
@@ -783,6 +784,7 @@ export default function BlogDetailsPage() {
                                         width={150}
                                         height={10}
                                         className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
+                                        style={{ height: 'auto' }}
                                     />
                                 </span>
                                 <span>ذات صلة</span>
