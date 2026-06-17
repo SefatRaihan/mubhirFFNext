@@ -876,6 +876,7 @@ export default function Home() {
                   width={50}
                   height={50}
                   className="absolute left-0 -translate-x-1/2 top-6"
+                  style={{ width: '50px', height: '50px' }}
                   alt="bitcoin"
                 />
               </motion.div>

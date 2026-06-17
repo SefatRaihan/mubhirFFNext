@@ -246,6 +246,7 @@ export default function ArSatPage() {
                   alt="bitcoin2"
                   width={50}
                   height={50}
+                  style={{ width: '50px', height: '50px' }}
                 />
               </motion.div>
             </motion.div>
@@ -1114,6 +1115,7 @@ export default function ArSatPage() {
                   width={100}
                   height={8}
                   className="bottom-0 w-[57%] h-2 -z-10 pointer-events-none"
+                  style={{ height: 'auto' }}
                 />
               </span>
               <br />بك مجانًا!

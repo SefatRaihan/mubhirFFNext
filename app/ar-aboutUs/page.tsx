@@ -137,6 +137,7 @@ export default function ArAboutUsPage() {
                   alt="أيقونة بتكوين"
                   width={50}
                   height={50}
+                  style={{ width: '50px', height: '50px' }}
                 />
               </div>
             </motion.div>
@@ -294,6 +295,7 @@ export default function ArAboutUsPage() {
                 width={100}
                 height={10}
                 className="absolute right-0 bottom-0 w-full h-2 sm:h-[10px] -z-10 pointer-events-none"
+                style={{ height: 'auto' }}
               />
             </span>
           </ScrollH2>
@@ -592,6 +594,7 @@ export default function ArAboutUsPage() {
                   width={100}
                   height={8}
                   className="bottom-0 w-[47%] h-2 -z-10 pointer-events-none"
+                  style={{ height: 'auto' }}
                 />
               </span>
             </h2>

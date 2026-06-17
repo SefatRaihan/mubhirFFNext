@@ -137,6 +137,7 @@ export default function ArContactUsPage() {
                                     alt="bitcoin2"
                                     width={50}
                                     height={50}
+                                    style={{ width: '50px', height: '50px' }}
                                 />
                             </div>
                         </motion.div>
