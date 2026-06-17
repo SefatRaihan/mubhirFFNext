@@ -20,6 +20,8 @@ export function LiquidEffectAnimation() {
     useEffect(() => {
         if (!canvasRef.current) return
 
+        let cancelled = false
+
         // Generate a gradient image matching the brand colors
         const gradientCanvas = document.createElement("canvas")
         gradientCanvas.width = 1200
@@ -57,13 +59,25 @@ export function LiquidEffectAnimation() {
     }
 
     if (!canvas) {
-      console.warn('LiquidEffectAnimation: canvas not found after polling');
+      return;
+    }
+
+    // Check if canvas is still connected to DOM (component may have unmounted)
+    if (!canvas.isConnected) {
       return;
     }
 
     // Dispose previous instance if it exists (e.g. HMR or re-mount)
-    if (window.__liquidApp && window.__liquidApp.dispose) {
-      try { window.__liquidApp.dispose(); } catch(e) {}
+    if (window.__liquidApp) {
+      try {
+        if (window.__liquidApp.three?.renderer) {
+          window.__liquidApp.three.renderer.setAnimationLoop(null);
+        }
+        if (window.__liquidApp.dispose) {
+          window.__liquidApp.dispose();
+        }
+      } catch(e) {}
+      window.__liquidApp = undefined;
     }
 
     const app = LiquidBackground(canvas);
@@ -77,18 +91,29 @@ export function LiquidEffectAnimation() {
     // Notify React that the liquid effect is ready
     window.dispatchEvent(new CustomEvent('liquid-ready'));
   } catch (err) {
-    console.warn('LiquidEffectAnimation: init failed', err);
+    // Silently fail - the CSS gradient fallback will remain visible
   }
 })();
 `
-        document.body.appendChild(script)
-        scriptRef.current = script
+        if (!cancelled) {
+            document.body.appendChild(script)
+            scriptRef.current = script
+        }
 
         return () => {
-            if (window.__liquidApp && window.__liquidApp.dispose) {
-                try { window.__liquidApp.dispose() } catch (e) { /* ignore */ }
+            cancelled = true
+            if (window.__liquidApp) {
+                try {
+                    // Stop the render loop first to prevent "Stop rendering" errors
+                    if (window.__liquidApp.three?.renderer) {
+                        window.__liquidApp.three.renderer.setAnimationLoop(null)
+                    }
+                    if (window.__liquidApp.dispose) {
+                        window.__liquidApp.dispose()
+                    }
+                } catch (e) { /* ignore */ }
+                window.__liquidApp = undefined
             }
-            window.__liquidApp = undefined
             if (scriptRef.current && document.body.contains(scriptRef.current)) {
                 document.body.removeChild(scriptRef.current)
                 scriptRef.current = null

@@ -33,7 +33,22 @@ const authRoutes: string[] = [];
  * Public Routes - Always Accessible
  * These routes don't require any authentication checks
  */
-const publicRoutes = ["/", "/ar-aboutUs", "/ar-contactUs"];
+const publicRoutes = [
+  "/",
+  "/ar-aboutUs",
+  "/ar-contactUs",
+  "/ar-blog",
+  "/login",
+  "/signup",
+  "/packages",
+  "/qudurat",
+  "/tahsili",
+  "/password-reset",
+  "/reset-code",
+  "/reset-password",
+  "/create-password",
+  "/verification-code",
+];
 
 // ============================================
 // MIDDLEWARE FUNCTION
