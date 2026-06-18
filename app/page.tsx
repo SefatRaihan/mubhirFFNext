@@ -103,17 +103,10 @@ export default function Home() {
 
   // Hero 3D Animation Refs
   const heroSectionRef = useRef<HTMLElement>(null);
-  const heroContentRef = useRef<HTMLDivElement>(null);
-  const heroHeadingRef = useRef<HTMLHeadingElement>(null);
-  const heroTitleWordsRef = useRef<HTMLSpanElement[]>([]);
   const heroBadge1Ref = useRef<HTMLSpanElement>(null);
   const heroBadge2Ref = useRef<HTMLSpanElement>(null);
   const heroBadge3Ref = useRef<HTMLSpanElement>(null);
   const heroBadge4Ref = useRef<HTMLSpanElement>(null);
-  const heroParagraphRef = useRef<HTMLParagraphElement>(null);
-  const heroCtaRef = useRef<HTMLDivElement>(null);
-  const heroSocialRef = useRef<HTMLDivElement>(null);
-  const heroStudentsRef = useRef<HTMLDivElement>(null);
 
   // Section Refs for ScrollTrigger
   const featuresGridRef = useRef<HTMLDivElement>(null);
@@ -178,64 +171,11 @@ export default function Home() {
     setMousePosition({ x: 0, y: 0 });
   }, []);
 
-  // Hero title words for word-by-word animation
-  const heroTitleWords = ['مبهر', 'شريكك', 'الذكي', 'لطريق', 'التفوق', 'في', 'اختبار', 'القدرات'];
-
   // GSAP Creative Hero Animations - Clean & Elegant
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Create a master timeline for orchestrated animations
-      const masterTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      // ========== HERO TITLE - ELEGANT BLUR-TO-FOCUS REVEAL ==========
-      if (heroHeadingRef.current) {
-        masterTL.fromTo(heroHeadingRef.current,
-          {
-            opacity: 0,
-            y: 40,
-            filter: 'blur(20px)',
-          },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 1.2,
-          },
-          0.2
-        );
-      }
-
-      // ========== HERO PARAGRAPH - SMOOTH SLIDE UP ==========
-      if (heroParagraphRef.current) {
-        masterTL.fromTo(heroParagraphRef.current,
-          {
-            opacity: 0,
-            y: 20,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-          },
-          0.6
-        );
-      }
-
-      // ========== BADGES - BOUNCY ENTRANCE + SUBTLE FLOAT ==========
+      // ========== BADGES - SUBTLE FLOAT (entrance handled by CSS classes) ==========
       if (heroBadge1Ref.current) {
-        masterTL.fromTo(heroBadge1Ref.current,
-          { opacity: 0, scale: 0.3, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'back.out(2)',
-          },
-          0.6
-        );
-
-        // Gentle floating - very subtle
         gsap.to(heroBadge1Ref.current, {
           y: -6,
           duration: 2.5,
@@ -247,19 +187,6 @@ export default function Home() {
       }
 
       if (heroBadge2Ref.current) {
-        masterTL.fromTo(heroBadge2Ref.current,
-          { opacity: 0, scale: 0.3, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'back.out(2)',
-          },
-          0.75
-        );
-
-        // Gentle floating - offset timing
         gsap.to(heroBadge2Ref.current, {
           y: -8,
           duration: 3,
@@ -271,19 +198,6 @@ export default function Home() {
       }
 
       if (heroBadge3Ref.current) {
-        masterTL.fromTo(heroBadge3Ref.current,
-          { opacity: 0, scale: 0.3, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'back.out(2)',
-          },
-          0.85
-        );
-
-        // Gentle floating - offset timing
         gsap.to(heroBadge3Ref.current, {
           y: -7,
           duration: 2.8,
@@ -295,19 +209,6 @@ export default function Home() {
       }
 
       if (heroBadge4Ref.current) {
-        masterTL.fromTo(heroBadge4Ref.current,
-          { opacity: 0, scale: 0.3, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'back.out(2)',
-          },
-          0.95
-        );
-
-        // Gentle floating - offset timing
         gsap.to(heroBadge4Ref.current, {
           y: -5,
           duration: 3.2,
@@ -316,45 +217,6 @@ export default function Home() {
           repeat: -1,
           delay: 2.8
         });
-      }
-
-      // ========== CTA BUTTON - SMOOTH SLIDE UP ==========
-      if (heroCtaRef.current) {
-        masterTL.fromTo(heroCtaRef.current,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-          },
-          0.9
-        );
-      }
-
-      // ========== STUDENTS SECTION - FADE SLIDE FROM RIGHT ==========
-      if (heroStudentsRef.current) {
-        masterTL.fromTo(heroStudentsRef.current,
-          { opacity: 0, x: 50 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.9,
-          },
-          1.1
-        );
-      }
-
-      // ========== SOCIAL ICONS - FADE SLIDE FROM LEFT ==========
-      if (heroSocialRef.current) {
-        masterTL.fromTo(heroSocialRef.current,
-          { opacity: 0, x: -50 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.9,
-          },
-          1.2
-        );
       }
 
       // ========== FEATURE CARDS - STAGGERED FADE UP ==========
@@ -783,7 +645,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-44 p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge1Ref}
-                  className="bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
+                  className="hero-badge hero-badge-delay-1 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 inline-block"
                 >
                   #تحصيلي
                 </span>
@@ -793,7 +655,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-44 p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge2Ref}
-                  className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
+                  className="hero-badge hero-badge-delay-2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 inline-block"
                 >
                   #اختبارات
                 </span>
@@ -803,7 +665,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge3Ref}
-                  className="bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 inline-block"
+                  className="hero-badge hero-badge-delay-3 bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 inline-block"
                 >
                   #سؤال
                 </span>
@@ -813,7 +675,7 @@ export default function Home() {
               <div className="relative group cursor-pointer transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] p-2 md:p-4 z-20">
                 <span
                   ref={heroBadge4Ref}
-                  className="bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 inline-block"
+                  className="hero-badge hero-badge-delay-4 bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 inline-block"
                 >
                   #قدرات
                 </span>
@@ -822,16 +684,14 @@ export default function Home() {
 
 
             <h1
-              ref={heroHeadingRef}
-              className="text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white"
+              className="hero-title text-4xl md:text-[48px] lg:text-[76px] font-bold leading-[44px] md:leading-[58px] lg:leading-[86px] text-glow-white"
             >
               {/* مبهر شريكك الذكي <br /> لطريق التفوق في اختبار <br /> القدرات */}
               مبهر شريكك الذكي <br /> للتفوق في اختبارات القدرات <br /> والتحصيلي
             </h1>
 
             <p
-              ref={heroParagraphRef}
-              className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
+              className="hero-subtitle mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
             >
               {/* تحضير دقيق، خطة مدروسة ونتائج ملموسة تمكنك من التفوق في اختبار
               القدرات بالذكاء الإصطناعي */}
@@ -839,8 +699,7 @@ export default function Home() {
             </p>
 
             <div
-              ref={heroCtaRef}
-              className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+              className="hero-button mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
             >
               <motion.div
                 className="relative inline-block"
@@ -886,8 +745,7 @@ export default function Home() {
           {/* Social Media Links and Student Images */}
           <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
             <div
-              ref={heroStudentsRef}
-              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+              className="hero-students flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
                 <div
@@ -913,17 +771,16 @@ export default function Home() {
               </span>
             </div>
             <div
-              ref={heroSocialRef}
-              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px]"
+              className="hero-social flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px]"
             >
               {[
-                { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
-                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
-                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
-                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
-                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
-                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
-              ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
+                { href: "https://wa.me/966568876934", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white" },
+                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]" },
+                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white" },
+                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white" },
+                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white" },
+                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white" }
+              ].map(({ href, ariaLabel, Icon, bg }, index) => (
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.1, rotate: 5 }}

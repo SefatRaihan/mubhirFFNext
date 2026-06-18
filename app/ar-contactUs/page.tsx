@@ -71,51 +71,36 @@ export default function ArContactUsPage() {
                     {/* Hero Section */}
                     <div className="relative text-center mt-16 md:mt-[128px]">
                         <div className="flex space-x-4 justify-between md:justify-center gap-0 space-x-reverse md:space-x-0 mb-4 md:mb-0">
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0, rotate: -15 }}
-                                animate={{ opacity: 1, scale: 1, rotate: -15 }}
-                                transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
-                                className="transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+                            <span
+                                className="hero-badge hero-badge-delay-1 transform rotate-[-15deg] md:rotate-[-25deg] md:absolute md:right-40 md:top-60 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
                                 dir="ltr"
                             >
                                 #دعم
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0, rotate: 15 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 15 }}
-                                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
-                                className="transform -rotate-15 md:-rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
+                            </span>
+                            <span
+                                className="hero-badge hero-badge-delay-2 transform -rotate-15 md:-rotate-25 md:absolute md:left-40 md:top-60 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md"
                             >
                                 #مساعدة
-                            </motion.span>
+                            </span>
                         </div>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                            className="text-4xl md:text-[76px] font-bold leading-tight md:leading-none"
+                        <h1
+                            className="hero-title text-4xl md:text-[76px] font-bold leading-tight md:leading-none"
                         >
                             تواصل معنا
-                        </motion.h1>
+                        </h1>
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-                            className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
+                        <p
+                            className="hero-subtitle mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
                             رحلتك التعليمية الأحترافية تبدأ مع مبهر لماذا تبحث طويلاً؟ منصتنا
                             تجعل التعلم أسرع، أسهل، وأكثر متعة، بفضل أحدث التقنيات التعليمية
                             المتطورة، إذا كنت تستعد لاختبارات القدرات العامة وترغب بالتعرف على
                             منصتنا الذكية، نحن هنا من أجلك، ونسعد دائما بالتواصل معك
-                        </motion.p>
+                        </p>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-                            className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+                        <div
+                            className="hero-button mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
                         >
                             <div className="relative inline-block">
                                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
@@ -140,22 +125,16 @@ export default function ArContactUsPage() {
                                     style={{ width: '50px', height: '50px' }}
                                 />
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Social Section */}
                     <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
-                            className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+                        <div
+                            className="hero-students flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
                         >
                             <div className="flex -space-x-2 mb-4 md:mb-0">
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
+                                <div
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -164,11 +143,8 @@ export default function ArContactUsPage() {
                                         width={55}
                                         height={55}
                                     />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.4, delay: 1.2, type: "spring", stiffness: 200 }}
+                                </div>
+                                <div
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -177,11 +153,8 @@ export default function ArContactUsPage() {
                                         width={55}
                                         height={55}
                                     />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
+                                </div>
+                                <div
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -190,22 +163,16 @@ export default function ArContactUsPage() {
                                         width={55}
                                         height={55}
                                     />
-                                </motion.div>
+                                </div>
                             </div>
-                            <motion.span
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.6, delay: 1.4 }}
+                            <span
                                 className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
                             >
                                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
-                            </motion.span>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
-                            className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
+                            </span>
+                        </div>
+                        <div
+                            className="hero-social flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
                             style={{ marginBottom: "60px" }}
                         >
                             {[
@@ -218,9 +185,6 @@ export default function ArContactUsPage() {
                             ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay, type: "spring", stiffness: 200 }}
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     whileTap={{ scale: 0.9 }}
                                 >
@@ -231,7 +195,7 @@ export default function ArContactUsPage() {
                                     </Link>
                                 </motion.div>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </header>

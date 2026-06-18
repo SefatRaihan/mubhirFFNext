@@ -2,7 +2,6 @@
 
 import DownArrowIcon from "@/public/icons/DownArrowIcon";
 import UpArrowIcon from "@/public/icons/UpArrowIcon";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface FaqItemProps {
     question: string;
@@ -12,53 +11,52 @@ interface FaqItemProps {
     onToggle: () => void;
 }
 
+const delayClassMap: Record<number, string> = {
+    0: "faq-item-delay-0",
+    1: "faq-item-delay-1",
+    2: "faq-item-delay-2",
+    3: "faq-item-delay-3",
+    4: "faq-item-delay-4",
+    5: "faq-item-delay-5",
+    6: "faq-item-delay-6",
+    7: "faq-item-delay-7",
+};
+
 export default function FaqItem({ question, answer, index, isOpen, onToggle }: FaqItemProps) {
     return (
-        <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-            whileHover={{
-                scale: 1.02,
-                boxShadow: "0 10px 30px -10px rgba(103, 30, 90, 0.2)"
-            }}
-            className="bg-gray-50 p-4 rounded-lg cursor-pointer"
+        <div
+            className={`bg-gray-50 p-4 rounded-lg cursor-pointer transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-[0_10px_30px_-10px_rgba(103,30,90,0.2)] animate-faq-item ${delayClassMap[index] ?? ""}`}
         >
             <button
                 className="w-full flex justify-between items-center focus:outline-none"
                 onClick={onToggle}
             >
-                <motion.h3
-                    animate={{ color: isOpen ? "#671E5A" : "#000000" }}
-                    transition={{ duration: 0.3 }}
-                    className="text-base sm:text-xl font-semibold text-right"
+                <h3
+                    className={`text-base sm:text-xl font-semibold text-right transition-colors duration-300 ${
+                        isOpen ? "text-[#671E5A]" : "text-black"
+                    }`}
                 >
                     {question}
-                </motion.h3>
-                <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="w-9 h-9 shrink-0"
+                </h3>
+                <span
+                    className={`w-9 h-9 shrink-0 transition-transform duration-300 ease-in-out ${
+                        isOpen ? "rotate-180" : "rotate-0"
+                    }`}
                 >
                     {isOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-                </motion.span>
+                </span>
             </button>
-            <motion.div
-                initial={false}
-                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
+            <div
+                className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen
+                        ? "grid-rows-[1fr] opacity-100 pt-4"
+                        : "grid-rows-[0fr] opacity-0 pt-0"
+                }`}
             >
-                <motion.div
-                    initial={false}
-                    animate={{ y: isOpen ? 0 : -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 text-gray-700 text-right"
-                >
+                <div className="min-h-0 text-gray-700 text-right">
                     {answer}
-                </motion.div>
-            </motion.div>
-        </motion.div>
+                </div>
+            </div>
+        </div>
     );
 }
