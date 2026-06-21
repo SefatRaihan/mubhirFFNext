@@ -851,7 +851,7 @@ export default function Home() {
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    احصل على تجربتك المجانية لمدة ٣٠ يومًا!
+                    احصل على تجربتك المجانية لمدة ٣ أيام!
                     <span className="relative flex items-center justify-center mr-3 bg-white  rounded-full">
                       <LeftArrowRQ />
                     </span>
@@ -1443,7 +1443,7 @@ export default function Home() {
                     WebkitTextFillColor: 'transparent',
                   }}
                 >
-                  احصل على تجربتك المجانية لمدة ٣٠ يومًا!
+                  احصل على تجربتك المجانية لمدة ٣ أيام!
                 </span>
                 <span
                   className="flex items-center justify-center w-10 h-10 rounded-full"
