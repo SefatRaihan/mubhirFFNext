@@ -133,35 +133,50 @@ export default function ArSat2Page() {
                     <div className="relative text-center mt-16 md:mt-[128px]">
                         <div className="flex flex-wrap justify-center gap-3 md:gap-0 mb-4 md:mb-0">
                             {/* Badge 1 - #تحصيلي */}
-                            <span
-                                className="hero-badge hero-badge-delay-1 transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 cursor-pointer z-20"
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: -12 }}
+                                animate={{ opacity: 1, scale: 1, rotate: -12 }}
+                                transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[-12deg] md:rotate-[-20deg] md:absolute md:right-20 lg:right-36 md:top-50 bg-purple-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 cursor-pointer z-20"
                             >
                                 #تحصيلي
-                            </span>
+                            </motion.span>
 
                             {/* Badge 2 - #اختبارات */}
-                            <span
-                                className="hero-badge hero-badge-delay-2 transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer z-20"
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: 10 }}
+                                animate={{ opacity: 1, scale: 1, rotate: 10 }}
+                                transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[10deg] md:rotate-[18deg] md:absolute md:left-20 lg:left-36 md:top-50 bg-blue-600 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer z-20"
                             >
                                 #اختبارات
-                            </span>
+                            </motion.span>
 
                             {/* Badge 3 - #سؤال */}
-                            <span
-                                className="hero-badge hero-badge-delay-3 transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 cursor-pointer z-20"
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: 15 }}
+                                animate={{ opacity: 1, scale: 1, rotate: 15 }}
+                                transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[15deg] md:rotate-[22deg] md:absolute md:right-12 lg:right-24 md:top-[340px] bg-emerald-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50 cursor-pointer z-20"
                             >
                                 #سؤال
-                            </span>
+                            </motion.span>
 
                             {/* Badge 4 - #دورات */}
-                            <span
-                                className="hero-badge hero-badge-delay-4 transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 cursor-pointer z-20"
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0, rotate: -10 }}
+                                animate={{ opacity: 1, scale: 1, rotate: -10 }}
+                                transition={{ duration: 0.5, delay: 0.5, type: "spring", stiffness: 200 }}
+                                className="transform rotate-[-10deg] md:rotate-[-16deg] md:absolute md:left-12 lg:left-24 md:top-[340px] bg-amber-500 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/50 cursor-pointer z-20"
                             >
                                 #دورات
-                            </span>
+                            </motion.span>
                         </div>
-                        <h1
-                            className="hero-title text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+                            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
                         >
                             {/* <span className="relative inline-block pb-2">
                                 
@@ -175,15 +190,21 @@ export default function ArSat2Page() {
                                 />
                             </span> */}
                             جاهز للتحصيلي؟<br /> الحين متوفرة أقوى الدورات المكثفة مع نماذج اختبارات تحاكي الاختبار الحقيقي
-                        </h1>
+                        </motion.h1>
 
-                        <p
-                            className="hero-subtitle mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+                            className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
                             التحصيلي هو بوابتك للقبول في أفضل الجامعات ومعنا بتدخل الاختبار وأنت واثق ومتمكن
-                        </p>
-                        <div
-                            className="hero-button mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+                            className="mt-6 flex justify-center items-center space-x-4 space-x-reverse cursor-pointer"
                         >
                             <motion.div
                                 className="relative inline-block"
@@ -211,16 +232,22 @@ export default function ArSat2Page() {
                                     style={{ width: '50px', height: '50px' }}
                                 />
                             </motion.div>
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Social Section */}
                     <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
-                        <div
-                            className="hero-students flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+                            className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
                         >
                             <div className="flex -space-x-2 mb-4 md:mb-0">
-                                <div
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: 1.1, type: "spring", stiffness: 200 }}
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -229,8 +256,11 @@ export default function ArSat2Page() {
                                         width={55}
                                         height={55}
                                     />
-                                </div>
-                                <div
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: 1.2, type: "spring", stiffness: 200 }}
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -239,8 +269,11 @@ export default function ArSat2Page() {
                                         width={55}
                                         height={55}
                                     />
-                                </div>
-                                <div
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: 1.3, type: "spring", stiffness: 200 }}
                                     className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
                                 >
                                     <Image
@@ -249,16 +282,22 @@ export default function ArSat2Page() {
                                         width={55}
                                         height={55}
                                     />
-                                </div>
+                                </motion.div>
                             </div>
-                            <span
+                            <motion.span
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, delay: 1.4 }}
                                 className="px-2 font-semibold text-sm text-center md:text-base md:text-right"
                             >
                                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
-                            </span>
-                        </div>
-                        <div
-                            className="hero-social flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
+                            </motion.span>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+                            className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
                             style={{ marginBottom: "60px" }}
                         >
                             {[
@@ -271,6 +310,9 @@ export default function ArSat2Page() {
                             ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
                                 <motion.div
                                     key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay, type: "spring", stiffness: 200 }}
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     whileTap={{ scale: 0.9 }}
                                 >
@@ -281,7 +323,7 @@ export default function ArSat2Page() {
                                     </Link>
                                 </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </header>
@@ -292,27 +334,21 @@ export default function ArSat2Page() {
                 amount={0.2}
             >
                 <div className="max-w-7xl mx-auto px-4">
-                    <ScrollH2
-                        className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
+                    <ScrollDiv
+                        className="flex justify-center"
                         amount={0.5}
                     >
-                        {/* نفس الميزات الرائعة <br />
-                        للتحضير{" "}
-                        <span className="relative inline-block pb-3">
-                            لاختبارات التحصيلي
-                            <Image
-                                src="/image/Vector 1.svg"
-                                alt="تسطير"
-                                width={600}
-                                height={20}
-                                className="absolute right-0 bottom-0 w-full h-[20px] pointer-events-none select-none"
-                            />
-                        </span> */}
-
-                        جهز نفسك للتحصيلي بثقة مع مبهر، إبدأ معنا انطلاقة قوية نحو التفوق في التحصيلي بدعم فعال يرفع مستواك لتحقيق أعلى الدرجات بأسهل وأسرع طريقة
-                    </ScrollH2>
+                        <Image
+                            src="/image/tes.jpeg"
+                            alt="جهز نفسك للتحصيلي بثقة مع مبهر"
+                            width={1200}
+                            height={600}
+                            className="w-full max-w-2xl md:max-w-full h-auto rounded-2xl object-contain"
+                            priority
+                        />
+                    </ScrollDiv>
                     <ScrollP
-                        className="text-sm text-gray-500 mt-1 text-center"
+                        className="text-sm text-gray-500 mt-3 text-center"
                         amount={0.5}
                         delay={0.1}
                     >
