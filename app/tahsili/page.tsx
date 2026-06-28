@@ -334,27 +334,21 @@ export default function ArSat2Page() {
                 amount={0.2}
             >
                 <div className="max-w-7xl mx-auto px-4">
-                    <ScrollH2
-                        className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-black leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
+                    <ScrollDiv
+                        className="flex justify-center"
                         amount={0.5}
                     >
-                        {/* نفس الميزات الرائعة <br />
-                        للتحضير{" "}
-                        <span className="relative inline-block pb-3">
-                            لاختبارات التحصيلي
-                            <Image
-                                src="/image/Vector 1.svg"
-                                alt="تسطير"
-                                width={600}
-                                height={20}
-                                className="absolute right-0 bottom-0 w-full h-[20px] pointer-events-none select-none"
-                            />
-                        </span> */}
-
-                        جهز نفسك للتحصيلي بثقة مع مبهر، إبدأ معنا انطلاقة قوية نحو التفوق في التحصيلي بدعم فعال يرفع مستواك لتحقيق أعلى الدرجات بأسهل وأسرع طريقة
-                    </ScrollH2>
+                        <Image
+                            src="/image/tes.jpeg"
+                            alt="جهز نفسك للتحصيلي بثقة مع مبهر"
+                            width={1200}
+                            height={600}
+                            className="w-full max-w-2xl md:max-w-full h-auto rounded-2xl object-contain"
+                            priority
+                        />
+                    </ScrollDiv>
                     <ScrollP
-                        className="text-sm text-gray-500 mt-1 text-center"
+                        className="text-sm text-gray-500 mt-3 text-center"
                         amount={0.5}
                         delay={0.1}
                     >
