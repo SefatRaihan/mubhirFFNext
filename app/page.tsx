@@ -466,42 +466,42 @@ export default function Home() {
   // Features data
   const featuresData = [
     {
-      iconSrc: '/image/icon/feature-icon-1.webp',
+      iconSrc: '/image/1000.PNG',
       text: 'أحدث بنك للأسئلة مع أكثر من 10000سؤال مشروح بالتفصيل',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-2.webp',
+      iconSrc: '/image/smplified.JPEG',
       text: 'شرح مبسط ومتكامل لجميع وحدات المنهج',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-3.webp',
+      iconSrc: '/image/video.PNG',
       text: 'شروحات فيديو للمنهج كاملا',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-4.webp',
+      iconSrc: '/image/compare.JPEG',
       text: 'قارن أدائك مع الاف الطلاب و واكب تطورك لحظة بلحظة',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-5.webp',
+      iconSrc: '/image/performance.jpeg',
       text: 'تقرير تحليلي مطوّر لمتابعة أدائك وتحسين المستوى',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-6.webp',
+      iconSrc: '/image/comprehensiveTraining.jpeg',
       text: 'دورة تدريبية شاملة تمنحك كل ما يلزمك للتفوق',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-7.webp',
+      iconSrc: '/image/comprehensiveCurriculum.jpeg',
       text: 'منهج متكامل يغطي جميع المهارات في القدرات والتحصيلي',
 
     },
     {
-      iconSrc: '/image/icon/feature-icon-8.webp',
+      iconSrc: '/image/advancedAssessment.jpeg',
       text: 'نظام تقييم متقدم يحدد نقاط قوتك وضعفك ويقترح حلول',
 
     }
