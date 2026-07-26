@@ -176,7 +176,7 @@ export default function ArSat2Page() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center"
+                            className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-white leading-tight sm:leading-[52px] lg:leading-[100px] text-center max-w-[340px] mx-auto md:max-w-[865px]"
                         >
                             {/* <span className="relative inline-block pb-2">
                                 
@@ -189,7 +189,7 @@ export default function ArSat2Page() {
                                     className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
                                 />
                             </span> */}
-                            جاهز للتحصيلي؟<br /> الحين متوفرة أقوى الدورات المكثفة مع نماذج اختبارات تحاكي الاختبار الحقيقي
+                            جاهز للتحصيلي؟ الحين متوفرة أقوى الدورات المكثفة مع اختبار تحصيلي تجريبي ونماذج تحاكي الاختبار الحقيقي
                         </motion.h1>
 
                         <motion.p
@@ -198,7 +198,7 @@ export default function ArSat2Page() {
                             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
                             className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
                         >
-                            التحصيلي هو بوابتك للقبول في أفضل الجامعات ومعنا بتدخل الاختبار وأنت واثق ومتمكن
+                            التحصيلي هو بوابتك للقبول في أفضل الجامعات، ومع اختبار تحصيلي تجريبي تدخل الاختبار وأنت واثق ومتمكن.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -352,9 +352,7 @@ export default function ArSat2Page() {
                         amount={0.5}
                         delay={0.1}
                     >
-                        تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
-                        وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br />
-                        بأقصر وأفضل طريقة
+                        ابدأ معنا انطلاقة قوية نحو التفوق في التحصيلي، مع دعم مميز يرتقي بطموحاتك الأكاديمية، ويرفع مستواك لتحقيق أعلى الدرجات بأقصر وأفضل طريقة.
                     </ScrollP>
 
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -445,8 +443,7 @@ export default function ArSat2Page() {
                             amount={0.5}
                             delay={0.1}
                         >
-                            تم تصميم اختبار التحصيلي لطلاب وطالبات المرحلة الثانوية للاستعداد لاختبار التقييم الدراسي (القدرات)، ويتخطى بشكل دقيق المهارات والمفاهيم الأساسية التي يحتاجها الطالب للتفوق والشمل.
-
+                            تم تصميم اختبار تحصيلي تجريبي لطلاب وطالبات المرحلة الثانوية للاستعداد لاختبار التحصيلي، ويغطي بشكل دقيق المهارات والمفاهيم الأساسية التي يحتاجها الطالب للتفوق وتحقيق نتائج أفضل.
                         </ScrollP>
                     </div>
 

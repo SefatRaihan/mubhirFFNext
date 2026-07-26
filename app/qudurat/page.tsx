@@ -195,13 +195,9 @@ export default function ArSatPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="text-4xl md:text-[76px] font-bold md:leading-[95px] leading-[44px]"
+              className="hero-title text-4xl md:text-[76px] font-bold md:leading-[95px] leading-[44px] max-w-[340px] mx-auto md:max-w-[900px]"
             >
-              نجاحك الحقيقي في
-              <br />
-              القدرات يبدأ بخطوة نحو
-              <br />
-              التميز
+              نجاحك الحقيقي في القدرات يبدأ باختبار قدرات تجريبي يقربك من التميز
             </motion.h1>
 
             <motion.p
@@ -210,10 +206,7 @@ export default function ArSatPage() {
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               className="mt-4 text-base md:text-lg max-w-md md:max-w-xl mx-auto text-gray-200"
             >
-              نطلق العنان لك لتعيش تجربة تعليمية فريدة تمكنك من اجتياز اختبارات
-              القدرات بذكاء وتميز، باستخدام أساليب تعليمية متطورة. تعلم بذكاء،
-              واصنع نجاحك بنفسك، تحت إشراف نخبة من أكفأ المدربين المتخصصين،
-              وتوجيه مستمر ودعم فعال يساعدك على تحقيق أعلى النتائج بثقة وتمّيز.
+              انطلق الآن لك لتعيش تجربة تعليمية فريدة من خلال اختبار قدرات تجريبي يحاكي الاختبار الفعلي، ويساعدك على التدريب بذكاء على القدرات الكمي واللفظي. تعلّم بأساليب متطورة، وتابع مستواك خطوة بخطوة لتحقيق أعلى النتائج بثقة وتميز.
             </motion.p>
 
             <motion.div
@@ -348,13 +341,11 @@ export default function ArSatPage() {
       {/* We help Section */}
       <ScrollSection className="font-sans text-gray-900 bg-[#F7E8F5] my-4 md:m-4 rounded-0 md:rounded-2xl" amount={0.1}>
         <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
-          <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px]" amount={0.3}>
-            نحن نساعد جميع طلاب القدرات في <br /> المملكة العربية السعودية
+          <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold md:leading-[75px] leading-[44px] max-w-[340px] mx-auto md:max-w-[900px]" amount={0.3}>
+            نحن نساعد جميع طلاب القدرات في المملكة العربية السعودية عبر اختبار قدرات تجريبي
           </ScrollH2>
           <ScrollP className="text-sm text-black mt-6 text-center" amount={0.3} delay={0.1}>
-            تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات،
-            وتساعدك على تحقيق أعلى الدرجات في اختبارات القدرات <br /> بأقصر
-            وأفضل طريقة
+            تقدم مبهر دعم مميز لترتقي بطموحاتك الأكاديمية لأعلى المستويات، وتساعدك على تحقيق أعلى الدرجات من خلال اختبار قدرات تجريبي بأقصر وأفضل طريقة.
           </ScrollP>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -419,12 +410,11 @@ export default function ArSatPage() {
         <div className="max-w-7xl mx-auto px-4 py-12 sm:py-[120px]">
           {/* Header (Centered) */}
           <div className="text-center">
-            <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-none" amount={0.3}>
+            <ScrollH2 className="text-4xl text-center md:text-[56px] font-bold leading-tight md:leading-18.75 max-w-[340px] mx-auto md:max-w-[965px]" amount={0.3}>
               ماذا تقدم منصة مبهر في اختبار القدرات العامة؟
             </ScrollH2>
             <ScrollP className="text-sm text-black mt-4" amount={0.3} delay={0.1}>
-              منصة مبهر تقدم اقوى الأختبارات التي تساعدك على رفع درجاتك وتحقيق
-              هدفك في الوصول إلى أفضل الجامعات العالمية وتشمل:
+              منصة مبهر تقدم اختبار قدرات تجريبي يساعدك على رفع درجاتك وتحقيق هدفك في الوصول إلى أفضل الجامعات العالمية، ويشمل:
             </ScrollP>
           </div>
 
