@@ -1543,18 +1543,18 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative overflow-hidden bg-[#691d5e] my-4 md:m-4 rounded-0 md:rounded-2xl text-white pt-12 md:pt-20"
       >
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pb-24 pb-0">
-          {/* Desktop Portrait (Overlay) */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="hidden lg:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-20px] w-full z-10"
-          >
-            <Image src="/image/review-cover.webp" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
-          </motion.div>
+        {/* Desktop Portrait (Overlay) */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="hidden lg:block pointer-events-none select-none absolute inset-0 w-full h-full z-0"
+        >
+          <Image src="/image/reviewSec.png" fill className="object-contain object-top" alt="طالبة" />
+        </motion.div>
 
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pb-24 pb-0">
           {/* Content Grid */}
           <div className="relative z-20">
             {/* Title and Button - Positioned on Right */}
@@ -1724,7 +1724,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="lg:hidden mt-8 w-full"
             >
-              <Image src="/image/review-cover.webp" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+              <Image src="/image/reviewSec.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
             </motion.div>
           </div>
         </div>
