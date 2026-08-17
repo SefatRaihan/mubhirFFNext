@@ -263,7 +263,7 @@ export default function ArContactUsPage() {
 
                             <div className="space-y-5">
                                 {/* Twitter (X) card */}
-                                <motion.div
+                                {/* <motion.div
                                     initial={{ opacity: 0, x: 30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
@@ -287,7 +287,7 @@ export default function ArContactUsPage() {
                                             Twitter إلى انتقل
                                         </div>
                                     </div>
-                                </motion.div>
+                                </motion.div> */}
 
                                 {/* Email card */}
                                 <motion.div
