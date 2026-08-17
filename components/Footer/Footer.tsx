@@ -218,7 +218,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-gray-300  pt-6 pb-4">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row-reverse justify-center items-center text-center text-xs text-gray-600 space-y-4 md:space-y-0">
-          <span>جميع الحقوق محفوظة لشركة (مبارك) لعام 2026</span>
+          <span>جميع الحقوق محفوظة لشركة (مبهر) لعام 2026</span>
         </div>
       </div>
     </footer>
