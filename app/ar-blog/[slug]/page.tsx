@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import Navbar from "@/components/Navber/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Footer from "@/components/Footer/Footer";
 import {
     WhatsappShareButton,
@@ -434,10 +435,9 @@ export default function BlogDetailsPage() {
             )}
 
             {/* Header */}
-            <header style={{ backgroundColor: "#F2F4F7" }} className="m-4 rounded-2xl">
-                <div className="p-4">
-                    <Navbar />
-                </div>
+            <header style={{ backgroundColor: "#F2F4F7" }} className="m-4 rounded-2xl overflow-hidden">
+                <AnnouncementBar />
+                <Navbar />
 
                 {/* Hero Section */}
                 <section className="bg-[#F2F4F7] max-w-7xl mx-auto px-4 py-8">

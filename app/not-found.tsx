@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navber/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -11,6 +12,7 @@ export default function NotFound() {
             {/* Hero Section with Navbar */}
             <section className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden grow flex flex-col">
                 {/* Navbar Component */}
+                <AnnouncementBar />
                 <Navbar />
 
                 {/* 404 Content */}
