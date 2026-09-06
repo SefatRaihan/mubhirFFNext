@@ -4,6 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
 import FeatureCard from "@/components/FeatureCard/FeatureCard";
 import Navbar from "@/components/Navber/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import { LiquidEffectAnimation } from "@/components/ui/liquid-effect-animation";
 import CardLeftArrowIcon from "@/public/icons/CardLeftArrowIcon";
 import DownArrowIcon from "@/public/icons/DownArrowIcon";
@@ -772,6 +773,7 @@ export default function Home() {
 
         {/* Navbar Component */}
         <div className="relative z-50">
+          <AnnouncementBar />
           <Navbar />
         </div>
 

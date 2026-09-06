@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Navbar from "@/components/Navber/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Footer from "@/components/Footer/Footer";
 import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import InstaIcon from "@/public/icons/InstaIcon";
@@ -126,7 +127,8 @@ export default function ArSat2Page() {
     return (
         <div className="bg-white overflow-x-hidden" dir="rtl">
             {/* Header Section */}
-            <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl">
+            <header className="bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden">
+                <AnnouncementBar />
                 <Navbar />
                 <div className="p-4">
                     {/* Hero Section */}

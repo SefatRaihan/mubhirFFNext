@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import Navbar from "@/components/Navber/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Footer from "@/components/Footer/Footer";
 import PagiLeftArrowIcon from "@/public/icons/PagiLeftArrowIcon";
 import PagiRightArrowIcon from "@/public/icons/PagiRightArrowIcon";
@@ -228,8 +229,8 @@ export default function ArBlogPage() {
                 />
             )}
             {/* First Section: Nav to Blog Cards */}
-            <header style={{ backgroundColor: "#f7e8f5" }} className="mb-4 md:m-4 rounded-0 md:rounded-2xl">
-
+            <header style={{ backgroundColor: "#f7e8f5" }} className="mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden">
+                <AnnouncementBar />
                 <Navbar />
                 <div className="p-4">
                     {/* Main Content */}
