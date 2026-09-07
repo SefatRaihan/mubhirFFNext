@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 
 const STORAGE_KEY = "mubhir_free_trial_popup_dismissed";
 const STICKY_STORAGE_KEY = "mubhir_free_trial_sticky_dismissed";
-const DELAY_MS = 12000; // 12 seconds delay timer
+const DELAY_MS = 5000; // 5 seconds delay timer
 
 const EXCLUDED_PATHS = [
   "/signup",
@@ -23,6 +23,7 @@ const EXCLUDED_PATHS = [
 export default function FreeTrialModal() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [hasClosedModal, setHasClosedModal] = useState(false);
   const [isStickyDismissed, setIsStickyDismissed] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const hasTriggeredRef = useRef(false);
@@ -32,6 +33,12 @@ export default function FreeTrialModal() {
     try {
       if (sessionStorage.getItem(STICKY_STORAGE_KEY) === "true") {
         setIsStickyDismissed(true);
+      }
+      if (
+        sessionStorage.getItem(STORAGE_KEY) === "true" ||
+        localStorage.getItem(STORAGE_KEY)
+      ) {
+        setHasClosedModal(true);
       }
     } catch {
       // Fallback
@@ -82,6 +89,7 @@ export default function FreeTrialModal() {
 
   const handleClose = () => {
     setIsOpen(false);
+    setHasClosedModal(true);
     try {
       sessionStorage.setItem(STORAGE_KEY, "true");
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
@@ -107,7 +115,7 @@ export default function FreeTrialModal() {
   useEffect(() => {
     if (shouldSuppress()) return;
 
-    // 1. Timer Delay trigger (12 seconds)
+    // 1. Timer Delay trigger (5 seconds)
     const timer = setTimeout(() => {
       openModal();
     }, DELAY_MS);
@@ -142,9 +150,13 @@ export default function FreeTrialModal() {
 
   return (
     <>
-      {/* Sticky side teaser tab when modal is closed (matching reference screenshot) */}
+      {/* Sticky side teaser tab when modal has been closed (matching reference screenshot) */}
       <AnimatePresence>
-        {isMounted && !isOpen && !isStickyDismissed && !isAuthOrExcludedPage && (
+        {isMounted &&
+          !isOpen &&
+          hasClosedModal &&
+          !isStickyDismissed &&
+          !isAuthOrExcludedPage && (
           <motion.div
             initial={{ x: -80, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
