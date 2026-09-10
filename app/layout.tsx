@@ -7,10 +7,26 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: 'مبهر | أفضل منصة اختبارات تجريبية ومحاكية بالذكاء الاصطناعي',
-  description: 'استعد للاختبارات منصة مبهر. نوفر لك نماذج اختبارات تجريبية محاكية، وتسريبات محلولة بالذكاء الاصطناعي لطلاب الثانوي. حسّن مستواك الآن',
-  keywords: ['قدرات', 'اختبار القدرات', 'التحضير للقدرات', 'SAT', 'مبهر', 'تعليم', 'ذكاء اصطناعي'],
-  authors: [{ name: 'Mubhir' }],
+  title: {
+    default: 'مبهر | أفضل منصة اختبارات تجريبية ومحاكية بالذكاء الاصطناعي',
+    template: '%s | منصة مبهر',
+  },
+  description: 'استعد لاختبارات القدرات والتحصيلي مع منصة مبهر بالذكاء الاصطناعي. نوفر لك نماذج اختبارات تجريبية محاكية، تسريبات محلولة، وخطة تدريب مخصصة لرفع درجتك.',
+  keywords: [
+    'قدرات',
+    'تحصيلي',
+    'اختبار القدرات',
+    'اختبار التحصيلي',
+    'اختبار تجريبي قدرات',
+    'اختبار تحصيلي تجريبي',
+    'تجميعات قدرات',
+    'تجميعات تحصيلي',
+    'قياس',
+    'مبهر',
+    'منصة مبهر',
+    'ذكاء اصطناعي تعليمي',
+  ],
+  authors: [{ name: 'Mubhir', url: baseUrl }],
   creator: 'Mubhir',
   publisher: 'Mubhir',
   formatDetection: {
@@ -23,16 +39,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'مبهر | أفضل منصة اختبارات تجريبية ومحاكية بالذكاء الاصطناعي',
-    description: 'استعد للاختبارات منصة مبهر. نوفر لك نماذج اختبارات تجريبية محاكية، وتسريبات محلولة بالذكاء الاصطناعي لطلاب الثانوي. حسّن مستواك الآن',
+    description: 'استعد لاختبارات القدرات والتحصيلي مع منصة مبهر بالذكاء الاصطناعي. نوفر لك نماذج اختبارات تجريبية محاكية، تسريبات محلولة، وخطة تدريب مخصصة لرفع درجتك.',
     url: baseUrl,
-    siteName: 'مبهر',
+    siteName: 'منصة مبهر',
     locale: 'ar_SA',
     type: 'website',
+    images: [
+      {
+        url: '/image/mainLogo.png',
+        width: 800,
+        height: 600,
+        alt: 'منصة مبهر التعليمية',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'مبهر | أفضل منصة اختبارات تجريبية ومحاكية بالذكاء الاصطناعي',
-    description: 'استعد للاختبارات منصة مبهر. نوفر لك نماذج اختبارات تجريبية محاكية، وتسريبات محلولة بالذكاء الاصطناعي لطلاب الثانوي. حسّن مستواك الآن',
+    description: 'استعد لاختبارات القدرات والتحصيلي مع منصة مبهر بالذكاء الاصطناعي. نماذج محاكية وتسريبات محلولة لرفع درجتك.',
+    images: ['/image/mainLogo.png'],
   },
   robots: {
     index: true,
@@ -47,6 +72,39 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'مبهر | Mubhir',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/image/mainLogo.png`,
+      },
+      sameAs: [
+        'https://x.com/Mubhir_AI',
+        'https://www.instagram.com/mubhirai',
+        'https://www.tiktok.com/@mubhir.ai',
+        'https://t.me/mubhirai',
+      ],
+      description: 'منصة تعليمية ذكية متخصصة في التحضير لاختبارات القدرات العامة والتحصيلي بالذكاء الاصطناعي.',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${baseUrl}/#website`,
+      url: baseUrl,
+      name: 'منصة مبهر',
+      publisher: {
+        '@id': `${baseUrl}/#organization`,
+      },
+      inLanguage: 'ar',
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -54,6 +112,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import axios from 'axios';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://test.mubhir.ai';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
 
 interface Props {
     params: Promise<{ slug: string }>;
