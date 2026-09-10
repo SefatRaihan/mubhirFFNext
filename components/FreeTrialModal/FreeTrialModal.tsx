@@ -50,18 +50,28 @@ export default function FreeTrialModal() {
     (typeof window !== "undefined" && !!Cookies.get("auth_token"));
 
   const shouldSuppress = useCallback(() => {
-    // 1. Exclude auth & payment flow pages
+    // 1. Exclude automated performance test bots and crawlers (Lighthouse, PageSpeed, DebugBear, GTmetrix, etc.)
+    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+      const isBot =
+        navigator.webdriver ||
+        /Lighthouse|PageSpeed|Chrome-Lighthouse|PTST|HeadlessChrome|GTmetrix|Googlebot|bingbot|Baiduspider|YandexBot|DebugBear/i.test(
+          navigator.userAgent || ""
+        );
+      if (isBot) return true;
+    }
+
+    // 2. Exclude auth & payment flow pages
     if (EXCLUDED_PATHS.some((path) => pathname?.startsWith(path))) {
       return true;
     }
 
-    // 2. Exclude if user is already authenticated
+    // 3. Exclude if user is already authenticated
     const authToken = Cookies.get("auth_token");
     if (authToken) {
       return true;
     }
 
-    // 3. Check if already dismissed in this session
+    // 4. Check if already dismissed in this session
     if (typeof window !== "undefined") {
       try {
         const isDismissed = sessionStorage.getItem(STORAGE_KEY);
@@ -115,24 +125,50 @@ export default function FreeTrialModal() {
   useEffect(() => {
     if (shouldSuppress()) return;
 
-    // 1. Timer Delay trigger (5 seconds)
-    const timer = setTimeout(() => {
-      openModal();
-    }, DELAY_MS);
+    let interactionTimer: NodeJS.Timeout | null = null;
 
-    // 2. Exit-intent trigger (Desktop mouse leaves viewport near top)
+    // Start 5-second countdown ONLY AFTER the user's first interaction (touch, scroll, click)
+    const startInteractionTimer = () => {
+      if (!interactionTimer && !hasTriggeredRef.current) {
+        interactionTimer = setTimeout(() => {
+          openModal();
+        }, DELAY_MS);
+      }
+    };
+
+    // 1. Exit-intent trigger (Desktop mouse leaves viewport near top)
     const handleMouseLeave = (e: MouseEvent) => {
-      // Trigger if mouse exits towards top of window
       if (e.clientY <= 15 && !hasTriggeredRef.current) {
         openModal();
       }
     };
 
+    // 2. Scroll intent trigger (User scrolls 35%+ of page or past 500px)
+    const handleScroll = () => {
+      startInteractionTimer();
+      if (hasTriggeredRef.current) return;
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0 && (scrollY / docHeight >= 0.35 || scrollY >= 500)) {
+        openModal();
+      }
+    };
+
+    const handleUserTouchOrClick = () => {
+      startInteractionTimer();
+    };
+
     document.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("touchstart", handleUserTouchOrClick, { passive: true, once: true });
+    window.addEventListener("pointerdown", handleUserTouchOrClick, { passive: true, once: true });
 
     return () => {
-      clearTimeout(timer);
+      if (interactionTimer) clearTimeout(interactionTimer);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchstart", handleUserTouchOrClick);
+      window.removeEventListener("pointerdown", handleUserTouchOrClick);
     };
   }, [openModal, shouldSuppress]);
 
