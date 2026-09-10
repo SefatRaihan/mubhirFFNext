@@ -48,7 +48,9 @@ export function ScrollAnimated({
     const hasAnimatedIn = useRef(false);
 
     useEffect(() => {
-        const handleScroll = () => {
+        let ticking = false;
+
+        const checkVisibility = () => {
             const currentScrollY = window.scrollY;
 
             // Determine scroll direction
@@ -91,8 +93,18 @@ export function ScrollAnimated({
             }
         };
 
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    checkVisibility();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
         // Initial check
-        handleScroll();
+        checkVisibility();
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);

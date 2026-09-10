@@ -1,11 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import FaqItem from "@/components/FaqItem/FaqItem";
 import FeatureCard from "@/components/FeatureCard/FeatureCard";
 import Navbar from "@/components/Navber/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
-import { LiquidEffectAnimation } from "@/components/ui/liquid-effect-animation";
 import CardLeftArrowIcon from "@/public/icons/CardLeftArrowIcon";
 import DownArrowIcon from "@/public/icons/DownArrowIcon";
 import IdeaIcon from "@/public/icons/IdeaIcon";
@@ -24,11 +24,22 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ReviewModal from "@/components/ReviewModal";
 import axios from "axios";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LeftArrowRQ from "@/public/icons/LeftArrowRQ";
+
+const LiquidEffectAnimation = dynamic(
+  () =>
+    import("@/components/ui/liquid-effect-animation").then(
+      (mod) => mod.LiquidEffectAnimation
+    ),
+  { ssr: false }
+);
+
+const ReviewModal = dynamic(() => import("@/components/ReviewModal"), {
+  ssr: false,
+});
 
 interface PricingPlan {
   id: number;
@@ -157,9 +168,9 @@ export default function Home() {
     fetchReviews();
   }, []);
 
-  // Mouse tracking handler for 3D tilt effect
+  // Mouse tracking handler for 3D tilt effect (desktop only)
   const handleHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    if (!heroSectionRef.current) return;
+    if (!heroSectionRef.current || typeof window === "undefined" || window.innerWidth < 768) return;
     const rect = heroSectionRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
     const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
@@ -751,19 +762,19 @@ export default function Home() {
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
                 <div
-                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white overflow-hidden"
                 >
-                  <Image src="/image/avt1.webp" width={55} height={55} alt="student1" />
+                  <Image src="/image/avt1.webp" width={55} height={55} sizes="55px" priority alt="student1" />
                 </div>
                 <div
-                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white overflow-hidden"
                 >
-                  <Image src="/image/avt4.webp" width={55} height={55} alt="student2" />
+                  <Image src="/image/avt4.webp" width={55} height={55} sizes="55px" priority alt="student2" />
                 </div>
                 <div
-                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white"
+                  className="w-10 h-10 md:w-[55px] md:h-[55px] bg-gray-300 rounded-full border-2 border-white overflow-hidden"
                 >
-                  <Image src="/image/avt3.webp" width={55} height={55} alt="student3" />
+                  <Image src="/image/avt3.webp" width={55} height={55} sizes="55px" priority alt="student3" />
                 </div>
               </div>
               <span
@@ -1410,7 +1421,7 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="hidden lg:block pointer-events-none select-none absolute inset-0 w-full h-full z-0"
         >
-          <Image src="/image/reviewSec.png" fill className="object-contain object-top" alt="طالبة" />
+          <Image src="/image/reviewSec.png" fill sizes="(max-width: 1024px) 100vw, 1200px" loading="lazy" className="object-contain object-top" alt="طالبة" />
         </motion.div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pb-24 pb-0">
@@ -1583,7 +1594,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="lg:hidden mt-8 w-full"
             >
-              <Image src="/image/reviewSec.png" width={1200} height={800} alt="طالبة" className="w-full h-auto object-contain" />
+              <Image src="/image/reviewSec.png" width={1200} height={800} sizes="(max-width: 768px) 100vw, 600px" loading="lazy" alt="طالبة" className="w-full h-auto object-contain" />
             </motion.div>
           </div>
         </div>
