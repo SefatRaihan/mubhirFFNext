@@ -55,6 +55,18 @@ const publicRoutes = [
 // ============================================
 
 export function middleware(request: NextRequest) {
+  // ============================================
+  // WWW HOSTNAME NORMALIZATION (301 Permanent Redirect)
+  // ============================================
+  const host = request.headers.get("host") || "";
+  if (host.startsWith("www.")) {
+    const apexHost = host.replace(/^www\./i, "");
+    const url = request.nextUrl.clone();
+    url.host = apexHost;
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 301);
+  }
+
   const { pathname } = request.nextUrl;
 
   // ============================================
