@@ -28,6 +28,7 @@ import axios from "axios";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LeftArrowRQ from "@/public/icons/LeftArrowRQ";
+import { OFFER_CONFIG } from "@/lib/constants/offers";
 
 const LiquidEffectAnimation = dynamic(
   () =>
@@ -723,7 +724,7 @@ export default function Home() {
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    احصل على تجربتك المجانية لمدة ٣ أيام!
+                    {OFFER_CONFIG.trial.ctaButtonAr}
                     <span className="relative flex items-center justify-center mr-3 bg-white  rounded-full">
                       <LeftArrowRQ />
                     </span>

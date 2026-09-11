@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { OFFER_CONFIG } from "@/lib/constants/offers";
 
 export default function AnnouncementBar() {
   const [showCopied, setShowCopied] = useState(false);
@@ -11,7 +12,7 @@ export default function AnnouncementBar() {
   const handleCopyCode = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const code = "SEP10";
+    const code = OFFER_CONFIG.promo.code;
 
     try {
       if (navigator?.clipboard?.writeText) {
@@ -72,15 +73,19 @@ export default function AnnouncementBar() {
               title="اضغط لنسخ الكود"
               className="font-bold text-[#c00a75] cursor-pointer"
             >
-              SEP10
+              {OFFER_CONFIG.promo.code}
             </span>{" "}
-            واحصل على <span className="font-bold">خصم 10%</span> على جميع الاشتراكات طوال شهر سبتمبر.{" "}
+            واحصل على{" "}
+            <span className="font-bold">
+              خصم {OFFER_CONFIG.promo.discountPercent}%
+            </span>{" "}
+            على جميع الاشتراكات طوال {OFFER_CONFIG.promo.monthAr}.{" "}
           </span>
           <Link
             href="/packages"
             className="underline font-bold hover:opacity-80 transition-opacity inline whitespace-nowrap text-[#111827]"
           >
-            اغتنم الفرصة الآن
+            {OFFER_CONFIG.promo.ctaAr}
           </Link>
         </div>
       </aside>

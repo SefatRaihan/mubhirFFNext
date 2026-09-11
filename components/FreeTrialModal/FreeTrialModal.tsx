@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
+import { OFFER_CONFIG } from "@/lib/constants/offers";
 
 const STORAGE_KEY = "mubhir_free_trial_popup_dismissed";
 const STICKY_STORAGE_KEY = "mubhir_free_trial_sticky_dismissed";
@@ -231,8 +232,8 @@ export default function FreeTrialModal() {
               >
                 <span className="transform rotate-90 whitespace-nowrap text-xs sm:text-[13px] font-bold tracking-wider text-white select-none">
                   {pathname?.startsWith("/en")
-                    ? "Free Trial | 10% OFF"
-                    : "تجربة مجانية | خصم 10%"}
+                    ? OFFER_CONFIG.trial.sideTeaserEn
+                    : OFFER_CONFIG.trial.sideTeaserAr}
                 </span>
               </button>
             </div>
@@ -309,8 +310,7 @@ export default function FreeTrialModal() {
                   </div>
                   <div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/30 backdrop-blur-md">
-                      <span>✨</span>
-                      <span>تجربة مجانية لمدة ٣ أيام</span>
+                      <span>{OFFER_CONFIG.trial.badgeTextAr}</span>
                     </span>
                   </div>
                 </div>
@@ -360,7 +360,7 @@ export default function FreeTrialModal() {
                     onClick={handleClose}
                     className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#7c2d92] to-[#c00a75] text-white font-bold text-base shadow-lg shadow-[#91288c]/25 hover:shadow-xl hover:shadow-[#91288c]/40 hover:opacity-95 active:scale-[0.98] transition-all duration-200 group"
                   >
-                    <span>ابدأ مجاناً الآن</span>
+                    <span>{OFFER_CONFIG.trial.startCtaAr}</span>
                     <svg
                       className="w-5 h-5 rotate-180 group-hover:-translate-x-1 transition-transform"
                       fill="none"
