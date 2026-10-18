@@ -583,7 +583,9 @@ function PackagesPageContent() {
                                 onClick={handleFreeTrialClick}
                                 className="w-full md:w-auto px-6 py-3 border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full font-semibold cursor-pointer"
                             >
-                                جرّب مبهر القدرات مجانًا لمدة 3 أيام
+                                {selectedExam === 'sat2'
+                                    ? 'جرّب مبهر تحصيلي مجانًا لمدة 3 أيام'
+                                    : 'جرّب مبهر القدرات مجانًا لمدة 3 أيام'}
                             </button>
                         </div>
 
