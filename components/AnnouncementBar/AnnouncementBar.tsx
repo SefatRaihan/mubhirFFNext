@@ -5,7 +5,15 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { OFFER_CONFIG } from "@/lib/constants/offers";
 
+// Flag to easily toggle the announcement bar on/off. Commented out / disabled for now.
+const SHOW_ANNOUNCEMENT_BAR = false;
+
 export default function AnnouncementBar() {
+  // Commented out for now
+  if (!SHOW_ANNOUNCEMENT_BAR) {
+    return null;
+  }
+
   const [showCopied, setShowCopied] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
