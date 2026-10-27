@@ -9,13 +9,13 @@ import { OFFER_CONFIG } from "@/lib/constants/offers";
 const SHOW_ANNOUNCEMENT_BAR = false;
 
 export default function AnnouncementBar() {
+  const [showCopied, setShowCopied] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Commented out for now
   if (!SHOW_ANNOUNCEMENT_BAR) {
     return null;
   }
-
-  const [showCopied, setShowCopied] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleCopyCode = async (e: React.MouseEvent) => {
     e.preventDefault();

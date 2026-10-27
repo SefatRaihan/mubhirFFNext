@@ -774,7 +774,7 @@ export default function Home() {
 
         {/* Navbar Component */}
         <div className="relative z-50">
-          <AnnouncementBar />
+          {/* <AnnouncementBar /> */}
           <Navbar />
         </div>
 
