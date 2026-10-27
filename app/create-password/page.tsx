@@ -538,23 +538,11 @@ export default function CreatePasswordPage() {
 
             {/* ─── Free Trial Modal (same as packages page) ─── */}
             {showTrialModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={() => setShowTrialModal(false)}>
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
-                        {/* Close Button */}
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setShowTrialModal(false);
-                                // If user closes modal without submitting, go to packages
-                                router.push('/packages');
-                            }}
-                            className="absolute top-4 left-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-500 hover:bg-white hover:text-gray-700 transition shadow-sm cursor-pointer"
-                        >
-                            ✕
-                        </button>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden">
 
                         {/* Gradient Header */}
-                        <div className="bg-linear-to-l from-[#7A2060] to-[#28235B] px-6 md:px-8 pt-8 pb-6 text-center">
+                        <div className="bg-linear-to-l from-[#7A2060] to-[#28235B] px-6 md:px-8 pt-8 pb-6 text-center rounded-t-2xl">
                             <div className="text-5xl mb-3">🎉</div>
                             <h2 className="text-2xl font-bold text-white mb-2">
                                 ابدأ رحلتك نحو التفوق مجانًا!

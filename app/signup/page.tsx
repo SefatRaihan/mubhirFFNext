@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import 'react-phone-number-input/style.css';
 import Image from 'next/image';
+import Cookies from 'js-cookie';
 import apiClient from '@/lib/axios';
 import type { SignupFormData, OtpGenerationResponse } from '@/types/auth';
 
@@ -24,10 +25,30 @@ const PhoneInput = dynamic(() => import('react-phone-number-input'), {
  * Signup Page Component
  * 
  * Allows new users to register by providing their personal information.
+ * Supports choosing between Qudurat (sat1) and Tahsili (sat2) track with free trial.
  * After successful registration, an OTP is sent to their phone for verification.
  */
 export default function SignupPage() {
     const router = useRouter();
+
+    // Exam track selection: 'sat1' = Qudurat, 'sat2' = Tahsili
+    const [selectedExam, setSelectedExam] = useState<'sat1' | 'sat2'>('sat1');
+
+    // Initialize selectedExam from cookie or URL params on mount
+    useEffect(() => {
+        const storedAudience = Cookies.get('trialAudience');
+        if (storedAudience === 'sat2' || storedAudience === 'sat1') {
+            setSelectedExam(storedAudience);
+        } else if (typeof window !== 'undefined') {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('sat2') || urlParams.get('exam') === 'tahsili') {
+                setSelectedExam('sat2');
+                Cookies.set('trialAudience', 'sat2', { path: '/' });
+            } else {
+                Cookies.set('trialAudience', 'sat1', { path: '/' });
+            }
+        }
+    }, []);
 
     // Form state - stores all user input
     const [formData, setFormData] = useState({
@@ -59,6 +80,15 @@ export default function SignupPage() {
     };
 
     /**
+     * Handle exam track radio changes
+     * Updates selected exam and syncs to trialAudience cookie
+     */
+    const handleExamChange = (exam: 'sat1' | 'sat2') => {
+        setSelectedExam(exam);
+        Cookies.set('trialAudience', exam, { path: '/' });
+    };
+
+    /**
      * Handle phone number changes
      * Updates phone number when user selects country or types number
      */
@@ -79,8 +109,14 @@ export default function SignupPage() {
         setIsLoading(true); // Show loading state
 
         try {
-            // Save form data to localStorage for use in verification page
-            localStorage.setItem('signupData', JSON.stringify(formData));
+            // Save form data and chosen exam to localStorage for use in verification page
+            localStorage.setItem('signupData', JSON.stringify({
+                ...formData,
+                selectedExam,
+            }));
+
+            // Sync trialAudience cookie to ensure free trial activates for chosen track
+            Cookies.set('trialAudience', selectedExam, { path: '/' });
 
             // Call API to generate OTP
             const response = await apiClient.post<OtpGenerationResponse>('/generateOtp', {
@@ -151,7 +187,9 @@ export default function SignupPage() {
                                 </h1>
                             </div>
                             <p className="text-[28px] md:text-4xl font-semibold tracking-[-1.5px] mt-4">
-                                سجل في دورة التحضير لاختبار قدرات
+                                {selectedExam === 'sat2'
+                                    ? 'سجل في دورة التحضير لاختبار تحصيلي'
+                                    : 'سجل في دورة التحضير لاختبار قدرات'}
                             </p>
                             <p className="text-[16px] font-medium text-black tracking-[-0.5px] mt-[12px]">
                                 احصل على فحصك المجاني الآن!
@@ -160,6 +198,78 @@ export default function SignupPage() {
 
                         {/* Signup Form */}
                         <form onSubmit={handleSubmit} className="space-y-4">
+
+                            {/* Exam Track Radio Selection */}
+                            <div className="flex flex-col">
+                                <label className="mb-1 font-medium text-black">
+                                    مسار التحضير (يشمل تجربة مجانية)*
+                                </label>
+                                <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="مسار التحضير">
+                                    {/* Qudurat Option */}
+                                    <label
+                                        htmlFor="exam-qudurat"
+                                        className={`flex items-center justify-between px-3.5 py-2.5 bg-white border rounded cursor-pointer transition-all duration-200 select-none ${
+                                            selectedExam === 'sat1'
+                                                ? 'border-[#7A2060] ring-1 ring-[#7A2060] bg-[#fbf5fc]/40'
+                                                : 'border-gray-300 hover:border-gray-400'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-2.5">
+                                            <input
+                                                type="radio"
+                                                id="exam-qudurat"
+                                                name="examType"
+                                                value="sat1"
+                                                checked={selectedExam === 'sat1'}
+                                                onChange={() => handleExamChange('sat1')}
+                                                className="w-4 h-4 text-[#7A2060] accent-[#7A2060] cursor-pointer"
+                                            />
+                                            <span className="font-semibold text-sm md:text-base text-black">
+                                                قدرات
+                                            </span>
+                                        </div>
+                                        <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${
+                                            selectedExam === 'sat1'
+                                                ? 'bg-[#7A2060]/10 text-[#7A2060]'
+                                                : 'bg-gray-100 text-gray-500'
+                                        }`}>
+                                            ٣ أيام مجاناً
+                                        </span>
+                                    </label>
+
+                                    {/* Tahsili Option */}
+                                    <label
+                                        htmlFor="exam-tahsili"
+                                        className={`flex items-center justify-between px-3.5 py-2.5 bg-white border rounded cursor-pointer transition-all duration-200 select-none ${
+                                            selectedExam === 'sat2'
+                                                ? 'border-[#7A2060] ring-1 ring-[#7A2060] bg-[#fbf5fc]/40'
+                                                : 'border-gray-300 hover:border-gray-400'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-2.5">
+                                            <input
+                                                type="radio"
+                                                id="exam-tahsili"
+                                                name="examType"
+                                                value="sat2"
+                                                checked={selectedExam === 'sat2'}
+                                                onChange={() => handleExamChange('sat2')}
+                                                className="w-4 h-4 text-[#7A2060] accent-[#7A2060] cursor-pointer"
+                                            />
+                                            <span className="font-semibold text-sm md:text-base text-black">
+                                                تحصيلي
+                                            </span>
+                                        </div>
+                                        <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${
+                                            selectedExam === 'sat2'
+                                                ? 'bg-[#7A2060]/10 text-[#7A2060]'
+                                                : 'bg-gray-100 text-gray-500'
+                                        }`}>
+                                            ٣ أيام مجاناً
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
 
                             {/* First Name and Last Name Row */}
                             <div className="flex gap-4 flex-col md:flex-row">
