@@ -23,6 +23,21 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
     const [errors, setErrors] = useState<{ phone?: string; rating?: string; message?: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    /**
+     * Normalize the entered phone number to international format (+966...)
+     * - "+9665XXXXXXXX" → kept as-is
+     * - "9665XXXXXXXX"  → "+9665XXXXXXXX"
+     * - "05XXXXXXXX"    → "+9665XXXXXXXX" (local format, leading 0 dropped)
+     * - "5XXXXXXXX"     → "+9665XXXXXXXX" (missing country code)
+     */
+    const normalizePhone = (raw: string): string => {
+        const cleaned = raw.replace(/[\s\-()]/g, '');
+        if (cleaned.startsWith('+966')) return cleaned;
+        if (cleaned.startsWith('966')) return `+${cleaned}`;
+        if (cleaned.startsWith('0')) return `+966${cleaned.slice(1)}`;
+        return `+966${cleaned}`;
+    };
+
     const checkRateLimit = (): boolean => {
         const lastSubmission = localStorage.getItem(RATE_LIMIT_KEY);
         if (lastSubmission) {
@@ -44,7 +59,9 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
 
         // Validation
         const newErrors: { phone?: string; rating?: string; message?: string } = {};
+        const normalizedPhone = normalizePhone(phone);
         if (!phone.trim()) newErrors.phone = 'رقم الهاتف مطلوب';
+        else if (!/^\+966\d{9}$/.test(normalizedPhone)) newErrors.phone = 'رقم الهاتف غير صحيح';
         if (rating === 0) newErrors.rating = 'التقييم مطلوب';
         if (!message.trim()) newErrors.message = 'الرسالة مطلوبة';
 
@@ -63,7 +80,7 @@ export default function ReviewModal({ isOpen, onClose, onReviewSubmitted }: Revi
         try {
             // Prepare request data
             const requestData = {
-                reviewer_phone: phone,
+                reviewer_phone: normalizedPhone,
                 rating: rating,
                 content: message,
             };
