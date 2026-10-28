@@ -121,11 +121,7 @@ export default function CreatePasswordPage() {
         };
     }, [showResultModal, resultType, router]);
 
-    /**
-     * Password Validation Regex
-     * Requires: 8+ chars, uppercase, lowercase, number, special character
-     */
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~])[A-Za-z\d!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~]{8,}$/;
+
 
     /**
      * Handle Input Change
@@ -245,10 +241,9 @@ export default function CreatePasswordPage() {
             valid = false;
         }
 
-        // Validate password strength
-        if (!passwordRegex.test(formData.enterNewPassword)) {
-            newErrors.passwordStrength =
-                'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل مع أحرف كبيرة وصغيرة وأرقام وأحرف خاصة.';
+        // Validate minimum password length (at least 6 characters)
+        if (formData.enterNewPassword.length < 6) {
+            newErrors.passwordStrength = 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.';
             valid = false;
         }
 
@@ -391,18 +386,17 @@ export default function CreatePasswordPage() {
                 }));
             }
         } catch (error: any) {
-            // Handle API error response
-            if (error.response?.data?.message) {
-                setErrors((prev) => ({
-                    ...prev,
-                    apiError: error.response.data.message,
-                }));
-            } else {
-                setErrors((prev) => ({
-                    ...prev,
-                    apiError: 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.',
-                }));
-            }
+            // Handle API error response (message or validation errors from backend)
+            const backendError =
+                error.response?.data?.message ||
+                (typeof error.response?.data?.errors === 'object'
+                    ? Object.values(error.response.data.errors).flat().join(', ')
+                    : null) ||
+                'خطأ في الشبكة. يرجى المحاولة مرة أخرى.';
+            setErrors((prev) => ({
+                ...prev,
+                apiError: backendError,
+            }));
         } finally {
             setLoading(false);
         }
@@ -512,8 +506,7 @@ export default function CreatePasswordPage() {
 
                             {/* Password Requirements Info */}
                             <p className="text-base text-gray-500">
-                                يجب أن تتكون كلمة المرور من 8 أحرف على الأقل مع أحرف كبيرة
-                                وصغيرة وأرقام وأحرف خاصة
+                                يجب أن تتكون كلمة المرور من 6 أحرف على الأقل
                             </p>
 
                             {/* API Error Display */}
