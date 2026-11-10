@@ -23,11 +23,11 @@ export default function Footer() {
               {/* Phone */}
               <li className="flex items-center space-x-reverse">
                 <Link
-                  href="tel:+966568876934"
+                  href="tel:+966590379939"
                   className="flex items-center space-x-2"
                 >
                   <PhoneIcon />
-                  <span dir="ltr">+966 568876934</span>
+                  <span dir="ltr">+966 590379939</span>
                 </Link>
               </li>
 
@@ -61,7 +61,7 @@ export default function Footer() {
               className="flex space-x-4 space-x-reverse"
               style={{ marginBottom: "60px" }}
             >
-              <Link href="https://wa.me/966568876934">
+              <Link href="https://wa.me/966590379939">
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ export default function Footer() {
             <div
               className="flex space-x-4 justify-center mb-0 md:mb-[60px]"
             >
-              <Link href="https://wa.me/966568876934" aria-label="تواصل معنا عبر واتساب">
+              <Link href="https://wa.me/966590379939" aria-label="تواصل معنا عبر واتساب">
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <WhatsappIcon />
                 </div>

@@ -190,7 +190,7 @@ export default function MaintenancePage() {
                         {/* Social Media Links */}
                         <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-6">
                             {[
-                                { href: "https://wa.me/966568876934", Icon: WhatsappIcon, bg: "bg-[#25D366]", label: "WhatsApp" },
+                                { href: "https://wa.me/966590379939", Icon: WhatsappIcon, bg: "bg-[#25D366]", label: "WhatsApp" },
                                 { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", Icon: InstaIcon, bg: "bg-[#C445A6]", label: "Instagram" },
                                 { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", Icon: TiktokIcon, bg: "bg-black", label: "TikTok" },
                                 { href: "https://t.me/mubhirai", Icon: TelegramIcon, bg: "bg-[#0088cc]", label: "Telegram" },
