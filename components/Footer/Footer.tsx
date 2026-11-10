@@ -8,6 +8,7 @@ import TiktokIcon from "@/public/icons/TiktokIcon";
 import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import XIcon from "@/public/icons/XIcon";
 import Link from "next/link";
+import { CONTACT_CONFIG } from "@/lib/constants/contact";
 
 export default function Footer() {
   return (
@@ -23,35 +24,35 @@ export default function Footer() {
               {/* Phone */}
               <li className="flex items-center space-x-reverse">
                 <Link
-                  href="tel:+966590379939"
+                  href={CONTACT_CONFIG.phone.tel}
                   className="flex items-center space-x-2"
                 >
                   <PhoneIcon />
-                  <span dir="ltr">+966 590379939</span>
+                  <span dir="ltr">{CONTACT_CONFIG.phone.display}</span>
                 </Link>
               </li>
 
               {/* Email */}
               <li className="flex items-center space-x-reverse">
                 <Link
-                  href="mailto:info@mubhir.ai"
+                  href={CONTACT_CONFIG.email.mailto}
                   className="flex items-center space-x-2"
                 >
                   <MailIcon />
-                  <span>info@mubhir.ai</span>
+                  <span>{CONTACT_CONFIG.email.address}</span>
                 </Link>
               </li>
 
               {/* Location */}
               <li className="flex items-center space-x-reverse">
                 <Link
-                  href="https://www.google.com/maps/search/?api=1&query=الرياض، المملكة العربية السعودية"
+                  href={CONTACT_CONFIG.location.mapUrl}
                   target="_blank"
                   rel="noopener"
                   className="flex items-center space-x-2"
                 >
                   <LocationIcon />
-                  <span>الرياض، المملكة العربية السعودية.</span>
+                  <span>{CONTACT_CONFIG.location.addressAr}</span>
                 </Link>
               </li>
             </ul>
@@ -134,34 +135,34 @@ export default function Footer() {
             <div
               className="flex space-x-4 justify-center mb-0 md:mb-[60px]"
             >
-              <Link href="https://wa.me/966590379939" aria-label="تواصل معنا عبر واتساب">
+              <Link href={CONTACT_CONFIG.social.whatsapp.url} aria-label={CONTACT_CONFIG.social.whatsapp.ariaLabel}>
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <WhatsappIcon />
                 </div>
               </Link>
-              <Link href="https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==" aria-label="تابعنا على إنستغرام">
+              <Link href={CONTACT_CONFIG.social.instagram.url} aria-label={CONTACT_CONFIG.social.instagram.ariaLabel}>
                 <div className="rounded-full p-2 md:p-[8.18px] bg-[#C445A6]">
                   <InstaIcon />
                 </div>
               </Link>
-              <Link href="https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1" aria-label="تابعنا على تيك توك">
+              <Link href={CONTACT_CONFIG.social.tiktok.url} aria-label={CONTACT_CONFIG.social.tiktok.ariaLabel}>
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <TiktokIcon />
                 </div>
               </Link>
-              <Link href="https://t.me/mubhirai" aria-label="انضم إلينا على تيليجرام">
+              <Link href={CONTACT_CONFIG.social.telegram.url} aria-label={CONTACT_CONFIG.social.telegram.ariaLabel}>
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <TelegramIcon />
                 </div>
               </Link>
 
-              <Link href="https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09" aria-label="تابعنا على إكس (تويتر سابقاً)">
+              <Link href={CONTACT_CONFIG.social.x.url} aria-label={CONTACT_CONFIG.social.x.ariaLabel}>
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <XIcon />
                 </div>
               </Link>
 
-              <Link href="https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US" aria-label="أضفنا على سناب شات">
+              <Link href={CONTACT_CONFIG.social.snapchat.url} aria-label={CONTACT_CONFIG.social.snapchat.ariaLabel}>
                 <div className="bg-white rounded-full p-2 md:p-[8.18px]">
                   <SnapIcon />
                 </div>

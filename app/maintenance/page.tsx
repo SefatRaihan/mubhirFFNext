@@ -10,6 +10,7 @@ import TelegramIcon from "@/public/icons/TelegramIcon";
 import TiktokIcon from "@/public/icons/TiktokIcon";
 import WhatsappIcon from "@/public/icons/WhatsappIcon";
 import XIcon from "@/public/icons/XIcon";
+import { CONTACT_CONFIG } from "@/lib/constants/contact";
 
 export default function MaintenancePage() {
     const [mounted, setMounted] = useState(false);
@@ -190,12 +191,12 @@ export default function MaintenancePage() {
                         {/* Social Media Links */}
                         <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-6">
                             {[
-                                { href: "https://wa.me/966590379939", Icon: WhatsappIcon, bg: "bg-[#25D366]", label: "WhatsApp" },
-                                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", Icon: InstaIcon, bg: "bg-[#C445A6]", label: "Instagram" },
-                                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", Icon: TiktokIcon, bg: "bg-black", label: "TikTok" },
-                                { href: "https://t.me/mubhirai", Icon: TelegramIcon, bg: "bg-[#0088cc]", label: "Telegram" },
-                                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", Icon: XIcon, bg: "bg-black", label: "X" },
-                                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", Icon: SnapIcon, bg: "bg-[#FFFC00]", label: "Snapchat" }
+                                { href: CONTACT_CONFIG.social.whatsapp.url, Icon: WhatsappIcon, bg: "bg-[#25D366]", label: CONTACT_CONFIG.social.whatsapp.label },
+                                { href: CONTACT_CONFIG.social.instagram.url, Icon: InstaIcon, bg: "bg-[#C445A6]", label: CONTACT_CONFIG.social.instagram.label },
+                                { href: CONTACT_CONFIG.social.tiktok.url, Icon: TiktokIcon, bg: "bg-black", label: CONTACT_CONFIG.social.tiktok.label },
+                                { href: CONTACT_CONFIG.social.telegram.url, Icon: TelegramIcon, bg: "bg-[#0088cc]", label: CONTACT_CONFIG.social.telegram.label },
+                                { href: CONTACT_CONFIG.social.x.url, Icon: XIcon, bg: "bg-black", label: CONTACT_CONFIG.social.x.label },
+                                { href: CONTACT_CONFIG.social.snapchat.url, Icon: SnapIcon, bg: "bg-[#FFFC00]", label: CONTACT_CONFIG.social.snapchat.label }
                             ].map(({ href, Icon, bg, label }, index) => (
                                 <motion.div
                                     key={index}

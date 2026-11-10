@@ -9,15 +9,10 @@ import { LiquidEffectAnimation } from "@/components/ui/liquid-effect-animation";
 import CardLeftArrowIcon from "@/public/icons/CardLeftArrowIcon";
 import DownArrowIcon from "@/public/icons/DownArrowIcon";
 import IdeaIcon from "@/public/icons/IdeaIcon";
-import InstaIcon from "@/public/icons/InstaIcon";
 import LeftArrow from "@/public/icons/LeftArrow";
 import MiddleIcon from "@/public/icons/MiddleIcon";
 import PlayIcon from "@/public/icons/PlayIcon";
-import SnapIcon from "@/public/icons/SnapIcon";
-import TelegramIcon from "@/public/icons/TelegramIcon";
-import TiktokIcon from "@/public/icons/TiktokIcon";
-import WhatsappIcon from "@/public/icons/WhatsappIcon";
-import XIcon from "@/public/icons/XIcon";
+import SocialLinks from "@/components/SocialLinks/SocialLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -915,31 +910,7 @@ export default function Home() {
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
               </span>
             </div>
-            <div
-              ref={heroSocialRef}
-              className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0 mb-[60px]"
-            >
-              {[
-                { href: "https://wa.me/966590379939", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
-                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
-                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
-                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
-                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
-                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
-              ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Link href={href} aria-label={ariaLabel}>
-                    <div className={`${bg} rounded-full p-2.5 md:p-[8.18px]`}>
-                      <Icon />
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+            <SocialLinks ref={heroSocialRef} variant="plain" />
           </div>
         </div>
       </section >

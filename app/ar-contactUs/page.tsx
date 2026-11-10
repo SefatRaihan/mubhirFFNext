@@ -6,12 +6,8 @@ import Link from "next/link";
 import Navbar from "@/components/Navber/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Footer from "@/components/Footer/Footer";
-import WhatsappIcon from "@/public/icons/WhatsappIcon";
-import InstaIcon from "@/public/icons/InstaIcon";
-import TiktokIcon from "@/public/icons/TiktokIcon";
-import TelegramIcon from "@/public/icons/TelegramIcon";
-import XIcon from "@/public/icons/XIcon";
-import SnapIcon from "@/public/icons/SnapIcon";
+import SocialLinks from "@/components/SocialLinks/SocialLinks";
+import { CONTACT_CONFIG } from "@/lib/constants/contact";
 import LeftArrow from "@/public/icons/LeftArrow";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -203,37 +199,7 @@ export default function ArContactUsPage() {
                                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
                             </motion.span>
                         </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
-                            className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 order-2 md:order-2 mt-6 md:mt-0"
-                            style={{ marginBottom: "60px" }}
-                        >
-                            {[
-                                { href: "https://wa.me/966590379939", ariaLabel: "تواصل معنا عبر واتساب", Icon: WhatsappIcon, bg: "bg-white", delay: 1.3 },
-                                { href: "https://www.instagram.com/mubhirai?igsh=MXBtcXdwOWV5NjdpOA==", ariaLabel: "تواصل معنا عبر إنستغرام", Icon: InstaIcon, bg: "bg-[#C445A6]", delay: 1.4 },
-                                { href: "https://www.tiktok.com/@mubhir.ai?_t=ZS-90FHdPykhaq&_r=1", ariaLabel: "تواصل معنا عبر تيك توك", Icon: TiktokIcon, bg: "bg-white", delay: 1.5 },
-                                { href: "https://t.me/mubhirai", ariaLabel: "تواصل معنا عبر تيليجرام", Icon: TelegramIcon, bg: "bg-white", delay: 1.6 },
-                                { href: "https://x.com/Mubhir_AI?t=jLDoMMLZ4zctIJrMYdh_qw&s=09", ariaLabel: "تواصل معنا عبر تويتر", Icon: XIcon, bg: "bg-white", delay: 1.7 },
-                                { href: "https://www.snapchat.com/add/mubhirai?share_id=KtsxCDNMDts&locale=en-US", ariaLabel: "تواصل معنا عبر سناب شات", Icon: SnapIcon, bg: "bg-white", delay: 1.8 }
-                            ].map(({ href, ariaLabel, Icon, bg, delay }, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay, type: "spring", stiffness: 200 }}
-                                    whileHover={{ scale: 1.1, rotate: 5 }}
-                                    whileTap={{ scale: 0.9 }}
-                                >
-                                    <Link href={href} aria-label={ariaLabel}>
-                                        <div className={`${bg} rounded-full p-2.5 md:p-[8.18px]`}>
-                                            <Icon />
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                        <SocialLinks />
                     </div>
                 </div>
             </header>
@@ -318,7 +284,7 @@ export default function ArContactUsPage() {
                                             البريد الإلكتروني
                                         </div>
                                         <div className="text-lg font-semibold text-gray-800">
-                                            info@mubhir.ai
+                                            {CONTACT_CONFIG.email.address}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -350,7 +316,7 @@ export default function ArContactUsPage() {
                                             className="text-lg font-semibold text-gray-800"
                                             dir="ltr"
                                         >
-                                            +966 590379939
+                                            {CONTACT_CONFIG.phone.display}
                                         </div>
                                     </div>
                                 </motion.div>
