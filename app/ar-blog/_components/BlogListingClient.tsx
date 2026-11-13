@@ -1,0 +1,283 @@
+"use client";
+
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PagiLeftArrowIcon from "@/public/icons/PagiLeftArrowIcon";
+import PagiRightArrowIcon from "@/public/icons/PagiRightArrowIcon";
+
+interface BlogBlock {
+    id: number;
+    blog_id: number;
+    type: "text" | "media";
+    content: string | null;
+    file_path: string | null;
+    file_type: string | null;
+    file_name: string | null;
+    alt_text: string | null;
+    sort_order: number;
+    file_url: string | null;
+}
+
+interface PostCategory {
+    id: number;
+    name: string;
+}
+
+interface Blog {
+    id: number;
+    title: string;
+    post_category_id: number;
+    author_id: number;
+    tags: string;
+    published_at: string;
+    is_published: boolean;
+    title_image_url: string | null;
+    slug: string;
+    views: number;
+    post_category: PostCategory;
+    blocks: BlogBlock[];
+}
+
+interface CategoryData {
+    category_id: number;
+    category_name: string;
+    blogs: Blog[];
+}
+
+interface BlogListingClientProps {
+    categoryData: CategoryData[];
+}
+
+const blogsPerPage = 10;
+
+const isVideo = (fileType: string | null): boolean => {
+    if (!fileType) return false;
+    return fileType.startsWith('video/') || ['mp4', 'webm', 'ogg', 'mov'].includes(fileType.toLowerCase());
+};
+
+const getFirstImage = (blocks: BlogBlock[]): string => {
+    const mediaBlock = blocks.find(block => block.type === "media" && block.file_url);
+    return mediaBlock?.file_url || "/image/c1.png";
+};
+
+const getFirstImageAltText = (blocks: BlogBlock[]): string => {
+    const mediaBlock = blocks.find(block => block.type === "media" && block.file_url);
+    return mediaBlock?.alt_text || "صورة المدونة";
+};
+
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ar-SA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
+
+const calculateReadingTime = (blocks: BlogBlock[]): number => {
+    const textBlocks = blocks.filter(block => block.type === "text" && block.content);
+    const totalWords = textBlocks.reduce((acc, block) => {
+        const text = block.content?.replace(/<[^>]*>/g, '') || '';
+        return acc + text.split(/\s+/).length;
+    }, 0);
+    return Math.max(1, Math.ceil(totalWords / 200));
+};
+
+export default function BlogListingClient({ categoryData }: BlogListingClientProps) {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState<number | string>("all");
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const categories = categoryData.map(cat => ({
+        id: cat.category_id,
+        name: cat.category_name
+    }));
+
+    const filteredBlogs = useMemo(() => {
+        let allBlogs: Blog[] = [];
+
+        if (selectedCategory === "all") {
+            categoryData.forEach(category => {
+                allBlogs = [...allBlogs, ...category.blogs];
+            });
+        } else {
+            const selectedCat = categoryData.find(cat => cat.category_id === selectedCategory);
+            if (selectedCat) {
+                allBlogs = selectedCat.blogs;
+            }
+        }
+
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            allBlogs = allBlogs.filter(blog =>
+                blog.title.toLowerCase().includes(query) ||
+                (blog.tags || '').toLowerCase().includes(query)
+            );
+        }
+
+        return allBlogs;
+    }, [categoryData, selectedCategory, searchQuery]);
+
+    const totalBlogs = filteredBlogs.length;
+    const totalPages = Math.ceil(totalBlogs / blogsPerPage);
+    const startIndex = (currentPage - 1) * blogsPerPage;
+    const endIndex = startIndex + blogsPerPage;
+    const currentBlogs = filteredBlogs.slice(startIndex, endIndex);
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1);
+    };
+
+    const handleCategoryChange = (categoryId: number | string) => {
+        setSelectedCategory(categoryId);
+        setCurrentPage(1);
+    };
+
+    return (
+        <div className="w-full">
+            <div className="mb-8 text-center mt-[60px]">
+                <h1 className="text-2xl md:text-[56px] font-semibold leading-tight md:leading-none">
+                    مدونات مبھر{" "}
+                    <span className="relative inline-block pb-2">
+                        للطلاب
+                        <Image
+                            src="/image/Vector 1.svg"
+                            alt="تسطير"
+                            width={100}
+                            height={10}
+                            className="absolute right-0 bottom-0 w-full h-[10px] pointer-events-none"
+                            style={{ height: 'auto' }}
+                        />
+                    </span>
+                </h1>
+
+                <div className="relative mb-4 max-w-2xl mx-auto mt-[20px]">
+                    <input
+                        type="text"
+                        placeholder="ابحث في المدونات هنا..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="w-full p-3 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 text-right"
+                    />
+                    <svg
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        ></path>
+                    </svg>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-3 mt-6">
+                    <button
+                        onClick={() => handleCategoryChange("all")}
+                        className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === "all"
+                            ? "bg-[#671e5a] text-white"
+                            : "bg-white text-gray-700 border border-gray-300 hover:border-[#671e5a] hover:text-[#671e5a]"
+                            }`}
+                    >
+                        الكل
+                    </button>
+                    {categories.map((category) => (
+                        <button
+                            key={category.id}
+                            onClick={() => handleCategoryChange(category.id)}
+                            className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === category.id
+                                ? "bg-[#671e5a] text-white"
+                                : "bg-white text-gray-700 border border-gray-300 hover:border-[#671e5a] hover:text-[#671e5a]"
+                                }`}
+                        >
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {currentBlogs.length === 0 ? (
+                <div className="text-center py-20">
+                    <p className="text-gray-600">لا توجد مدونات متاحة</p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {currentBlogs.map((blog) => {
+                        const firstMediaBlock = blog.blocks.find(block => block.type === "media" && block.file_url);
+                        const isVideoMedia = !blog.title_image_url && firstMediaBlock && isVideo(firstMediaBlock.file_type);
+
+                        return (
+                            <Link key={blog.id} href={`/ar-blog/${blog.slug}`} className="group">
+                                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                                    <div className="relative h-[240px] overflow-hidden">
+                                        {isVideoMedia ? (
+                                            <video
+                                                src={firstMediaBlock.file_url || ''}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                muted
+                                                playsInline
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={blog.title_image_url || getFirstImage(blog.blocks)}
+                                                alt={getFirstImageAltText(blog.blocks)}
+                                                width={600}
+                                                height={240}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="p-5">
+                                        <span className="inline-block text-xs font-semibold px-3 py-1 bg-[#FFF5F7] text-[#671E5A] rounded-full mb-3">
+                                            {blog.post_category?.name || 'عام'}
+                                        </span>
+                                        <h2 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#671e5a] transition-colors">
+                                            {blog.title}
+                                        </h2>
+                                        <span className="text-sm text-gray-500">
+                                            {formatDate(blog.published_at)} - {calculateReadingTime(blog.blocks)} دقائق للقراءة
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        );
+                    })}
+                </div>
+            )}
+
+            {totalBlogs > 0 && (
+                <div className="flex justify-center items-center gap-2 mb-12">
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className={`${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                        <div className={`transition-transform duration-200 ${currentPage === 1 ? 'scale-90' : 'scale-100'}`}>
+                            <PagiRightArrowIcon />
+                        </div>
+                    </button>
+                    <div className="px-6 py-2">
+                        <span className="text-sm font-medium text-[#671E5A]">
+                            عرض {startIndex + 1}-{Math.min(endIndex, totalBlogs)} من أصل {totalBlogs}
+                        </span>
+                    </div>
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        disabled={currentPage === totalPages}
+                        className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                        <div className={`transition-transform duration-200 ${currentPage === totalPages ? 'scale-90' : 'scale-100'}`}>
+                            <PagiLeftArrowIcon />
+                        </div>
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
