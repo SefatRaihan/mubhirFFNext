@@ -541,7 +541,7 @@ export default function CreatePasswordPage() {
                                 ابدأ رحلتك نحو التفوق مجانًا!
                             </h2>
                             <p className="text-white/80 text-sm">
-                                أكمل بياناتك وابدأ تجربتك المجانية لمدة 3 أيام الآن
+                                أكمل بياناتك وابدأ تجربتك المجانية (يوم ١ مجاني) الآن
                             </p>
                         </div>
 
