@@ -228,7 +228,7 @@ export default function FreeTrialModal() {
               <button
                 type="button"
                 onClick={handleOpenFromSticky}
-                className="w-12 h-48 bg-[#222326] hover:bg-[#1a1b1d] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ml-4 cursor-pointer overflow-hidden border border-white/15"
+                className="w-12 h-36 bg-[#222326] hover:bg-[#1a1b1d] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ml-4 cursor-pointer overflow-hidden border border-white/15"
               >
                 <span className="transform rotate-90 whitespace-nowrap text-xs sm:text-[13px] font-bold tracking-wider text-white select-none">
                   {pathname?.startsWith("/en")

@@ -233,7 +233,7 @@ export default function SignupPage() {
                                                 ? 'bg-[#7A2060]/10 text-[#7A2060]'
                                                 : 'bg-gray-100 text-gray-500'
                                         }`}>
-                                            ٣ أيام مجاناً
+                                            يوم ١ مجاني
                                         </span>
                                     </label>
 
@@ -265,7 +265,7 @@ export default function SignupPage() {
                                                 ? 'bg-[#7A2060]/10 text-[#7A2060]'
                                                 : 'bg-gray-100 text-gray-500'
                                         }`}>
-                                            ٣ أيام مجاناً
+                                            يوم ١ مجاني
                                         </span>
                                     </label>
                                 </div>

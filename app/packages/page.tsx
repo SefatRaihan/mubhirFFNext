@@ -584,8 +584,8 @@ function PackagesPageContent() {
                                 className="w-full md:w-auto px-6 py-3 border border-[#671E5A] text-[#671E5A] hover:bg-[#671E5A] hover:text-white transition rounded-full font-semibold cursor-pointer"
                             >
                                 {selectedExam === 'sat2'
-                                    ? 'جرّب مبهر تحصيلي مجانًا لمدة 3 أيام'
-                                    : 'جرّب مبهر القدرات مجانًا لمدة 3 أيام'}
+                                    ? 'جرّب مبهر تحصيلي مجانًا - يوم ١ مجاني'
+                                    : 'جرّب مبهر القدرات مجانًا - يوم ١ مجاني'}
                             </button>
                         </div>
 
@@ -619,7 +619,7 @@ function PackagesPageContent() {
                                 ابدأ رحلتك نحو التفوق مجانًا!
                             </h2>
                             <p className="text-white/80 text-sm">
-                                أكمل بياناتك وابدأ تجربتك المجانية لمدة 3 أيام الآن
+                                أكمل بياناتك وابدأ تجربتك المجانية (يوم ١ مجاني) الآن
                             </p>
                         </div>
 

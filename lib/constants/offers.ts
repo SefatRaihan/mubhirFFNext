@@ -4,14 +4,14 @@
 
 export const OFFER_CONFIG = {
   trial: {
-    days: 3,
-    daysAr: '٣ أيام',
-    badgeTextAr: '✨ تجربة مجانية لمدة ٣ أيام',
-    ctaButtonAr: 'احصل على تجربتك المجانية لمدة ٣ أيام!',
+    days: 1,
+    daysAr: 'يوم ١ مجاني',
+    badgeTextAr: '✨ يوم ١ مجاني',
+    ctaButtonAr: 'احصل على تجربتك المجانية - يوم ١ مجاني!',
     startCtaAr: 'ابدأ مجاناً الآن',
-    sideTeaserAr: 'تجربة مجانية | خصم 20%',
-    sideTeaserEn: 'Free Trial | 20% OFF',
-    termsAr: 'فترة تجريبية مجانية لمدة ٣ أيام، يمكنك الإلغاء في أي وقت بدون أي التزامات مالية.',
+    sideTeaserAr: 'تجربة مجانية',
+    sideTeaserEn: 'Free Trial',
+    termsAr: 'فترة تجريبية - يوم ١ مجاني، يمكنك الإلغاء في أي وقت بدون أي التزامات مالية.',
   },
   promo: {
     code: 'OCT20',
