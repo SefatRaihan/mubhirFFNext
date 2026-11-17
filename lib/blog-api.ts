@@ -1,12 +1,13 @@
 import type { BlogWithDetails, CategoryData, RelatedBlog } from "./types/blog";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const REVALIDATE_SECONDS = 3600; // 1 hour
+const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes TTL for fresh presigned S3 URLs
 
-// In-memory cache to avoid fetching the 3 MB /get-blogs response multiple
-// times during a single build/runtime session. Next.js fetch cache has a 2 MB
-// limit, so it rejects this response; we memoize here as a fallback.
-let blogsCache: Promise<CategoryData[]> | null = null;
+// In-memory cache with timestamp to serve fast responses while ensuring
+// expiring presigned S3 URLs (24-hour AWS tokens) are periodically refreshed.
+let cachedData: CategoryData[] | null = null;
+let cacheTimestamp = 0;
+let inflightFetch: Promise<CategoryData[]> | null = null;
 
 function normalizeArabicSlug(text: string): string {
     if (!text) return '';
@@ -31,34 +32,60 @@ export async function fetchBlogs(): Promise<CategoryData[]> {
         throw new Error("NEXT_PUBLIC_API_BASE_URL is not defined");
     }
 
-    if (blogsCache) {
-        return blogsCache;
+    const now = Date.now();
+
+    // 1. If cache is fresh, return immediately (< 1ms)
+    if (cachedData && (now - cacheTimestamp < CACHE_TTL_MS)) {
+        return cachedData;
     }
 
-    blogsCache = (async () => {
-        const response = await fetch(`${API_BASE_URL}/get-blogs`, {
-            next: { revalidate: REVALIDATE_SECONDS },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch blogs: ${response.status} ${response.statusText}`);
+    // 2. If there is already an in-flight request, reuse it (prevents thundering herd)
+    if (inflightFetch) {
+        if (cachedData) {
+            return cachedData; // Return stale data immediately without waiting
         }
+        return inflightFetch;
+    }
 
-        const data: BlogsApiResponse = await response.json();
+    // 3. Trigger fresh fetch
+    const fetchPromise = (async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/get-blogs`, {
+                cache: 'no-store', // Always retrieve fresh presigned S3 signatures from API
+            });
 
-        if (!data.success || !Array.isArray(data.data)) {
-            throw new Error("Invalid response from /get-blogs");
+            if (!response.ok) {
+                throw new Error(`Failed to fetch blogs: ${response.status} ${response.statusText}`);
+            }
+
+            const data: BlogsApiResponse = await response.json();
+
+            if (!data.success || !Array.isArray(data.data)) {
+                throw new Error("Invalid response from /get-blogs");
+            }
+
+            cachedData = data.data;
+            cacheTimestamp = Date.now();
+            return data.data;
+        } catch (error) {
+            // If the network call fails but we have stale cache, return it gracefully
+            if (cachedData) {
+                return cachedData;
+            }
+            throw error;
+        } finally {
+            inflightFetch = null;
         }
-
-        return data.data;
     })();
 
-    // If the promise rejects, clear the cache so the next call can retry.
-    blogsCache.catch(() => {
-        blogsCache = null;
-    });
+    inflightFetch = fetchPromise;
 
-    return blogsCache;
+    // Stale-While-Revalidate: Return stale cached data immediately while refreshing in background
+    if (cachedData) {
+        return cachedData;
+    }
+
+    return fetchPromise;
 }
 
 export async function fetchBlogBySlug(slug: string): Promise<BlogWithDetails | null> {

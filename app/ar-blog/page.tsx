@@ -9,7 +9,7 @@ import type { CategoryData } from "@/lib/types/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mubhir.ai";
 
-export const revalidate = 3600; // ISR: revalidate every 1 hour
+export const revalidate = 900; // ISR: revalidate every 15 minutes to keep presigned S3 URLs fresh
 
 function generateBlogSchema(categoryData: CategoryData[]) {
     const allBlogs = categoryData.flatMap(category => category.blogs);

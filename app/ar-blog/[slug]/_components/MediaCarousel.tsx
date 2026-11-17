@@ -45,6 +45,13 @@ export default function MediaCarousel({ mediaGroup, blogTitle }: MediaCarouselPr
                     alt={currentMedia.alt_text || blogTitle}
                     width={800}
                     height={500}
+                    unoptimized
+                    onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.includes('/image/c1.png')) {
+                            target.src = '/image/c1.png';
+                        }
+                    }}
                     className="w-full h-auto rounded-lg shadow-md"
                 />
             )}
