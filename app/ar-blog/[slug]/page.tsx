@@ -12,7 +12,7 @@ import ShareButtons from "./_components/ShareButtons";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mubhir.ai";
 
-export const revalidate = 3600; // ISR: revalidate every 1 hour
+export const revalidate = 900; // ISR: revalidate every 15 minutes to keep presigned S3 URLs fresh
 
 interface BlogDetailsPageProps {
     params: Promise<{ slug: string }>;
@@ -250,6 +250,8 @@ export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) 
                                     alt={blog.title}
                                     width={800}
                                     height={500}
+                                    unoptimized
+                                    priority
                                     className="w-full h-auto rounded-lg shadow-md"
                                 />
                             ) : (
@@ -258,6 +260,8 @@ export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) 
                                     alt={blog.title}
                                     width={800}
                                     height={500}
+                                    unoptimized
+                                    priority
                                     className="w-full h-auto rounded-lg shadow-md"
                                 />
                             )}
@@ -349,6 +353,7 @@ export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) 
                                                     alt={relatedBlog.title}
                                                     width={600}
                                                     height={256}
+                                                    unoptimized
                                                     className="w-full h-64 object-cover"
                                                 />
                                             )}

@@ -229,6 +229,13 @@ export default function BlogListingClient({ categoryData }: BlogListingClientPro
                                                 alt={getFirstImageAltText(blog.blocks)}
                                                 width={600}
                                                 height={240}
+                                                unoptimized
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    if (!target.src.includes('/image/c1.png')) {
+                                                        target.src = '/image/c1.png';
+                                                    }
+                                                }}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                             />
                                         )}
