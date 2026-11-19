@@ -9,7 +9,8 @@ import type { CategoryData } from "@/lib/types/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mubhir.ai";
 
-export const revalidate = 900; // ISR: revalidate every 15 minutes to keep presigned S3 URLs fresh
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 function generateBlogSchema(categoryData: CategoryData[]) {
     const allBlogs = categoryData.flatMap(category => category.blogs);
@@ -58,8 +59,8 @@ export default async function ArBlogPage() {
 
     try {
         categoryData = await fetchBlogs();
-    } catch {
-        // If the API fails, render an empty state.
+    } catch (error) {
+        console.error("Error fetching blogs on server:", error);
     }
 
     const hasBlogs = categoryData.length > 0 && categoryData.some(cat => cat.blogs.length > 0);

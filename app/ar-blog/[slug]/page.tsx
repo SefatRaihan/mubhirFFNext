@@ -12,25 +12,11 @@ import ShareButtons from "./_components/ShareButtons";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mubhir.ai";
 
-export const revalidate = 900; // ISR: revalidate every 15 minutes to keep presigned S3 URLs fresh
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 interface BlogDetailsPageProps {
     params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-    try {
-        const categoryData = await fetchBlogs();
-        const allBlogs = categoryData.flatMap(category => category.blogs);
-
-        return allBlogs.map((blog) => ({
-            slug: blog.slug,
-        }));
-    } catch {
-        // If the API is unavailable at build time, return an empty list.
-        // Pages will be generated on-demand at runtime and cached via ISR.
-        return [];
-    }
 }
 
 const isVideo = (fileType: string | null): boolean => {

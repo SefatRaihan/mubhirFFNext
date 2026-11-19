@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PagiLeftArrowIcon from "@/public/icons/PagiLeftArrowIcon";
@@ -84,10 +84,34 @@ const calculateReadingTime = (blocks: BlogBlock[]): number => {
     return Math.max(1, Math.ceil(totalWords / 200));
 };
 
-export default function BlogListingClient({ categoryData }: BlogListingClientProps) {
+export default function BlogListingClient({ categoryData: initialData }: BlogListingClientProps) {
+    const [categoryData, setCategoryData] = useState<CategoryData[]>(initialData || []);
+    const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<number | string>("all");
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        if (!initialData || initialData.length === 0) {
+            setIsLoading(true);
+            const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sat.mubhir.ai/api'}/get-blogs`;
+            fetch(apiUrl)
+                .then(r => r.json())
+                .then(res => {
+                    if (res?.success && Array.isArray(res.data)) {
+                        setCategoryData(res.data);
+                    }
+                })
+                .catch(err => {
+                    console.error('Client-side blog fetch error:', err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        } else {
+            setCategoryData(initialData);
+        }
+    }, [initialData]);
 
     const categories = categoryData.map(cat => ({
         id: cat.category_id,
@@ -202,7 +226,20 @@ export default function BlogListingClient({ categoryData }: BlogListingClientPro
                 </div>
             </div>
 
-            {currentBlogs.length === 0 ? (
+            {isLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {[1, 2, 3, 4].map((item) => (
+                        <div key={item} className="bg-white rounded-xl shadow-md overflow-hidden">
+                            <div className="h-[240px] bg-gray-200 animate-pulse" />
+                            <div className="p-5 space-y-3">
+                                <div className="h-5 w-16 bg-gray-200 rounded-full animate-pulse" />
+                                <div className="h-6 w-5/6 bg-gray-200 rounded animate-pulse" />
+                                <div className="h-4 w-1/2 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : currentBlogs.length === 0 ? (
                 <div className="text-center py-20">
                     <p className="text-gray-600">لا توجد مدونات متاحة</p>
                 </div>
