@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { fetchBlogBySlug } from '@/lib/blog-api';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://test.mubhir.ai';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mubhir.ai';
 
 interface LayoutProps {
     children: React.ReactNode;
