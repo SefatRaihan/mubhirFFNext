@@ -335,35 +335,10 @@ export default function CreatePasswordPage() {
                             return;
                         }
 
-                        // Check trial status via /cms/me
-                        try {
-                            const meResponse = await apiClient.get('/cms/me', {
-                                headers: {
-                                    Authorization: `Bearer ${loginData.token}`,
-                                },
-                            });
-
-                            const userData = meResponse.data;
-
-                            if (userData.is_trial === 1) {
-                                // User already used the free trial → redirect to packages
-                                setTimeout(() => {
-                                    router.push('/packages');
-                                }, 500);
-                            } else {
-                                // User hasn't used free trial → show trial modal
-                                setLoading(false);
-                                setTimeout(() => {
-                                    setShowTrialModal(true);
-                                }, 600);
-                            }
-                        } catch {
-                            // If /cms/me fails, show the trial modal anyway
-                            setLoading(false);
-                            setTimeout(() => {
-                                setShowTrialModal(true);
-                            }, 600);
-                        }
+                        // Free trial is disabled — redirect all users to packages to choose a plan and pay
+                        setTimeout(() => {
+                            router.push('/packages');
+                        }, 500);
                     } else {
                         // Login failed after password creation
                         throw new Error(loginData?.message || 'Auto-login failed');
@@ -529,8 +504,8 @@ export default function CreatePasswordPage() {
                 </div>
             </div>
 
-            {/* ─── Free Trial Modal (same as packages page) ─── */}
-            {showTrialModal && (
+            {/* ─── Free Trial Modal (disabled) ─── */}
+            {false && showTrialModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden">
 
@@ -629,8 +604,8 @@ export default function CreatePasswordPage() {
                 </div>
             )}
 
-            {/* ─── Result Modal (Success / Error) ─── */}
-            {showResultModal && (
+            {/* ─── Result Modal (Success / Error - disabled) ─── */}
+            {false && showResultModal && (
                 <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className={`bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden result-modal-enter`}>
                         {/* Top tinted background area */}

@@ -584,10 +584,12 @@ export default function Home() {
       question: 'هل يمكنني استخدام مبهر على جهازي اللوحي / الكمبيوتر / الجوال ؟',
       answer: 'نعم، يعمل مبهر بسلاسة على الأجهزة اللوحية والكمبيوترات ليمنحك تجربة استخدام مرنة وسريعة وواضحة. يمكنك متابعة مذاكرتك بسهولة في أي مكان وفي الوقت الذي يناسبك كذلك يعمل على الجوال ولكن كل مميزات مبهر تظهر بشكل أفضل على جهازك اللوحي أو الكمبيوتر'
     },
+    /*
     {
       question: 'هل يوجد تجربة مجانية ؟',
       answer: 'نعم، تقدر تبدأ بتجربة مجانية (يوم ١ مجاني) للتعرف على طريقة عمل مبهر وتجربة بعض الأسئلة والميزات قبل الاشتراك.'
     },
+    */
     {
       question: 'هل أحتاج خبرة سابقة في القدرات قبل اشتراكي مع مبهر؟',
       answer: 'لا، مبهر مبني ليبدأ معك من الصفر ويوضح لك كل خطوة. ويطورك حتى تصل للمستوى المطلوب'
@@ -845,11 +847,11 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link href="/signup" prefetch={false}>
+                <Link href="/packages" prefetch={false}>
                   <button
                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                   >
-                    {OFFER_CONFIG.trial.ctaButtonAr}
+                    استكشف الباقات واشترك الآن!
                     <span className="relative flex items-center justify-center mr-3 bg-white  rounded-full">
                       <LeftArrowRQ />
                     </span>
@@ -1391,8 +1393,8 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Free Trial Button */}
-            <motion.div
+            {/* Free Trial Button - temporarily disabled */}
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1429,7 +1431,7 @@ export default function Home() {
                   </svg>
                 </span>
               </motion.button>
-            </motion.div>
+            </motion.div> */}
           </main>
         </div>
       </motion.section >

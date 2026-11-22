@@ -210,12 +210,11 @@ export default function ArSat2Page() {
                             >
                                 <button
                                     onClick={() => {
-                                        Cookies.set('trialAudience', 'sat2', { path: '/' });
-                                        router.push('/signup');
+                                        router.push('/packages');
                                     }}
                                     className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                                 >
-                                    احصل على تجربتك المجانية - يوم ١ مجاني!
+                                    استكشف الباقات واشترك الآن!
                                     <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
                                         <LeftArrowRQ />
                                     </span>

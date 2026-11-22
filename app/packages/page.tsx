@@ -576,8 +576,8 @@ function PackagesPageContent() {
                             ))}
                         </div>
 
-                        {/* Free Trial Button */}
-                        <div className="flex justify-center mt-6">
+                        {/* Free Trial Button - temporarily disabled */}
+                        {/* <div className="flex justify-center mt-6">
                             <button
                                 type="button"
                                 onClick={handleFreeTrialClick}
@@ -587,7 +587,7 @@ function PackagesPageContent() {
                                     ? 'جرّب مبهر تحصيلي مجانًا - يوم ١ مجاني'
                                     : 'جرّب مبهر القدرات مجانًا - يوم ١ مجاني'}
                             </button>
-                        </div>
+                        </div> */}
 
                         {/* Proceed to Payment Button */}
                         {/* <div className="flex justify-center">
@@ -607,8 +607,8 @@ function PackagesPageContent() {
             {/* Toast Container */}
             <ToastContainer rtl={true} />
 
-            {/* Free Trial Modal */}
-            {showTrialModal && (
+            {/* Free Trial Modal - disabled */}
+            {false && showTrialModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden">
 
@@ -706,8 +706,8 @@ function PackagesPageContent() {
                     </div>
                 </div>
             )}
-            {/* Result Modal (Success / Error) */}
-            {showResultModal && (
+            {/* Result Modal (Success / Error) - disabled */}
+            {false && showResultModal && (
                 <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className={`bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden result-modal-enter`}>
                         {/* Top tinted background area */}

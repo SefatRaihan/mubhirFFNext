@@ -22,6 +22,9 @@ const EXCLUDED_PATHS = [
 ];
 
 export default function FreeTrialModal() {
+  // Free trial is temporarily disabled platform-wide; all users are directed to paid packages
+  return null;
+
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hasClosedModal, setHasClosedModal] = useState(false);

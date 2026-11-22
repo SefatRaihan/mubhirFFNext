@@ -85,10 +85,12 @@ export default function ArSatPage() {
       question: 'هل يمكنني استخدام مبهر على جهازي اللوحي / الكمبيوتر / الجوال ؟',
       answer: 'نعم، يعمل مبهر بسلاسة على الأجهزة اللوحية والكمبيوترات ليمنحك تجربة استخدام مرنة وسريعة وواضحة. يمكنك متابعة مذاكرتك بسهولة في أي مكان وفي الوقت الذي يناسبك كذلك يعمل على الجوال ولكن كل مميزات مبهر تظهر بشكل أفضل على جهازك اللوحي أو الكمبيوتر'
     },
+    /*
     {
       question: 'هل يوجد تجربة مجانية ؟',
       answer: 'نعم، تقدر تبدأ بتجربة مجانية (يوم ١ مجاني) للتعرف على طريقة عمل مبهر وتجربة بعض الأسئلة والميزات قبل الاشتراك.'
     },
+    */
     {
       question: 'هل أحتاج خبرة سابقة في القدرات قبل اشتراكي مع مبهر؟',
       answer: 'لا، مبهر مبني ليبدأ معك من الصفر ويوضح لك كل خطوة. ويطورك حتى تصل للمستوى المطلوب'
@@ -220,12 +222,11 @@ export default function ArSatPage() {
                 {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
                 <button
                   onClick={() => {
-                    Cookies.set('trialAudience', 'sat1', { path: '/' });
-                    router.push('/signup');
+                    router.push('/packages');
                   }}
                   className="flex items-center pt-1 pr-6 pb-1 pl-1 bg-[#E834C7] text-white font-medium rounded-full shadow-lg hover:bg-white hover:text-[#E834C7] transition-colors duration-300 cursor-pointer"
                 >
-                  احصل على تجربتك المجانية - يوم ١ مجاني!
+                  استكشف الباقات واشترك الآن!
                   <span className="relative flex items-center justify-center mr-3 bg-white rounded-full">
                     <LeftArrowRQ />
                   </span>
@@ -721,7 +722,7 @@ export default function ArSatPage() {
               كيف يساعدك مبهر على التفوق في اختبار القدرات
             </ScrollH2>
             <ScrollP className="text-[16px] text-black mt-1 text-center" amount={0.3} delay={0.1}>
-              ابدأ تجربتك المجانية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
+              ابدأ رحلتك التعليمية اليوم واستكشف منصتنا المميزة المصممة خصيصا لنجاحك
             </ScrollP>
           </div>
 
@@ -1075,7 +1076,7 @@ export default function ArSatPage() {
                   style={{ height: 'auto' }}
                 />
               </span>
-              <br />بك مجانًا!
+              <br />بك الآن!
             </h2>
             <p className="text-base md:text-lg">
               سجل وابدأ التدريب اليوم!
