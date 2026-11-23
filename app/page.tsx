@@ -1120,11 +1120,11 @@ export default function Home() {
                 ref={videoRef}
                 id="videoPlayer"
                 className="w-full h-full object-cover cursor-pointer"
-                poster="/image/poster.webp"
+                poster="/image/poster2.webp"
                 preload="metadata"
                 onClick={handleVideoClick}
               >
-                <source src="/video/promo.mp4" type="video/mp4" />
+                <source src="/video/promo2.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
