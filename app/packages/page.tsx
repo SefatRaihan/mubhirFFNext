@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import AnnouncementBar from '@/components/AnnouncementBar/AnnouncementBar';
 import apiClient from '@/lib/axios';
 import dynamic from 'next/dynamic';
 import 'react-toastify/dist/ReactToastify.css';
@@ -408,6 +409,11 @@ function PackagesPageContent() {
     };
     return (
         <div className="bg-white min-h-screen" dir="rtl">
+            {/* Top Announcement Bar */}
+            <div className="m-4 md:m-4 rounded-2xl overflow-hidden shadow-xs">
+                <AnnouncementBar />
+            </div>
+
             {/* Main Container */}
             <div className="max-w-4xl mx-auto px-4 py-8">
 

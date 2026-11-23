@@ -5,14 +5,13 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { OFFER_CONFIG } from "@/lib/constants/offers";
 
-// Flag to easily toggle the announcement bar on/off. Commented out / disabled for now.
-const SHOW_ANNOUNCEMENT_BAR = false;
+// Flag to easily toggle the announcement bar on/off.
+const SHOW_ANNOUNCEMENT_BAR = true;
 
 export default function AnnouncementBar() {
   const [showCopied, setShowCopied] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Commented out for now
   if (!SHOW_ANNOUNCEMENT_BAR) {
     return null;
   }
@@ -64,14 +63,14 @@ export default function AnnouncementBar() {
             }}
             className="hidden sm:flex fixed bottom-8 left-1/2 bg-[#2d2d2d]/95 text-white text-xs sm:text-sm font-medium py-2 px-5 rounded-full shadow-2xl items-center justify-center pointer-events-none z-50 whitespace-nowrap"
           >
-            Copied
+            تم النسخ!
           </motion.div>
         )}
       </AnimatePresence>
 
       <aside
         aria-label="Announcement"
-        className="w-full bg-[#f7e8f5] text-[#111827] text-xs sm:text-sm font-medium py-2 px-3 sm:px-8 rounded-[2px] transition-all duration-300 relative z-30 select-none"
+        className="w-full bg-[#FF6A00] text-white text-xs sm:text-sm font-medium py-2.5 px-3 sm:px-8 transition-all duration-300 relative z-50 select-none shadow-xs"
       >
         <div className="max-w-7xl mx-auto text-center leading-relaxed" dir="auto">
           <span>
@@ -79,7 +78,7 @@ export default function AnnouncementBar() {
             <span
               onClick={handleCopyCode}
               title="اضغط لنسخ الكود"
-              className="font-bold text-[#c00a75] cursor-pointer"
+              className="font-bold underline cursor-pointer bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 rounded mx-1 transition-colors inline-block"
             >
               {OFFER_CONFIG.promo.code}
             </span>{" "}
@@ -87,11 +86,11 @@ export default function AnnouncementBar() {
             <span className="font-bold">
               خصم {OFFER_CONFIG.promo.discountPercent}%
             </span>{" "}
-            على جميع الاشتراكات طوال {OFFER_CONFIG.promo.monthAr}.{" "}
+            على جميع الاشتراكات {OFFER_CONFIG.promo.monthAr}!{" "}
           </span>
           <Link
             href="/packages"
-            className="underline font-bold hover:opacity-80 transition-opacity inline whitespace-nowrap text-[#111827]"
+            className="underline font-bold hover:text-white/85 transition-colors inline whitespace-nowrap text-white mr-1.5"
           >
             {OFFER_CONFIG.promo.ctaAr}
           </Link>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import 'react-phone-number-input/style.css';
 import Image from 'next/image';
+import AnnouncementBar from '@/components/AnnouncementBar/AnnouncementBar';
 import apiClient from '@/lib/axios';
 import type { SignupFormData, OtpGenerationResponse } from '@/types/auth';
 
@@ -128,11 +129,12 @@ export default function SignupPage() {
 
             {/* Main Content Container */}
             <div
-                className="text-black m-4 rounded-2xl bg-no-repeat bg-cover"
+                className="text-black m-4 rounded-2xl bg-no-repeat bg-cover overflow-hidden"
                 style={{
                     backgroundImage: "url('/image/Vector.svg')",
                 }}
             >
+                <AnnouncementBar />
                 <div className="mx-auto px-4 max-w-[550px] w-full p-8">
                     <div className="p-0 md:p-6 flex-1 flex flex-col">
 

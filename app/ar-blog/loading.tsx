@@ -1,12 +1,10 @@
 import Navbar from "@/components/Navber/Navbar";
-import AnnouncementBar from "@/components/AnnouncementBar/AnnouncementBar";
 import Footer from "@/components/Footer/Footer";
 
 export default function BlogListingLoading() {
     return (
         <div className="bg-white font-sans overflow-x-hidden" dir="rtl">
             <header style={{ backgroundColor: "#f7e8f5" }} className="mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden">
-                <AnnouncementBar />
                 <Navbar />
 
                 <div className="p-4">

@@ -392,6 +392,22 @@ export default function Home() {
         );
       }
 
+      // Circle entrance animation
+      if (aiSatCircleRef.current && videoSectionRef.current) {
+        gsap.fromTo(aiSatCircleRef.current,
+          { scale: 0, rotation: -180, opacity: 0 },
+          {
+            scale: 1, rotation: 0, opacity: 1,
+            duration: 1, ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: videoSectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      }
+
     }, heroSectionRef);
 
     return () => ctx.revert();
@@ -769,9 +785,9 @@ export default function Home() {
           <LiquidEffectAnimation />
         </div>
 
-        {/* Navbar Component */}
+        {/* Announcement Bar & Navbar */}
         <div className="relative z-50">
-          {/* <AnnouncementBar /> */}
+          <AnnouncementBar />
           <Navbar />
         </div>
 
@@ -917,173 +933,19 @@ export default function Home() {
         </div>
       </section >
 
-      {/* AI Based SAT Section */}
-      < section
-        ref={aiSatSectionRef}
-        className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
-      >
-        {/* Circle Icon - positioned at top */}
-        < div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10" >
-          <MiddleIcon />
-        </div >
-        <div className="container max-w-6xl px-4 py-[48px] sm:py-[120px]">
-          <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
-            <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 md:leading-[70px] lg:leading-[76px] font-bold mb-3 sm:mb-4">
-              {/* استعد لأختبار القدرات <br />
-              العامة بخطوات تفوق التوقعات مع مبهر */}
-
-              استعد لاختبارات القدرات العامة <br /> والتحصيلي بخطوات تفوق توقعاتك مع مبهر
-            </h2>
-            <p className="text-sm sm:text-[16px] font-medium text-black mt-3">
-              خطط مخصصة – تدريب ذكي – نتائج مبهرة
-            </p>
-          </div>
-
-          {/* Tabs */}
-          <div ref={aiSatTabsRef} className="flex justify-center mb-8 sm:mb-16">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full max-w-3xl">
-              {['المدرسون', 'توقع الدرجة', 'الأختبارات', 'الشروحات'].map((tab, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => { activeTabRef.current = `tab${index + 1}`; setActiveTab(`tab${index + 1}`); }}
-                  initial={false}
-                  animate={{
-                    color: activeTab === `tab${index + 1}` ? '#000000' : '#98A2B3'
-                  }}
-                  className="relative py-1 text-center font-medium text-sm sm:text-[18px] transition-all duration-300 cursor-pointer"
-                >
-                  {tab}
-                  {activeTab === `tab${index + 1}` && (
-                    <motion.div
-                      layoutId="activeTabUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-1 bg-[#4F46F4]"
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-          </div>
-
-          {/* Tab Content */}
-          <div ref={aiSatContentRef} className="grid grid-cols-1 lg:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="border-2 border-dashed border-[#D0D5DD] rounded-xl p-4 sm:p-[32px]"
-              >
-                <div className="flex flex-col h-full">
-                  {/* SVG Icon */}
-                  <div className="mb-3 sm:mb-[16px]">
-                    <IdeaIcon />
-                  </div>
-
-                  {/* Heading */}
-                  <h3 className="text-xl sm:text-2xl md:text-[35px] font-medium mb-2 leading-tight sm:leading-[44px] text-right">
-                    {activeTab === 'tab1' && <>اسأل من خلال صورة  أو نص</>}
-                    {activeTab === 'tab2' && <>طريقة بديلة  للإجابة</>}
-                    {activeTab === 'tab3' && <>اقتراح  اختبار</>}
-                    {activeTab === 'tab4' && <>شرح  الموضوع</>}
-                  </h3>
-
-                  {/* Description */}
-                  {/* <p className="text-gray-600 mt-6 sm:mt-[216px] text-sm sm:text-[20px] font-normal text-right leading-7">
-                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
-                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
-                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
-                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
-                  </p> */}
-                  <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 mt-auto pt-6`}>
-                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
-                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
-                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
-                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
-                  </p>
-
-                  {/* Link Button */}
-                  <div className="mt-3 sm:mt-[14px]">
-                    {/* <Link href="https://cms.mubhir.ai/ar-select-package"> */}
-                    <Link href="/signup">
-                      <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px] cursor-pointer">
-                        <span>ابدأ الأن</span>
-                        <span>
-                          <CardLeftArrowIcon />
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Image Section */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`image-${activeTab}`}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                className="bg-[#291548] rounded-xl p-4 sm:p-6 flex items-center justify-center overflow-hidden"
-              >
-                <Image
-                  src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.webp`}
-                  width={600}
-                  height={400}
-                  alt={activeTab === 'tab1' ? 'اسأل من خلال صورة أو نص - المدرسون' : activeTab === 'tab2' ? 'توقع الدرجة - طريقة بديلة للإجابة' : activeTab === 'tab3' ? 'اقتراح اختبار - الاختبارات' : 'شرح الموضوع - الشروحات'}
-                  className="w-full h-auto"
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </section >
-
-      {/* All in One Place */}
-      < motion.section
-        initial={{ opacity: 0, y: 50 }
-        }
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="my-4 md:m-4"
-      >
-        <div className="max-w-6xl mx-auto px-4 py-12 sm:py-[120px]">
-          <div className="text-center mb-10">
-            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-tight sm:leading-[52px] lg:leading-[100px]">
-              ابدأ رحلتك نحو الـ ۱۰۰ مع أقوى منصة للتحضير لاختبارات القدرات العامة والتحصيلي
-            </h2>
-            <p className="pt-4 text-base text-gray-600 mt-2">
-              منصة رائعة تقدم لك تجربة تعليمية شاملة تضم
-            </p>
-          </div>
-
-          <div ref={featuresGridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ perspective: '1000px' }}>
-            {featuresData.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                iconSrc={feature.iconSrc}
-                text={feature.text}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </motion.section >
-
       {/* Video Section */}
-      < motion.section
+      <motion.section
         ref={videoSectionRef}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl"
+        className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
       >
+        {/* Circle Icon - positioned at top */}
+        <div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
+          <MiddleIcon />
+        </div>
         <div className="container max-w-6xl px-4 py-12 sm:py-16 lg:py-[120px]">
 
           <div className="text-center mb-8 sm:mb-12">
@@ -1180,7 +1042,158 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </motion.section >
+      </motion.section>
+
+      {/* AI Based SAT Section (Commented Out) */}
+      {/*
+      <section
+        ref={aiSatSectionRef}
+        className="bg-[#F7E8F5] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
+      >
+        // Circle Icon - positioned at top
+        <div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
+          <MiddleIcon />
+        </div>
+        <div className="container max-w-6xl px-4 py-[48px] sm:py-[120px]">
+          <div ref={aiSatHeadingRef} className="flex flex-col items-center text-center mb-8 sm:mb-[40px]">
+            <h2 className="text-[28px] sm:text-5xl md:text-[60px] leading-10 md:leading-[70px] lg:leading-[76px] font-bold mb-3 sm:mb-4">
+              استعد لاختبارات القدرات العامة <br /> والتحصيلي بخطوات تفوق توقعاتك مع مبهر
+            </h2>
+            <p className="text-sm sm:text-[16px] font-medium text-black mt-3">
+              خطط مخصصة – تدريب ذكي – نتائج مبهرة
+            </p>
+          </div>
+
+          // Tabs
+          <div ref={aiSatTabsRef} className="flex justify-center mb-8 sm:mb-16">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full max-w-3xl">
+              {['المدرسون', 'توقع الدرجة', 'الأختبارات', 'الشروحات'].map((tab, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => { activeTabRef.current = `tab${index + 1}`; setActiveTab(`tab${index + 1}`); }}
+                  initial={false}
+                  animate={{
+                    color: activeTab === `tab${index + 1}` ? '#000000' : '#98A2B3'
+                  }}
+                  className="relative py-1 text-center font-medium text-sm sm:text-[18px] transition-all duration-300 cursor-pointer"
+                >
+                  {tab}
+                  {activeTab === `tab${index + 1}` && (
+                    <motion.div
+                      layoutId="activeTabUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-[#4F46F4]"
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          // Tab Content
+          <div ref={aiSatContentRef} className="grid grid-cols-1 lg:grid-cols-[1.5fr_2fr] gap-4 sm:gap-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="border-2 border-dashed border-[#D0D5DD] rounded-xl p-4 sm:p-[32px]"
+              >
+                <div className="flex flex-col h-full">
+                  // SVG Icon
+                  <div className="mb-3 sm:mb-[16px]">
+                    <IdeaIcon />
+                  </div>
+
+                  // Heading
+                  <h3 className="text-xl sm:text-2xl md:text-[35px] font-medium mb-2 leading-tight sm:leading-[44px] text-right">
+                    {activeTab === 'tab1' && <>اسأل من خلال صورة  أو نص</>}
+                    {activeTab === 'tab2' && <>طريقة بديلة  للإجابة</>}
+                    {activeTab === 'tab3' && <>اقتراح  اختبار</>}
+                    {activeTab === 'tab4' && <>شرح  الموضوع</>}
+                  </h3>
+
+                  // Description
+                  <p className={`text-gray-600 text-sm sm:text-[20px] font-normal text-right leading-7 mt-auto pt-6`}>
+                    {activeTab === 'tab1' && 'ضع استفساراتك بكل سهولة وستحصل على استجابة فورية ومفيدة كل ما عليك فعله قم بتحميل صورة أو قم بكتابة إستفسارك وستحصل على نتائج مذهلة'}
+                    {activeTab === 'tab2' && 'استكشف طرقا متعددة لحل المشكلات واحصل على تفسيرات واضحة وموجزة'}
+                    {activeTab === 'tab3' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع تريده'}
+                    {activeTab === 'tab4' && 'احصل على تفسيرات واضحة وموجزة لأي موضوع'}
+                  </p>
+
+                  // Link Button
+                  <div className="mt-3 sm:mt-[14px]">
+                    <Link href="/signup">
+                      <button className="flex items-center justify-between w-full text-[#4F46F4] font-medium text-sm sm:text-[18px] cursor-pointer">
+                        <span>ابدأ الأن</span>
+                        <span>
+                          <CardLeftArrowIcon />
+                        </span>
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            // Image Section
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`image-${activeTab}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="bg-[#291548] rounded-xl p-4 sm:p-6 flex items-center justify-center overflow-hidden"
+              >
+                <Image
+                  src={`/image/${activeTab === 'tab1' ? 'teachers' : activeTab === 'tab2' ? 'grade' : activeTab === 'tab3' ? 'test' : 'explanations'}.webp`}
+                  width={600}
+                  height={400}
+                  alt={activeTab === 'tab1' ? 'اسأل من خلال صورة أو نص - المدرسون' : activeTab === 'tab2' ? 'توقع الدرجة - طريقة بديلة للإجابة' : activeTab === 'tab3' ? 'اقتراح اختبار - الاختبارات' : 'شرح الموضوع - الشروحات'}
+                  className="w-full h-auto"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+      */}
+
+      {/* All in One Place (Commented Out) */}
+      {/*
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="my-4 md:m-4"
+      >
+        <div className="max-w-6xl mx-auto px-4 py-12 sm:py-[120px]">
+          <div className="text-center mb-10">
+            <h2 className="text-[28px] sm:text-5xl md:text-6xl lg:text-[76px] font-semibold text-center tracking-[-2px] leading-tight sm:leading-[52px] lg:leading-[100px]">
+              ابدأ رحلتك نحو الـ ۱۰۰ مع أقوى منصة للتحضير لاختبارات القدرات العامة والتحصيلي
+            </h2>
+            <p className="pt-4 text-base text-gray-600 mt-2">
+              منصة رائعة تقدم لك تجربة تعليمية شاملة تضم
+            </p>
+          </div>
+
+          <div ref={featuresGridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ perspective: '1000px' }}>
+            {featuresData.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                iconSrc={feature.iconSrc}
+                text={feature.text}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </motion.section>
+      */}
 
       {/* Pricing */}
       < motion.section

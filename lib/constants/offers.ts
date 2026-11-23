@@ -14,10 +14,10 @@ export const OFFER_CONFIG = {
     termsAr: 'يمكنك اختيار الباقة المناسبة والاشتراك بكل سهولة.',
   },
   promo: {
-    code: 'OCT20',
-    discountPercent: 20,
-    monthAr: 'شهر أكتوبر',
-    textAr: 'استخدم الكود OCT20 واحصل على خصم 20% على جميع الاشتراكات طوال شهر أكتوبر.',
+    code: 'Exam30',
+    discountPercent: 30,
+    monthAr: 'لفترة محدودة',
+    textAr: 'استخدم الكود Exam30 واحصل على خصم 30% على جميع الاشتراكات لفترة محدودة.',
     ctaAr: 'اغتنم الفرصة الآن',
   },
 } as const;

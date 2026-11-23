@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Cookies from 'js-cookie';
+import AnnouncementBar from '@/components/AnnouncementBar/AnnouncementBar';
 import apiClient from '@/lib/axios';
 import 'react-toastify/dist/ReactToastify.css';
 import type { CheckoutFormData } from '@/types/auth';
@@ -455,6 +456,11 @@ export default function CheckoutPage() {
                     display: none !important;
                 }
             `}</style>
+
+            {/* Top Announcement Bar */}
+            <div className="m-4 md:m-4 rounded-2xl overflow-hidden shadow-xs">
+                <AnnouncementBar />
+            </div>
 
             {/* Main Container */}
             <div className="max-w-6xl mx-auto py-8">

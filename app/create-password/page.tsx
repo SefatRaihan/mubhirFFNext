@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import AnnouncementBar from '@/components/AnnouncementBar/AnnouncementBar';
 import apiClient from '@/lib/axios';
 import dynamic from 'next/dynamic';
 import 'react-toastify/dist/ReactToastify.css';
@@ -400,11 +401,12 @@ export default function CreatePasswordPage() {
 
             {/* Main Content Container */}
             <div
-                className="text-black m-4 rounded-2xl bg-no-repeat bg-cover"
+                className="text-black m-4 rounded-2xl bg-no-repeat bg-cover overflow-hidden"
                 style={{
                     backgroundImage: "url('/image/Vector.svg')",
                 }}
             >
+                <AnnouncementBar />
                 <div className="mx-auto px-4 max-w-[500px] w-full p-8">
                     <div className="p-0 md:p-6 flex-1 flex flex-col">
 
