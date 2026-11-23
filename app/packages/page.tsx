@@ -348,7 +348,7 @@ function PackagesPageContent() {
         Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true', { path: '/' });
 
         if (!token) {
-            router.push('/login');
+            router.push('/signup');
             return;
         }
 
@@ -391,11 +391,11 @@ function PackagesPageContent() {
         };
 
         if (!token) {
-            // Store selected package and redirect to login
-            Cookies.set('selectedPlan', JSON.stringify(pkgForCookie));
+            // Store selected package and redirect to signup
+            Cookies.set('selectedPlan', JSON.stringify(pkgForCookie), { path: '/' });
             // Set trial flag based on whether user has used trial
-            Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true');
-            router.push('/login');
+            Cookies.set('fromTrial', hasUsedTrial ? 'false' : 'true', { path: '/' });
+            router.push('/signup');
             return;
         }
 

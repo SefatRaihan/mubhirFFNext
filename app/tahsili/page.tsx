@@ -53,7 +53,7 @@ export default function ArSat2Page() {
         Cookies.set('selectedPlan', JSON.stringify(planForCookie), { path: '/' });
         const token = Cookies.get('token');
         if (!token) {
-            router.push('/login');
+            router.push('/signup');
             return;
         }
         window.location.href = '/checkout';

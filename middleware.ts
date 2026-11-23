@@ -118,6 +118,11 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
+    // When an unauthenticated user tries to checkout, send them to signup instead of login
+    if (pathname === '/checkout') {
+      return NextResponse.redirect(new URL("/signup", request.url));
+    }
+
     const loginUrl = new URL("/login", request.url);
     // Add redirect parameter to send user back after login
     loginUrl.searchParams.set("redirect", pathname);

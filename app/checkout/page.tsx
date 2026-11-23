@@ -65,7 +65,7 @@ export default function CheckoutPage() {
             // Check authentication
             const token = Cookies.get('token');
             if (!token) {
-                router.push('/login');
+                router.push('/signup');
                 return;
             }
 
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
             const token = Cookies.get('token');
             // console.log('🔑 Token:', token ? 'exists' : 'MISSING');
             if (!token) {
-                router.push('/login');
+                router.push('/signup');
                 return;
             }
 

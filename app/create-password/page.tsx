@@ -335,9 +335,14 @@ export default function CreatePasswordPage() {
                             return;
                         }
 
-                        // Free trial is disabled — redirect all users to packages to choose a plan and pay
+                        // If user previously selected a plan, proceed to checkout; otherwise go to packages
+                        const selectedPlanCookie = Cookies.get('selectedPlan');
                         setTimeout(() => {
-                            router.push('/packages');
+                            if (selectedPlanCookie) {
+                                window.location.href = '/checkout';
+                            } else {
+                                router.push('/packages');
+                            }
                         }, 500);
                     } else {
                         // Login failed after password creation
