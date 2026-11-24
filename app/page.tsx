@@ -385,7 +385,7 @@ export default function Home() {
             ease: 'power2.out',
             scrollTrigger: {
               trigger: videoSectionRef.current,
-              start: 'top 80%',
+              start: 'top 95%',
               toggleActions: 'play none none none'
             }
           }
@@ -401,7 +401,7 @@ export default function Home() {
             duration: 1, ease: 'back.out(1.7)',
             scrollTrigger: {
               trigger: videoSectionRef.current,
-              start: 'top 80%',
+              start: 'top 95%',
               toggleActions: 'play none none none'
             }
           }
@@ -778,10 +778,10 @@ export default function Home() {
       {/* Hero Section */}
       <section
         ref={heroSectionRef}
-        className="animated-gradient-bg text-white mb-4 md:m-4 rounded-0 md:rounded-2xl overflow-hidden relative"
+        className="animated-gradient-bg bg-linear-to-tr from-[#2A056D] to-[#6F0767] text-white m-4 mb-0 md:m-4 md:mb-0 rounded-2xl overflow-hidden relative"
       >
         {/* Liquid Effect Background - wrapped with overflow-hidden to preserve rounded corners */}
-        <div className="absolute inset-0 overflow-hidden rounded-0 md:rounded-2xl">
+        <div className="absolute inset-0 overflow-hidden rounded-2xl">
           <LiquidEffectAnimation />
         </div>
 
@@ -900,10 +900,10 @@ export default function Home() {
           </div>
 
           {/* Social Media Links and Student Images */}
-          <div className="mx-6 md:mx-[48px] mt-24 md:mt-[206px] flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
+          <div className="mx-6 md:mx-[48px] mt-16 md:mt-[160px] flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 pb-6 md:pb-8">
             <div
               ref={heroStudentsRef}
-              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 md:mb-[48px] order-1 md:order-1"
+              className="flex flex-col md:flex-row items-center md:space-x-2 md:space-x-reverse mb-0 order-1 md:order-1"
             >
               <div className="flex -space-x-2 mb-4 md:mb-0">
                 <div
@@ -928,7 +928,7 @@ export default function Home() {
                 الكثير من الطلاب انضموا <br /> إلينا واستفادوا بمزايا منصتنا
               </span>
             </div>
-            <SocialLinks ref={heroSocialRef} variant="plain" />
+            <SocialLinks ref={heroSocialRef} variant="plain" className="flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 md:gap-4 order-2 md:order-2 mt-4 md:mt-0 mb-4 md:mb-0" />
           </div>
         </div>
       </section >
@@ -936,15 +936,20 @@ export default function Home() {
       {/* Video Section */}
       <motion.section
         ref={videoSectionRef}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-[#eaecf0] flex justify-center my-4 md:m-4 rounded-0 md:rounded-2xl relative"
+        className="bg-[#eaecf0] flex justify-center mt-4 md:mt-4 mx-4 md:mx-4 mb-4 md:mb-4 rounded-2xl relative"
       >
-        {/* Circle Icon - positioned at top */}
-        <div ref={aiSatCircleRef} className="circle absolute hidden md:flex left-1/2 transform -translate-x-1/2 -top-[60px] w-[121px] h-[121px] bg-[#c44580] rounded-full items-center justify-center z-10">
-          <MiddleIcon />
+        {/* Circle Icon - positioned at top overlapping both sections on mobile and desktop */}
+        <div
+          ref={aiSatCircleRef}
+          className="circle absolute flex left-1/2 transform -translate-x-1/2 -top-[42px] md:-top-[68px] w-[68px] h-[68px] md:w-[120px] md:h-[120px] bg-[#c44580] border-[3.5px] md:border-[5px] border-white rounded-full items-center justify-center z-20 shadow-lg"
+        >
+          <div className="scale-[0.6] md:scale-100 flex items-center justify-center">
+            <MiddleIcon />
+          </div>
         </div>
         <div className="container max-w-6xl px-4 py-12 sm:py-16 lg:py-[120px]">
 

@@ -74,8 +74,14 @@ export function LiquidEffectAnimation() {
     app.setRain(false);
     window.__liquidApp = app;
 
-    // Notify React that the liquid effect is ready
-    window.dispatchEvent(new CustomEvent('liquid-ready'));
+    // Wait for the WebGL texture to upload and render its first frames before revealing the canvas
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('liquid-ready'));
+        }, 150);
+      });
+    });
   } catch (err) {
     console.warn('LiquidEffectAnimation: init failed', err);
   }
@@ -101,16 +107,23 @@ export function LiquidEffectAnimation() {
             className="absolute inset-0 m-0 w-full h-full touch-none overflow-hidden z-0"
             style={{ fontFamily: '"Montserrat", serif' }}
         >
-            {/* CSS gradient fallback — visible while the liquid effect loads, prevents black flash */}
+            {/* Permanent CSS gradient background — guarantees the hero background is ALWAYS the brand purple gradient and NEVER flashes white */}
             <div
-                className="absolute inset-0 w-full h-full transition-opacity duration-700"
+                className="absolute inset-0 w-full h-full"
                 style={{
                     background: "linear-gradient(to top right, #2A056D, #6F0767)",
-                    opacity: isLoaded ? 0 : 1,
                     pointerEvents: "none",
                 }}
             />
-            <canvas ref={canvasRef} id="liquid-canvas" className="absolute inset-0 w-full h-full" />
+            {/* Liquid canvas on top — starts at opacity 0, fades in smoothly only after WebGL has rendered */}
+            <canvas
+                ref={canvasRef}
+                id="liquid-canvas"
+                className="absolute inset-0 w-full h-full transition-opacity duration-1000 pointer-events-none"
+                style={{
+                    opacity: isLoaded ? 1 : 0,
+                }}
+            />
         </div>
     )
 }
