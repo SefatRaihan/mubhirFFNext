@@ -1018,8 +1018,8 @@ export default function Home() {
                   />
 
                   {/* Inner purple circle */}
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10 shadow-lg transition-transform duration-300 group-hover:scale-105">
-                    <PlayIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10 shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <PlayIcon className="w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11" />
                   </div>
                 </button>
               </div>
