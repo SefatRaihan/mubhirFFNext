@@ -1005,7 +1005,7 @@ export default function Home() {
                   type="button"
                   onClick={handlePlayButtonClick}
                   aria-label="Play video"
-                  className="group relative flex items-center justify-center rounded-full p-2.5 sm:p-4 bg-white/80 hover:bg-white shadow-xl transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                  className="group relative flex items-center justify-center rounded-full p-3 sm:p-4 md:p-5 bg-white/90 hover:bg-white shadow-2xl transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
                 >
                   {/* Continuous smooth ripple waves */}
                   <span
@@ -1018,8 +1018,8 @@ export default function Home() {
                   />
 
                   {/* Inner purple circle */}
-                  <div className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10 shadow-md transition-transform duration-300 group-hover:scale-105">
-                    <PlayIcon />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10 shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <PlayIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
                   </div>
                 </button>
               </div>
