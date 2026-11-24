@@ -1001,48 +1001,27 @@ export default function Home() {
                 className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
                 style={{ opacity: 1, pointerEvents: 'auto' }}
               >
-                <motion.button
+                <button
+                  type="button"
                   onClick={handlePlayButtonClick}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
                   aria-label="Play video"
-                  className="relative bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 sm:p-4 transition-all"
+                  className="group relative flex items-center justify-center rounded-full p-2.5 sm:p-4 bg-white/80 hover:bg-white shadow-xl transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
                 >
-                  {/* Pulsing ripple effect */}
-                  <motion.div
-                    className="absolute inset-0 rounded-full bg-white"
-                    initial={{ scale: 1, opacity: 0.5 }}
-                    animate={{ scale: [1, 1.5, 1.8], opacity: [0.5, 0.2, 0] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeOut"
-                    }}
+                  {/* Continuous smooth ripple waves */}
+                  <span
+                    className="absolute inset-0 rounded-full bg-white animate-play-ripple-1 pointer-events-none"
+                    aria-hidden="true"
                   />
-                  <motion.div
-                    className="absolute inset-0 rounded-full bg-white"
-                    initial={{ scale: 1, opacity: 0.5 }}
-                    animate={{ scale: [1, 1.5, 1.8], opacity: [0.5, 0.2, 0] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeOut",
-                      delay: 0.5
-                    }}
+                  <span
+                    className="absolute inset-0 rounded-full bg-white animate-play-ripple-2 pointer-events-none"
+                    aria-hidden="true"
                   />
 
-                  <motion.div
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10"
-                  >
+                  {/* Inner purple circle */}
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-purple-600 text-white relative z-10 shadow-md transition-transform duration-300 group-hover:scale-105">
                     <PlayIcon />
-                  </motion.div>
-                </motion.button>
+                  </div>
+                </button>
               </div>
             </motion.div>
           </div>
