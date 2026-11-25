@@ -668,18 +668,25 @@ export default function Home() {
     if (!video || !playButton) return;
 
     const handlePlay = () => {
+      video.controls = true;
       playButton.style.opacity = '0';
       playButton.style.pointerEvents = 'none';
+      const btn = playButton.querySelector('button');
+      if (btn) btn.style.pointerEvents = 'none';
     };
 
     const handlePause = () => {
+      // Show play button when paused, but keep controls active so user can scrub timeline / see minutes
       playButton.style.opacity = '1';
-      playButton.style.pointerEvents = 'auto';
+      const btn = playButton.querySelector('button');
+      if (btn) btn.style.pointerEvents = 'auto';
     };
 
     const handleEnded = () => {
+      video.controls = false;
       playButton.style.opacity = '1';
-      playButton.style.pointerEvents = 'auto';
+      const btn = playButton.querySelector('button');
+      if (btn) btn.style.pointerEvents = 'auto';
     };
 
     video.addEventListener('play', handlePlay);
@@ -697,17 +704,18 @@ export default function Home() {
     const video = videoRef.current;
     if (!video) return;
 
-    if (video.paused) {
+    if (!video.controls) {
+      video.controls = true;
       video.play();
-    } else {
-      video.pause();
     }
   };
 
-  const handlePlayButtonClick = () => {
+  const handlePlayButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const video = videoRef.current;
     if (!video) return;
 
+    video.controls = true;
     if (video.paused) {
       video.play();
     }
@@ -998,14 +1006,14 @@ export default function Home() {
               <div
                 ref={playButtonRef}
                 id="playButton"
-                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
-                style={{ opacity: 1, pointerEvents: 'auto' }}
+                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none"
+                style={{ opacity: 1 }}
               >
                 <button
                   type="button"
                   onClick={handlePlayButtonClick}
                   aria-label="Play video"
-                  className="group relative flex items-center justify-center rounded-full p-3 sm:p-4 md:p-5 bg-white/90 hover:bg-white shadow-2xl transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                  className="pointer-events-auto group relative flex items-center justify-center rounded-full p-3 sm:p-4 md:p-5 bg-white/90 hover:bg-white shadow-2xl transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
                 >
                   {/* Continuous smooth ripple waves */}
                   <span
